@@ -1,0 +1,18 @@
+$ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --bench grpc_echo_loopback -- --payload-sizes 128,4096 --concurrencies 128,256 --modes closed --channels 8 --cpu-layout 3/3 --warmup-seconds 5 --seconds 20 --repetitions 3 --rate 100 --output-dir target/grpc-echo-loopback-channels-8-20260927T1035Z --preflight-observation-ms 3000 --preflight-timeout-ms 60000 --preflight-max-cpu-pct 10 --preflight-max-disk-busy-pct 5 --preflight-min-mem-bytes 536870912 --preflight-max-loopback-bytes 1048576 --preflight-max-loopback-packets 4096
+    Finished `bench` profile [optimized] target(s) in 0.07s
+     Running benches/grpc_echo_loopback.rs (target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2)
+run_dir=target/grpc-echo-loopback-channels-8-20260927T1035Z/run-1790505352745577320-44799-0
+completed trial-0001-closed_loop-b128-c128-ch8-rep1: 2707921 RPCs, 135391.0 RPS, client 2.884 CPU cores, server 2.932 CPU cores
+completed trial-0002-closed_loop-b128-c128-ch8-rep2: 2765683 RPCs, 138278.9 RPS, client 2.881 CPU cores, server 2.932 CPU cores
+completed trial-0003-closed_loop-b128-c128-ch8-rep3: 2794451 RPCs, 139709.7 RPS, client 2.873 CPU cores, server 2.934 CPU cores
+completed trial-0004-closed_loop-b128-c256-ch8-rep1: 2920644 RPCs, 146022.1 RPS, client 2.835 CPU cores, server 2.925 CPU cores
+completed trial-0005-closed_loop-b128-c256-ch8-rep2: 2759061 RPCs, 137942.1 RPS, client 2.834 CPU cores, server 2.920 CPU cores
+completed trial-0006-closed_loop-b128-c256-ch8-rep3: 2726255 RPCs, 136301.9 RPS, client 2.823 CPU cores, server 2.910 CPU cores
+completed trial-0007-closed_loop-b4096-c128-ch8-rep1: 1721378 RPCs, 86063.5 RPS, client 2.918 CPU cores, server 2.953 CPU cores
+completed trial-0008-closed_loop-b4096-c128-ch8-rep2: 1576137 RPCs, 78800.7 RPS, client 2.909 CPU cores, server 2.952 CPU cores
+completed trial-0009-closed_loop-b4096-c128-ch8-rep3: 1673907 RPCs, 83690.2 RPS, client 2.908 CPU cores, server 2.951 CPU cores
+completed trial-0010-closed_loop-b4096-c256-ch8-rep1: 1846643 RPCs, 92318.9 RPS, client 2.900 CPU cores, server 2.948 CPU cores
+completed trial-0011-closed_loop-b4096-c256-ch8-rep2: 1780590 RPCs, 89018.6 RPS, client 2.914 CPU cores, server 2.946 CPU cores
+completed trial-0012-closed_loop-b4096-c256-ch8-rep3: 1901036 RPCs, 95044.2 RPS, client 2.898 CPU cores, server 2.950 CPU cores
+results=target/grpc-echo-loopback-channels-8-20260927T1035Z/run-1790505352745577320-44799-0/results.csv
+preflight_log=target/grpc-echo-loopback-channels-8-20260927T1035Z/run-1790505352745577320-44799-0/preflight.log

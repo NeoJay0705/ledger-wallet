@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package ledger.loopback.v1;
+
+service EchoBench {
+  rpc Echo(EchoRequest) returns (EchoResponse);
+}
+
+message EchoRequest {
+  uint64 id = 1;
+  bytes payload = 2;
+}
+
+message EchoResponse {
+  uint64 id = 1;
+  bytes payload = 2;
+  uint64 handler_entry_mono_ns = 3;
+  uint64 handler_exit_mono_ns = 4;
+}
