@@ -1,0 +1,30 @@
+$ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --bench grpc_echo_loopback -- --payload-sizes 128,4096 --concurrencies 128,256 --modes closed --channels 2,4 --cpu-layout 3/3 --warmup-seconds 5 --seconds 20 --repetitions 3 --rate 100 --output-dir target/grpc-echo-loopback-channels-2-4-20260927T1022Z --preflight-observation-ms 3000 --preflight-timeout-ms 60000 --preflight-max-cpu-pct 10 --preflight-max-disk-busy-pct 5 --preflight-min-mem-bytes 536870912 --preflight-max-loopback-bytes 1048576 --preflight-max-loopback-packets 4096
+    Finished `bench` profile [optimized] target(s) in 0.07s
+     Running benches/grpc_echo_loopback.rs (target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2)
+run_dir=target/grpc-echo-loopback-channels-2-4-20260927T1022Z/run-1790504584647140720-34644-0
+completed trial-0001-closed_loop-b128-c128-ch2-rep1: 2397100 RPCs, 119846.6 RPS, client 2.399 CPU cores, server 2.450 CPU cores
+completed trial-0002-closed_loop-b128-c128-ch2-rep2: 2330950 RPCs, 116543.7 RPS, client 2.372 CPU cores, server 2.461 CPU cores
+completed trial-0003-closed_loop-b128-c128-ch2-rep3: 2393435 RPCs, 119667.7 RPS, client 2.353 CPU cores, server 2.464 CPU cores
+completed trial-0004-closed_loop-b128-c256-ch2-rep1: 2382722 RPCs, 119125.2 RPS, client 2.269 CPU cores, server 2.436 CPU cores
+completed trial-0005-closed_loop-b128-c256-ch2-rep2: 2430048 RPCs, 121489.9 RPS, client 2.286 CPU cores, server 2.444 CPU cores
+completed trial-0006-closed_loop-b128-c256-ch2-rep3: 2427564 RPCs, 121364.6 RPS, client 2.298 CPU cores, server 2.455 CPU cores
+completed trial-0007-closed_loop-b128-c128-ch4-rep1: 2497742 RPCs, 124879.5 RPS, client 2.703 CPU cores, server 2.814 CPU cores
+completed trial-0008-closed_loop-b128-c128-ch4-rep2: 2517133 RPCs, 125849.8 RPS, client 2.708 CPU cores, server 2.809 CPU cores
+completed trial-0009-closed_loop-b128-c128-ch4-rep3: 2518718 RPCs, 125931.3 RPS, client 2.721 CPU cores, server 2.817 CPU cores
+completed trial-0010-closed_loop-b128-c256-ch4-rep1: 2836362 RPCs, 141810.6 RPS, client 2.664 CPU cores, server 2.776 CPU cores
+completed trial-0011-closed_loop-b128-c256-ch4-rep2: 2824395 RPCs, 141208.1 RPS, client 2.627 CPU cores, server 2.757 CPU cores
+completed trial-0012-closed_loop-b128-c256-ch4-rep3: 2794017 RPCs, 139692.4 RPS, client 2.643 CPU cores, server 2.763 CPU cores
+completed trial-0013-closed_loop-b4096-c128-ch2-rep1: 1402597 RPCs, 70126.0 RPS, client 2.414 CPU cores, server 2.459 CPU cores
+completed trial-0014-closed_loop-b4096-c128-ch2-rep2: 1357771 RPCs, 67882.3 RPS, client 2.397 CPU cores, server 2.447 CPU cores
+completed trial-0015-closed_loop-b4096-c128-ch2-rep3: 1342500 RPCs, 67121.7 RPS, client 2.378 CPU cores, server 2.436 CPU cores
+completed trial-0016-closed_loop-b4096-c256-ch2-rep1: 1430810 RPCs, 71531.8 RPS, client 2.354 CPU cores, server 2.441 CPU cores
+completed trial-0017-closed_loop-b4096-c256-ch2-rep2: 1426619 RPCs, 71320.5 RPS, client 2.339 CPU cores, server 2.460 CPU cores
+completed trial-0018-closed_loop-b4096-c256-ch2-rep3: 1447337 RPCs, 72358.8 RPS, client 2.370 CPU cores, server 2.473 CPU cores
+completed trial-0019-closed_loop-b4096-c128-ch4-rep1: 1711474 RPCs, 85563.0 RPS, client 2.831 CPU cores, server 2.897 CPU cores
+completed trial-0020-closed_loop-b4096-c128-ch4-rep2: 1659072 RPCs, 82948.2 RPS, client 2.832 CPU cores, server 2.893 CPU cores
+completed trial-0021-closed_loop-b4096-c128-ch4-rep3: 1655843 RPCs, 82786.8 RPS, client 2.818 CPU cores, server 2.905 CPU cores
+completed trial-0022-closed_loop-b4096-c256-ch4-rep1: 1708928 RPCs, 85437.6 RPS, client 2.803 CPU cores, server 2.870 CPU cores
+completed trial-0023-closed_loop-b4096-c256-ch4-rep2: 1722022 RPCs, 86091.4 RPS, client 2.789 CPU cores, server 2.886 CPU cores
+completed trial-0024-closed_loop-b4096-c256-ch4-rep3: 1612064 RPCs, 78068.1 RPS, client 2.597 CPU cores, server 2.735 CPU cores
+results=target/grpc-echo-loopback-channels-2-4-20260927T1022Z/run-1790504584647140720-34644-0/results.csv
+preflight_log=target/grpc-echo-loopback-channels-2-4-20260927T1022Z/run-1790504584647140720-34644-0/preflight.log

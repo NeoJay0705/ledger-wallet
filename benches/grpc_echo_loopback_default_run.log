@@ -1,0 +1,66 @@
+$ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --bench grpc_echo_loopback -- --payload-sizes 128,4096 --concurrencies 1,2,4,8,16,32,64,128,256 --modes fixed,closed --channels 1 --cpu-layout 3/3 --warmup-seconds 5 --seconds 20 --repetitions 3 --rate 100 --output-dir target/grpc-echo-loopback-default-final-20260927T0951Z --preflight-observation-ms 3000 --preflight-timeout-ms 60000 --preflight-max-cpu-pct 10 --preflight-max-disk-busy-pct 5 --preflight-min-mem-bytes 536870912 --preflight-max-loopback-bytes 1048576 --preflight-max-loopback-packets 4096
+    Finished `bench` profile [optimized] target(s) in 0.06s
+     Running benches/grpc_echo_loopback.rs (target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2)
+run_dir=target/grpc-echo-loopback-default-final-20260927T0951Z/run-1790502719298975080-9554-0
+completed trial-0001-fixed_rate-b128-c1-ch1-rep1: 2000 RPCs, 100.0 RPS, client 0.017 CPU cores, server 0.007 CPU cores
+completed trial-0002-fixed_rate-b128-c1-ch1-rep2: 2000 RPCs, 100.0 RPS, client 0.018 CPU cores, server 0.007 CPU cores
+completed trial-0003-fixed_rate-b128-c1-ch1-rep3: 2000 RPCs, 100.0 RPS, client 0.016 CPU cores, server 0.006 CPU cores
+completed trial-0004-closed_loop-b128-c1-ch1-rep1: 267836 RPCs, 13391.0 RPS, client 0.886 CPU cores, server 0.521 CPU cores
+completed trial-0005-closed_loop-b128-c1-ch1-rep2: 267495 RPCs, 13374.0 RPS, client 0.874 CPU cores, server 0.534 CPU cores
+completed trial-0006-closed_loop-b128-c1-ch1-rep3: 265886 RPCs, 13293.6 RPS, client 0.893 CPU cores, server 0.519 CPU cores
+completed trial-0007-closed_loop-b128-c2-ch1-rep1: 491807 RPCs, 24588.9 RPS, client 1.490 CPU cores, server 0.874 CPU cores
+completed trial-0008-closed_loop-b128-c2-ch1-rep2: 489413 RPCs, 24469.2 RPS, client 1.496 CPU cores, server 0.857 CPU cores
+completed trial-0009-closed_loop-b128-c2-ch1-rep3: 482615 RPCs, 24129.4 RPS, client 1.492 CPU cores, server 0.868 CPU cores
+completed trial-0010-closed_loop-b128-c4-ch1-rep1: 567863 RPCs, 28391.5 RPS, client 1.641 CPU cores, server 1.449 CPU cores
+completed trial-0011-closed_loop-b128-c4-ch1-rep2: 568680 RPCs, 28432.4 RPS, client 1.652 CPU cores, server 1.446 CPU cores
+completed trial-0012-closed_loop-b128-c4-ch1-rep3: 556061 RPCs, 27801.4 RPS, client 1.642 CPU cores, server 1.445 CPU cores
+completed trial-0013-closed_loop-b128-c8-ch1-rep1: 867326 RPCs, 43363.8 RPS, client 1.917 CPU cores, server 1.648 CPU cores
+completed trial-0014-closed_loop-b128-c8-ch1-rep2: 894404 RPCs, 44717.5 RPS, client 1.965 CPU cores, server 1.686 CPU cores
+completed trial-0015-closed_loop-b128-c8-ch1-rep3: 882615 RPCs, 44128.2 RPS, client 1.936 CPU cores, server 1.642 CPU cores
+completed trial-0016-closed_loop-b128-c16-ch1-rep1: 1163256 RPCs, 58162.2 RPS, client 2.087 CPU cores, server 1.789 CPU cores
+completed trial-0017-closed_loop-b128-c16-ch1-rep2: 1179928 RPCs, 58995.7 RPS, client 2.067 CPU cores, server 1.819 CPU cores
+completed trial-0018-closed_loop-b128-c16-ch1-rep3: 1172038 RPCs, 58598.2 RPS, client 2.075 CPU cores, server 1.764 CPU cores
+completed trial-0019-closed_loop-b128-c32-ch1-rep1: 1425729 RPCs, 71281.8 RPS, client 2.193 CPU cores, server 1.919 CPU cores
+completed trial-0020-closed_loop-b128-c32-ch1-rep2: 1365562 RPCs, 68276.7 RPS, client 2.137 CPU cores, server 1.848 CPU cores
+completed trial-0021-closed_loop-b128-c32-ch1-rep3: 1358504 RPCs, 67923.9 RPS, client 2.099 CPU cores, server 1.842 CPU cores
+completed trial-0022-closed_loop-b128-c64-ch1-rep1: 1474219 RPCs, 73708.8 RPS, client 2.075 CPU cores, server 1.896 CPU cores
+completed trial-0023-closed_loop-b128-c64-ch1-rep2: 1425905 RPCs, 71292.0 RPS, client 2.071 CPU cores, server 1.878 CPU cores
+completed trial-0024-closed_loop-b128-c64-ch1-rep3: 1460741 RPCs, 73031.7 RPS, client 2.075 CPU cores, server 1.861 CPU cores
+completed trial-0025-closed_loop-b128-c128-ch1-rep1: 1505152 RPCs, 75250.9 RPS, client 1.929 CPU cores, server 1.836 CPU cores
+completed trial-0026-closed_loop-b128-c128-ch1-rep2: 1506053 RPCs, 75296.8 RPS, client 1.918 CPU cores, server 1.850 CPU cores
+completed trial-0027-closed_loop-b128-c128-ch1-rep3: 1536991 RPCs, 76844.5 RPS, client 1.937 CPU cores, server 1.872 CPU cores
+completed trial-0028-closed_loop-b128-c256-ch1-rep1: 1543527 RPCs, 77169.2 RPS, client 1.795 CPU cores, server 1.891 CPU cores
+completed trial-0029-closed_loop-b128-c256-ch1-rep2: 1552758 RPCs, 77627.6 RPS, client 1.793 CPU cores, server 1.877 CPU cores
+completed trial-0030-closed_loop-b128-c256-ch1-rep3: 1556302 RPCs, 77805.5 RPS, client 1.799 CPU cores, server 1.874 CPU cores
+completed trial-0031-fixed_rate-b4096-c1-ch1-rep1: 2000 RPCs, 100.0 RPS, client 0.020 CPU cores, server 0.008 CPU cores
+completed trial-0032-fixed_rate-b4096-c1-ch1-rep2: 2000 RPCs, 100.0 RPS, client 0.021 CPU cores, server 0.009 CPU cores
+completed trial-0033-fixed_rate-b4096-c1-ch1-rep3: 2000 RPCs, 100.0 RPS, client 0.020 CPU cores, server 0.009 CPU cores
+completed trial-0034-closed_loop-b4096-c1-ch1-rep1: 230481 RPCs, 11523.4 RPS, client 0.998 CPU cores, server 0.532 CPU cores
+completed trial-0035-closed_loop-b4096-c1-ch1-rep2: 211249 RPCs, 10561.9 RPS, client 0.983 CPU cores, server 0.538 CPU cores
+completed trial-0036-closed_loop-b4096-c1-ch1-rep3: 206664 RPCs, 10332.6 RPS, client 0.967 CPU cores, server 0.540 CPU cores
+completed trial-0037-closed_loop-b4096-c2-ch1-rep1: 361912 RPCs, 18094.6 RPS, client 1.386 CPU cores, server 0.937 CPU cores
+completed trial-0038-closed_loop-b4096-c2-ch1-rep2: 379355 RPCs, 18966.7 RPS, client 1.404 CPU cores, server 0.945 CPU cores
+completed trial-0039-closed_loop-b4096-c2-ch1-rep3: 363491 RPCs, 18173.5 RPS, client 1.402 CPU cores, server 0.937 CPU cores
+completed trial-0040-closed_loop-b4096-c4-ch1-rep1: 443925 RPCs, 22194.9 RPS, client 1.662 CPU cores, server 1.396 CPU cores
+completed trial-0041-closed_loop-b4096-c4-ch1-rep2: 441214 RPCs, 22059.4 RPS, client 1.658 CPU cores, server 1.403 CPU cores
+completed trial-0042-closed_loop-b4096-c4-ch1-rep3: 436927 RPCs, 21845.0 RPS, client 1.676 CPU cores, server 1.394 CPU cores
+completed trial-0043-closed_loop-b4096-c8-ch1-rep1: 584473 RPCs, 29221.7 RPS, client 1.837 CPU cores, server 1.546 CPU cores
+completed trial-0044-closed_loop-b4096-c8-ch1-rep2: 602568 RPCs, 30126.6 RPS, client 1.864 CPU cores, server 1.560 CPU cores
+completed trial-0045-closed_loop-b4096-c8-ch1-rep3: 592600 RPCs, 29628.1 RPS, client 1.844 CPU cores, server 1.546 CPU cores
+completed trial-0046-closed_loop-b4096-c16-ch1-rep1: 712638 RPCs, 35631.2 RPS, client 1.858 CPU cores, server 1.573 CPU cores
+completed trial-0047-closed_loop-b4096-c16-ch1-rep2: 718183 RPCs, 35906.7 RPS, client 1.866 CPU cores, server 1.573 CPU cores
+completed trial-0048-closed_loop-b4096-c16-ch1-rep3: 701692 RPCs, 35084.2 RPS, client 1.831 CPU cores, server 1.550 CPU cores
+completed trial-0049-closed_loop-b4096-c32-ch1-rep1: 787767 RPCs, 39387.0 RPS, client 1.829 CPU cores, server 1.581 CPU cores
+completed trial-0050-closed_loop-b4096-c32-ch1-rep2: 784057 RPCs, 39201.8 RPS, client 1.827 CPU cores, server 1.549 CPU cores
+completed trial-0051-closed_loop-b4096-c32-ch1-rep3: 787174 RPCs, 39355.8 RPS, client 1.837 CPU cores, server 1.581 CPU cores
+completed trial-0052-closed_loop-b4096-c64-ch1-rep1: 810222 RPCs, 40508.8 RPS, client 1.710 CPU cores, server 1.574 CPU cores
+completed trial-0053-closed_loop-b4096-c64-ch1-rep2: 827875 RPCs, 41392.1 RPS, client 1.757 CPU cores, server 1.577 CPU cores
+completed trial-0054-closed_loop-b4096-c64-ch1-rep3: 858616 RPCs, 42929.1 RPS, client 1.804 CPU cores, server 1.626 CPU cores
+completed trial-0055-closed_loop-b4096-c128-ch1-rep1: 881945 RPCs, 44093.0 RPS, client 1.730 CPU cores, server 1.646 CPU cores
+completed trial-0056-closed_loop-b4096-c128-ch1-rep2: 859645 RPCs, 42978.9 RPS, client 1.658 CPU cores, server 1.594 CPU cores
+completed trial-0057-closed_loop-b4096-c128-ch1-rep3: 849678 RPCs, 42479.2 RPS, client 1.651 CPU cores, server 1.579 CPU cores
+completed trial-0058-closed_loop-b4096-c256-ch1-rep1: 873435 RPCs, 43668.8 RPS, client 1.667 CPU cores, server 1.641 CPU cores
+completed trial-0059-closed_loop-b4096-c256-ch1-rep2: 873250 RPCs, 43654.0 RPS, client 1.680 CPU cores, server 1.609 CPU cores
+completed trial-0060-closed_loop-b4096-c256-ch1-rep3: 882662 RPCs, 44130.1 RPS, client 1.708 CPU cores, server 1.667 CPU cores
+results=target/grpc-echo-loopback-default-final-20260927T0951Z/run-1790502719298975080-9554-0/results.csv
+preflight_log=target/grpc-echo-loopback-default-final-20260927T0951Z/run-1790502719298975080-9554-0/preflight.log
