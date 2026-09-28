@@ -1,0 +1,31 @@
+kernel_sample_command=taskset -c 6,7,14,15 ss -tinmH 'sport = :40485 or dport = :40485'
+kernel_sample_interval_ms=100
+server_pid=56101 server_cpus=3,4,5,11,12,13
+client_pid=56107 client_cpus=0,1,2,8,9,10
+verified_tcp_connections=8
+parent_phase_command_mono_ns=7657766764665820
+server_cpu_sample_start_mono_ns=7657766764665660
+client_start_sample=ProcSample { cpu_ticks: 1426, rss_bytes: 10506240, io: IoCounters { rchar: 16335, wchar: 156835513, syscr: 25, syscw: 486662, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+server_start_sample=ProcSample { cpu_ticks: 1452, rss_bytes: 9138176, io: IoCounters { rchar: 16335, wchar: 148145411, syscr: 25, syscw: 400352, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+loopback_start_sample=NetSample { rx_bytes: 900313240397, rx_packets: 1183363619, tx_bytes: 900313240397, tx_packets: 1183363619 }
+client_event=PHASE_START	7657766765095866
+client_event=PHASE_END	7657786766484349
+measurement_start_mono_ns=7657766765095866 measurement_end_mono_ns=7657786766484349 phase_wall_ns=20001388483
+final_client_sample=ProcSample { cpu_ticks: 7135, rss_bytes: 122818560, io: IoCounters { rchar: 16341, wchar: 773339127, syscr: 26, syscw: 2416776, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+final_server_sample=ProcSample { cpu_ticks: 7301, rss_bytes: 9105408, io: IoCounters { rchar: 16335, wchar: 730438409, syscr: 25, syscw: 1964858, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+server_cpu_sample_end_mono_ns=7657786790136357
+per_core_cpu_and_softirq_delta=cpu0:busy_pct=30.342,softirq_pct=2.550,ticks=1961;cpu1:busy_pct=27.429,softirq_pct=2.530,ticks=1976;cpu10:busy_pct=19.648,softirq_pct=1.759,ticks=1990;cpu11:busy_pct=87.576,softirq_pct=6.619,ticks=1964;cpu12:busy_pct=85.584,softirq_pct=8.071,ticks=1970;cpu13:busy_pct=26.118,softirq_pct=2.411,ticks=1991;cpu14:busy_pct=9.295,softirq_pct=0.000,ticks=2001;cpu15:busy_pct=12.525,softirq_pct=0.050,ticks=2004;cpu2:busy_pct=61.919,softirq_pct=5.921,ticks=1959;cpu3:busy_pct=21.590,softirq_pct=1.610,ticks=1987;cpu4:busy_pct=18.022,softirq_pct=1.355,ticks=1992;cpu5:busy_pct=64.679,softirq_pct=6.013,ticks=1979;cpu6:busy_pct=8.604,softirq_pct=0.000,ticks=1999;cpu7:busy_pct=10.055,softirq_pct=0.000,ticks=1999;cpu8:busy_pct=81.990,softirq_pct=8.367,ticks=1960;cpu9:busy_pct=75.548,softirq_pct=6.928,ticks=1963
+target_disk=sdb2 disk_busy_ms_start=2447400517 disk_busy_ms_end=2447400564
+loopback_final=NetSample { rx_bytes: 901709187135, rx_packets: 1187158713, tx_bytes: 901709187135, tx_packets: 1187158713 }
+kernel_sample_status=ok periodic_samples=201 periodic_samples_inside_phase=200 sample_errors=0 ss_monitor_periodic_wall_ns=5287092842 ss_monitor_parent_cpu_ns=85564142 ss_monitor_child_cpu_ns=5156134000 ss_monitor_max_wall_ns=29203208 ss_monitor_periodic_wall_pct=26.433629 ss_boundary_wall_ns=24180809 ss_boundary_parent_cpu_ns=414939 ss_boundary_child_cpu_ns=23047000
+kernel_tcp_timeseries_csv=benches/grpc_echo_kernel_data/diagnostic_saturation/run-1790522592015262494-52216-0/trial-0007-closed_loop-b128-c256-ch8-rep1.kernel_tcp.csv
+kernel_snapshot_max_client_send_q=6432 kernel_snapshot_max_client_recv_q=6080
+kernel_snapshot_max_server_send_q=6080 kernel_snapshot_max_server_recv_q=6432
+kernel_counter_delta_definition=last phase-end boundary TCP_INFO counter minus first fully inside-phase sample, independently per client/server socket endpoint
+tcp_final send_q_max=6432 recv_q_max=6432
+queue maxima are computed from fully in-phase kernel TCP snapshots; raw endpoint details are in kernel_tcp.csv
+client_event=RESULT	closed_loop	128	256	8	3071492	3071492	0	20000566062	20001388483	822421	57065539766	20000	518065.4521	634090	698348	952312	0	3071492	5118906260527	1666586.226018821	1638169	2718735	3293822	4082980	3071492	3884696838967	1264758.8985961871	1244322	2105105	2537425	3129674	3071492	1319818930	429.699615040508	330	891	1844	11281	3071492	1232889602630	401397.6278075932	328325	968845	1276693	1717509
+client_cpu_process_time_ns=57065539766 server_cpu_proc_stat_ns=58490000000 server_cpu_window_ns=20025470697 server_start_offset_ns=-430206 server_end_offset_ns=23652008
+client_rss_peak_bytes=122818560 server_rss_peak_bytes=9392128
+loopback_delta rx_bytes=1395946738 rx_packets=3795094 tx_bytes=1395946738 tx_packets=3795094
+tcp_sampled_max_send_q=6432 tcp_sampled_max_recv_q=6432

@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:41:38 2026
+
+
+ Performance counter stats for process id '6265':
+
+       58440868459      task-clock                       #    2.924 CPUs utilized             
+      118630939071      cycles:u                                                              
+      117095755975      cycles:k                                                              
+      122876688162      instructions:u                   #    1.04  insn per cycle            
+       68505492322      instructions:k                   #    0.59  insn per cycle            
+            166142      context-switches                 #    2.843 K/sec                     
+               134      cpu-migrations                   #    2.293 /sec                      
+
+      19.986746180 seconds time elapsed
+

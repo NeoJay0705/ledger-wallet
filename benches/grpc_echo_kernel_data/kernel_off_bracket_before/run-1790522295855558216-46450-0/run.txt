@@ -1,0 +1,16 @@
+benchmark=tokio_same_host_grpc_echo
+network_scope=plaintext IPv4 loopback 127.0.0.1; no physical NIC/RSS/link claims
+cpu_layout=3/3 client_cpus=0,1,2,8,9,10 server_cpus=3,4,5,11,12,13 client_runtime_workers=3 server_runtime_workers=3
+monitor_affinity=host-scheduled; physical cores 6,7 and SMT siblings 14,15 are unassigned to benchmark workers
+payloads=[128, 4096] concurrencies=[256] channels=[1, 8] modes=["closed_loop"]
+warmup_ms=5000 measurement_ms=20000 repetitions=1 fixed_rate_rps=100
+instrumentation=per-call CLOCK_MONOTONIC timestamps; every response validates ID and payload
+latency_sample_collection=workers accumulate locally and return samples through JoinSet; parent merges completed samples without a shared latency mutex
+client_cpu_endpoint=ProcessTime delta captured with the client completion timestamp before latency summarization; heartbeat stop is requested at that endpoint
+phase_end_signal=emitted after the completion timestamp, CPU sample, and heartbeat stop request, before latency sample merge and sorting
+tcp_info=legacy ss -tinH sample is about once per second when kernel sampling is off; queue values are snapshot maxima; diagnostic mode also writes its denser ss -tinmH series
+kernel_sample_ms=0 (0 disables ss kernel sampler)
+perf_mode=off; perf permission is preflighted and failures abort this run
+perf_binary=perf
+kernel_tcp_command=taskset -c 6,7,14,15 ss -tinmH with a per-trial server-port filter; periodic samples start after PHASE_START and are scheduled at the configured interval
+kernel_tcp_fields=per-endpoint queue snapshots, skmem, raw TCP_INFO, selected counters and per-flow counter deltas; sampled queue maxima are snapshots, counter deltas are end minus start

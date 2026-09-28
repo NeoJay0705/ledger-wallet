@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:42:06 2026
+
+
+ Performance counter stats for process id '6730':
+
+       58449795077      task-clock                       #    2.926 CPUs utilized             
+      117714027728      cycles:u                                                              
+      119321330443      cycles:k                                                              
+      125442210369      instructions:u                   #    1.07  insn per cycle            
+       70655562063      instructions:k                   #    0.59  insn per cycle            
+            165934      context-switches                 #    2.839 K/sec                     
+               129      cpu-migrations                   #    2.207 /sec                      
+
+      19.979364483 seconds time elapsed
+

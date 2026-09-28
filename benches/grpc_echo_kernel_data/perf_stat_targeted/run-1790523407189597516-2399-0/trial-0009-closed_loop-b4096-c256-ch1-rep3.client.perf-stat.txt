@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:40:41 2026
+
+
+ Performance counter stats for process id '5604':
+
+       35764573147      task-clock                       #    1.790 CPUs utilized             
+       65753020741      cycles:u                                                              
+       66764455770      cycles:k                                                              
+       65612261457      instructions:u                   #    1.00  insn per cycle            
+       35005018948      instructions:k                   #    0.52  insn per cycle            
+            711214      context-switches                 #   19.886 K/sec                     
+              2092      cpu-migrations                   #   58.494 /sec                      
+
+      19.980029414 seconds time elapsed
+
