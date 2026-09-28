@@ -1,0 +1,22 @@
+perf_mode=stat
+perf_binary=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf
+perf_event_paranoid=4
+unprivileged_bpf_disabled=2
+cap_eff=0000000000000000
+version_command="/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf" --version
+version_status=exit status: 0
+version_output=perf version 6.17.13
+permission_probe_command=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf stat -e task-clock,cycles:u,cycles:k,instructions:u,instructions:k,context-switches,cpu-migrations -p 63883
+probe_status=signal: 2 (SIGINT)
+probe_output=Performance counter stats for process id '63883':
+
+             29565      task-clock                       #    0.000 CPUs utilized             
+             11518      cycles:u                                                              
+             54103      cycles:k                                                              
+               144      instructions:u                   #    0.01  insn per cycle            
+             13819      instructions:k                   #    0.26  insn per cycle            
+                 1      context-switches                 #   33.824 K/sec                     
+                 0      cpu-migrations                   #    0.000 /sec                      
+
+       0.134759944 seconds time elapsed
+preflight_result=failed; no perf data will be silently substituted

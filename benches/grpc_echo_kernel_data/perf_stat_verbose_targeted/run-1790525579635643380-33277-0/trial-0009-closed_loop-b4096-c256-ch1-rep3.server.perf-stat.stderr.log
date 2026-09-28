@@ -1,0 +1,5 @@
+Using CPUID AuthenticAMD-23-71-0
+task-clock -> software/task-clock/
+context-switches -> software/context-switches/
+cpu-migrations -> software/cpu-migrations/
+Control descriptor is not initialized

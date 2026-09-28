@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:41:09 2026
+
+
+ Performance counter stats for process id '5910':
+
+       57526405116      task-clock                       #    2.879 CPUs utilized             
+      108399731371      cycles:u                                                              
+      122581888387      cycles:k                                                              
+      132863023882      instructions:u                   #    1.23  insn per cycle            
+       74587380492      instructions:k                   #    0.61  insn per cycle            
+            217016      context-switches                 #    3.772 K/sec                     
+               307      cpu-migrations                   #    5.337 /sec                      
+
+      19.980150473 seconds time elapsed
+

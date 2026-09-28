@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:40:13 2026
+
+
+ Performance counter stats for process id '5171':
+
+       35714514429      task-clock                       #    1.787 CPUs utilized             
+       65160544632      cycles:u                                                              
+       66048565834      cycles:k                                                              
+       65785354205      instructions:u                   #    1.01  insn per cycle            
+       35133999010      instructions:k                   #    0.53  insn per cycle            
+            709234      context-switches                 #   19.858 K/sec                     
+              2035      cpu-migrations                   #   56.980 /sec                      
+
+      19.984483613 seconds time elapsed
+

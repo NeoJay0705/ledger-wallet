@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:36:55 2026
+
+
+ Performance counter stats for process id '2514':
+
+       36883761369      task-clock                       #    1.846 CPUs utilized             
+       99962236538      cycles:u                                                              
+       33488437126      cycles:k                                                              
+      106818575534      instructions:u                   #    1.07  insn per cycle            
+       15316538010      instructions:k                   #    0.46  insn per cycle            
+            498686      context-switches                 #   13.520 K/sec                     
+              1327      cpu-migrations                   #   35.978 /sec                      
+
+      19.975747537 seconds time elapsed
+

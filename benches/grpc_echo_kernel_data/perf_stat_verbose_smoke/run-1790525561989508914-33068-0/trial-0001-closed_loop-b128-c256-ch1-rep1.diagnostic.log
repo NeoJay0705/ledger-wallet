@@ -1,0 +1,65 @@
+kernel_sample_command=taskset -c 6,7,14,15 ss -tinmH 'sport = :40157 or dport = :40157'
+kernel_sample_interval_ms=0
+server_pid=33092 server_cpus=3,4,5,11,12,13
+client_pid=33098 client_cpus=0,1,2,8,9,10
+verified_tcp_connections=1
+parent_phase_command_mono_ns=7660561517378470
+server_cpu_sample_start_mono_ns=7660561517378320
+client_start_sample=ProcSample { cpu_ticks: 36, rss_bytes: 10203136, io: IoCounters { rchar: 16335, wchar: 2995555, syscr: 25, syscw: 3340, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+server_start_sample=ProcSample { cpu_ticks: 32, rss_bytes: 8290304, io: IoCounters { rchar: 16335, wchar: 2825427, syscr: 25, syscw: 3976, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+loopback_start_sample=NetSample { rx_bytes: 1346473312169, rx_packets: 1399753347, tx_bytes: 1346473312169, tx_packets: 1399753347 }
+client_event=PHASE_START	7660561517527149
+perf_client_command=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf ["stat", "-v", "-o", "benches/grpc_echo_kernel_data/perf_stat_verbose_smoke/run-1790525561989508914-33068-0/trial-0001-closed_loop-b128-c256-ch1-rep1.client.perf-stat.txt", "-e", "task-clock,cycles:u,cycles:k,instructions:u,instructions:k,context-switches,cpu-migrations", "-p", "33098"]
+perf_client_verbose_event_timing=true
+perf_client_attach_point=PHASE_START event received by parent
+perf_server_command=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf ["stat", "-v", "-o", "benches/grpc_echo_kernel_data/perf_stat_verbose_smoke/run-1790525561989508914-33068-0/trial-0001-closed_loop-b128-c256-ch1-rep1.server.perf-stat.txt", "-e", "task-clock,cycles:u,cycles:k,instructions:u,instructions:k,context-switches,cpu-migrations", "-p", "33092"]
+perf_server_verbose_event_timing=true
+perf_server_attach_point=PHASE_START event received by parent
+tcp_sample_mono_ns=7660561538942695 send_q_max=0 recv_q_max=22320
+22320  0           127.0.0.1:37422       127.0.0.1:40157
+	 cubic wscale:10,10 rto:201 rtt:0.231/0.396 ato:40 mss:65483 pmtu:65535 rcvmss:16268 advmss:65483 cwnd:23 ssthresh:20 bytes_sent:3091084 bytes_acked:3091085 bytes_received:2911422 segs_out:2801 segs_in:3993 data_segs_out:2353 data_segs_in:3751 send 52159619048bps lastsnd:2 pacing_rate 62355348352bps delivery_rate 65483000000bps delivered:2354 app_limited busy:111ms rcv_rtt:7.091 rcv_space:132255 rcv_ssthresh:662003 minrtt:0.008 snd_wnd:211968                                                                                                                                                                 
+0      0           127.0.0.1:40157       127.0.0.1:37422
+	 cubic wscale:10,10 rto:201 rtt:0.145/0.115 ato:40 mss:65483 pmtu:65535 rcvmss:8929 advmss:65483 cwnd:27 ssthresh:24 bytes_sent:2920258 bytes_acked:2920258 bytes_received:3094192 segs_out:4020 segs_in:2803 data_segs_out:3779 data_segs_in:2354 send 97547089655bps lastsnd:1 lastrcv:1 lastack:1 pacing_rate 116955683720bps delivery_rate 52386400000bps delivered:3780 app_limited busy:99ms rcv_rtt:4.526 rcv_space:100741 rcv_ssthresh:211523 minrtt:0.008 snd_wnd:668672                                                                                                                                              
+tcp_sample_mono_ns=7660562561830276 send_q_max=9210 recv_q_max=0
+0      9210        127.0.0.1:37422       127.0.0.1:40157
+	 cubic wscale:10,10 rto:201 rtt:0.124/0.186 ato:40 mss:65483 pmtu:65535 rcvmss:16230 advmss:65483 cwnd:36 ssthresh:20 bytes_sent:17873618 bytes_acked:17864409 bytes_received:16860825 segs_out:15437 segs_in:22393 data_segs_out:12919 data_segs_in:21396 send 152089548387bps pacing_rate 182140239832bps delivery_rate 61631058816bps delivered:12905 app_limited busy:591ms unacked:15 rcv_rtt:7.091 rcv_space:133516 rcv_ssthresh:677097 minrtt:0.007 snd_wnd:222208                                                                                                                                                  
+0      2445        127.0.0.1:40157       127.0.0.1:37422
+	 cubic wscale:10,10 rto:201 rtt:0.094/0.067 ato:40 mss:65483 pmtu:65535 rcvmss:16243 advmss:65483 cwnd:29 ssthresh:24 bytes_sent:16882739 bytes_acked:16882560 bytes_received:17892660 segs_out:22408 segs_in:15485 data_segs_out:21409 data_segs_in:12965 send 161617617021bps lastrcv:1 pacing_rate 225067496296bps delivery_rate 65483000000bps delivered:21409 app_limited busy:588ms unacked:1 rcv_rtt:1 rcv_space:93347 rcv_ssthresh:221687 minrtt:0.008 snd_wnd:677888                                                                                                                                              
+client_event=PHASE_END	7660563520782769
+perf_client_sigint_result=0
+perf_client_signal_mono_ns=7660563520851298
+perf_client_end_offset_ns=68529
+perf_server_sigint_result=0
+perf_server_signal_mono_ns=7660563520870023
+perf_server_end_offset_ns=87254
+measurement_start_mono_ns=7660561517527149 measurement_end_mono_ns=7660563520782769 phase_wall_ns=2003255620
+final_client_sample=ProcSample { cpu_ticks: 406, rss_bytes: 18006016, io: IoCounters { rchar: 16341, wchar: 34814174, syscr: 26, syscw: 28554, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+final_server_sample=ProcSample { cpu_ticks: 425, rss_bytes: 8294400, io: IoCounters { rchar: 16335, wchar: 32858496, syscr: 25, syscw: 44973, read_bytes: 0, write_bytes: 0, cancelled_write_bytes: 0 } }
+server_cpu_sample_end_mono_ns=7660563520980180
+per_core_cpu_and_softirq_delta=cpu0:busy_pct=40.741,softirq_pct=1.058,ticks=189;cpu1:busy_pct=29.016,softirq_pct=0.518,ticks=193;cpu10:busy_pct=18.274,softirq_pct=0.508,ticks=197;cpu11:busy_pct=50.794,softirq_pct=1.587,ticks=189;cpu12:busy_pct=26.667,softirq_pct=1.538,ticks=195;cpu13:busy_pct=21.762,softirq_pct=1.036,ticks=193;cpu14:busy_pct=1.005,softirq_pct=0.000,ticks=199;cpu15:busy_pct=1.500,softirq_pct=0.000,ticks=200;cpu2:busy_pct=27.179,softirq_pct=1.026,ticks=195;cpu3:busy_pct=52.151,softirq_pct=1.613,ticks=186;cpu4:busy_pct=30.108,softirq_pct=0.538,ticks=186;cpu5:busy_pct=24.103,softirq_pct=1.026,ticks=195;cpu6:busy_pct=1.005,softirq_pct=0.000,ticks=199;cpu7:busy_pct=1.493,softirq_pct=0.000,ticks=201;cpu8:busy_pct=46.073,softirq_pct=1.047,ticks=191;cpu9:busy_pct=40.741,softirq_pct=0.529,ticks=189
+target_disk=sdb2 disk_busy_ms_start=2447433760 disk_busy_ms_end=2447433765
+loopback_final=NetSample { rx_bytes: 1346538465956, rx_packets: 1399817654, tx_bytes: 1346538465956, tx_packets: 1399817654 }
+tcp_final send_q_max=0 recv_q_max=0
+0      0           127.0.0.1:37422       127.0.0.1:40157
+	 cubic wscale:10,10 rto:201 rtt:0.213/0.286 ato:40 mss:65483 pmtu:65535 rcvmss:16233 advmss:65483 cwnd:40 ssthresh:20 bytes_sent:34754815 bytes_acked:34754816 bytes_received:32843130 segs_out:25749 segs_in:44749 data_segs_out:20969 data_segs_in:43014 send 98378215962bps lastsnd:11 lastrcv:8 lastack:8 pacing_rate 117777386416bps delivery_rate 61631058816bps delivered:20970 app_limited busy:984ms rcv_rtt:7.091 rcv_space:154893 rcv_ssthresh:677087 minrtt:0.007 snd_wnd:222208                                                                                                                                
+0      0           127.0.0.1:40157       127.0.0.1:37422
+	 cubic wscale:10,10 rto:201 rtt:0.108/0.078 ato:40 mss:65483 pmtu:65535 rcvmss:16261 advmss:65483 cwnd:34 ssthresh:24 bytes_sent:32843130 bytes_acked:32843130 bytes_received:34754815 segs_out:44748 segs_in:25749 data_segs_out:43014 data_segs_in:20969 send 164920148148bps lastsnd:10 lastrcv:13 lastack:10 pacing_rate 197447124248bps delivery_rate 65483000000bps delivered:43015 app_limited busy:1104ms rcv_rtt:1 rcv_space:93347 rcv_ssthresh:221687 minrtt:0.008 snd_wnd:668672                                                                                                                                 
+perf_client_status=signal: 2 (SIGINT)
+perf_client_output=benches/grpc_echo_kernel_data/perf_stat_verbose_smoke/run-1790525561989508914-33068-0/trial-0001-closed_loop-b128-c256-ch1-rep1.client.perf-stat.txt
+perf_client_stderr=benches/grpc_echo_kernel_data/perf_stat_verbose_smoke/run-1790525561989508914-33068-0/trial-0001-closed_loop-b128-c256-ch1-rep1.client.perf-stat.stderr.log
+perf_client_start_offset_ns=243837
+perf_client_end_offset_ns=68529
+perf_client_observed_wall_ns=2003080312
+perf_client_finalize_wall_ns=22072068
+perf_server_status=signal: 2 (SIGINT)
+perf_server_output=benches/grpc_echo_kernel_data/perf_stat_verbose_smoke/run-1790525561989508914-33068-0/trial-0001-closed_loop-b128-c256-ch1-rep1.server.perf-stat.txt
+perf_server_stderr=benches/grpc_echo_kernel_data/perf_stat_verbose_smoke/run-1790525561989508914-33068-0/trial-0001-closed_loop-b128-c256-ch1-rep1.server.perf-stat.stderr.log
+perf_server_start_offset_ns=531125
+perf_server_end_offset_ns=87254
+perf_server_observed_wall_ns=2002811749
+perf_server_finalize_wall_ns=22153921
+client_event=RESULT	closed_loop	128	256	1	158842	158842	0	2000440031	2003255620	2815589	3690271283	1912	485341.46548117156	983390	1272862	1381678	90	158842	512464946697	3226255.9442527797	3103610	4870973	5620991	6405731	158842	380711043797	2396790.797125445	2317937	3586205	4068539	4927450	158842	59737218	376.07948779290115	281	671	1062	15890	158842	131694165682	829089.0676395412	748935	1774137	2191861	2724238
+client_cpu_process_time_ns=3690271283 server_cpu_proc_stat_ns=3930000000 server_cpu_window_ns=2003601860 server_start_offset_ns=-148829 server_end_offset_ns=197411
+client_rss_peak_bytes=18186240 server_rss_peak_bytes=8732672
+loopback_delta rx_bytes=65153787 rx_packets=64307 tx_bytes=65153787 tx_packets=64307
+tcp_sampled_max_send_q=9210 tcp_sampled_max_recv_q=22320

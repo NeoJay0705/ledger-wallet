@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:39:45 2026
+
+
+ Performance counter stats for process id '4842':
+
+       35767240007      task-clock                       #    1.789 CPUs utilized             
+       65052885425      cycles:u                                                              
+       66725488349      cycles:k                                                              
+       65944538914      instructions:u                   #    1.01  insn per cycle            
+       35190323053      instructions:k                   #    0.53  insn per cycle            
+            722412      context-switches                 #   20.198 K/sec                     
+              1566      cpu-migrations                   #   43.783 /sec                      
+
+      19.988245465 seconds time elapsed
+

@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:38:20 2026
+
+
+ Performance counter stats for process id '3751':
+
+       56570359147      task-clock                       #    2.831 CPUs utilized             
+      147668266845      cycles:u                                                              
+       78618336425      cycles:k                                                              
+      188421247813      instructions:u                   #    1.28  insn per cycle            
+       44099666592      instructions:k                   #    0.56  insn per cycle            
+            278277      context-switches                 #    4.919 K/sec                     
+               475      cpu-migrations                   #    8.397 /sec                      
+
+      19.984425661 seconds time elapsed
+

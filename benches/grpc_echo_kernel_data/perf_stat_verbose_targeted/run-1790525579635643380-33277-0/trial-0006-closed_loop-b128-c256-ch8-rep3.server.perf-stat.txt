@@ -1,0 +1,22 @@
+# started on Mon Sep 28 00:15:29 2026
+
+task-clock: 57818418304 57818418304 57818418304
+cycles:u: 160876989990 57818367309 57818367309
+cycles:k: 71163080559 57818301846 57818301846
+instructions:u: 175213208388 57818233538 57818233538
+instructions:k: 36757745116 57818150603 57818150603
+context-switches: 216815 57818076533 57818076533
+cpu-migrations: 230 57818037229 57818037229
+
+ Performance counter stats for process id '36294':
+
+       57818418304      task-clock                       #    2.894 CPUs utilized             
+      160876989990      cycles:u                                                              
+       71163080559      cycles:k                                                              
+      175213208388      instructions:u                   #    1.09  insn per cycle            
+       36757745116      instructions:k                   #    0.52  insn per cycle            
+            216815      context-switches                 #    3.750 K/sec                     
+               230      cpu-migrations                   #    3.978 /sec                      
+
+      19.980810970 seconds time elapsed
+

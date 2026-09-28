@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:38:20 2026
+
+
+ Performance counter stats for process id '3745':
+
+       57740528994      task-clock                       #    2.889 CPUs utilized             
+      160870664482      cycles:u                                                              
+       71477180845      cycles:k                                                              
+      180896483485      instructions:u                   #    1.12  insn per cycle            
+       37223761214      instructions:k                   #    0.52  insn per cycle            
+            213933      context-switches                 #    3.705 K/sec                     
+               175      cpu-migrations                   #    3.031 /sec                      
+
+      19.984466217 seconds time elapsed
+

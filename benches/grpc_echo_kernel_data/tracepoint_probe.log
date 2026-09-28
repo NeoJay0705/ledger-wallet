@@ -1,0 +1,28 @@
+perf_list_command=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf list syscalls:sys_enter_sendmsg,syscalls:sys_enter_recvmsg,syscalls:sys_enter_epoll_wait,syscalls:sys_enter_read,syscalls:sys_enter_write,sched:sched_switch
+perf_list_status=0
+perf_list_stdout:
+  syscalls:sys_enter_sendmsg                         [Tracepoint event]
+  syscalls:sys_enter_recvmsg                         [Tracepoint event]
+  syscalls:sys_enter_epoll_wait                      [Tracepoint event]
+  syscalls:sys_enter_read                            [Tracepoint event]
+  syscalls:sys_enter_write                           [Tracepoint event]
+  sched:sched_switch                                 [Tracepoint event]
+perf_list_stderr:
+
+perf_stat_command=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf stat -e syscalls:sys_enter_sendmsg,syscalls:sys_enter_recvmsg,syscalls:sys_enter_epoll_wait,syscalls:sys_enter_read,syscalls:sys_enter_write,sched:sched_switch -p 47195 -- sleep 1
+perf_stat_status=129
+perf_stat_stdout:
+
+perf_stat_stderr:
+event syntax error: 'syscalls:sys_enter_sendmsg,syscalls:sys_enter_recvmsg,sy..'
+                     \___ can't access trace events
+
+Error:	No permissions to read /sys/kernel/tracing//events/syscalls/sys_enter_sendmsg
+Hint:	Try 'sudo mount -o remount,mode=755 /sys/kernel/tracing/'
+
+Run 'perf list' for a list of valid events
+
+ Usage: perf stat [<options>] [<command>]
+
+    -e, --event <event>   event selector. use 'perf list' to list available events
+action=No tracefs mount/remount, sysctl write, CAP_SYSLOG request, or system-wide trace was performed.

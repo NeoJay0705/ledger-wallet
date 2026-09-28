@@ -1,0 +1,30 @@
+perf_mode=stat
+perf_binary=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf
+perf_event_paranoid=4
+unprivileged_bpf_disabled=2
+cap_eff=0000000000000000
+version_command="/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf" --version
+version_status=exit status: 0
+version_output=perf version 6.17.13
+permission_probe_command=/home/neojhou/repos/ledger-wallet/target/grpc-echo-perf stat -e task-clock,cycles:u,cycles:k,instructions:u,instructions:k,context-switches,cpu-migrations -p 2399
+probe_status=signal: 2 (SIGINT)
+probe_output=Performance counter stats for process id '2399':
+
+             31219      task-clock                       #    0.000 CPUs utilized             
+             13111      cycles:u                                                              
+             58735      cycles:k                                                              
+               144      instructions:u                   #    0.01  insn per cycle            
+             15127      instructions:k                   #    0.26  insn per cycle            
+                 1      context-switches                 #   32.032 K/sec                     
+                 0      cpu-migrations                   #    0.000 /sec                      
+
+       0.133092336 seconds time elapsed
+probe_event=task-clock value=Some(31219.0) valid=true
+probe_event=cycles:u value=Some(13111.0) valid=true
+probe_event=cycles:k value=Some(58735.0) valid=true
+probe_event=instructions:u value=Some(144.0) valid=true
+probe_event=instructions:k value=Some(15127.0) valid=true
+probe_event=context-switches value=Some(1.0) valid=true
+probe_event=cpu-migrations value=Some(0.0) valid=true
+probe_status_interpretation=expected SIGINT after valid counters were collected
+preflight_result=passed

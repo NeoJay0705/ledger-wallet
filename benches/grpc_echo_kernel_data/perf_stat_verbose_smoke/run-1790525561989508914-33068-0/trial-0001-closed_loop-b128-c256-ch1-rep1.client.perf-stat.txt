@@ -1,0 +1,22 @@
+# started on Mon Sep 28 00:12:45 2026
+
+task-clock: 3711119611 3711119611 3711119611
+cycles:u: 10164573602 3711098021 3711098021
+cycles:k: 3508074121 3711066602 3711066602
+instructions:u: 10510855855 3711036966 3711036966
+instructions:k: 1567415815 3710967785 3710967785
+context-switches: 51498 3710904958 3710904958
+cpu-migrations: 193 3710877406 3710877406
+
+ Performance counter stats for process id '33098':
+
+        3711119611      task-clock                       #    1.866 CPUs utilized             
+       10164573602      cycles:u                                                              
+        3508074121      cycles:k                                                              
+       10510855855      instructions:u                   #    1.03  insn per cycle            
+        1567415815      instructions:k                   #    0.45  insn per cycle            
+             51498      context-switches                 #   13.877 K/sec                     
+               193      cpu-migrations                   #   52.006 /sec                      
+
+       1.988568581 seconds time elapsed
+

@@ -1,0 +1,26 @@
+perf_mode=stat
+perf_binary=/usr/lib/linux-tools/6.17.0-35-generic/perf
+perf_event_paranoid=4
+unprivileged_bpf_disabled=2
+cap_eff=0000000000000000
+version_command="/usr/lib/linux-tools/6.17.0-35-generic/perf" --version
+version_status=exit status: 0
+version_output=perf version 6.17.13
+permission_probe_command=/usr/lib/linux-tools/6.17.0-35-generic/perf stat -e task-clock,cycles:u,cycles:k,instructions:u,instructions:k,context-switches,cpu-migrations -p 46090
+probe_status=exit status: 255
+probe_output=Error:
+Access to performance monitoring and observability operations is limited.
+Consider adjusting /proc/sys/kernel/perf_event_paranoid setting to open
+access to performance monitoring and observability operations for processes
+without CAP_PERFMON, CAP_SYS_PTRACE or CAP_SYS_ADMIN Linux capability.
+More information can be found at 'Perf events and tool security' document:
+https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
+perf_event_paranoid setting is 4:
+  -1: Allow use of (almost) all events by all users
+      Ignore mlock limit after perf_event_mlock_kb without CAP_IPC_LOCK
+>= 0: Disallow raw and ftrace function tracepoint access
+>= 1: Disallow CPU event access
+>= 2: Disallow kernel profiling
+To make the adjusted perf_event_paranoid setting permanent preserve it
+in /etc/sysctl.conf (e.g. kernel.perf_event_paranoid = <setting>)
+preflight_result=failed; no perf data will be silently substituted

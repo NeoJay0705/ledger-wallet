@@ -1,0 +1,9 @@
+    Finished `bench` profile [optimized] target(s) in 0.07s
+     Running benches/grpc_echo_loopback.rs (target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2)
+run_dir=benches/grpc_echo_kernel_data/kernel_off_bracket_after/run-1790524594159299566-19046-0
+completed trial-0001-closed_loop-b128-c256-ch1-rep1: 1651282 RPCs, 82552.5 RPS, client 1.840 CPU cores, server 1.912 CPU cores
+completed trial-0002-closed_loop-b128-c256-ch8-rep1: 2837700 RPCs, 141874.0 RPS, client 2.848 CPU cores, server 2.919 CPU cores
+completed trial-0003-closed_loop-b4096-c256-ch1-rep1: 903774 RPCs, 45181.8 RPS, client 1.764 CPU cores, server 1.676 CPU cores
+completed trial-0004-closed_loop-b4096-c256-ch8-rep1: 1710161 RPCs, 85499.4 RPS, client 2.900 CPU cores, server 2.951 CPU cores
+results=benches/grpc_echo_kernel_data/kernel_off_bracket_after/run-1790524594159299566-19046-0/results.csv
+preflight_log=benches/grpc_echo_kernel_data/kernel_off_bracket_after/run-1790524594159299566-19046-0/preflight.log

@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:37:23 2026
+
+
+ Performance counter stats for process id '3017':
+
+       36644966330      task-clock                       #    1.834 CPUs utilized             
+      100146399535      cycles:u                                                              
+       34250892988      cycles:k                                                              
+      107740090220      instructions:u                   #    1.08  insn per cycle            
+       15896959798      instructions:k                   #    0.46  insn per cycle            
+            519737      context-switches                 #   14.183 K/sec                     
+              1334      cpu-migrations                   #   36.403 /sec                      
+
+      19.982615060 seconds time elapsed
+

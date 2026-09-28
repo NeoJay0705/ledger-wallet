@@ -1,0 +1,23 @@
+    Finished `bench` profile [optimized] target(s) in 0.06s
+     Running benches/grpc_echo_loopback.rs (target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2)
+run_dir=benches/grpc_echo_kernel_data/kernel_off_saturation/run-1790524070414027150-11677-0
+completed trial-0001-closed_loop-b128-c256-ch1-rep1: 1573349 RPCs, 78653.6 RPS, client 1.814 CPU cores, server 1.855 CPU cores
+completed trial-0002-closed_loop-b128-c256-ch1-rep2: 1541640 RPCs, 77070.3 RPS, client 1.822 CPU cores, server 1.847 CPU cores
+completed trial-0003-closed_loop-b128-c256-ch1-rep3: 1533199 RPCs, 76654.6 RPS, client 1.795 CPU cores, server 1.869 CPU cores
+completed trial-0004-closed_loop-b128-c256-ch4-rep1: 2695729 RPCs, 134774.2 RPS, client 2.641 CPU cores, server 2.745 CPU cores
+completed trial-0005-closed_loop-b128-c256-ch4-rep2: 2803130 RPCs, 140141.4 RPS, client 2.651 CPU cores, server 2.782 CPU cores
+completed trial-0006-closed_loop-b128-c256-ch4-rep3: 2731294 RPCs, 136553.9 RPS, client 2.655 CPU cores, server 2.776 CPU cores
+completed trial-0007-closed_loop-b128-c256-ch8-rep1: 2882450 RPCs, 144114.1 RPS, client 2.837 CPU cores, server 2.921 CPU cores
+completed trial-0008-closed_loop-b128-c256-ch8-rep2: 2897052 RPCs, 144841.8 RPS, client 2.834 CPU cores, server 2.917 CPU cores
+completed trial-0009-closed_loop-b128-c256-ch8-rep3: 3055825 RPCs, 152780.3 RPS, client 2.830 CPU cores, server 2.923 CPU cores
+completed trial-0010-closed_loop-b4096-c256-ch1-rep1: 888159 RPCs, 44401.5 RPS, client 1.743 CPU cores, server 1.677 CPU cores
+completed trial-0011-closed_loop-b4096-c256-ch1-rep2: 862720 RPCs, 43130.9 RPS, client 1.680 CPU cores, server 1.626 CPU cores
+completed trial-0012-closed_loop-b4096-c256-ch1-rep3: 892751 RPCs, 44627.5 RPS, client 1.734 CPU cores, server 1.650 CPU cores
+completed trial-0013-closed_loop-b4096-c256-ch4-rep1: 1674904 RPCs, 83733.7 RPS, client 2.781 CPU cores, server 2.856 CPU cores
+completed trial-0014-closed_loop-b4096-c256-ch4-rep2: 1707836 RPCs, 85379.2 RPS, client 2.811 CPU cores, server 2.878 CPU cores
+completed trial-0015-closed_loop-b4096-c256-ch4-rep3: 1855153 RPCs, 92746.7 RPS, client 2.829 CPU cores, server 2.911 CPU cores
+completed trial-0016-closed_loop-b4096-c256-ch8-rep1: 1786364 RPCs, 89308.4 RPS, client 2.891 CPU cores, server 2.945 CPU cores
+completed trial-0017-closed_loop-b4096-c256-ch8-rep2: 1866204 RPCs, 93296.4 RPS, client 2.902 CPU cores, server 2.950 CPU cores
+completed trial-0018-closed_loop-b4096-c256-ch8-rep3: 1730039 RPCs, 86489.6 RPS, client 2.908 CPU cores, server 2.950 CPU cores
+results=benches/grpc_echo_kernel_data/kernel_off_saturation/run-1790524070414027150-11677-0/results.csv
+preflight_log=benches/grpc_echo_kernel_data/kernel_off_saturation/run-1790524070414027150-11677-0/preflight.log

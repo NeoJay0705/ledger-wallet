@@ -1,0 +1,7 @@
+    Finished `bench` profile [optimized] target(s) in 0.07s
+     Running benches/grpc_echo_loopback.rs (target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2)
+grpc_echo_loopback: perf permission preflight failed for --perf-mode stat; see perf_preflight.log
+error: bench failed, to rerun pass `--bench grpc_echo_loopback`
+
+Caused by:
+  process didn't exit successfully: `/home/neojhou/repos/ledger-wallet/target/release/deps/grpc_echo_loopback-a6a2bbbdcba06cb2 --payload-sizes 128 --concurrencies 1 --channels 1 --modes closed --repetitions 1 --warmup-seconds 0.2 --seconds 2 --kernel-sample-ms 0 --perf-mode stat --perf-bin /home/neojhou/repos/ledger-wallet/target/grpc-echo-perf --output-dir benches/grpc_echo_kernel_data/perf_stat_smoke --bench` (exit status: 2)

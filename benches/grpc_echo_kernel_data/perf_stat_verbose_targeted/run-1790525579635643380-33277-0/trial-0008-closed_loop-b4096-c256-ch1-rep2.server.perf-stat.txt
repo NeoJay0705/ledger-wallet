@@ -1,0 +1,22 @@
+# started on Mon Sep 28 00:16:25 2026
+
+task-clock: 34695883351 34695883351 34695883351
+cycles:u: 59940856331 34695872571 34695872571
+cycles:k: 64313675581 34695846723 34695846723
+instructions:u: 63711001384 34695755172 34695755172
+instructions:k: 32990520820 34695662136 34695662136
+context-switches: 582644 34695574142 34695574142
+cpu-migrations: 3411 34695528788 34695528788
+
+ Performance counter stats for process id '37045':
+
+       34695883351      task-clock                       #    1.736 CPUs utilized             
+       59940856331      cycles:u                                                              
+       64313675581      cycles:k                                                              
+       63711001384      instructions:u                   #    1.06  insn per cycle            
+       32990520820      instructions:k                   #    0.51  insn per cycle            
+            582644      context-switches                 #   16.793 K/sec                     
+              3411      cpu-migrations                   #   98.311 /sec                      
+
+      19.983905522 seconds time elapsed
+

@@ -1,0 +1,22 @@
+# started on Mon Sep 28 00:18:18 2026
+
+task-clock: 57574223675 57574223675 57574223675
+cycles:u: 109897926869 57574198837 57574198837
+cycles:k: 122486308465 57574158352 57574158352
+instructions:u: 131791579329 57574124971 57574124971
+instructions:k: 73892687577 57574074606 57574074606
+context-switches: 213836 57574030843 57574030843
+cpu-migrations: 530 57574013362 57574013362
+
+ Performance counter stats for process id '38700':
+
+       57574223675      task-clock                       #    2.881 CPUs utilized             
+      109897926869      cycles:u                                                              
+      122486308465      cycles:k                                                              
+      131791579329      instructions:u                   #    1.20  insn per cycle            
+       73892687577      instructions:k                   #    0.60  insn per cycle            
+            213836      context-switches                 #    3.714 K/sec                     
+               530      cpu-migrations                   #    9.206 /sec                      
+
+      19.984284272 seconds time elapsed
+

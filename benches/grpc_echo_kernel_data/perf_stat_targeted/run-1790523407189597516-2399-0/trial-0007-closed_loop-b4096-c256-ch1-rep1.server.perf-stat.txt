@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:39:45 2026
+
+
+ Performance counter stats for process id '4836':
+
+       34744205678      task-clock                       #    1.738 CPUs utilized             
+       59416116120      cycles:u                                                              
+       62962967434      cycles:k                                                              
+       63276344114      instructions:u                   #    1.06  insn per cycle            
+       32827527793      instructions:k                   #    0.52  insn per cycle            
+            560200      context-switches                 #   16.124 K/sec                     
+              3628      cpu-migrations                   #  104.420 /sec                      
+
+      19.988218975 seconds time elapsed
+

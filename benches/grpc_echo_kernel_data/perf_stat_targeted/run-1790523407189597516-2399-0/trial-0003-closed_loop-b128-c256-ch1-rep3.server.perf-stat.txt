@@ -1,0 +1,15 @@
+# started on Sun Sep 27 23:37:51 2026
+
+
+ Performance counter stats for process id '3374':
+
+       41197717843      task-clock                       #    2.062 CPUs utilized             
+       99992635041      cycles:u                                                              
+       41970765233      cycles:k                                                              
+      100704963223      instructions:u                   #    1.01  insn per cycle            
+       17971408632      instructions:k                   #    0.43  insn per cycle            
+            650059      context-switches                 #   15.779 K/sec                     
+              2185      cpu-migrations                   #   53.037 /sec                      
+
+      19.977350531 seconds time elapsed
+

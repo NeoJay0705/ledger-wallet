@@ -1,0 +1,6 @@
+perf_mode=off
+perf_binary=perf
+perf_event_paranoid=4
+unprivileged_bpf_disabled=2
+cap_eff=0000000000000000
+preflight=skipped (perf mode off)
