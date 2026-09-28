@@ -1,6 +1,11 @@
 use cpu_time::ProcessTime;
-use ledger_wallet::wal::{Record, generate_records, recover_and_verify};
-use ledger_wallet::wal_tokio::WalWriter;
+#[allow(dead_code)]
+#[path = "support/wal.rs"]
+mod wal;
+#[allow(dead_code)]
+#[path = "support/wal_tokio.rs"]
+mod wal_tokio;
+
 use std::collections::BTreeMap;
 use std::error::Error;
 use std::fs;
@@ -10,6 +15,8 @@ use std::process::Command;
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::{Duration, Instant};
+use wal::{Record, generate_records, recover_and_verify};
+use wal_tokio::WalWriter;
 
 const DEFAULT_ITERATIONS: usize = 10_000_000;
 const DEFAULT_BATCHES: &[usize] = &[64, 256, 1024, 2048, 4096];

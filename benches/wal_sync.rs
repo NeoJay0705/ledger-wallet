@@ -1,5 +1,8 @@
 use cpu_time::ProcessTime;
-use ledger_wallet::wal::{Record, WalWriter, generate_records, recover_and_verify};
+#[allow(dead_code)]
+#[path = "support/wal.rs"]
+mod wal;
+
 use std::collections::BTreeMap;
 use std::error::Error;
 use std::fs;
@@ -8,6 +11,7 @@ use std::path::{Component, Path, PathBuf};
 use std::process::Command;
 use std::thread;
 use std::time::{Duration, Instant};
+use wal::{Record, WalWriter, generate_records, recover_and_verify};
 
 const DEFAULT_ITERATIONS: usize = 10_000_000;
 const DEFAULT_BATCHES: &[usize] = &[64, 256, 1024, 2048, 4096];
