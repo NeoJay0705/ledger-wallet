@@ -1,3 +1,5 @@
 # Others
 tmp*
 /target/
+
+benches/__pycache__/
