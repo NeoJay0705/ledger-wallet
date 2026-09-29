@@ -1,0 +1,258 @@
+    Finished `bench` profile [optimized] target(s) in 0.06s
+     Running benches/bounded_queue_batch_pool_tokio.rs (target/release/deps/bounded_queue_batch_pool_tokio-d960226ec256c698)
+starting scenario 1/128: C=100000, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 1/128
+starting scenario 2/128: C=100000, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 2/128
+starting scenario 3/128: C=100000, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 3/128
+starting scenario 4/128: C=100000, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 4/128
+starting scenario 5/128: C=100000, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 5/128
+starting scenario 6/128: C=100000, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 6/128
+starting scenario 7/128: C=100000, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 7/128
+starting scenario 8/128: C=100000, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 8/128
+starting scenario 9/128: C=100000, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 9/128
+starting scenario 10/128: C=100000, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 10/128
+starting scenario 11/128: C=100000, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 11/128
+starting scenario 12/128: C=100000, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 12/128
+starting scenario 13/128: C=100000, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 13/128
+starting scenario 14/128: C=100000, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 14/128
+starting scenario 15/128: C=100000, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 15/128
+starting scenario 16/128: C=100000, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 16/128
+starting scenario 17/128: C=50000, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 17/128
+starting scenario 18/128: C=50000, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 18/128
+starting scenario 19/128: C=50000, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 19/128
+starting scenario 20/128: C=50000, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 20/128
+starting scenario 21/128: C=50000, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 21/128
+starting scenario 22/128: C=50000, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 22/128
+starting scenario 23/128: C=50000, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 23/128
+starting scenario 24/128: C=50000, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 24/128
+starting scenario 25/128: C=50000, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 25/128
+starting scenario 26/128: C=50000, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 26/128
+starting scenario 27/128: C=50000, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 27/128
+starting scenario 28/128: C=50000, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 28/128
+starting scenario 29/128: C=50000, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 29/128
+starting scenario 30/128: C=50000, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 30/128
+starting scenario 31/128: C=50000, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 31/128
+starting scenario 32/128: C=50000, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 32/128
+starting scenario 33/128: C=25000, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 33/128
+starting scenario 34/128: C=25000, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 34/128
+starting scenario 35/128: C=25000, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 35/128
+starting scenario 36/128: C=25000, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 36/128
+starting scenario 37/128: C=25000, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 37/128
+starting scenario 38/128: C=25000, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 38/128
+starting scenario 39/128: C=25000, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 39/128
+starting scenario 40/128: C=25000, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 40/128
+starting scenario 41/128: C=25000, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 41/128
+starting scenario 42/128: C=25000, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 42/128
+starting scenario 43/128: C=25000, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 43/128
+starting scenario 44/128: C=25000, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 44/128
+starting scenario 45/128: C=25000, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 45/128
+starting scenario 46/128: C=25000, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 46/128
+starting scenario 47/128: C=25000, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 47/128
+starting scenario 48/128: C=25000, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 48/128
+starting scenario 49/128: C=12500, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 49/128
+starting scenario 50/128: C=12500, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 50/128
+starting scenario 51/128: C=12500, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 51/128
+starting scenario 52/128: C=12500, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 52/128
+starting scenario 53/128: C=12500, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 53/128
+starting scenario 54/128: C=12500, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 54/128
+starting scenario 55/128: C=12500, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 55/128
+starting scenario 56/128: C=12500, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 56/128
+starting scenario 57/128: C=12500, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 57/128
+starting scenario 58/128: C=12500, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 58/128
+starting scenario 59/128: C=12500, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 59/128
+starting scenario 60/128: C=12500, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 60/128
+starting scenario 61/128: C=12500, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 61/128
+starting scenario 62/128: C=12500, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 62/128
+starting scenario 63/128: C=12500, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 63/128
+starting scenario 64/128: C=12500, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 64/128
+starting scenario 65/128: C=6250, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 65/128
+starting scenario 66/128: C=6250, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 66/128
+starting scenario 67/128: C=6250, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 67/128
+starting scenario 68/128: C=6250, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 68/128
+starting scenario 69/128: C=6250, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 69/128
+starting scenario 70/128: C=6250, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 70/128
+starting scenario 71/128: C=6250, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 71/128
+starting scenario 72/128: C=6250, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 72/128
+starting scenario 73/128: C=6250, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 73/128
+starting scenario 74/128: C=6250, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 74/128
+starting scenario 75/128: C=6250, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 75/128
+starting scenario 76/128: C=6250, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 76/128
+starting scenario 77/128: C=6250, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 77/128
+starting scenario 78/128: C=6250, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 78/128
+starting scenario 79/128: C=6250, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 79/128
+starting scenario 80/128: C=6250, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 80/128
+starting scenario 81/128: C=3125, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 81/128
+starting scenario 82/128: C=3125, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 82/128
+starting scenario 83/128: C=3125, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 83/128
+starting scenario 84/128: C=3125, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 84/128
+starting scenario 85/128: C=3125, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 85/128
+starting scenario 86/128: C=3125, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 86/128
+starting scenario 87/128: C=3125, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 87/128
+starting scenario 88/128: C=3125, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 88/128
+starting scenario 89/128: C=3125, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 89/128
+starting scenario 90/128: C=3125, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 90/128
+starting scenario 91/128: C=3125, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 91/128
+starting scenario 92/128: C=3125, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 92/128
+starting scenario 93/128: C=3125, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 93/128
+starting scenario 94/128: C=3125, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 94/128
+starting scenario 95/128: C=3125, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 95/128
+starting scenario 96/128: C=3125, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 96/128
+starting scenario 97/128: C=1562, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 97/128
+starting scenario 98/128: C=1562, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 98/128
+starting scenario 99/128: C=1562, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 99/128
+starting scenario 100/128: C=1562, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 100/128
+starting scenario 101/128: C=1562, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 101/128
+starting scenario 102/128: C=1562, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 102/128
+starting scenario 103/128: C=1562, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 103/128
+starting scenario 104/128: C=1562, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 104/128
+starting scenario 105/128: C=1562, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 105/128
+starting scenario 106/128: C=1562, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 106/128
+starting scenario 107/128: C=1562, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 107/128
+starting scenario 108/128: C=1562, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 108/128
+starting scenario 109/128: C=1562, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 109/128
+starting scenario 110/128: C=1562, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 110/128
+starting scenario 111/128: C=1562, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 111/128
+starting scenario 112/128: C=1562, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 112/128
+starting scenario 113/128: C=781, map=empty, B=2048, T=1ms, repetition=1
+finished scenario 113/128
+starting scenario 114/128: C=781, map=empty, B=2048, T=5ms, repetition=1
+finished scenario 114/128
+starting scenario 115/128: C=781, map=empty, B=2048, T=10ms, repetition=1
+finished scenario 115/128
+starting scenario 116/128: C=781, map=empty, B=2048, T=20ms, repetition=1
+finished scenario 116/128
+starting scenario 117/128: C=781, map=empty, B=4096, T=1ms, repetition=1
+finished scenario 117/128
+starting scenario 118/128: C=781, map=empty, B=4096, T=5ms, repetition=1
+finished scenario 118/128
+starting scenario 119/128: C=781, map=empty, B=4096, T=10ms, repetition=1
+finished scenario 119/128
+starting scenario 120/128: C=781, map=empty, B=4096, T=20ms, repetition=1
+finished scenario 120/128
+starting scenario 121/128: C=781, map=prefilled, B=2048, T=1ms, repetition=1
+finished scenario 121/128
+starting scenario 122/128: C=781, map=prefilled, B=2048, T=5ms, repetition=1
+finished scenario 122/128
+starting scenario 123/128: C=781, map=prefilled, B=2048, T=10ms, repetition=1
+finished scenario 123/128
+starting scenario 124/128: C=781, map=prefilled, B=2048, T=20ms, repetition=1
+finished scenario 124/128
+starting scenario 125/128: C=781, map=prefilled, B=4096, T=1ms, repetition=1
+finished scenario 125/128
+starting scenario 126/128: C=781, map=prefilled, B=4096, T=5ms, repetition=1
+finished scenario 126/128
+starting scenario 127/128: C=781, map=prefilled, B=4096, T=10ms, repetition=1
+finished scenario 127/128
+starting scenario 128/128: C=781, map=prefilled, B=4096, T=20ms, repetition=1
+finished scenario 128/128
