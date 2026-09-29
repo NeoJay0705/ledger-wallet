@@ -17,6 +17,10 @@ name = "bounded_queue_hashmap_tokio"
 harness = false
 
 [[bench]]
+name = "bounded_queue_batch_pool_tokio"
+harness = false
+
+[[bench]]
 name = "wal_sync"
 harness = false
 
