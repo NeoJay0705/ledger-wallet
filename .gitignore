@@ -2,4 +2,6 @@
 tmp*
 /target/
 
+/practice/
+
 benches/__pycache__/
