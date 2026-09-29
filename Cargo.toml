@@ -25,6 +25,10 @@ name = "bounded_queue_request_ring_tokio"
 harness = false
 
 [[bench]]
+name = "ledger_request_batch_tokio"
+harness = false
+
+[[bench]]
 name = "wal_sync"
 harness = false
 
