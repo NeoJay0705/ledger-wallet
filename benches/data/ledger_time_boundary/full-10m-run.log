@@ -1,0 +1,26 @@
+RUN_START users=50000 coroutines=50000 requests_per_user=200 requests=10000000 queue_capacity=50000 batch_size=2048 batch_timeout_ms=5 projection_batch_size=256 projection_delay_ms=0 old_lookup_delay_ms=10 retention_ms=60000 watermark_interval_ms=1000 sample_stride=64 estimated_projection_memory_bytes=3378106368 estimated_disk_bytes=8753741824 smoke=false
+CASE_START case=old-00-pct
+PREFLIGHT phase=before_setup status=passed attempts=1 cpu_busy_pct=1.356144 disk_busy_pct=0.133311 mem_available_bytes=47801106432 free_bytes=94722887680 device=sdb2 major_minor=8:18
+PREFLIGHT phase=before_measurement status=passed attempts=1 cpu_busy_pct=1.796157 disk_busy_pct=0.166639 mem_available_bytes=47569235968 free_bytes=94644793344 device=sdb2 major_minor=8:18
+BALANCE_CHECK users=50000 expected_final_balance=201 status=passed
+CASE_DONE case=old-00-pct status=passed
+CASE_RESULT case=old-00-pct requests=10000000 fresh=10000000 old=0 old_hits=0 old_misses=0 fresh_rps=56601.247 old_rps=0.000 client_wall_s=176.674553 settled_wall_s=176.680908 watermark=1790758295087482 watermark_updates=177 fenced_admissions=0 fence_wait_ns=0 fence_contention_observed=false balance_check_users=50000 expected_final_balance=201 projection_seq=10050000 cpu_s=239.612826 cpu_cores=1.3562 device=sdb2 rocks_wal_bytes=1500368103 peak_rss_bytes=1850507264 preflight_attempts=1
+CASE_START case=old-01-pct
+PREFLIGHT phase=before_setup status=passed attempts=14 cpu_busy_pct=1.524327 disk_busy_pct=0.199965 mem_available_bytes=47577190400 free_bytes=94712340480 device=sdb2 major_minor=8:18
+PREFLIGHT phase=before_measurement status=passed attempts=1 cpu_busy_pct=1.022751 disk_busy_pct=1.866361 mem_available_bytes=47351947264 free_bytes=94634262528 device=sdb2 major_minor=8:18
+BALANCE_CHECK users=50000 expected_final_balance=199 status=passed
+CASE_DONE case=old-01-pct status=passed
+CASE_RESULT case=old-01-pct requests=10000000 fresh=9900000 old=100000 old_hits=50000 old_misses=50000 fresh_rps=53885.010 old_rps=544.293 client_wall_s=183.724565 settled_wall_s=183.729972 watermark=1790758526864880 watermark_updates=184 fenced_admissions=0 fence_wait_ns=0 fence_contention_observed=false balance_check_users=50000 expected_final_balance=199 projection_seq=9950000 cpu_s=244.790788 cpu_cores=1.3323 device=sdb2 rocks_wal_bytes=1485364780 peak_rss_bytes=1927020544 preflight_attempts=1
+CASE_START case=old-05-pct
+PREFLIGHT phase=before_setup status=passed attempts=5 cpu_busy_pct=1.126878 disk_busy_pct=0.000000 mem_available_bytes=47548428288 free_bytes=94710534144 device=sdb2 major_minor=8:18
+PREFLIGHT phase=before_measurement status=passed attempts=3 cpu_busy_pct=1.460768 disk_busy_pct=0.499903 mem_available_bytes=46763229184 free_bytes=94632148992 device=sdb2 major_minor=8:18
+BALANCE_CHECK users=50000 expected_final_balance=191 status=passed
+CASE_DONE case=old-05-pct status=passed
+CASE_RESULT case=old-05-pct requests=10000000 fresh=9500000 old=500000 old_hits=250000 old_misses=250000 fresh_rps=47874.500 old_rps=2519.711 client_wall_s=198.435493 settled_wall_s=198.441231 watermark=1790758757368266 watermark_updates=199 fenced_admissions=0 fence_wait_ns=0 fence_contention_observed=false balance_check_users=50000 expected_final_balance=191 projection_seq=9550000 cpu_s=228.240060 cpu_cores=1.1502 device=sdb2 rocks_wal_bytes=1425350906 peak_rss_bytes=1955983360 preflight_attempts=3
+CASE_START case=old-10-pct
+PREFLIGHT phase=before_setup status=passed attempts=1 cpu_busy_pct=1.043406 disk_busy_pct=0.000000 mem_available_bytes=47277846528 free_bytes=94707798016 device=sdb2 major_minor=8:18
+PREFLIGHT phase=before_measurement status=passed attempts=1 cpu_busy_pct=1.022324 disk_busy_pct=0.000000 mem_available_bytes=47066836992 free_bytes=94629720064 device=sdb2 major_minor=8:18
+BALANCE_CHECK users=50000 expected_final_balance=181 status=passed
+CASE_DONE case=old-10-pct status=passed
+CASE_RESULT case=old-10-pct requests=10000000 fresh=9000000 old=1000000 old_hits=500000 old_misses=500000 fresh_rps=53893.169 old_rps=5988.130 client_wall_s=166.997045 settled_wall_s=167.002607 watermark=1790758930992956 watermark_updates=168 fenced_admissions=0 fence_wait_ns=0 fence_contention_observed=false balance_check_users=50000 expected_final_balance=181 projection_seq=9050000 cpu_s=223.225297 cpu_cores=1.3367 device=sdb2 rocks_wal_bytes=1350331608 peak_rss_bytes=1969393664 preflight_attempts=1
+RUN_COMPLETE status=passed results_csv=target/ledger-time-boundary-tokio-trials/run-1790758172820073645-results.csv
