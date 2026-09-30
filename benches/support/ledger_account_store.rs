@@ -54,6 +54,22 @@ pub struct TransactionResult {
     pub seq: u64,
 }
 
+/// A decoded, committed ledger record returned in sequence order.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct LedgerRecord {
+    pub request: Transaction,
+    pub result: TransactionResult,
+}
+
+/// Records read by one contiguous ledger-range request.
+#[derive(Clone, Debug)]
+pub struct LedgerRangeRead {
+    pub records: Vec<LedgerRecord>,
+    /// Time spent in RocksDB reads and record decoding, excluding blocking-pool
+    /// queue and async dispatch time.
+    pub db_read_ns: u64,
+}
+
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum Reply {
     Transaction {
@@ -554,6 +570,86 @@ impl AccountStore {
 
     pub fn latest_seq(&self) -> u64 {
         self.inner.state.lock().expect("state mutex poisoned").seq
+    }
+
+    /// Read up to `max_records` committed records beginning at `first_seq`.
+    ///
+    /// The returned records are always contiguous and ordered. A missing,
+    /// malformed, or sequence-mismatched record is an error. RocksDB calls and
+    /// decoding run on Tokio's blocking pool so this method does not block a
+    /// runtime worker thread.
+    pub async fn read_ledger_range(
+        &self,
+        first_seq: u64,
+        max_records: usize,
+    ) -> Result<LedgerRangeRead, String> {
+        if first_seq == 0 {
+            return Err("ledger sequence numbers begin at one".to_owned());
+        }
+        if max_records == 0 {
+            return Ok(LedgerRangeRead {
+                records: Vec::new(),
+                db_read_ns: 0,
+            });
+        }
+        let db = Arc::clone(&self.inner.db);
+        let keyspace = self.inner.keyspace.clone();
+        tokio::task::spawn_blocking(move || {
+            let started = Instant::now();
+            let latest_seq = db
+                .get(keyspace.latest_seq())
+                .map_err(db_error("read latest sequence for ledger range"))?
+                .ok_or_else(|| "latest sequence metadata is missing".to_owned())
+                .and_then(|bytes| decode_u64(&bytes, "latest sequence"))?;
+            let record_count = if first_seq > latest_seq {
+                0
+            } else {
+                latest_seq
+                    .checked_sub(first_seq)
+                    .and_then(|distance| distance.checked_add(1))
+                    .ok_or_else(|| "ledger range length overflow".to_owned())?
+                    .min(u64::try_from(max_records).unwrap_or(u64::MAX))
+            };
+            let count = usize::try_from(record_count)
+                .map_err(|_| "ledger range length does not fit memory address space".to_owned())?;
+            let sequences = (0..count)
+                .map(|offset| {
+                    first_seq
+                        .checked_add(offset as u64)
+                        .ok_or_else(|| "ledger range sequence overflow".to_owned())
+                })
+                .collect::<Result<Vec<_>, _>>()?;
+            let keys: Vec<_> = sequences
+                .iter()
+                .copied()
+                .map(|seq| keyspace.ledger(seq))
+                .collect();
+            let values = db.multi_get(keys.iter());
+            let mut records = Vec::with_capacity(count);
+            for (seq, value) in sequences.into_iter().zip(values) {
+                let bytes = value
+                    .map_err(db_error("read ledger range"))?
+                    .ok_or_else(|| format!("ledger sequence {seq} is missing"))?;
+                let stored = decode_transaction(&bytes)
+                    .map_err(|error| format!("ledger sequence {seq} is corrupt: {error}"))?;
+                if stored.result.seq != seq {
+                    return Err(format!(
+                        "ledger key sequence {seq} contains sequence {}",
+                        stored.result.seq
+                    ));
+                }
+                records.push(LedgerRecord {
+                    request: stored.request,
+                    result: stored.result,
+                });
+            }
+            Ok(LedgerRangeRead {
+                records,
+                db_read_ns: nanos(started.elapsed()),
+            })
+        })
+        .await
+        .map_err(|error| format!("ledger range worker failed: {error}"))?
     }
 
     pub fn all_balances(&self) -> Vec<(u64, u64)> {
@@ -1968,5 +2064,144 @@ mod tests {
                 .await
                 .is_err()
         );
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 3)]
+    async fn ledger_range_is_contiguous_and_respects_shard_namespace() {
+        let directory = TestDb::new("ledger-range");
+        let store = AccountStore::open(directory.path(), 1, BalanceMode::Checkpoint, 100)
+            .await
+            .unwrap();
+        store
+            .handle_batch(vec![
+                txn(0, 1, 1, Operation::Credit, 1, None),
+                txn(0, 2, 2, Operation::Credit, 2, None),
+                txn(0, 3, 3, Operation::Credit, 3, None),
+            ])
+            .await
+            .unwrap();
+        let middle = store.read_ledger_range(2, 8).await.unwrap();
+        assert_eq!(
+            middle
+                .records
+                .iter()
+                .map(|record| record.result.seq)
+                .collect::<Vec<_>>(),
+            [2, 3]
+        );
+        assert!(
+            store
+                .read_ledger_range(4, 2)
+                .await
+                .unwrap()
+                .records
+                .is_empty()
+        );
+        assert!(
+            store
+                .read_ledger_range(1, 0)
+                .await
+                .unwrap()
+                .records
+                .is_empty()
+        );
+        assert!(store.read_ledger_range(0, 1).await.is_err());
+
+        let shared_db = Arc::clone(&store.inner.db);
+        let options = Arc::clone(&store.inner.options);
+        let shard = AccountStore::open_on_database(
+            shared_db,
+            options,
+            vec![0],
+            23,
+            BalanceMode::Checkpoint,
+            100,
+        )
+        .await
+        .unwrap();
+        shard
+            .handle_batch(vec![txn(0, 1, 1, Operation::Credit, 17, None)])
+            .await
+            .unwrap();
+        let namespaced = shard.read_ledger_range(1, 4).await.unwrap();
+        assert_eq!(namespaced.records.len(), 1);
+        assert_eq!(namespaced.records[0].request.amount, 17);
+        assert_eq!(shard.namespace_id(), Some(23));
+        shard.shutdown().await.unwrap();
+        store.shutdown().await.unwrap();
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 3)]
+    async fn ledger_range_fails_on_missing_corrupt_and_mismatched_records() {
+        let missing_directory = TestDb::new("ledger-range-missing");
+        let missing = AccountStore::open(missing_directory.path(), 1, BalanceMode::PerBatch, 100)
+            .await
+            .unwrap();
+        missing
+            .handle_batch(vec![
+                txn(0, 1, 1, Operation::Credit, 1, None),
+                txn(0, 2, 2, Operation::Credit, 2, None),
+            ])
+            .await
+            .unwrap();
+        missing
+            .inner
+            .db
+            .delete(missing.inner.keyspace.ledger(2))
+            .unwrap();
+        assert!(
+            missing
+                .read_ledger_range(1, 2)
+                .await
+                .unwrap_err()
+                .contains("ledger sequence 2 is missing")
+        );
+        missing.shutdown().await.unwrap();
+
+        let corrupt_directory = TestDb::new("ledger-range-corrupt");
+        let corrupt = AccountStore::open(corrupt_directory.path(), 1, BalanceMode::PerBatch, 100)
+            .await
+            .unwrap();
+        corrupt
+            .handle_batch(vec![txn(0, 1, 1, Operation::Credit, 1, None)])
+            .await
+            .unwrap();
+        let original = corrupt
+            .inner
+            .db
+            .get(corrupt.inner.keyspace.ledger(1))
+            .unwrap()
+            .unwrap();
+        corrupt
+            .inner
+            .db
+            .put(corrupt.inner.keyspace.ledger(1), [0_u8])
+            .unwrap();
+        assert!(
+            corrupt
+                .read_ledger_range(1, 1)
+                .await
+                .unwrap_err()
+                .contains("ledger sequence 1 is corrupt")
+        );
+
+        let mut decoded = decode_transaction(&original).unwrap();
+        decoded.result.seq = 2;
+        corrupt
+            .inner
+            .db
+            .put(
+                corrupt.inner.keyspace.ledger(1),
+                encode_transaction(&decoded),
+            )
+            .unwrap();
+        assert!(
+            corrupt
+                .read_ledger_range(1, 1)
+                .await
+                .unwrap_err()
+                .contains("ledger key sequence 1 contains sequence 2")
+        );
+        corrupt.shutdown().await.unwrap();
     }
 }
