@@ -169,6 +169,7 @@ const BALANCE_PREFIX: u8 = b'B';
 const REFUND_PREFIX: u8 = b'R';
 const CHECKPOINT_PREFIX: u8 = b'C';
 const KEY_LATEST_SEQ: &[u8] = b"M:latest-seq";
+const KEY_PROJECTED_BEFORE: &[u8] = b"M:projected-before";
 const KEY_CHECKPOINT_MANIFEST: &[u8] = b"M:account-balance-checkpoint";
 const CHECKPOINT_CHUNK_ACCOUNTS: usize = 1_024;
 const CHECKPOINT_QUEUE_CAPACITY: usize = 2;
@@ -570,6 +571,41 @@ impl AccountStore {
 
     pub fn latest_seq(&self) -> u64 {
         self.inner.state.lock().expect("state mutex poisoned").seq
+    }
+
+    /// Persist the transaction-time boundary only after the caller has
+    /// confirmed that every committed sequence through its target is
+    /// projected. The key uses the same single-shard namespace as the ledger,
+    /// and RocksDB's WAL is synchronously written before this method returns.
+    ///
+    /// This benchmark's historical destination is in memory, so callers must
+    /// not restore this value as an active boundary after a process restart.
+    pub async fn persist_projected_before(&self, timestamp: u64) -> Result<(), String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.key(KEY_PROJECTED_BEFORE);
+        tokio::task::spawn_blocking(move || {
+            let mut batch = WriteBatch::default();
+            batch.put(key, timestamp.to_be_bytes());
+            db.write_opt(batch, &sync_write_options())
+                .map_err(db_error("synchronously persist projected-before boundary"))
+        })
+        .await
+        .map_err(|error| format!("projected-before metadata worker failed: {error}"))?
+    }
+
+    /// Read the persisted boundary for verification and reporting. It is not
+    /// used to initialize request routing because projection data is volatile.
+    pub async fn persisted_projected_before(&self) -> Result<Option<u64>, String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.key(KEY_PROJECTED_BEFORE);
+        tokio::task::spawn_blocking(move || {
+            db.get(key)
+                .map_err(db_error("read persisted projected-before boundary"))?
+                .map(|bytes| decode_u64(&bytes, "projected-before boundary"))
+                .transpose()
+        })
+        .await
+        .map_err(|error| format!("projected-before metadata read worker failed: {error}"))?
     }
 
     /// Read up to `max_records` committed records beginning at `first_seq`.

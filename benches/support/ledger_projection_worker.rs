@@ -15,6 +15,14 @@ struct ProjectedTransaction {
     sequence: u64,
 }
 
+/// The result of looking up an idempotency key in the historical projection.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum HistoricalLookup {
+    ExactReplay(crate::ledger_account_store::TransactionResult),
+    Conflict,
+    NotFound,
+}
+
 impl ProjectedTransaction {
     fn from_record(record: &LedgerRecord) -> Self {
         Self {
@@ -29,6 +37,20 @@ impl ProjectedTransaction {
 
     fn matches(&self, record: &LedgerRecord) -> bool {
         self == &Self::from_record(record)
+    }
+
+    fn matches_request(&self, request: &crate::ledger_account_store::Transaction) -> bool {
+        self.operation == request.operation
+            && self.amount == request.amount
+            && self.refund_of == request.refund_of
+    }
+
+    fn result(&self) -> crate::ledger_account_store::TransactionResult {
+        crate::ledger_account_store::TransactionResult {
+            status: self.status,
+            balance: self.balance,
+            seq: self.sequence,
+        }
     }
 }
 
@@ -157,6 +179,28 @@ impl MockProjectionStore {
             .by_key
             .contains_key(&key)
     }
+
+    /// Safely resolve an old transaction idempotency key.
+    ///
+    /// A missing key is a normal miss. A present key with a different request
+    /// payload is a conflict, and poisoned destination state is an error.
+    pub fn lookup_transaction(
+        &self,
+        request: &crate::ledger_account_store::Transaction,
+    ) -> Result<HistoricalLookup, String> {
+        let state = self
+            .state
+            .lock()
+            .map_err(|_| "mock projection mutex poisoned during lookup".to_owned())?;
+        let Some(stored) = state.by_key.get(&request.key) else {
+            return Ok(HistoricalLookup::NotFound);
+        };
+        if stored.matches_request(request) {
+            Ok(HistoricalLookup::ExactReplay(stored.result()))
+        } else {
+            Ok(HistoricalLookup::Conflict)
+        }
+    }
 }
 
 #[cfg(test)]
@@ -221,5 +265,28 @@ mod tests {
         assert!(error.contains("sequence gap"));
         assert_eq!(store.progress(), 0);
         assert!(!store.contains(record(2, 2, 5).request.key));
+    }
+
+    #[test]
+    fn historical_lookup_distinguishes_exact_replay_conflict_and_miss() {
+        let store = MockProjectionStore::default();
+        let original = record(1, 1, 3);
+        store.apply_batch(std::slice::from_ref(&original)).unwrap();
+
+        assert_eq!(
+            store.lookup_transaction(&original.request).unwrap(),
+            HistoricalLookup::ExactReplay(original.result)
+        );
+        let mut conflict = original.request.clone();
+        conflict.amount += 1;
+        assert_eq!(
+            store.lookup_transaction(&conflict).unwrap(),
+            HistoricalLookup::Conflict
+        );
+        let miss = record(2, 99, 7);
+        assert_eq!(
+            store.lookup_transaction(&miss.request).unwrap(),
+            HistoricalLookup::NotFound
+        );
     }
 }
