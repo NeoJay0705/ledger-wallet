@@ -11,7 +11,7 @@ use rocksdb::{
 };
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, RwLock};
 use std::time::{Duration, Instant};
 use tokio::sync::{Mutex as AsyncMutex, mpsc};
 
@@ -107,6 +107,43 @@ pub struct MetricsSnapshot {
     pub checkpoint_duration_ns: u64,
     pub checkpoint_latest_seq: u64,
     pub checkpoint_snapshots_enqueued: u64,
+    pub projection_progress_sync_ns: u64,
+    pub gc_scan_ns: u64,
+    pub gc_delete_ns: u64,
+    pub gc_write_ns: u64,
+    pub gc_records_scanned: u64,
+    pub gc_records_deleted: u64,
+    pub gc_bytes_deleted: u64,
+}
+
+/// Minimal projected debit state needed to validate refunds after source GC.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct HistoricalDebit {
+    pub amount: u64,
+    pub already_refunded: bool,
+}
+
+/// Read-only history interface used when an old debit or refund marker has
+/// been removed from the source ledger. Implementations must reflect the
+/// historical destination's durable-apply contract.
+pub trait RefundHistory: Send + Sync {
+    fn lookup_debit(&self, key: TransactionKey) -> Result<Option<HistoricalDebit>, String>;
+
+    /// Sequence reported by the external destination under the benchmark's
+    /// successful-apply-is-durable contract.
+    fn projection_progress(&self) -> Result<u64, String>;
+}
+
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct GcStepOutcome {
+    pub scanned: u64,
+    pub deleted: u64,
+    pub gc_prefix_seq: u64,
+    pub blocked_at_seq: Option<u64>,
+    pub scan_ns: u64,
+    pub delete_ns: u64,
+    pub write_ns: u64,
+    pub bytes_deleted: u64,
 }
 
 struct State {
@@ -127,6 +164,13 @@ struct Inner {
     checkpoint_worker: Mutex<Option<tokio::task::JoinHandle<Result<(), String>>>>,
     checkpoint_failure: Arc<Mutex<Option<String>>>,
     metrics: Arc<Mutex<MetricsSnapshot>>,
+    refund_history: RwLock<Option<Arc<dyn RefundHistory>>>,
+    projected_seq: std::sync::atomic::AtomicU64,
+    gc_prefix_seq: std::sync::atomic::AtomicU64,
+    #[cfg(test)]
+    fail_next_progress_sync: std::sync::atomic::AtomicBool,
+    #[cfg(test)]
+    fail_next_gc_sync: std::sync::atomic::AtomicBool,
 }
 
 enum CheckpointMessage {
@@ -152,6 +196,8 @@ struct Recovered {
     balances: Vec<u64>,
     latest_seq: u64,
     manifest: Option<Manifest>,
+    projected_seq: u64,
+    gc_prefix_seq: u64,
 }
 
 struct BatchOutcome {
@@ -170,6 +216,9 @@ const REFUND_PREFIX: u8 = b'R';
 const CHECKPOINT_PREFIX: u8 = b'C';
 const KEY_LATEST_SEQ: &[u8] = b"M:latest-seq";
 const KEY_PROJECTED_BEFORE: &[u8] = b"M:projected-before";
+const KEY_PROJECTED_SEQ: &[u8] = b"M:projected-seq";
+const KEY_PROJECTED_BEFORE_SEQ: &[u8] = b"M:projected-before-seq";
+const KEY_GC_PREFIX_SEQ: &[u8] = b"M:gc-prefix-seq";
 const KEY_CHECKPOINT_MANIFEST: &[u8] = b"M:account-balance-checkpoint";
 const CHECKPOINT_CHUNK_ACCOUNTS: usize = 1_024;
 const CHECKPOINT_QUEUE_CAPACITY: usize = 2;
@@ -368,6 +417,13 @@ impl AccountStore {
                 checkpoint_worker: Mutex::new(worker),
                 checkpoint_failure: failure,
                 metrics,
+                refund_history: RwLock::new(None),
+                projected_seq: std::sync::atomic::AtomicU64::new(recovered.projected_seq),
+                gc_prefix_seq: std::sync::atomic::AtomicU64::new(recovered.gc_prefix_seq),
+                #[cfg(test)]
+                fail_next_progress_sync: std::sync::atomic::AtomicBool::new(false),
+                #[cfg(test)]
+                fail_next_gc_sync: std::sync::atomic::AtomicBool::new(false),
             }),
         })
     }
@@ -436,6 +492,13 @@ impl AccountStore {
         let db = Arc::clone(&self.inner.db);
         let mode = self.inner.mode;
         let keyspace = self.inner.keyspace.clone();
+        let refund_history = self
+            .inner
+            .refund_history
+            .read()
+            .map_err(|_| "refund-history lock poisoned")?
+            .clone();
+        let gc_prefix_seq = self.gc_prefix_seq();
         let outcome = tokio::task::spawn_blocking(move || {
             process_batch(
                 db,
@@ -444,6 +507,8 @@ impl AccountStore {
                 starting_balances,
                 starting_seq,
                 mode,
+                refund_history,
+                gc_prefix_seq,
             )
         })
         .await
@@ -571,6 +636,357 @@ impl AccountStore {
 
     pub fn latest_seq(&self) -> u64 {
         self.inner.state.lock().expect("state mutex poisoned").seq
+    }
+
+    pub fn gc_prefix_seq(&self) -> u64 {
+        self.inner
+            .gc_prefix_seq
+            .load(std::sync::atomic::Ordering::Acquire)
+    }
+
+    pub fn set_refund_history(&self, history: Arc<dyn RefundHistory>) -> Result<(), String> {
+        *self
+            .inner
+            .refund_history
+            .write()
+            .map_err(|_| "refund-history lock poisoned".to_owned())? = Some(history);
+        Ok(())
+    }
+
+    /// Persist successful destination application before publishing progress
+    /// to another worker. The destination apply must be idempotent because a
+    /// process can stop after apply but before this source-side WAL sync.
+    pub async fn persist_projection_progress(&self, sequence: u64) -> Result<(), String> {
+        let db = Arc::clone(&self.inner.db);
+        let keyspace = self.inner.keyspace.clone();
+        #[cfg(test)]
+        let fail = self
+            .inner
+            .fail_next_progress_sync
+            .swap(false, std::sync::atomic::Ordering::AcqRel);
+        #[cfg(not(test))]
+        let fail = false;
+        let started = Instant::now();
+        tokio::task::spawn_blocking(move || {
+            if fail {
+                return Err("injected projected-progress sync failure".to_owned());
+            }
+            let latest = db
+                .get(keyspace.latest_seq())
+                .map_err(db_error("read latest sequence for projection progress"))?
+                .ok_or_else(|| "latest sequence metadata is missing".to_owned())
+                .and_then(|bytes| decode_u64(&bytes, "latest sequence"))?;
+            if sequence > latest {
+                return Err(format!(
+                    "projected sequence {sequence} is ahead of latest sequence {latest}"
+                ));
+            }
+            let key = keyspace.key(KEY_PROJECTED_SEQ);
+            let previous = db
+                .get(&key)
+                .map_err(db_error("read durable projected sequence"))?
+                .map(|bytes| decode_u64(&bytes, "projected sequence"))
+                .transpose()?
+                .unwrap_or(0);
+            if sequence < previous {
+                return Err(format!(
+                    "projected sequence cannot move backwards from {previous} to {sequence}"
+                ));
+            }
+            if sequence == previous {
+                return Ok(());
+            }
+            let mut batch = WriteBatch::default();
+            batch.put(key, sequence.to_be_bytes());
+            db.write_opt(batch, &sync_write_options())
+                .map_err(db_error("synchronously persist projected sequence"))
+        })
+        .await
+        .map_err(|error| format!("projected-progress worker failed: {error}"))??;
+        self.inner
+            .projected_seq
+            .store(sequence, std::sync::atomic::Ordering::Release);
+        self.inner
+            .metrics
+            .lock()
+            .map_err(|_| "account metrics mutex poisoned")?
+            .projection_progress_sync_ns += nanos(started.elapsed());
+        Ok(())
+    }
+
+    pub async fn durable_projection_progress(&self) -> Result<u64, String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.key(KEY_PROJECTED_SEQ);
+        tokio::task::spawn_blocking(move || {
+            db.get(key)
+                .map_err(db_error("read durable projected sequence"))?
+                .map(|bytes| decode_u64(&bytes, "projected sequence"))
+                .transpose()
+                .map(|sequence| sequence.unwrap_or(0))
+        })
+        .await
+        .map_err(|error| format!("projected-progress read worker failed: {error}"))?
+    }
+
+    pub fn projected_seq(&self) -> u64 {
+        self.inner
+            .projected_seq
+            .load(std::sync::atomic::Ordering::Acquire)
+    }
+
+    #[cfg(test)]
+    pub fn fail_next_projection_progress_sync_for_test(&self) {
+        self.inner
+            .fail_next_progress_sync
+            .store(true, std::sync::atomic::Ordering::Release);
+    }
+
+    #[cfg(test)]
+    pub fn fail_next_gc_sync_for_test(&self) {
+        self.inner
+            .fail_next_gc_sync
+            .store(true, std::sync::atomic::Ordering::Release);
+    }
+
+    #[cfg(test)]
+    pub async fn delete_ledger_sequence_for_test(&self, sequence: u64) -> Result<(), String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.ledger(sequence);
+        tokio::task::spawn_blocking(move || {
+            db.delete(key)
+                .map_err(db_error("inject missing ledger record"))
+        })
+        .await
+        .map_err(|error| format!("test corruption worker failed: {error}"))?
+    }
+
+    /// Atomically persist the routing boundary and the sequence drained before
+    /// it. The durable projection watermark must already cover that sequence.
+    pub async fn persist_projected_before_durable(
+        &self,
+        timestamp: u64,
+        target_sequence: u64,
+    ) -> Result<(), String> {
+        let db = Arc::clone(&self.inner.db);
+        let keyspace = self.inner.keyspace.clone();
+        tokio::task::spawn_blocking(move || {
+            let progress = db
+                .get(keyspace.key(KEY_PROJECTED_SEQ))
+                .map_err(db_error("read projection progress before publishing boundary"))?
+                .map(|bytes| decode_u64(&bytes, "projected sequence"))
+                .transpose()?
+                .unwrap_or(0);
+            if target_sequence > progress {
+                return Err(format!(
+                    "cannot publish boundary through sequence {target_sequence}; durable projection is {progress}"
+                ));
+            }
+            let boundary_key = keyspace.key(KEY_PROJECTED_BEFORE);
+            let sequence_key = keyspace.key(KEY_PROJECTED_BEFORE_SEQ);
+            let previous_boundary = db
+                .get(&boundary_key)
+                .map_err(db_error("read previous projected-before boundary"))?
+                .map(|bytes| decode_u64(&bytes, "projected-before boundary"))
+                .transpose()?;
+            let previous_sequence = db
+                .get(&sequence_key)
+                .map_err(db_error("read previous boundary sequence"))?
+                .map(|bytes| decode_u64(&bytes, "projected-before sequence"))
+                .transpose()?;
+            match (previous_boundary, previous_sequence) {
+                (Some(previous_boundary), Some(previous_sequence)) => {
+                    if timestamp < previous_boundary || target_sequence < previous_sequence {
+                        return Err(format!(
+                            "projected-before metadata cannot move backwards from ({previous_boundary}, {previous_sequence}) to ({timestamp}, {target_sequence})"
+                        ));
+                    }
+                }
+                (Some(previous_boundary), None) if timestamp < previous_boundary => {
+                    return Err(format!(
+                        "projected-before boundary cannot move backwards from {previous_boundary} to {timestamp}"
+                    ));
+                }
+                (None, Some(_)) => {
+                    return Err("projected-before boundary metadata is incomplete".to_owned());
+                }
+                _ => {}
+            }
+            let mut batch = WriteBatch::default();
+            batch.put(boundary_key, timestamp.to_be_bytes());
+            batch.put(sequence_key, target_sequence.to_be_bytes());
+            db.write_opt(batch, &sync_write_options())
+                .map_err(db_error("synchronously publish projected-before boundary"))
+        })
+        .await
+        .map_err(|error| format!("projected-before metadata worker failed: {error}"))?
+    }
+
+    /// Restore a boundary only when its atomic publication metadata is intact
+    /// and durable projection progress covers the sequence recorded with it.
+    pub async fn restored_projected_before(&self) -> Result<Option<(u64, u64)>, String> {
+        self.verify_projection_destination().await?;
+        let db = Arc::clone(&self.inner.db);
+        let keyspace = self.inner.keyspace.clone();
+        tokio::task::spawn_blocking(move || {
+            let boundary = db
+                .get(keyspace.key(KEY_PROJECTED_BEFORE))
+                .map_err(db_error("read persisted projected-before boundary"))?
+                .map(|bytes| decode_u64(&bytes, "projected-before boundary"))
+                .transpose()?;
+            let sequence = db
+                .get(keyspace.key(KEY_PROJECTED_BEFORE_SEQ))
+                .map_err(db_error("read persisted boundary sequence"))?
+                .map(|bytes| decode_u64(&bytes, "projected-before sequence"))
+                .transpose()?;
+            let (Some(boundary), Some(sequence)) = (boundary, sequence) else {
+                // A legacy timestamp-only boundary cannot prove the projection
+                // state needed for routing or deletion after restart.
+                return Ok(None);
+            };
+            let progress = db
+                .get(keyspace.key(KEY_PROJECTED_SEQ))
+                .map_err(db_error("read projected progress for restored boundary"))?
+                .map(|bytes| decode_u64(&bytes, "projected sequence"))
+                .transpose()?
+                .unwrap_or(0);
+            if progress < sequence {
+                return Err(format!(
+                    "persisted boundary sequence {sequence} exceeds durable projection progress {progress}"
+                ));
+            }
+            Ok(Some((boundary, sequence)))
+        })
+        .await
+        .map_err(|error| format!("projected-before recovery worker failed: {error}"))?
+    }
+
+    /// Confirm the retained historical destination covers source-side durable
+    /// progress before a caller resumes routing or GC after source reopen.
+    pub async fn verify_projection_destination(&self) -> Result<u64, String> {
+        let source_progress = self.durable_projection_progress().await?;
+        let has_boundary = self.restored_boundary_metadata_exists().await?;
+        let history = self
+            .inner
+            .refund_history
+            .read()
+            .map_err(|_| "refund-history lock poisoned")?
+            .clone();
+        let Some(history) = history else {
+            if source_progress > 0 || has_boundary {
+                return Err(format!(
+                    "source has durable projection progress {source_progress}, but historical destination is not restored"
+                ));
+            }
+            return Ok(0);
+        };
+        let destination_progress = history.projection_progress()?;
+        if destination_progress < source_progress {
+            return Err(format!(
+                "historical destination progress {destination_progress} is behind durable source projection {source_progress}"
+            ));
+        }
+        Ok(destination_progress)
+    }
+
+    async fn restored_boundary_metadata_exists(&self) -> Result<bool, String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.key(KEY_PROJECTED_BEFORE);
+        tokio::task::spawn_blocking(move || {
+            db.get(key)
+                .map(|value| value.is_some())
+                .map_err(db_error("check persisted boundary metadata"))
+        })
+        .await
+        .map_err(|error| format!("boundary metadata check worker failed: {error}"))?
+    }
+
+    /// Delete a bounded contiguous ledger prefix whose every record is older
+    /// than the durable boundary and covered by both durable progress marks.
+    /// Deletes and the new prefix watermark share one synchronous WriteBatch.
+    pub async fn collect_garbage(&self, max_records: usize) -> Result<GcStepOutcome, String> {
+        if max_records == 0 {
+            return Err("GC batch size must be positive".to_owned());
+        }
+        self.drain_checkpoints().await?;
+        let _gate = self.inner.batch_gate.lock().await;
+        self.check_checkpoint_failure()?;
+        if self
+            .inner
+            .refund_history
+            .read()
+            .map_err(|_| "refund-history lock poisoned")?
+            .is_none()
+        {
+            return Err("safe GC requires an installed historical refund lookup".to_owned());
+        }
+        self.verify_projection_destination().await?;
+        let db = Arc::clone(&self.inner.db);
+        let keyspace = self.inner.keyspace.clone();
+        let account_count = self.inner.account_ids.len();
+        let mode = self.inner.mode;
+        #[cfg(test)]
+        let fail = self
+            .inner
+            .fail_next_gc_sync
+            .swap(false, std::sync::atomic::Ordering::AcqRel);
+        #[cfg(not(test))]
+        let fail = false;
+        let outcome = tokio::task::spawn_blocking(move || {
+            collect_garbage_sync(db, keyspace, account_count, mode, max_records, fail)
+        })
+        .await
+        .map_err(|error| format!("GC worker failed: {error}"))??;
+        self.inner
+            .gc_prefix_seq
+            .store(outcome.gc_prefix_seq, std::sync::atomic::Ordering::Release);
+        let mut metrics = self
+            .inner
+            .metrics
+            .lock()
+            .map_err(|_| "account metrics mutex poisoned")?;
+        metrics.gc_scan_ns += outcome.scan_ns;
+        metrics.gc_delete_ns += outcome.delete_ns;
+        metrics.gc_write_ns += outcome.write_ns;
+        metrics.gc_records_scanned += outcome.scanned;
+        metrics.gc_records_deleted += outcome.deleted;
+        metrics.gc_bytes_deleted += outcome.bytes_deleted;
+        Ok(outcome)
+    }
+
+    pub async fn has_ledger_sequence(&self, sequence: u64) -> Result<bool, String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.ledger(sequence);
+        tokio::task::spawn_blocking(move || {
+            db.get(key)
+                .map(|value| value.is_some())
+                .map_err(db_error("check ledger sequence"))
+        })
+        .await
+        .map_err(|error| format!("ledger existence worker failed: {error}"))?
+    }
+
+    pub async fn has_transaction_index(&self, key: TransactionKey) -> Result<bool, String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.transaction(key);
+        tokio::task::spawn_blocking(move || {
+            db.get(key)
+                .map(|value| value.is_some())
+                .map_err(db_error("check transaction index"))
+        })
+        .await
+        .map_err(|error| format!("transaction-index existence worker failed: {error}"))?
+    }
+
+    pub async fn refund_marker_exists(&self, key: TransactionKey) -> Result<bool, String> {
+        let db = Arc::clone(&self.inner.db);
+        let key = self.inner.keyspace.refund(key);
+        tokio::task::spawn_blocking(move || {
+            db.get(key)
+                .map(|value| value.is_some())
+                .map_err(db_error("check refund marker"))
+        })
+        .await
+        .map_err(|error| format!("refund-marker existence worker failed: {error}"))?
     }
 
     /// Persist the transaction-time boundary only after the caller has
@@ -725,10 +1141,13 @@ impl AccountStore {
     pub async fn validate_integrity(&self) -> Result<(), String> {
         let db = Arc::clone(&self.inner.db);
         let seq = self.latest_seq();
+        let gc_prefix_seq = self.gc_prefix_seq();
         let keyspace = self.inner.keyspace.clone();
-        tokio::task::spawn_blocking(move || validate_index_and_ledger(&db, seq, &keyspace))
-            .await
-            .map_err(|error| format!("integrity scan worker failed: {error}"))?
+        tokio::task::spawn_blocking(move || {
+            validate_index_and_ledger(&db, seq, gc_prefix_seq, &keyspace)
+        })
+        .await
+        .map_err(|error| format!("integrity scan worker failed: {error}"))?
     }
 
     pub async fn shutdown(self) -> Result<(), String> {
@@ -869,12 +1288,71 @@ fn recover_database(
             0
         }
     };
+    let projected_seq = db
+        .get(keyspace.key(KEY_PROJECTED_SEQ))
+        .map_err(db_error("read durable projected sequence during recovery"))?
+        .map(|bytes| decode_u64(&bytes, "projected sequence"))
+        .transpose()?
+        .unwrap_or(0);
+    if projected_seq > latest_seq {
+        return Err(format!(
+            "durable projected sequence {projected_seq} is ahead of latest sequence {latest_seq}"
+        ));
+    }
+    let gc_prefix_seq = db
+        .get(keyspace.key(KEY_GC_PREFIX_SEQ))
+        .map_err(db_error("read GC prefix during recovery"))?
+        .map(|bytes| decode_u64(&bytes, "GC prefix sequence"))
+        .transpose()?
+        .unwrap_or(0);
+    if gc_prefix_seq > latest_seq || gc_prefix_seq > projected_seq {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds latest sequence {latest_seq} or durable projection {projected_seq}"
+        ));
+    }
+    let persisted_boundary = db
+        .get(keyspace.key(KEY_PROJECTED_BEFORE))
+        .map_err(db_error("read projected-before boundary during recovery"))?
+        .map(|bytes| decode_u64(&bytes, "projected-before boundary"))
+        .transpose()?;
+    let boundary_sequence = db
+        .get(keyspace.key(KEY_PROJECTED_BEFORE_SEQ))
+        .map_err(db_error("read projected-before sequence during recovery"))?
+        .map(|bytes| decode_u64(&bytes, "projected-before sequence"))
+        .transpose()?;
+    if boundary_sequence.is_some() && persisted_boundary.is_none() {
+        return Err("projected-before sequence exists without its boundary".to_owned());
+    }
+    if let Some(sequence) = boundary_sequence {
+        if sequence > projected_seq {
+            return Err(format!(
+                "published boundary sequence {sequence} exceeds durable projection {projected_seq}"
+            ));
+        }
+        if gc_prefix_seq > sequence {
+            return Err(format!(
+                "GC prefix {gc_prefix_seq} exceeds published boundary sequence {sequence}"
+            ));
+        }
+    } else if gc_prefix_seq > 0 {
+        return Err("GC prefix exists without verified projected-before metadata".to_owned());
+    }
     let mut balances = vec![0_u64; account_ids.len()];
     let manifest = if mode == BalanceMode::Checkpoint {
         load_checkpoint(db, account_ids, keyspace)?
     } else {
         None
     };
+    let balance_coverage = match (mode, manifest) {
+        (BalanceMode::PerBatch, _) => latest_seq,
+        (BalanceMode::Checkpoint, Some(manifest)) => manifest.seq,
+        (BalanceMode::Checkpoint, None) => 0,
+    };
+    if gc_prefix_seq > balance_coverage {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds durable balance coverage {balance_coverage}"
+        ));
+    }
     match mode {
         BalanceMode::PerBatch => {
             for (position, account) in account_ids.iter().copied().enumerate() {
@@ -900,6 +1378,11 @@ fn recover_database(
     }
     if mode == BalanceMode::Checkpoint {
         let start = manifest.map_or(0, |checkpoint| checkpoint.seq);
+        if start < gc_prefix_seq {
+            return Err(format!(
+                "checkpoint sequence {start} is behind GC prefix {gc_prefix_seq}"
+            ));
+        }
         for seq in start.saturating_add(1)..=latest_seq {
             let bytes = db
                 .get(keyspace.ledger(seq))
@@ -932,11 +1415,254 @@ fn recover_database(
         balances,
         latest_seq,
         manifest,
+        projected_seq,
+        gc_prefix_seq,
     })
 }
 
-fn validate_index_and_ledger(db: &DB, latest_seq: u64, keyspace: &Keyspace) -> Result<(), String> {
-    let seq_count = usize::try_from(latest_seq)
+fn collect_garbage_sync(
+    db: Arc<DB>,
+    keyspace: Keyspace,
+    account_count: usize,
+    mode: BalanceMode,
+    max_records: usize,
+    fail_before_sync: bool,
+) -> Result<GcStepOutcome, String> {
+    let latest_seq = db
+        .get(keyspace.latest_seq())
+        .map_err(db_error("read latest sequence for GC"))?
+        .ok_or_else(|| "latest sequence metadata is missing".to_owned())
+        .and_then(|bytes| decode_u64(&bytes, "latest sequence"))?;
+    let projected_seq = db
+        .get(keyspace.key(KEY_PROJECTED_SEQ))
+        .map_err(db_error("read durable projected sequence for GC"))?
+        .map(|bytes| decode_u64(&bytes, "projected sequence"))
+        .transpose()?
+        .unwrap_or(0);
+    if projected_seq > latest_seq {
+        return Err(format!(
+            "durable projected sequence {projected_seq} is ahead of latest sequence {latest_seq}"
+        ));
+    }
+    let prefix_key = keyspace.key(KEY_GC_PREFIX_SEQ);
+    let gc_prefix_seq = db
+        .get(&prefix_key)
+        .map_err(db_error("read GC prefix"))?
+        .map(|bytes| decode_u64(&bytes, "GC prefix sequence"))
+        .transpose()?
+        .unwrap_or(0);
+    let Some(boundary_bytes) = db
+        .get(keyspace.key(KEY_PROJECTED_BEFORE))
+        .map_err(db_error("read published boundary for GC"))?
+    else {
+        if gc_prefix_seq > 0 {
+            return Err("GC prefix exists without a published boundary".to_owned());
+        }
+        return Ok(GcStepOutcome::default());
+    };
+    let boundary = decode_u64(&boundary_bytes, "projected-before boundary")?;
+    let boundary_sequence = db
+        .get(keyspace.key(KEY_PROJECTED_BEFORE_SEQ))
+        .map_err(db_error("read published boundary sequence for GC"))?
+        .map(|bytes| decode_u64(&bytes, "projected-before sequence"))
+        .transpose()?
+        .ok_or_else(|| "published boundary is missing its sequence proof".to_owned())?;
+    if boundary_sequence > projected_seq {
+        return Err(format!(
+            "published boundary sequence {boundary_sequence} exceeds durable projection {projected_seq}"
+        ));
+    }
+    if gc_prefix_seq > boundary_sequence {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds published boundary sequence {boundary_sequence}"
+        ));
+    }
+    let balance_coverage = match mode {
+        BalanceMode::PerBatch => latest_seq,
+        BalanceMode::Checkpoint => {
+            let Some(bytes) = db
+                .get(keyspace.checkpoint_manifest())
+                .map_err(db_error("read checkpoint manifest for GC"))?
+            else {
+                if gc_prefix_seq > 0 {
+                    return Err("GC prefix exists without a published checkpoint".to_owned());
+                }
+                return Ok(GcStepOutcome {
+                    gc_prefix_seq,
+                    ..GcStepOutcome::default()
+                });
+            };
+            let manifest = decode_manifest(&bytes)
+                .map_err(|error| format!("published checkpoint manifest is corrupt: {error}"))?;
+            let expected_chunks = account_count.div_ceil(CHECKPOINT_CHUNK_ACCOUNTS);
+            if manifest.users != account_count as u64
+                || manifest.chunks as usize != expected_chunks
+                || manifest.seq > latest_seq
+            {
+                return Err("published checkpoint manifest is invalid for GC".to_owned());
+            }
+            manifest.seq
+        }
+    };
+    if gc_prefix_seq > latest_seq {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds latest sequence {latest_seq}"
+        ));
+    }
+    if balance_coverage > latest_seq {
+        return Err(format!(
+            "durable balance coverage {balance_coverage} exceeds latest sequence {latest_seq}"
+        ));
+    }
+    if gc_prefix_seq > balance_coverage || gc_prefix_seq > projected_seq {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds durable projected/balance coverage ({projected_seq}, {balance_coverage})"
+        ));
+    }
+    let safe_sequence = latest_seq
+        .min(projected_seq)
+        .min(balance_coverage)
+        .min(boundary_sequence);
+    if gc_prefix_seq > safe_sequence {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds current safe sequence {safe_sequence}"
+        ));
+    }
+    if gc_prefix_seq == safe_sequence {
+        return Ok(GcStepOutcome {
+            gc_prefix_seq,
+            ..GcStepOutcome::default()
+        });
+    }
+
+    let scan_started = Instant::now();
+    let scan_end = safe_sequence.min(
+        gc_prefix_seq
+            .checked_add(u64::try_from(max_records).unwrap_or(u64::MAX))
+            .ok_or_else(|| "GC sequence range overflow".to_owned())?,
+    );
+    let mut batch = WriteBatch::default();
+    let mut scanned = 0_u64;
+    let mut deleted = 0_u64;
+    let mut bytes_deleted = 0_u64;
+    let mut next_prefix = gc_prefix_seq;
+    let mut blocked_at_seq = None;
+    let mut delete_ns = 0_u64;
+    for sequence in gc_prefix_seq.saturating_add(1)..=scan_end {
+        let ledger_key = keyspace.ledger(sequence);
+        let encoded = db
+            .get(&ledger_key)
+            .map_err(db_error("read candidate ledger record for GC"))?
+            .ok_or_else(|| format!("ledger sequence {sequence} is missing before GC prefix"))?;
+        let record = decode_transaction(&encoded)
+            .map_err(|error| format!("ledger sequence {sequence} is corrupt during GC: {error}"))?;
+        if record.result.seq != sequence {
+            return Err(format!(
+                "ledger key sequence {sequence} contains sequence {} during GC",
+                record.result.seq
+            ));
+        }
+        scanned += 1;
+        if sequence > projected_seq
+            || sequence > balance_coverage
+            || sequence > boundary_sequence
+            || record.request.key.transaction_at >= boundary
+        {
+            blocked_at_seq = Some(sequence);
+            break;
+        }
+        let transaction_key = keyspace.transaction(record.request.key);
+        let indexed = db
+            .get(&transaction_key)
+            .map_err(db_error("read transaction index record for GC"))?
+            .ok_or_else(|| {
+                format!("transaction index for ledger sequence {sequence} is missing")
+            })?;
+        if indexed.as_slice() != encoded.as_slice() {
+            return Err(format!(
+                "transaction index differs from ledger sequence {sequence} during GC"
+            ));
+        }
+        let refund_marker = if record.request.operation == Operation::Refund
+            && record.result.status == TransactionStatus::Applied
+        {
+            let target = record
+                .request
+                .refund_of
+                .ok_or_else(|| format!("applied refund at sequence {sequence} has no target"))?;
+            let marker_key = keyspace.refund(target);
+            let marker_value = db
+                .get(&marker_key)
+                .map_err(db_error("read applied refund marker for GC"))?
+                .ok_or_else(|| {
+                    format!("applied refund at sequence {sequence} has no refund marker")
+                })?;
+            if marker_value.as_slice() != transaction_key.as_slice() {
+                return Err(format!(
+                    "applied refund marker does not point to sequence {sequence}"
+                ));
+            }
+            Some((marker_key, marker_value.len()))
+        } else {
+            None
+        };
+        let delete_started = Instant::now();
+        if let Some((marker_key, marker_value_len)) = refund_marker {
+            batch.delete(marker_key);
+            bytes_deleted =
+                bytes_deleted.saturating_add(u64::try_from(marker_value_len).unwrap_or(u64::MAX));
+        }
+        batch.delete(&ledger_key);
+        batch.delete(&transaction_key);
+        bytes_deleted = bytes_deleted
+            .saturating_add(u64::try_from(ledger_key.len()).unwrap_or(u64::MAX))
+            .saturating_add(u64::try_from(transaction_key.len()).unwrap_or(u64::MAX))
+            .saturating_add(
+                u64::try_from(encoded.len())
+                    .unwrap_or(u64::MAX)
+                    .saturating_mul(2),
+            );
+        deleted += 1;
+        next_prefix = sequence;
+        delete_ns = delete_ns.saturating_add(nanos(delete_started.elapsed()));
+    }
+    let scan_ns = nanos(scan_started.elapsed()).saturating_sub(delete_ns);
+    let mut write_ns = 0;
+    if deleted > 0 {
+        batch.put(&prefix_key, next_prefix.to_be_bytes());
+        if fail_before_sync {
+            return Err("injected GC sync failure before atomic batch write".to_owned());
+        }
+        let write_started = Instant::now();
+        db.write_opt(batch, &sync_write_options())
+            .map_err(db_error("synchronously commit ledger GC batch"))?;
+        write_ns = nanos(write_started.elapsed());
+    }
+    Ok(GcStepOutcome {
+        scanned,
+        deleted,
+        gc_prefix_seq: next_prefix,
+        blocked_at_seq,
+        scan_ns,
+        delete_ns,
+        write_ns,
+        bytes_deleted,
+    })
+}
+
+fn validate_index_and_ledger(
+    db: &DB,
+    latest_seq: u64,
+    gc_prefix_seq: u64,
+    keyspace: &Keyspace,
+) -> Result<(), String> {
+    if gc_prefix_seq > latest_seq {
+        return Err(format!(
+            "GC prefix {gc_prefix_seq} exceeds latest sequence {latest_seq}"
+        ));
+    }
+    let retained_count = latest_seq - gc_prefix_seq;
+    let seq_count = usize::try_from(retained_count)
         .map_err(|_| "latest sequence does not fit memory address space".to_owned())?;
     let mut indexed_seq = vec![false; seq_count];
     let mut index_count = 0_u64;
@@ -952,10 +1678,16 @@ fn validate_index_and_ledger(db: &DB, latest_seq: u64, keyspace: &Keyspace) -> R
         if key.as_ref() != keyspace.transaction(record.request.key).as_slice() {
             return Err("transaction index key does not match its stored request".to_owned());
         }
+        if record.result.seq <= gc_prefix_seq {
+            return Err(format!(
+                "transaction index retains GC'd sequence {} at or below prefix {gc_prefix_seq}",
+                record.result.seq
+            ));
+        }
         let seq_index = record
             .result
             .seq
-            .checked_sub(1)
+            .checked_sub(gc_prefix_seq + 1)
             .ok_or_else(|| "transaction index contains sequence zero".to_owned())?;
         let seq_index = usize::try_from(seq_index)
             .map_err(|_| "transaction sequence does not fit memory address space".to_owned())?;
@@ -980,12 +1712,12 @@ fn validate_index_and_ledger(db: &DB, latest_seq: u64, keyspace: &Keyspace) -> R
     if !ledger_keys.is_empty() {
         validate_index_ledger_chunk(db, &ledger_keys, &indexed_values, keyspace)?;
     }
-    if index_count != latest_seq || indexed_seq.iter().any(|present| !present) {
+    if index_count != retained_count || indexed_seq.iter().any(|present| !present) {
         return Err(format!(
-            "transaction index has {index_count} records for latest sequence {latest_seq}"
+            "transaction index has {index_count} retained records for latest sequence {latest_seq} and GC prefix {gc_prefix_seq}"
         ));
     }
-    let mut expected_seq = 1_u64;
+    let mut expected_seq = gc_prefix_seq.saturating_add(1);
     let start_ledger_key = keyspace.key(&[LEDGER_PREFIX]);
     for entry in db.iterator(IteratorMode::From(&start_ledger_key, DbDirection::Forward)) {
         let (key, value) = entry.map_err(db_error("scan ledger"))?;
@@ -1007,7 +1739,7 @@ fn validate_index_and_ledger(db: &DB, latest_seq: u64, keyspace: &Keyspace) -> R
     }
     if expected_seq.saturating_sub(1) != latest_seq {
         return Err(format!(
-            "ledger has {} records for latest sequence {latest_seq}",
+            "ledger has {} retained records for latest sequence {latest_seq} and GC prefix {gc_prefix_seq}",
             expected_seq.saturating_sub(1)
         ));
     }
@@ -1053,6 +1785,8 @@ fn process_batch(
     mut balances: HashMap<u64, u64>,
     starting_seq: u64,
     mode: BalanceMode,
+    refund_history: Option<Arc<dyn RefundHistory>>,
+    gc_prefix_seq: u64,
 ) -> Result<BatchOutcome, String> {
     let build_started = Instant::now();
     let mut final_seq = starting_seq;
@@ -1131,6 +1865,8 @@ fn process_batch(
                         &staged,
                         &transaction,
                         &staged_refunds,
+                        refund_history.as_deref(),
+                        gc_prefix_seq,
                     )? {
                         RefundTarget::Invalid => TransactionStatus::InvalidRefund,
                         RefundTarget::Used => TransactionStatus::RefundAlreadyUsed,
@@ -1222,6 +1958,8 @@ fn resolve_refund_target(
     staged: &HashMap<TransactionKey, StoredTransaction>,
     transaction: &Transaction,
     staged_refunds: &HashSet<TransactionKey>,
+    refund_history: Option<&dyn RefundHistory>,
+    gc_prefix_seq: u64,
 ) -> Result<RefundTarget, String> {
     let Some(refund_key_value) = transaction.refund_of else {
         return Ok(RefundTarget::Invalid);
@@ -1229,33 +1967,63 @@ fn resolve_refund_target(
     if refund_key_value.account_id != transaction.key.account_id {
         return Ok(RefundTarget::Invalid);
     }
-    let prior = if let Some(record) = staged.get(&refund_key_value) {
-        Some(record.clone())
-    } else {
-        db.get(keyspace.transaction(refund_key_value))
-            .map_err(db_error("read refund target index"))?
-            .map(|bytes| decode_transaction(&bytes))
-            .transpose()?
-    };
-    let Some(prior) = prior else {
-        return Ok(RefundTarget::Invalid);
-    };
-    if prior.request.operation != Operation::Debit
-        || prior.result.status != TransactionStatus::Applied
-        || prior.request.key.account_id != transaction.key.account_id
-        || prior.request.amount != transaction.amount
-    {
-        return Ok(RefundTarget::Invalid);
+    if let Some(prior) = staged.get(&refund_key_value) {
+        if prior.request.operation != Operation::Debit
+            || prior.result.status != TransactionStatus::Applied
+            || prior.request.amount != transaction.amount
+        {
+            return Ok(RefundTarget::Invalid);
+        }
+        if staged_refunds.contains(&refund_key_value) {
+            return Ok(RefundTarget::Used);
+        }
+        return Ok(RefundTarget::Valid(prior.request.amount));
     }
-    if staged_refunds.contains(&refund_key_value)
-        || db
+    let local_record = db
+        .get(keyspace.transaction(refund_key_value))
+        .map_err(db_error("read refund target index"))?
+        .map(|bytes| decode_transaction(&bytes))
+        .transpose()?;
+    if let Some(prior) = local_record.as_ref() {
+        if prior.request.operation != Operation::Debit
+            || prior.result.status != TransactionStatus::Applied
+            || prior.request.key.account_id != transaction.key.account_id
+            || prior.request.amount != transaction.amount
+        {
+            return Ok(RefundTarget::Invalid);
+        }
+        if db
             .get(keyspace.refund(refund_key_value))
             .map_err(db_error("read refund marker"))?
             .is_some()
+        {
+            return Ok(RefundTarget::Used);
+        }
+        return Ok(RefundTarget::Valid(prior.request.amount));
+    }
+    if gc_prefix_seq == 0 {
+        return Ok(RefundTarget::Invalid);
+    }
+    let history = refund_history.ok_or_else(|| {
+        format!(
+            "refund target {refund_key_value:?} may be GC'd, but historical lookup is unavailable"
+        )
+    })?;
+    let Some(historical) = history.lookup_debit(refund_key_value)? else {
+        return Ok(RefundTarget::Invalid);
+    };
+    if historical.amount != transaction.amount {
+        return Ok(RefundTarget::Invalid);
+    }
+    if db
+        .get(keyspace.refund(refund_key_value))
+        .map_err(db_error("read refund marker"))?
+        .is_some()
+        || historical.already_refunded
     {
         return Ok(RefundTarget::Used);
     }
-    Ok(RefundTarget::Valid(prior.request.amount))
+    Ok(RefundTarget::Valid(historical.amount))
 }
 
 async fn checkpoint_worker(
