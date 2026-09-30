@@ -45,6 +45,10 @@ name = "ledger_request_batch_tokio"
 harness = false
 
 [[bench]]
+name = "ledger_safe_gc_tokio"
+harness = false
+
+[[bench]]
 name = "wal_sync"
 harness = false
 

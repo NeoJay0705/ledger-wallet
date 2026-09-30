@@ -1,8 +1,8 @@
 //! In-memory destination used to measure ledger catch-up without a second
 //! storage engine obscuring the source-read and projector costs.
 
-use crate::ledger_account_store::{LedgerRecord, TransactionKey};
-use std::collections::HashMap;
+use crate::ledger_account_store::{HistoricalDebit, LedgerRecord, RefundHistory, TransactionKey};
+use std::collections::{HashMap, HashSet};
 use std::sync::Mutex;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -58,6 +58,7 @@ impl ProjectedTransaction {
 struct State {
     latest_sequence: u64,
     by_key: HashMap<TransactionKey, ProjectedTransaction>,
+    refunded_targets: HashSet<TransactionKey>,
 }
 
 /// Atomic, idempotent mock projection destination.
@@ -79,6 +80,7 @@ impl MockProjectionStore {
             state: Mutex::new(State {
                 latest_sequence: 0,
                 by_key,
+                refunded_targets: HashSet::new(),
             }),
         })
     }
@@ -118,8 +120,18 @@ impl MockProjectionStore {
             .checked_add(1)
             .ok_or_else(|| "projection sequence overflow".to_owned())?;
         let mut staged = HashMap::<TransactionKey, ProjectedTransaction>::new();
+        let mut staged_refund_targets = Vec::new();
         for record in records {
             let projected = ProjectedTransaction::from_record(record);
+            if record.request.operation == crate::ledger_account_store::Operation::Refund
+                && record.result.status == crate::ledger_account_store::TransactionStatus::Applied
+            {
+                let target = record
+                    .request
+                    .refund_of
+                    .ok_or_else(|| "applied projected refund has no refund target".to_owned())?;
+                staged_refund_targets.push(target);
+            }
             let key = record.request.key;
             if let Some(existing) = state.by_key.get(&key) {
                 if !existing.matches(record) {
@@ -157,6 +169,7 @@ impl MockProjectionStore {
         for (key, value) in staged {
             state.by_key.insert(key, value);
         }
+        state.refunded_targets.extend(staged_refund_targets);
         state.latest_sequence = state.latest_sequence.max(
             next_new_sequence
                 .checked_sub(1)
@@ -200,6 +213,34 @@ impl MockProjectionStore {
         } else {
             Ok(HistoricalLookup::Conflict)
         }
+    }
+}
+
+impl RefundHistory for MockProjectionStore {
+    fn lookup_debit(&self, key: TransactionKey) -> Result<Option<HistoricalDebit>, String> {
+        let state = self
+            .state
+            .lock()
+            .map_err(|_| "mock projection mutex poisoned during refund lookup".to_owned())?;
+        let Some(projected) = state.by_key.get(&key) else {
+            return Ok(None);
+        };
+        if projected.operation != crate::ledger_account_store::Operation::Debit
+            || projected.status != crate::ledger_account_store::TransactionStatus::Applied
+        {
+            return Ok(None);
+        }
+        Ok(Some(HistoricalDebit {
+            amount: projected.amount,
+            already_refunded: state.refunded_targets.contains(&key),
+        }))
+    }
+
+    fn projection_progress(&self) -> Result<u64, String> {
+        self.state
+            .lock()
+            .map(|state| state.latest_sequence)
+            .map_err(|_| "mock projection mutex poisoned during progress read".to_owned())
     }
 }
 

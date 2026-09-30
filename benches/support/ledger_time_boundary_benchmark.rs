@@ -1052,6 +1052,16 @@ fn metrics_delta(
             after.checkpoint_snapshots_enqueued,
             before.checkpoint_snapshots_enqueued,
         ),
+        projection_progress_sync_ns: delta(
+            after.projection_progress_sync_ns,
+            before.projection_progress_sync_ns,
+        ),
+        gc_scan_ns: delta(after.gc_scan_ns, before.gc_scan_ns),
+        gc_delete_ns: delta(after.gc_delete_ns, before.gc_delete_ns),
+        gc_write_ns: delta(after.gc_write_ns, before.gc_write_ns),
+        gc_records_scanned: delta(after.gc_records_scanned, before.gc_records_scanned),
+        gc_records_deleted: delta(after.gc_records_deleted, before.gc_records_deleted),
+        gc_bytes_deleted: delta(after.gc_bytes_deleted, before.gc_bytes_deleted),
     }
 }
 

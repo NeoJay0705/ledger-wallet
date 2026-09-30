@@ -564,6 +564,52 @@ impl WatermarkManager {
         .await
     }
 
+    /// Advance and persist a restart-safe boundary tied to the drained source
+    /// sequence. Callers must acknowledge projector progress only after its
+    /// source-side progress sync succeeds.
+    pub async fn advance_once_durable(
+        &self,
+        candidate: u64,
+        store: &AccountStore,
+    ) -> Result<bool, String> {
+        let Some(fence) = self.gate.begin_fence(candidate)? else {
+            return Ok(false);
+        };
+        let total_started = Instant::now();
+        let fence_started = Instant::now();
+        fence.wait_for_admitted_commits().await?;
+        let fence_wait_ns = elapsed_ns(fence_started.elapsed());
+        let target_sequence = store.latest_seq();
+        let projection_started = Instant::now();
+        tokio::time::timeout(
+            Duration::from_secs(300),
+            self.progress.wait_for(target_sequence),
+        )
+        .await
+        .map_err(|_| {
+            format!(
+                "projector did not reach watermark target sequence {target_sequence} within 300s"
+            )
+        })??;
+        let projection_wait_ns = elapsed_ns(projection_started.elapsed());
+        let persist_started = Instant::now();
+        store
+            .persist_projected_before_durable(candidate, target_sequence)
+            .await?;
+        let persist_ns = elapsed_ns(persist_started.elapsed());
+        fence.publish()?;
+        self.metrics.record(WatermarkSample {
+            fence_wait_ns,
+            projection_wait_ns,
+            persist_ns,
+            total_ns: elapsed_ns(total_started.elapsed()),
+            target_sequence,
+            published_watermark: candidate,
+            completed_at: Instant::now(),
+        })?;
+        Ok(true)
+    }
+
     async fn advance_with<F, Fut>(
         &self,
         candidate: u64,
@@ -646,6 +692,36 @@ impl WatermarkManager {
             // observed before the next candidate; dropping a persistence
             // future could otherwise race its spawn_blocking WAL write.
             self.advance_once(candidate, &store).await?;
+        }
+    }
+
+    pub async fn run_periodic_durable(
+        self: Arc<Self>,
+        store: AccountStore,
+        retention: Duration,
+        interval: Duration,
+        mut shutdown: watch::Receiver<bool>,
+    ) -> Result<(), String> {
+        if interval.is_zero() {
+            return Err("watermark interval must be positive".to_owned());
+        }
+        let mut ticker = tokio::time::interval(interval);
+        ticker.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+        loop {
+            if *shutdown.borrow() {
+                return Ok(());
+            }
+            tokio::select! {
+                _ = ticker.tick() => {},
+                changed = shutdown.changed() => {
+                    if changed.is_err() || *shutdown.borrow() {
+                        return Ok(());
+                    }
+                }
+            }
+            let candidate = unix_time_micros()
+                .saturating_sub(u64::try_from(retention.as_micros()).unwrap_or(u64::MAX));
+            self.advance_once_durable(candidate, &store).await?;
         }
     }
 }
