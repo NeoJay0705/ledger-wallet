@@ -1,0 +1,10 @@
+workload=credit-debit-50-50 users=50000 waves=200 requests=10000000 transactions=10000000 plan_generation_s=0.049838 checkpoint_quantity=100000 time_trigger=disabled workers=3 batch_sizes=[2048, 4096] modes=[PerBatch, Checkpoint] output_dir=target/ledger-account-store-trials/run-1790699020493837436-5993
+case_start=case-01-b2048-per-batch-r1 case=1/4
+case_result=case-01-b2048-per-batch-r1 status=passed csv_row=mode=per-batch batch=2048 requests=10000000 transactions=10000000 fg_wall_s=148.510354 all_rps=67335.373 tx_rps=67335.373 settled_wall_s=148.510907 settled_rps=67335.122 fg_cpu_s=169.579985 settled_cpu_s=169.580537 checkpoints=0 recovery_s=2.995224 integrity_s=35.352102 db_bytes=621066212
+case_start=case-02-b2048-checkpoint-r1 case=2/4
+case_result=case-02-b2048-checkpoint-r1 status=passed csv_row=mode=checkpoint batch=2048 requests=10000000 transactions=10000000 fg_wall_s=137.236090 all_rps=72867.130 tx_rps=72867.130 settled_wall_s=137.241469 settled_rps=72864.274 fg_cpu_s=154.759593 settled_cpu_s=154.767555 checkpoints=100 recovery_s=2.765176 integrity_s=24.121165 db_bytes=627572615
+case_start=case-03-b4096-per-batch-r1 case=3/4
+case_result=case-03-b4096-per-batch-r1 status=passed csv_row=mode=per-batch batch=4096 requests=10000000 transactions=10000000 fg_wall_s=142.741321 all_rps=70056.799 tx_rps=70056.799 settled_wall_s=142.741821 settled_rps=70056.553 fg_cpu_s=167.779511 settled_cpu_s=167.780010 checkpoints=0 recovery_s=0.756424 integrity_s=34.286064 db_bytes=621081932
+case_start=case-04-b4096-checkpoint-r1 case=4/4
+case_result=case-04-b4096-checkpoint-r1 status=passed csv_row=mode=checkpoint batch=4096 requests=10000000 transactions=10000000 fg_wall_s=133.227737 all_rps=75059.445 tx_rps=75059.445 settled_wall_s=133.233052 settled_rps=75056.450 fg_cpu_s=153.648818 settled_cpu_s=153.656721 checkpoints=100 recovery_s=2.627896 integrity_s=25.059183 db_bytes=627538097
+run_status=passed

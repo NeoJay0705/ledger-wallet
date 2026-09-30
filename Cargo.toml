@@ -25,6 +25,14 @@ name = "bounded_queue_request_ring_tokio"
 harness = false
 
 [[bench]]
+name = "ledger_account_store_tokio"
+harness = false
+
+[[bench]]
+name = "ledger_account_store_sharding_tokio"
+harness = false
+
+[[bench]]
 name = "ledger_request_batch_tokio"
 harness = false
 
