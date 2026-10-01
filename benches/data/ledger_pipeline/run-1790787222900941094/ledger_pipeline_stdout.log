@@ -1,0 +1,472 @@
+   Compiling ledger-wallet v0.1.0 (/home/neojhou/repos/ledger-wallet)
+warning: fields `balance_queries`, `balance_latency_ns`, and `balance_samples_ns` are never read
+   --> benches/support/ledger_account_store.rs:104:9
+    |
+100 | pub struct MetricsSnapshot {
+    |            --------------- fields in this struct
+...
+104 |     pub balance_queries: u64,
+    |         ^^^^^^^^^^^^^^^
+105 |     pub balance_latency_ns: u64,
+    |         ^^^^^^^^^^^^^^^^^^
+106 |     pub balance_samples_ns: Vec<u64>,
+    |         ^^^^^^^^^^^^^^^^^^
+    |
+    = note: `MetricsSnapshot` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `RocksDbBudget` is never constructed
+   --> benches/support/ledger_account_store.rs:238:12
+    |
+238 | pub struct RocksDbBudget {
+    |            ^^^^^^^^^^^^^
+
+warning: associated function `shard` is never used
+   --> benches/support/ledger_account_store.rs:255:8
+    |
+250 | impl Keyspace {
+    | ------------- associated function in this implementation
+...
+255 |     fn shard(shard_id: u32) -> Self {
+    |        ^^^^^
+
+warning: multiple associated items are never used
+    --> benches/support/ledger_account_store.rs:338:18
+     |
+ 313 | impl AccountStore {
+     | ----------------- associated items in this implementation
+...
+ 338 |     pub async fn open_on_database(
+     |                  ^^^^^^^^^^^^^^^^
+...
+ 441 |     pub async fn open_database_with_budget(
+     |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 451 |     pub fn account_ids(&self) -> &[u64] {
+     |            ^^^^^^^^^^^
+...
+ 455 |     pub fn namespace_id(&self) -> Option<u32> {
+     |            ^^^^^^^^^^^^
+...
+ 618 |     pub fn balance(&self, account_id: u64) -> Result<u64, String> {
+     |            ^^^^^^^
+...
+ 622 |     pub fn balance_for_request(&self, account_id: u64, request_id: u64) -> Result<u64, String> {
+     |            ^^^^^^^^^^^^^^^^^^^
+...
+ 748 |     pub fn fail_next_projection_progress_sync_for_test(&self) {
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 755 |     pub fn fail_next_gc_sync_for_test(&self) {
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 762 |     pub async fn delete_ledger_sequence_for_test(&self, sequence: u64) -> Result<(), String> {
+     |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 966 |     pub async fn has_ledger_sequence(&self, sequence: u64) -> Result<bool, String> {
+     |                  ^^^^^^^^^^^^^^^^^^^
+...
+ 978 |     pub async fn has_transaction_index(&self, key: TransactionKey) -> Result<bool, String> {
+     |                  ^^^^^^^^^^^^^^^^^^^^^
+...
+ 990 |     pub async fn refund_marker_exists(&self, key: TransactionKey) -> Result<bool, String> {
+     |                  ^^^^^^^^^^^^^^^^^^^^
+...
+1009 |     pub async fn persist_projected_before(&self, timestamp: u64) -> Result<(), String> {
+     |                  ^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1024 |     pub async fn persisted_projected_before(&self) -> Result<Option<u64>, String> {
+     |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `open_database_budgeted` is never used
+    --> benches/support/ledger_account_store.rs:1244:4
+     |
+1244 | fn open_database_budgeted(
+     |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TestDb` is never constructed
+    --> benches/support/ledger_account_store.rs:2547:12
+     |
+2547 |     struct TestDb(PathBuf);
+     |            ^^^^^^
+
+warning: associated items `new` and `path` are never used
+    --> benches/support/ledger_account_store.rs:2550:12
+     |
+2549 |     impl TestDb {
+     |     ----------- associated items in this implementation
+2550 |         fn new(label: &str) -> Self {
+     |            ^^^
+...
+2562 |         fn path(&self) -> &Path {
+     |            ^^^^
+
+warning: function `txn` is never used
+    --> benches/support/ledger_account_store.rs:2573:8
+     |
+2573 |     fn txn(
+     |        ^^^
+
+warning: function `status` is never used
+    --> benches/support/ledger_account_store.rs:2593:8
+     |
+2593 |     fn status(reply: &Reply) -> (TransactionStatus, u64, u64, bool) {
+     |        ^^^^^^
+
+warning: fields `mount_point` and `observation` are never read
+  --> benches/support/ledger_preflight.rs:34:9
+   |
+31 | pub struct PreflightReport {
+   |            --------------- fields in this struct
+...
+34 |     pub mount_point: PathBuf,
+   |         ^^^^^^^^^^^
+...
+39 |     pub observation: Duration,
+   |         ^^^^^^^^^^^
+   |
+   = note: `PreflightReport` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: function `valid_config` is never used
+   --> benches/support/ledger_preflight.rs:577:8
+    |
+577 |     fn valid_config() -> PreflightConfig {
+    |        ^^^^^^^^^^^^
+
+warning: method `contains` is never used
+   --> benches/support/ledger_projection_worker.rs:188:12
+    |
+ 73 | impl MockProjectionStore {
+    | ------------------------ method in this implementation
+...
+188 |     pub fn contains(&self, key: TransactionKey) -> bool {
+    |            ^^^^^^^^
+
+warning: function `record` is never used
+   --> benches/support/ledger_projection_worker.rs:254:8
+    |
+254 |     fn record(sequence: u64, tx_id: u64, amount: u64) -> LedgerRecord {
+    |        ^^^^^^
+
+warning: associated function `historical` is never used
+  --> benches/support/ledger_time_boundary.rs:38:8
+   |
+37 | impl GuardedReply {
+   | ----------------- associated function in this implementation
+38 |     fn historical(reply: RoutedReply) -> Self {
+   |        ^^^^^^^^^^
+
+warning: struct `GateContentionSnapshot` is never constructed
+  --> benches/support/ledger_time_boundary.rs:82:12
+   |
+82 | pub struct GateContentionSnapshot {
+   |            ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: methods `active_fence` and `contention_snapshot` are never used
+   --> benches/support/ledger_time_boundary.rs:110:12
+    |
+ 88 | impl AdmissionGate {
+    | ------------------ methods in this implementation
+...
+110 |     pub fn active_fence(&self) -> Result<Option<u64>, String> {
+    |            ^^^^^^^^^^^^
+...
+117 |     pub fn contention_snapshot(&self) -> GateContentionSnapshot {
+    |            ^^^^^^^^^^^^^^^^^^^
+
+warning: method `sequence` is never used
+   --> benches/support/ledger_time_boundary.rs:336:12
+    |
+324 | impl ProjectionProgress {
+    | ----------------------- method in this implementation
+...
+336 |     pub fn sequence(&self) -> Result<u64, String> {
+    |            ^^^^^^^^
+
+warning: struct `ProjectionBatchSample` is never constructed
+   --> benches/support/ledger_time_boundary.rs:398:12
+    |
+398 | pub struct ProjectionBatchSample {
+    |            ^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ProjectionMetrics` is never constructed
+   --> benches/support/ledger_time_boundary.rs:408:12
+    |
+408 | pub struct ProjectionMetrics {
+    |            ^^^^^^^^^^^^^^^^^
+
+warning: methods `record` and `snapshot` are never used
+   --> benches/support/ledger_time_boundary.rs:413:12
+    |
+412 | impl ProjectionMetrics {
+    | ---------------------- methods in this implementation
+413 |     pub fn record(&self, sample: ProjectionBatchSample) -> Result<(), String> {
+    |            ^^^^^^
+...
+421 |     pub fn snapshot(&self) -> Result<Vec<ProjectionBatchSample>, String> {
+    |            ^^^^^^^^
+
+warning: function `run_projector` is never used
+   --> benches/support/ledger_time_boundary.rs:429:14
+    |
+429 | pub async fn run_projector(
+    |              ^^^^^^^^^^^^^
+
+warning: methods `advance_once`, `advance_with`, and `run_periodic` are never used
+   --> benches/support/ledger_time_boundary.rs:558:18
+    |
+545 | impl WatermarkManager {
+    | --------------------- methods in this implementation
+...
+558 |     pub async fn advance_once(&self, candidate: u64, store: &AccountStore) -> Result<bool, String> {
+    |                  ^^^^^^^^^^^^
+...
+613 |     async fn advance_with<F, Fut>(
+    |              ^^^^^^^^^^^^
+...
+664 |     pub async fn run_periodic(
+    |                  ^^^^^^^^^^^^
+
+warning: function `spawn_projector` is never used
+   --> benches/support/ledger_time_boundary.rs:850:8
+    |
+850 | pub fn spawn_projector(
+    |        ^^^^^^^^^^^^^^^
+
+warning: function `wait_for_projection_with_timeout` is never used
+   --> benches/support/ledger_time_boundary.rs:881:14
+    |
+881 | pub async fn wait_for_projection_with_timeout(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `wait_until_progress` is never used
+   --> benches/support/ledger_time_boundary.rs:904:14
+    |
+904 | pub async fn wait_until_progress(
+    |              ^^^^^^^^^^^^^^^^^^^
+
+warning: static `NEXT_PATH` is never used
+   --> benches/support/ledger_time_boundary.rs:922:12
+    |
+922 |     static NEXT_PATH: AtomicU64 = AtomicU64::new(0);
+    |            ^^^^^^^^^
+
+warning: struct `TempDb` is never constructed
+   --> benches/support/ledger_time_boundary.rs:924:12
+    |
+924 |     struct TempDb(PathBuf);
+    |            ^^^^^^
+
+warning: associated function `new` is never used
+   --> benches/support/ledger_time_boundary.rs:927:12
+    |
+926 |     impl TempDb {
+    |     ----------- associated function in this implementation
+927 |         fn new(test: &str) -> Self {
+    |            ^^^
+
+warning: function `txn` is never used
+   --> benches/support/ledger_time_boundary.rs:944:8
+    |
+944 |     fn txn(account: u64, id: u64, at: u64, amount: u64) -> Transaction {
+    |        ^^^
+
+warning: method `as_str` is never used
+  --> benches/support/request_batch_queue.rs:22:12
+   |
+21 | impl FlushReason {
+   | ---------------- method in this implementation
+22 |     pub fn as_str(self) -> &'static str {
+   |            ^^^^^^
+
+warning: fields `request_started_at`, `total_time`, `batch_size`, and `flush_reason` are never read
+  --> benches/support/request_batch_queue.rs:77:9
+   |
+75 | pub struct Completed<R> {
+   |            --------- fields in this struct
+76 |     pub reply: R,
+77 |     pub request_started_at: Instant,
+   |         ^^^^^^^^^^^^^^^^^^
+78 |     pub response_observed_at: Instant,
+79 |     pub total_time: Duration,
+   |         ^^^^^^^^^^
+...
+85 |     pub batch_size: usize,
+   |         ^^^^^^^^^^
+86 |     pub flush_reason: FlushReason,
+   |         ^^^^^^^^^^^^
+
+warning: `ledger-wallet` (bench "ledger_pipeline_tokio") generated 31 warnings
+    Finished `bench` profile [optimized] target(s) in 3.87s
+     Running benches/ledger_pipeline_tokio.rs (target/release/deps/ledger_pipeline_tokio-b93622a2db1e5c79)
+CASE name=per_batch_gc_off_history_0pct users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 wall_s=293.806 settled_s=0.012 rps=34036.0 cpu_s=303.025 cpu_cores=1.031 peak_rss_bytes=1863049216 db_bytes=636131590 gc_prefix_near_client_end=0 gc_backlog_records_near_client_end=10150000 gc_prefix_after_settle=0 final_seq=10150000 watermark_updates=337 recovery_s=0.423090 integrity_s=61.381916
+CASE_IO name=per_batch_gc_off_history_0pct cpu_sample_offset_us=0 progress_sample_offset_us=8 io_sample_offset_us=183 storage_sample_offset_us=726 device=sdb2(8:18) process_rchar=47176601379 process_wchar=3812630540 process_read=4096 process_write=3994132480 device_read=98304 device_write=4639436800 device_busy_ms=102330 wal_syncs=44274 wal_bytes=1621679947 writes_with_wal=44276 flush_write_bytes=632162631 compact_read_bytes=1456459040 compact_write_bytes=1557576294 stall_us=0 projected_sync_ns=97808536708 gc_scan_ns=0 gc_delete_ns=0 gc_write_ns=0 gc_scanned=0 gc_deleted=0 gc_deleted_bytes=0
+LATENCY name=per_batch_gc_off_history_0pct stage=request.total unit=ns samples=155808 p50=1209376194 p95=1860284317 p99=6869533304
+LATENCY name=per_batch_gc_off_history_0pct stage=request.admission unit=ns samples=155808 p50=351 p95=912 p99=1393
+LATENCY name=per_batch_gc_off_history_0pct stage=request.enqueue unit=ns samples=155808 p50=60 p95=140 p99=210
+LATENCY name=per_batch_gc_off_history_0pct stage=request.queue unit=ns samples=155808 p50=1159793978 p95=1785304718 p99=6591579874
+LATENCY name=per_batch_gc_off_history_0pct stage=request.batch unit=ns samples=155808 p50=159279 p95=1094963 p99=1697763
+LATENCY name=per_batch_gc_off_history_0pct stage=request.handler unit=ns samples=155808 p50=47384224 p95=74410080 p99=260400436
+LATENCY name=per_batch_gc_off_history_0pct stage=request.response unit=ns samples=155808 p50=879990 p95=1707651 p99=2192400
+LATENCY name=per_batch_gc_off_history_0pct stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=projection.read unit=ns samples=39056 p50=280716 p95=460524 p99=581480
+LATENCY name=per_batch_gc_off_history_0pct stage=projection.apply unit=ns samples=39056 p50=144150 p95=230823 p99=387466
+LATENCY name=per_batch_gc_off_history_0pct stage=projection.progress_sync unit=ns samples=39056 p50=953367 p95=1094212 p99=8227114
+LATENCY name=per_batch_gc_off_history_0pct stage=projection.total unit=ns samples=39056 p50=1418209 p95=2400981 p99=8946904
+LATENCY name=per_batch_gc_off_history_0pct stage=gc.scan unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=gc.delete_build unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=gc.sync_write unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=gc.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=watermark.fence_wait unit=ns samples=337 p50=655408850 p95=1302643435 p99=1444249063
+LATENCY name=per_batch_gc_off_history_0pct stage=watermark.projection_wait unit=ns samples=337 p50=11081205 p95=13823796 p99=1140117889
+LATENCY name=per_batch_gc_off_history_0pct stage=watermark.persist unit=ns samples=337 p50=972343 p95=1106253 p99=2154800
+LATENCY name=per_batch_gc_off_history_0pct stage=watermark.total unit=ns samples=337 p50=672191042 p95=1313573887 p99=1643940805
+LATENCY name=per_batch_gc_off_history_0pct stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_off_history_0pct stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=per_batch_gc_off_history_0pct projection_batches=39056 projection_records=9998336 gc_steps=0 gc_scanned_during_clients=0 gc_deleted_during_clients=0 gc_backlog_records_near_client_end=10150000 setup_preflight_cpu_pct=1.95 setup_preflight_disk_pct=0.07 measure_preflight_cpu_pct=1.80 measure_preflight_disk_pct=0.07
+CASE name=per_batch_gc_on_history_0pct users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 wall_s=271.959 settled_s=297.625 rps=36770.3 cpu_s=340.168 cpu_cores=1.251 peak_rss_bytes=1925656576 db_bytes=613029582 gc_prefix_near_client_end=1251072 gc_backlog_records_near_client_end=8898928 gc_prefix_after_settle=10150000 final_seq=10150000 watermark_updates=321 recovery_s=1.592463 integrity_s=0.340613
+CASE_IO name=per_batch_gc_on_history_0pct cpu_sample_offset_us=0 progress_sample_offset_us=9 io_sample_offset_us=21 storage_sample_offset_us=642 device=sdb2(8:18) process_rchar=51457458652 process_wchar=4060146928 process_read=0 process_write=4261597184 device_read=73728 device_write=4937003008 device_busy_ms=54284 wal_syncs=49144 wal_bytes=1669405219 writes_with_wal=49148 flush_write_bytes=653055961 compact_read_bytes=1684865131 compact_write_bytes=1736282332 stall_us=0 projected_sync_ns=48074528054 gc_scan_ns=29006369799 gc_delete_ns=268078742 gc_write_ns=10022706823 gc_scanned=1251072 gc_deleted=1251072 gc_deleted_bytes=170145792
+LATENCY name=per_batch_gc_on_history_0pct stage=request.total unit=ns samples=155808 p50=1343091689 p95=2076114549 p99=2488752044
+LATENCY name=per_batch_gc_on_history_0pct stage=request.admission unit=ns samples=155808 p50=361 p95=1082 p99=1683
+LATENCY name=per_batch_gc_on_history_0pct stage=request.enqueue unit=ns samples=155808 p50=60 p95=150 p99=221
+LATENCY name=per_batch_gc_on_history_0pct stage=request.queue unit=ns samples=155808 p50=1288267548 p95=1992610819 p99=2371735326
+LATENCY name=per_batch_gc_on_history_0pct stage=request.batch unit=ns samples=155808 p50=167604 p95=1263359 p99=1871919
+LATENCY name=per_batch_gc_on_history_0pct stage=request.handler unit=ns samples=155808 p50=52639056 p95=83255754 p99=101128452
+LATENCY name=per_batch_gc_on_history_0pct stage=request.response unit=ns samples=155808 p50=929042 p95=1900693 p99=2384531
+LATENCY name=per_batch_gc_on_history_0pct stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_0pct stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_0pct stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_0pct stage=projection.read unit=ns samples=39057 p50=289022 p95=490179 p99=610235
+LATENCY name=per_batch_gc_on_history_0pct stage=projection.apply unit=ns samples=39057 p50=142918 p95=232546 p99=394049
+LATENCY name=per_batch_gc_on_history_0pct stage=projection.progress_sync unit=ns samples=39057 p50=963386 p95=2140142 p99=5958090
+LATENCY name=per_batch_gc_on_history_0pct stage=projection.total unit=ns samples=39057 p50=1451401 p95=2729948 p99=6652803
+LATENCY name=per_batch_gc_on_history_0pct stage=gc.scan unit=ns samples=4887 p50=5849652 p95=10250460 p99=12448421
+LATENCY name=per_batch_gc_on_history_0pct stage=gc.delete_build unit=ns samples=4887 p50=50367 p95=79815 p99=171593
+LATENCY name=per_batch_gc_on_history_0pct stage=gc.sync_write unit=ns samples=4887 p50=1738189 p95=2435847 p99=3884933
+LATENCY name=per_batch_gc_on_history_0pct stage=gc.total unit=ns samples=4887 p50=54142123 p95=84763151 p99=102594159
+LATENCY name=per_batch_gc_on_history_0pct stage=watermark.fence_wait unit=ns samples=321 p50=775513479 p95=1559482961 p99=1824530270
+LATENCY name=per_batch_gc_on_history_0pct stage=watermark.projection_wait unit=ns samples=321 p50=12298026 p95=14722572 p99=718979712
+LATENCY name=per_batch_gc_on_history_0pct stage=watermark.persist unit=ns samples=321 p50=955571 p95=1069024 p99=1802469
+LATENCY name=per_batch_gc_on_history_0pct stage=watermark.total unit=ns samples=321 p50=805505216 p95=1573087697 p99=1838293292
+LATENCY name=per_batch_gc_on_history_0pct stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_0pct stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_0pct stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=per_batch_gc_on_history_0pct projection_batches=39057 projection_records=9998592 gc_steps=4887 gc_scanned_during_clients=1251072 gc_deleted_during_clients=1251072 gc_backlog_records_near_client_end=8898928 setup_preflight_cpu_pct=2.11 setup_preflight_disk_pct=0.10 measure_preflight_cpu_pct=1.63 measure_preflight_disk_pct=0.07
+CASE name=per_batch_gc_on_history_5pct users=50000 requests=10000000 fresh=9500000 old_hit=250000 old_miss=250000 wall_s=285.125 settled_s=256.410 rps=35072.4 cpu_s=316.072 cpu_cores=1.109 peak_rss_bytes=1991483392 db_bytes=581149440 gc_prefix_near_client_end=1188096 gc_backlog_records_near_client_end=8461904 gc_prefix_after_settle=9650000 final_seq=9650000 watermark_updates=307 recovery_s=2.296510 integrity_s=1.145774
+CASE_IO name=per_batch_gc_on_history_5pct cpu_sample_offset_us=0 progress_sample_offset_us=11 io_sample_offset_us=20 storage_sample_offset_us=538 device=sdb2(8:18) process_rchar=47331311473 process_wchar=3587546332 process_read=0 process_write=3778752512 device_read=0 device_write=4425981952 device_busy_ms=86037 wal_syncs=46685 wal_bytes=1585919125 writes_with_wal=46697 flush_write_bytes=649558023 compact_read_bytes=1309316876 compact_write_bytes=1350644317 stall_us=0 projected_sync_ns=81035590149 gc_scan_ns=27210333924 gc_delete_ns=259039361 gc_write_ns=25918197587 gc_scanned=1188096 gc_deleted=1188096 gc_deleted_bytes=161581056
+LATENCY name=per_batch_gc_on_history_5pct stage=request.total unit=ns samples=155808 p50=1296454280 p95=2107004006 p99=11674811337
+LATENCY name=per_batch_gc_on_history_5pct stage=request.admission unit=ns samples=155808 p50=350 p95=972 p99=1443
+LATENCY name=per_batch_gc_on_history_5pct stage=request.enqueue unit=ns samples=155808 p50=60 p95=150 p99=231
+LATENCY name=per_batch_gc_on_history_5pct stage=request.queue unit=ns samples=155808 p50=1242953675 p95=2022851684 p99=11407684772
+LATENCY name=per_batch_gc_on_history_5pct stage=request.batch unit=ns samples=155808 p50=146706 p95=1222738 p99=1717087
+LATENCY name=per_batch_gc_on_history_5pct stage=request.handler unit=ns samples=155808 p50=50966180 p95=83212916 p99=481518302
+LATENCY name=per_batch_gc_on_history_5pct stage=request.response unit=ns samples=155808 p50=898509 p95=1866198 p99=2267743
+LATENCY name=per_batch_gc_on_history_5pct stage=request.historical_lookup unit=ns samples=7793 p50=11095065 p95=11769681 p99=11942312
+LATENCY name=per_batch_gc_on_history_5pct stage=request.historical_hit_lookup unit=ns samples=3932 p50=11104470 p95=11771367 p99=11933933
+LATENCY name=per_batch_gc_on_history_5pct stage=request.historical_miss_lookup unit=ns samples=3861 p50=11086784 p95=11767706 p99=11951666
+LATENCY name=per_batch_gc_on_history_5pct stage=projection.read unit=ns samples=37110 p50=302830 p95=495802 p99=611960
+LATENCY name=per_batch_gc_on_history_5pct stage=projection.apply unit=ns samples=37110 p50=143309 p95=238149 p99=406706
+LATENCY name=per_batch_gc_on_history_5pct stage=projection.progress_sync unit=ns samples=37110 p50=965636 p95=2147988 p99=8251295
+LATENCY name=per_batch_gc_on_history_5pct stage=projection.total unit=ns samples=37110 p50=1472740 p95=2734522 p99=8938378
+LATENCY name=per_batch_gc_on_history_5pct stage=gc.scan unit=ns samples=4641 p50=5881256 p95=10023750 p99=11619386
+LATENCY name=per_batch_gc_on_history_5pct stage=gc.delete_build unit=ns samples=4641 p50=50424 p95=88201 p99=167755
+LATENCY name=per_batch_gc_on_history_5pct stage=gc.sync_write unit=ns samples=4641 p50=1755553 p95=2459948 p99=224239163
+LATENCY name=per_batch_gc_on_history_5pct stage=gc.total unit=ns samples=4641 p50=53601509 p95=84974984 p99=488226357
+LATENCY name=per_batch_gc_on_history_5pct stage=watermark.fence_wait unit=ns samples=307 p50=760076859 p95=1562983630 p99=2057690122
+LATENCY name=per_batch_gc_on_history_5pct stage=watermark.projection_wait unit=ns samples=307 p50=12344253 p95=16467511 p99=893276115
+LATENCY name=per_batch_gc_on_history_5pct stage=watermark.persist unit=ns samples=307 p50=957060 p95=1059643 p99=9302773
+LATENCY name=per_batch_gc_on_history_5pct stage=watermark.total unit=ns samples=307 p50=781388812 p95=1577197861 p99=2071811756
+LATENCY name=per_batch_gc_on_history_5pct stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_5pct stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=per_batch_gc_on_history_5pct stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=per_batch_gc_on_history_5pct projection_batches=37110 projection_records=9500000 gc_steps=4641 gc_scanned_during_clients=1188096 gc_deleted_during_clients=1188096 gc_backlog_records_near_client_end=8461904 setup_preflight_cpu_pct=1.90 setup_preflight_disk_pct=0.07 measure_preflight_cpu_pct=1.63 measure_preflight_disk_pct=0.00
+CASE name=checkpoint_gc_off_history_0pct users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 wall_s=261.222 settled_s=0.011 rps=38281.6 cpu_s=287.697 cpu_cores=1.101 peak_rss_bytes=1996320768 db_bytes=636620591 gc_prefix_near_client_end=0 gc_backlog_records_near_client_end=10150000 gc_prefix_after_settle=0 final_seq=10150000 watermark_updates=351 recovery_s=0.232193 integrity_s=65.729309
+CASE_IO name=checkpoint_gc_off_history_0pct cpu_sample_offset_us=0 progress_sample_offset_us=12 io_sample_offset_us=22 storage_sample_offset_us=553 device=sdb2(8:18) process_rchar=46927196451 process_wchar=3512359963 process_read=0 process_write=3694592000 device_read=86016 device_write=4325462016 device_busy_ms=79373 wal_syncs=44455 wal_bytes=1501871313 writes_with_wal=44491 flush_write_bytes=628795207 compact_read_bytes=1284616775 compact_write_bytes=1380535219 stall_us=0 projected_sync_ns=73997644254 gc_scan_ns=0 gc_delete_ns=0 gc_write_ns=0 gc_scanned=0 gc_deleted=0 gc_deleted_bytes=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.total unit=ns samples=155808 p50=1141874576 p95=1898614355 p99=6926686963
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.admission unit=ns samples=155808 p50=351 p95=931 p99=1412
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.enqueue unit=ns samples=155808 p50=60 p95=140 p99=210
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.queue unit=ns samples=155808 p50=1095650766 p95=1824991923 p99=6671089004
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.batch unit=ns samples=155808 p50=157656 p95=1094605 p99=1696425
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.handler unit=ns samples=155808 p50=44782347 p95=74076023 p99=275325700
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.response unit=ns samples=155808 p50=891203 p95=1731942 p99=2199881
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=projection.read unit=ns samples=39056 p50=316374 p95=490632 p99=587272
+LATENCY name=checkpoint_gc_off_history_0pct stage=projection.apply unit=ns samples=39056 p50=143349 p95=227377 p99=389051
+LATENCY name=checkpoint_gc_off_history_0pct stage=projection.progress_sync unit=ns samples=39056 p50=955725 p95=1084757 p99=6296894
+LATENCY name=checkpoint_gc_off_history_0pct stage=projection.total unit=ns samples=39056 p50=1452256 p95=2374408 p99=7049276
+LATENCY name=checkpoint_gc_off_history_0pct stage=gc.scan unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=gc.delete_build unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=gc.sync_write unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=gc.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_off_history_0pct stage=watermark.fence_wait unit=ns samples=351 p50=568815621 p95=1294307636 p99=1672962533
+LATENCY name=checkpoint_gc_off_history_0pct stage=watermark.projection_wait unit=ns samples=351 p50=11285056 p95=13323682 p99=1997226281
+LATENCY name=checkpoint_gc_off_history_0pct stage=watermark.persist unit=ns samples=351 p50=949794 p95=1032458 p99=1494967
+LATENCY name=checkpoint_gc_off_history_0pct stage=watermark.total unit=ns samples=351 p50=610084439 p95=1338158495 p99=2145482770
+LATENCY name=checkpoint_gc_off_history_0pct stage=checkpoint.total unit=ns samples=100 p50=6835282 p95=9062565 p99=533962417
+LATENCY name=checkpoint_gc_off_history_0pct stage=checkpoint.chunk_sync unit=ns samples=100 p50=3742846 p95=4602011 p99=302817943
+LATENCY name=checkpoint_gc_off_history_0pct stage=checkpoint.manifest_sync unit=ns samples=100 p50=1734777 p95=2031514 p99=230064627
+BACKGROUND name=checkpoint_gc_off_history_0pct projection_batches=39056 projection_records=9998336 gc_steps=0 gc_scanned_during_clients=0 gc_deleted_during_clients=0 gc_backlog_records_near_client_end=10150000 setup_preflight_cpu_pct=1.99 setup_preflight_disk_pct=1.77 measure_preflight_cpu_pct=1.84 measure_preflight_disk_pct=4.60
+CASE name=checkpoint_gc_on_history_0pct users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 wall_s=257.560 settled_s=306.312 rps=38825.9 cpu_s=318.245 cpu_cores=1.236 peak_rss_bytes=2092769280 db_bytes=634792680 gc_prefix_near_client_end=1250048 gc_backlog_records_near_client_end=8899952 gc_prefix_after_settle=10101232 final_seq=10150000 watermark_updates=334 recovery_s=2.034055 integrity_s=1.521923
+CASE_IO name=checkpoint_gc_on_history_0pct cpu_sample_offset_us=0 progress_sample_offset_us=7 io_sample_offset_us=16 storage_sample_offset_us=547 device=sdb2(8:18) process_rchar=52121431749 process_wchar=3434995004 process_read=0 process_write=3636801536 device_read=0 device_write=4338556928 device_busy_ms=52302 wal_syncs=49265 wal_bytes=1549556761 writes_with_wal=49357 flush_write_bytes=643933463 compact_read_bytes=1195468728 compact_write_bytes=1240147303 stall_us=0 projected_sync_ns=47342505932 gc_scan_ns=28824674850 gc_delete_ns=257412119 gc_write_ns=10004791451 gc_scanned=1250048 gc_deleted=1250048 gc_deleted_bytes=170006528
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.total unit=ns samples=155808 p50=1281817287 p95=2005318690 p99=2283871245
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.admission unit=ns samples=155808 p50=361 p95=1032 p99=1493
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.enqueue unit=ns samples=155808 p50=61 p95=150 p99=231
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.queue unit=ns samples=155808 p50=1229865573 p95=1925124311 p99=2196110815
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.batch unit=ns samples=155808 p50=173857 p95=1328874 p99=1782445
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.handler unit=ns samples=155808 p50=50256301 p95=79965217 p99=98253583
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.response unit=ns samples=155808 p50=934664 p95=1938849 p99=2296180
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_on_history_0pct stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=checkpoint_gc_on_history_0pct stage=projection.read unit=ns samples=39056 p50=300414 p95=485000 p99=592461
+LATENCY name=checkpoint_gc_on_history_0pct stage=projection.apply unit=ns samples=39056 p50=142217 p95=232917 p99=397717
+LATENCY name=checkpoint_gc_on_history_0pct stage=projection.progress_sync unit=ns samples=39056 p50=963739 p95=2137292 p99=5510562
+LATENCY name=checkpoint_gc_on_history_0pct stage=projection.total unit=ns samples=39056 p50=1471001 p95=2718041 p99=6303752
+LATENCY name=checkpoint_gc_on_history_0pct stage=gc.scan unit=ns samples=4883 p50=5911918 p95=10138358 p99=11903800
+LATENCY name=checkpoint_gc_on_history_0pct stage=gc.delete_build unit=ns samples=4883 p50=49482 p95=67106 p99=143761
+LATENCY name=checkpoint_gc_on_history_0pct stage=gc.sync_write unit=ns samples=4883 p50=1727081 p95=2413039 p99=4312262
+LATENCY name=checkpoint_gc_on_history_0pct stage=gc.total unit=ns samples=4883 p50=51826694 p95=81477514 p99=97793204
+LATENCY name=checkpoint_gc_on_history_0pct stage=watermark.fence_wait unit=ns samples=334 p50=688941381 p95=1477234510 p99=1716616635
+LATENCY name=checkpoint_gc_on_history_0pct stage=watermark.projection_wait unit=ns samples=334 p50=12340349 p95=15237234 p99=728269624
+LATENCY name=checkpoint_gc_on_history_0pct stage=watermark.persist unit=ns samples=334 p50=953841 p95=1067484 p99=2683817
+LATENCY name=checkpoint_gc_on_history_0pct stage=watermark.total unit=ns samples=334 p50=737602654 p95=1489929034 p99=1732141589
+LATENCY name=checkpoint_gc_on_history_0pct stage=checkpoint.total unit=ns samples=100 p50=7617247 p95=10094436 p99=14802760
+LATENCY name=checkpoint_gc_on_history_0pct stage=checkpoint.chunk_sync unit=ns samples=100 p50=4127356 p95=5755182 p99=9566904
+LATENCY name=checkpoint_gc_on_history_0pct stage=checkpoint.manifest_sync unit=ns samples=100 p50=1921727 p95=2569452 p99=6146497
+BACKGROUND name=checkpoint_gc_on_history_0pct projection_batches=39056 projection_records=9998336 gc_steps=4883 gc_scanned_during_clients=1250048 gc_deleted_during_clients=1250048 gc_backlog_records_near_client_end=8899952 setup_preflight_cpu_pct=2.51 setup_preflight_disk_pct=0.00 measure_preflight_cpu_pct=1.82 measure_preflight_disk_pct=0.00
+CASE name=checkpoint_gc_on_history_5pct users=50000 requests=10000000 fresh=9500000 old_hit=250000 old_miss=250000 wall_s=243.331 settled_s=307.044 rps=41096.3 cpu_s=303.597 cpu_cores=1.248 peak_rss_bytes=2094661632 db_bytes=598182794 gc_prefix_near_client_end=1191168 gc_backlog_records_near_client_end=8458832 gc_prefix_after_settle=9601520 final_seq=9650000 watermark_updates=320 recovery_s=1.258923 integrity_s=0.426163
+CASE_IO name=checkpoint_gc_on_history_5pct cpu_sample_offset_us=0 progress_sample_offset_us=10 io_sample_offset_us=21 storage_sample_offset_us=598 device=sdb2(8:18) process_rchar=48970304088 process_wchar=3367887445 process_read=0 process_write=3559534592 device_read=0 device_write=4213362688 device_busy_ms=49577 wal_syncs=46810 wal_bytes=1472217364 writes_with_wal=46912 flush_write_bytes=634933284 compact_read_bytes=1218206258 compact_write_bytes=1259349444 stall_us=0 projected_sync_ns=44211802586 gc_scan_ns=27463403923 gc_delete_ns=235069934 gc_write_ns=8742348854 gc_scanned=1191168 gc_deleted=1191168 gc_deleted_bytes=161998848
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.total unit=ns samples=155808 p50=1233709665 p95=2024551835 p99=2324704153
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.admission unit=ns samples=155808 p50=350 p95=961 p99=1433
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.enqueue unit=ns samples=155808 p50=60 p95=150 p99=231
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.queue unit=ns samples=155808 p50=1183386247 p95=1944522380 p99=2225947570
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.batch unit=ns samples=155808 p50=148379 p95=1202576 p99=1718114
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.handler unit=ns samples=155808 p50=48051979 p95=80734924 p99=98862351
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.response unit=ns samples=155808 p50=910588 p95=1865881 p99=2304504
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.historical_lookup unit=ns samples=7793 p50=11100759 p95=11759674 p99=11935094
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.historical_hit_lookup unit=ns samples=3932 p50=11093004 p95=11767097 p99=11931247
+LATENCY name=checkpoint_gc_on_history_5pct stage=request.historical_miss_lookup unit=ns samples=3861 p50=11110877 p95=11754545 p99=11935094
+LATENCY name=checkpoint_gc_on_history_5pct stage=projection.read unit=ns samples=37110 p50=309090 p95=489348 p99=587252
+LATENCY name=checkpoint_gc_on_history_5pct stage=projection.apply unit=ns samples=37110 p50=143740 p95=237996 p99=384581
+LATENCY name=checkpoint_gc_on_history_5pct stage=projection.progress_sync unit=ns samples=37110 p50=963117 p95=2121330 p99=5054454
+LATENCY name=checkpoint_gc_on_history_5pct stage=projection.total unit=ns samples=37110 p50=1480348 p95=2675741 p99=6073636
+LATENCY name=checkpoint_gc_on_history_5pct stage=gc.scan unit=ns samples=4653 p50=5889826 p95=10353351 p99=12879701
+LATENCY name=checkpoint_gc_on_history_5pct stage=gc.delete_build unit=ns samples=4653 p50=49327 p95=61807 p99=87848
+LATENCY name=checkpoint_gc_on_history_5pct stage=gc.sync_write unit=ns samples=4653 p50=1719616 p95=2416755 p99=3083877
+LATENCY name=checkpoint_gc_on_history_5pct stage=gc.total unit=ns samples=4653 p50=51057148 p95=82352387 p99=100458976
+LATENCY name=checkpoint_gc_on_history_5pct stage=watermark.fence_wait unit=ns samples=320 p50=674220429 p95=1527096745 p99=1730358253
+LATENCY name=checkpoint_gc_on_history_5pct stage=watermark.projection_wait unit=ns samples=320 p50=12315347 p95=15183599 p99=901444115
+LATENCY name=checkpoint_gc_on_history_5pct stage=watermark.persist unit=ns samples=320 p50=948369 p95=1034541 p99=2538724
+LATENCY name=checkpoint_gc_on_history_5pct stage=watermark.total unit=ns samples=320 p50=706633584 p95=1541233480 p99=1744807895
+LATENCY name=checkpoint_gc_on_history_5pct stage=checkpoint.total unit=ns samples=95 p50=7306118 p95=8380815 p99=11341881
+LATENCY name=checkpoint_gc_on_history_5pct stage=checkpoint.chunk_sync unit=ns samples=95 p50=4076288 p95=4696282 p99=7225467
+LATENCY name=checkpoint_gc_on_history_5pct stage=checkpoint.manifest_sync unit=ns samples=95 p50=1769179 p95=2434117 p99=2547800
+BACKGROUND name=checkpoint_gc_on_history_5pct projection_batches=37110 projection_records=9500000 gc_steps=4653 gc_scanned_during_clients=1191168 gc_deleted_during_clients=1191168 gc_backlog_records_near_client_end=8458832 setup_preflight_cpu_pct=1.94 setup_preflight_disk_pct=0.37 measure_preflight_cpu_pct=1.69 measure_preflight_disk_pct=0.07
+PREFLIGHT setup attempts=1 CPU_busy_pct=1.69 disk_busy_pct=0.20 mem_available_bytes=45128863744 free_bytes=93327659008 device=sdb2(8:18)
+RUN users=50000 coroutines=50000 requests_per_user=200 total_requests_per_case=10000000 cases=6 operations=credit_50pct,debit_50pct expected_seed_records=10150000 estimated_free_disk_bytes=8868941824 estimated_available_memory_bytes=3403706368 smoke=false
+ARCHIVE benches/data/ledger_pipeline/run-1790787222900941094

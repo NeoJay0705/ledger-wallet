@@ -25,6 +25,10 @@ name = "bounded_queue_request_ring_tokio"
 harness = false
 
 [[bench]]
+name = "ledger_pipeline_tokio"
+harness = false
+
+[[bench]]
 name = "ledger_time_boundary_tokio"
 harness = false
 

@@ -87,6 +87,15 @@ pub enum BalanceMode {
     Checkpoint,
 }
 
+#[derive(Clone, Copy, Debug)]
+pub struct CheckpointSample {
+    pub sequence: u64,
+    pub duration_ns: u64,
+    pub chunk_sync_ns: u64,
+    pub manifest_sync_ns: u64,
+    pub completed_at: Instant,
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct MetricsSnapshot {
     pub transactions: u64,
@@ -107,6 +116,7 @@ pub struct MetricsSnapshot {
     pub checkpoint_duration_ns: u64,
     pub checkpoint_latest_seq: u64,
     pub checkpoint_snapshots_enqueued: u64,
+    pub checkpoint_samples: Vec<CheckpointSample>,
     pub projection_progress_sync_ns: u64,
     pub gc_scan_ns: u64,
     pub gc_delete_ns: u64,
@@ -2074,14 +2084,23 @@ async fn checkpoint_worker(
                 match result {
                     Ok((manifest, chunk_ns, manifest_ns)) => {
                         previous = Some(manifest);
+                        let duration_ns = nanos(write_started.elapsed());
+                        let completed_at = Instant::now();
                         let mut metrics = metrics
                             .lock()
                             .map_err(|_| "account metrics mutex poisoned".to_owned())?;
                         metrics.checkpoint_count += 1;
                         metrics.checkpoint_chunk_sync_ns += chunk_ns;
                         metrics.checkpoint_manifest_sync_ns += manifest_ns;
-                        metrics.checkpoint_duration_ns += nanos(write_started.elapsed());
+                        metrics.checkpoint_duration_ns += duration_ns;
                         metrics.checkpoint_latest_seq = manifest.seq;
+                        metrics.checkpoint_samples.push(CheckpointSample {
+                            sequence: manifest.seq,
+                            duration_ns,
+                            chunk_sync_ns: chunk_ns,
+                            manifest_sync_ns: manifest_ns,
+                            completed_at,
+                        });
                     }
                     Err(error) => {
                         if let Ok(mut slot) = failure.lock() {

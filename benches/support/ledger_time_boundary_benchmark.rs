@@ -1013,6 +1013,10 @@ fn metrics_delta(
         .balance_samples_ns
         .len()
         .min(after.balance_samples_ns.len());
+    let checkpoint_sample_start = before
+        .checkpoint_samples
+        .len()
+        .min(after.checkpoint_samples.len());
     crate::ledger_account_store::MetricsSnapshot {
         transactions: delta(after.transactions, before.transactions),
         transaction_latency_ns: delta(after.transaction_latency_ns, before.transaction_latency_ns),
@@ -1052,6 +1056,11 @@ fn metrics_delta(
             after.checkpoint_snapshots_enqueued,
             before.checkpoint_snapshots_enqueued,
         ),
+        checkpoint_samples: after
+            .checkpoint_samples
+            .into_iter()
+            .skip(checkpoint_sample_start)
+            .collect(),
         projection_progress_sync_ns: delta(
             after.projection_progress_sync_ns,
             before.projection_progress_sync_ns,
