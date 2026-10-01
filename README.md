@@ -57,6 +57,19 @@ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
   --preflight-min-mem-bytes 16777216 --preflight-free-reserve-bytes 1048576
 ```
 
+`ledger_pipeline_tokio` 是 benchmark-only 單 shard Tokio ledger pipeline，預設以 50,000 個 coroutine 各送 200 筆 request，經容量 50,000 的 bounded queue 和 2,048 筆／5 ms batch 同步寫入 RocksDB，並量測 durable projection、watermark、安全 GC、餘額 checkpoint 與重開恢復。Credit 和 Debit 各占 50%；每個 case 為 10,000,000 筆 request。5% 歷史流量 case 含 250,000 筆精確命中與 250,000 筆未命中。計時在最後 coroutine 收到最後回覆時結束；ProcessTime 在該回覆後立即取樣，I/O 和 RocksDB 指標則在 JoinSet 收集後取樣，並記錄取樣偏移。`--smoke` 改用 200 個使用者和預設 100 筆 checkpoint 門檻，讓縮小後的 seed 也能覆蓋 GC；可用 `--checkpoint-quantity` 覆寫（參數順序不限），完整負載保留 100,000 筆門檻。設計、案例及限制見 [ledger pipeline 設計文件](docs/01-25.development-design-ledger-pipeline-tokio-benchmark.md)。以下短 smoke command 使用 benchmark 實際 CLI 與 Ubuntu GCC 13 bindgen workaround：
+
+```sh
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --bench ledger_pipeline_tokio -- \
+  --smoke --output-root target/ledger-pipeline-smoke \
+  --preflight-observation-ms 50 --preflight-timeout-ms 5000 \
+  --max-cpu-busy-pct 100 --max-disk-busy-pct 100 \
+  --memory-reserve-mib 0 --free-space-reserve-mib 0
+```
+
+完整 strict 預設矩陣命令為 `BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --locked --bench ledger_pipeline_tokio`。2026-10-01 六案例結果見 [完整 benchmark 報告](benches/ledger_pipeline_tokio_report.md)、[summary CSV](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_summary.csv)、[所有 stage 分位數](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_stages.csv)、[background event 原始資料](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_background.csv)、[執行 metadata](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_run.log) 與 [原始 stdout](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_stdout.log)。
+
 ## 文件
 
 - [歷史原始需求（待重新設計）](docs/01-01.raw-requirement-ledger-wallet.md)
