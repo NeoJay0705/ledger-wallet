@@ -1,0 +1,10 @@
+trial_index,mode,repetition,users,requests,partial_designation,status,exit_code,trial_directory,stdout_log,stderr_log
+1,point_get,1,50000,10000000,false,ok,0,trial-01-point_get_r1,trial-01.stdout.log,trial-01.stderr.log
+2,chunked_256_p4,1,50000,10000000,false,ok,0,trial-02-chunked_256_p4_r1,trial-02.stdout.log,trial-02.stderr.log
+3,chunked_256_p8,1,50000,10000000,false,ok,0,trial-03-chunked_256_p8_r1,trial-03.stdout.log,trial-03.stderr.log
+4,chunked_256_p4,2,50000,10000000,false,ok,0,trial-04-chunked_256_p4_r2,trial-04.stdout.log,trial-04.stderr.log
+5,chunked_256_p8,2,50000,10000000,false,ok,0,trial-05-chunked_256_p8_r2,trial-05.stdout.log,trial-05.stderr.log
+6,point_get,2,50000,10000000,false,ok,0,trial-06-point_get_r2,trial-06.stdout.log,trial-06.stderr.log
+7,chunked_256_p8,3,50000,10000000,false,ok,0,trial-07-chunked_256_p8_r3,trial-07.stdout.log,trial-07.stderr.log
+8,point_get,3,50000,10000000,false,ok,0,trial-08-point_get_r3,trial-08.stdout.log,trial-08.stderr.log
+9,chunked_256_p4,3,50000,10000000,false,ok,0,trial-09-chunked_256_p4_r3,trial-09.stdout.log,trial-09.stderr.log

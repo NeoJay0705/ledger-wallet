@@ -1,0 +1,17 @@
+recovery_status=complete
+profile=integrated_pipeline
+run_id=1790871680151272835
+validated_trials=9/9
+validated_requests=90000000
+aggregate_matrix_validation=passed
+per_trial_artifact_validation=passed
+manifest_success=9/9
+original_run_metadata_status=failed
+original_run_metadata_retained=true
+original_runner_exit_code=not_recorded_in_run_metadata
+original_report_error=not_recorded_in_run_metadata
+recovery_command=ledger_index_lookup_tokio --profile integrated_pipeline --report-only benches/data/ledger_pipeline_index_lookup/run-1790871680151272835
+recovery_time_unix_seconds=1790878492
+canonical_report=/home/neojhou/repos/ledger-wallet/benches/ledger_pipeline_index_lookup_tokio_report.md
+report_generation=success
+original_runner_command_status=unchanged; report recovery does not mark the original runner successful

@@ -57,7 +57,7 @@ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
   --preflight-min-mem-bytes 16777216 --preflight-free-reserve-bytes 1048576
 ```
 
-`ledger_pipeline_tokio` 是 benchmark-only 單 shard Tokio ledger pipeline，預設以 50,000 個 coroutine 各送 200 筆 request，經容量 50,000 的 bounded queue 和 2,048 筆／5 ms batch 同步寫入 RocksDB，並量測 durable projection、watermark、安全 GC、餘額 checkpoint 與重開恢復。Credit 和 Debit 各占 50%；每個 case 為 10,000,000 筆 request。5% 歷史流量 case 含 250,000 筆精確命中與 250,000 筆未命中。計時在最後 coroutine 收到最後回覆時結束；ProcessTime 在該回覆後立即取樣，I/O 和 RocksDB 指標則在 JoinSet 收集後取樣，並記錄取樣偏移。`--smoke` 改用 200 個使用者和預設 100 筆 checkpoint 門檻，讓縮小後的 seed 也能覆蓋 GC；可用 `--checkpoint-quantity` 覆寫（參數順序不限），完整負載保留 100,000 筆門檻。設計、案例及限制見 [ledger pipeline 設計文件](docs/01-25.development-design-ledger-pipeline-tokio-benchmark.md)。以下短 smoke command 使用 benchmark 實際 CLI 與 Ubuntu GCC 13 bindgen workaround：
+`ledger_pipeline_tokio` 是 benchmark-only 單 shard Tokio ledger pipeline，預設以 50,000 個 coroutine 各送 200 筆 request，經容量 50,000 的 bounded queue 和 2,048 筆／5 ms batch 同步寫入 RocksDB，並量測 durable projection、watermark、安全 GC、餘額 checkpoint 與重開恢復。Credit 和 Debit 各占 50%；每個 case 為 10,000,000 筆 request。前景 queue 預設用 `chunked` transaction-index lookup，group size 256、最多 4 組 in-flight；Tokio async workers 預設 4。可用 `--index-lookup point_get|whole_batch_multiget|chunked` 選擇策略，並以 `--index-group-size 1..=2048`、`--index-concurrency 1..=8` 設定 chunked 模式。5% 歷史流量 case 含 250,000 筆精確命中與 250,000 筆未命中。計時在最後 coroutine 收到最後回覆時結束；ProcessTime 在該回覆後立即取樣，I/O 和 RocksDB 指標則在 JoinSet 收集後取樣，並記錄取樣偏移。`--smoke` 改用 200 個使用者和預設 100 筆 checkpoint 門檻，讓縮小後的 seed 也能覆蓋 GC；可用 `--checkpoint-quantity` 覆寫（參數順序不限），完整負載保留 100,000 筆門檻。原始 pipeline workload 設計見 [ledger pipeline 設計文件](docs/01-25.development-design-ledger-pipeline-tokio-benchmark.md)；目前 lookup 預設與 integrated profile 規格見 [pipeline index lookup 設計文件](docs/01-28.development-design-ledger-pipeline-index-lookup-tokio-benchmark.md)。以下短 smoke command 使用 benchmark 實際 CLI 與 Ubuntu GCC 13 bindgen workaround：
 
 ```sh
 BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
@@ -68,7 +68,60 @@ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
   --memory-reserve-mib 0 --free-space-reserve-mib 0
 ```
 
-完整 strict 預設矩陣命令為 `BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --locked --bench ledger_pipeline_tokio`。2026-10-01 六案例結果見 [完整 benchmark 報告](benches/ledger_pipeline_tokio_report.md)、[summary CSV](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_summary.csv)、[所有 stage 分位數](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_stages.csv)、[background event 原始資料](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_background.csv)、[執行 metadata](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_run.log) 與 [原始 stdout](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_stdout.log)。
+完整 strict 預設矩陣命令為 `BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --locked --bench ledger_pipeline_tokio`。2026-10-01 六案例結果是歷史設定下的基準：`PointGet` transaction-index lookup、3 個 Tokio async workers。它不是目前預設 `Chunked(256, 4)` lookup、4 workers 的結果；保留原報告與證據連結供歷史比較。新預設與整合比較規格見 [pipeline index lookup 設計文件](docs/01-28.development-design-ledger-pipeline-index-lookup-tokio-benchmark.md)。歷史結果見 [完整 benchmark 報告](benches/ledger_pipeline_tokio_report.md)、[summary CSV](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_summary.csv)、[所有 stage 分位數](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_stages.csv)、[background event 原始資料](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_background.csv)、[執行 metadata](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_run.log) 與 [原始 stdout](benches/data/ledger_pipeline/run-1790787222900941094/ledger_pipeline_stdout.log)。
+
+## Tokio 批次佇列與 Ledger Pipeline 執行緒數擴展測試
+
+`ledger_thread_scaling_tokio` 固定比較 `worker_threads` 3、4、6、8，在 36-trial 預設矩陣執行 `queue_echo`（不使用 DB）、`foreground_persistence`（RocksDB sync-WAL）與 `integrated_pipeline` 三種 profile，每 trial 10,000,000 requests。固定負載為 50,000 users/coroutines、每 user 200 requests；queue capacity 50,000，foreground batch size 2,048、首筆 dequeue timeout 5 ms。比較 throughput、tail latency 與 CPU 效率。完整 strict 命令與 smoke 命令如下：
+
+```sh
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_thread_scaling_tokio
+
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_thread_scaling_tokio -- \
+  --smoke --output-root target/ledger-thread-scaling-smoke
+```
+
+完整矩陣已於 2026-10-01 完成：36 trials、每 trial 10M requests，共 360M requests。結果與原始證據見 [完整 benchmark 報告](benches/ledger_thread_scaling_tokio_report.md)、[run summary CSV](benches/data/ledger_thread_scaling/run-1790834093174466926/ledger_thread_scaling_summary.csv)、[所有 stage 分位數](benches/data/ledger_thread_scaling/run-1790834093174466926/ledger_thread_scaling_stages.csv)、[background summary](benches/data/ledger_thread_scaling/run-1790834093174466926/ledger_thread_scaling_background_summary.csv)、[trial manifest](benches/data/ledger_thread_scaling/run-1790834093174466926/trial_manifest.csv)、[run metadata](benches/data/ledger_thread_scaling/run-1790834093174466926/run_metadata.txt) 與 [archive 內分析報告](benches/data/ledger_thread_scaling/run-1790834093174466926/analysis_report.md)。設計、限制與可重現命令見 [執行緒擴展 benchmark 設計](docs/01-26.development-design-ledger-thread-scaling-tokio-benchmark.md)。每 trial 清理自有 DB、preflight scratch 與大型 per-event 暫存；smoke 限定在 `target/`。MockDB 的 apply/reopen 契約不代表真實 external DB 或 process-crash durability。
+
+## Tokio Ledger Transaction Index 查找比較
+
+`ledger_index_lookup_tokio` 在固定的單 shard foreground persistence profile 比較原始逐筆 RocksDB `get`、每個 queue batch 一次 native `batched_multi_get_cf`，以及 256-key 分組、最多 1/2/4/8 組 in-flight 的策略。預設矩陣固定為 6 種模式各 3 次、4 個 Tokio async workers；每 trial 使用新的 child process、Tokio runtime 與 RocksDB 目錄，50,000 個 coroutine 各送 200 筆 request。工作負載、strict preflight、結果保存和限制見 [設計文件](docs/01-27.development-design-ledger-index-lookup-tokio-benchmark.md)。
+
+```sh
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_index_lookup_tokio
+
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_index_lookup_tokio -- --smoke
+
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_index_lookup_tokio -- --validate-only
+```
+
+Smoke 會執行同一個 18-case 矩陣，每 trial 改用 200 個 coroutine、每人 200 筆 request 與 stride 1；輸出限於 `target/`。Smoke preflight 觀察 100 ms，完整 trial 觀察 3 秒，CPU 忙碌度上限 10%、目標裝置忙碌度上限 5%，記憶體與磁碟保留量沿用 pipeline 的嚴格設定。可用 `--modes` 和 `--repetitions` 篩選；只有選取的 mode/repetition 組合是完整 6×3 矩陣的真子集時，才會標記為 partial。明確列出全部 6 種模式與 repetitions 1、2、3 仍是完整矩陣。`--repetitions` 接受以逗號分隔且不重複的 repetition identities `1`、`2`、`3`，不是 repetition 次數。不提供放寬 preflight 門檻的參數。`--validate-only` 只檢查 CLI 與列印預定順序，不執行前置檢查或 trial。
+
+完整矩陣已於 2026-10-01 完成：18 trials、每 trial 10M requests，共 180M requests。結果與原始證據見 [canonical report](benches/ledger_index_lookup_tokio_report.md)、[run summary CSV](benches/data/ledger_index_lookup/run-1790858604677796368/ledger_index_lookup_summary.csv)、[stage percentiles CSV](benches/data/ledger_index_lookup/run-1790858604677796368/ledger_index_lookup_stages.csv)、[trial manifest](benches/data/ledger_index_lookup/run-1790858604677796368/trial_manifest.csv)、[run metadata](benches/data/ledger_index_lookup/run-1790858604677796368/run_metadata.txt) 與 [archive 內分析報告](benches/data/ledger_index_lookup/run-1790858604677796368/report.md)。Mock destination 的 successful-apply-is-durable 是記憶體中的 benchmark contract，不代表外部資料庫或 process-crash durability。
+
+同一個 benchmark 也提供 `integrated_pipeline` profile，固定使用 PerBatch、projection、watermark 與 safe GC，並在 background 工作持續進行時量測前景 transaction-index lookup。此 profile 預設比較 `point_get`、`chunked_256_p4`、`chunked_256_p8` 各 3 次；結果寫入獨立的 `benches/data/ledger_pipeline_index_lookup/`，canonical report 使用 `benches/ledger_pipeline_index_lookup_tokio_report.md`。Smoke 預設輸出於 `target/ledger-pipeline-index-lookup-smoke/`；自訂 smoke 輸出也限於 `target/` 下。設計與限制見 [integrated pipeline index lookup 設計文件](docs/01-28.development-design-ledger-pipeline-index-lookup-tokio-benchmark.md)。
+
+```sh
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_index_lookup_tokio -- \
+  --profile integrated_pipeline
+
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_index_lookup_tokio -- \
+  --profile integrated_pipeline --smoke
+
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_index_lookup_tokio -- \
+  --profile integrated_pipeline --report-only \
+  benches/data/ledger_pipeline_index_lookup/run-1790871680151272835
+```
+
+Integrated profile 完整矩陣已於 2026-10-02 完成：9 trials、每 trial 10M requests，共 90M requests。矩陣資料與逐 trial artifacts 全部通過 report-only 驗證。原始 runner 在所有 trials 與 aggregate validation 成功後，因 canonical report 路徑重複 `benches/` 而以 exit 1 結束；`--report-only` 從預設 archive 重新驗證完整矩陣並產生報告，保留原始 `run_status=failed` metadata。請見 [完整 integrated benchmark report](benches/ledger_pipeline_index_lookup_tokio_report.md)、[archive review report](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/report.md)、[run summary CSV](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/ledger_index_lookup_summary.csv)、[stage percentile CSV](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/ledger_index_lookup_stages.csv)、[trial manifest](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/trial_manifest.csv)、[run metadata](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/run_metadata.txt)、[report recovery record](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/report_recovery.txt) 與 [original report-generation incident](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/report_incident.txt)。
 
 ## 文件
 

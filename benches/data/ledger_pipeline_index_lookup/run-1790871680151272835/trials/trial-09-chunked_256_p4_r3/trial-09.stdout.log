@@ -1,0 +1,29 @@
+CASE name=index_lookup_chunked_256_p4 users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=true gc_enabled=true runtime_workers=4 wall_s=185.683 settled_s=274.889 rps=53855.3 cpu_s=370.291 cpu_cores=1.994 peak_rss_bytes=1839894528 db_bytes=928897929 gc_prefix_near_client_end=1250560 gc_backlog_records_near_client_end=8899440 gc_prefix_after_settle=10150000 final_seq=10150000 watermark_updates=392 recovery_s=4.058971 integrity_s=0.357515
+CASE_IO name=index_lookup_chunked_256_p4 cpu_sample_offset_us=0 progress_sample_offset_us=9 io_sample_offset_us=850 storage_sample_offset_us=2175 device=sdb2(8:18) process_rchar=56652311529 process_wchar=3950587998 process_read=0 process_write=4152299520 device_read=0 device_write=4809207808 device_busy_ms=89793 wal_syncs=49203 wal_bytes=1669390821 writes_with_wal=49217 flush_write_bytes=652141878 compact_read_bytes=1573365414 compact_write_bytes=1627801600 stall_us=0 projected_sync_ns=99827317018 gc_scan_ns=31387832887 gc_delete_ns=252254440 gc_write_ns=28848599860 gc_scanned=1250560 gc_deleted=1250560 gc_deleted_bytes=170076160
+LATENCY name=index_lookup_chunked_256_p4 stage=request.total unit=ns samples=155808 p50=742266904 p95=1131694630 p99=11150254106
+LATENCY name=index_lookup_chunked_256_p4 stage=request.admission unit=ns samples=155808 p50=541 p95=2034 p99=8977
+LATENCY name=index_lookup_chunked_256_p4 stage=request.enqueue unit=ns samples=155808 p50=70 p95=160 p99=260
+LATENCY name=index_lookup_chunked_256_p4 stage=request.queue unit=ns samples=155808 p50=712420899 p95=1088723591 p99=10934935119
+LATENCY name=index_lookup_chunked_256_p4 stage=request.batch unit=ns samples=155808 p50=144661 p95=1438539 p99=1829191
+LATENCY name=index_lookup_chunked_256_p4 stage=request.handler unit=ns samples=155808 p50=28158396 p95=43211590 p99=528932975
+LATENCY name=index_lookup_chunked_256_p4 stage=request.response unit=ns samples=155808 p50=849062 p95=1996505 p99=2343876
+LATENCY name=index_lookup_chunked_256_p4 stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p4 stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p4 stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p4 stage=projection.read unit=ns samples=39056 p50=372198 p95=726763 p99=925676
+LATENCY name=index_lookup_chunked_256_p4 stage=projection.apply unit=ns samples=39056 p50=156955 p95=266039 p99=416571
+LATENCY name=index_lookup_chunked_256_p4 stage=projection.progress_sync unit=ns samples=39056 p50=993533 p95=5223167 p99=11123905
+LATENCY name=index_lookup_chunked_256_p4 stage=projection.total unit=ns samples=39056 p50=1644955 p95=5798015 p99=11781268
+LATENCY name=index_lookup_chunked_256_p4 stage=gc.scan unit=ns samples=4885 p50=6384464 p95=11207849 p99=13135417
+LATENCY name=index_lookup_chunked_256_p4 stage=gc.delete_build unit=ns samples=4885 p50=50438 p95=64457 p99=86460
+LATENCY name=index_lookup_chunked_256_p4 stage=gc.sync_write unit=ns samples=4885 p50=1710689 p95=2494439 p99=252640360
+LATENCY name=index_lookup_chunked_256_p4 stage=gc.total unit=ns samples=4885 p50=29573079 p95=44802053 p99=544607376
+LATENCY name=index_lookup_chunked_256_p4 stage=watermark.fence_wait unit=ns samples=392 p50=236346365 p95=580797768 p99=883031257
+LATENCY name=index_lookup_chunked_256_p4 stage=watermark.projection_wait unit=ns samples=392 p50=12676697 p95=62591090 p99=4533671661
+LATENCY name=index_lookup_chunked_256_p4 stage=watermark.persist unit=ns samples=392 p50=982363 p95=2403498 p99=12217897
+LATENCY name=index_lookup_chunked_256_p4 stage=watermark.total unit=ns samples=392 p50=268324261 p95=748789937 p99=4797801698
+LATENCY name=index_lookup_chunked_256_p4 stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p4 stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p4 stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=index_lookup_chunked_256_p4 projection_batches=39056 projection_records=9998336 gc_steps=4885 gc_scanned_during_clients=1250560 gc_deleted_during_clients=1250560 gc_backlog_records_near_client_end=8899440 setup_preflight_cpu_pct=1.82 setup_preflight_disk_pct=0.47 measure_preflight_cpu_pct=2.07 measure_preflight_disk_pct=0.00
+INDEX_LOOKUP_TRIAL mode=chunked_256_p4 workers=4 requests=10000000 batches=4883 native_calls=39063 keys=10000000 hits=0 misses=10000000 latest_seq=10150000 projected_seq=10148336 destination_seq=10148592 gc_prefix=10150000

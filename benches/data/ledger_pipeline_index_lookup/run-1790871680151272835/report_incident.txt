@@ -1,0 +1,10 @@
+incident_type=original_runner_report_generation_failure
+run_id=1790871680151272835
+original_command=BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --locked --bench ledger_index_lookup_tokio -- --profile integrated_pipeline
+original_runner_exit_code=1
+original_runner_status=failed
+original_runner_error=canonical report output path had a duplicated benches/ prefix and could not be opened
+original_report_path=/home/neojhou/repos/ledger-wallet/benches/benches/ledger_pipeline_index_lookup_tokio_report.md
+trial_matrix_status_before_report_failure=all 9 child trials succeeded and aggregate matrix validation passed
+recovery_command=ledger_index_lookup_tokio --profile integrated_pipeline --report-only benches/data/ledger_pipeline_index_lookup/run-1790871680151272835
+recovery_status=canonical report generated after aggregate and all per-trial artifacts were revalidated; original run_metadata.txt remains unchanged with run_status=failed

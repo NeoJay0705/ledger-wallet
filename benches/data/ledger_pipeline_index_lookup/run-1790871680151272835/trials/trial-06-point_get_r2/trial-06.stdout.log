@@ -1,0 +1,29 @@
+CASE name=index_lookup_point_get users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=true gc_enabled=true runtime_workers=4 wall_s=273.926 settled_s=301.149 rps=36506.2 cpu_s=350.143 cpu_cores=1.278 peak_rss_bytes=1861894144 db_bytes=611490133 gc_prefix_near_client_end=1254144 gc_backlog_records_near_client_end=8895856 gc_prefix_after_settle=10150000 final_seq=10150000 watermark_updates=321 recovery_s=4.312730 integrity_s=0.337788
+CASE_IO name=index_lookup_point_get cpu_sample_offset_us=0 progress_sample_offset_us=5 io_sample_offset_us=134 storage_sample_offset_us=782 device=sdb2(8:18) process_rchar=51509339156 process_wchar=4053472751 process_read=0 process_write=4255088640 device_read=217088 device_write=4971401216 device_busy_ms=53726 wal_syncs=49150 wal_bytes=1669522339 writes_with_wal=49160 flush_write_bytes=651794260 compact_read_bytes=1685011121 compact_write_bytes=1730932162 stall_us=0 projected_sync_ns=47974602194 gc_scan_ns=29527711125 gc_delete_ns=254762567 gc_write_ns=10040124395 gc_scanned=1254144 gc_deleted=1254144 gc_deleted_bytes=170563584
+LATENCY name=index_lookup_point_get stage=request.total unit=ns samples=155808 p50=1343964902 p95=2088070185 p99=2491550427
+LATENCY name=index_lookup_point_get stage=request.admission unit=ns samples=155808 p50=481 p95=1774 p99=5831
+LATENCY name=index_lookup_point_get stage=request.enqueue unit=ns samples=155808 p50=70 p95=151 p99=240
+LATENCY name=index_lookup_point_get stage=request.queue unit=ns samples=155808 p50=1288724498 p95=2003768218 p99=2389032564
+LATENCY name=index_lookup_point_get stage=request.batch unit=ns samples=155808 p50=140654 p95=1307463 p99=1795348
+LATENCY name=index_lookup_point_get stage=request.handler unit=ns samples=155808 p50=52699330 p95=83340372 p99=104139025
+LATENCY name=index_lookup_point_get stage=request.response unit=ns samples=155808 p50=829690 p95=1930072 p99=2289271
+LATENCY name=index_lookup_point_get stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_point_get stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_point_get stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_point_get stage=projection.read unit=ns samples=39056 p50=315254 p95=509688 p99=620879
+LATENCY name=index_lookup_point_get stage=projection.apply unit=ns samples=39056 p50=142527 p95=232057 p99=384654
+LATENCY name=index_lookup_point_get stage=projection.progress_sync unit=ns samples=39056 p50=965188 p95=2105911 p99=3870334
+LATENCY name=index_lookup_point_get stage=projection.total unit=ns samples=39056 p50=1482888 p95=2728482 p99=4459309
+LATENCY name=index_lookup_point_get stage=gc.scan unit=ns samples=4899 p50=5998406 p95=10272530 p99=12677055
+LATENCY name=index_lookup_point_get stage=gc.delete_build unit=ns samples=4899 p50=49266 p95=66318 p99=126746
+LATENCY name=index_lookup_point_get stage=gc.sync_write unit=ns samples=4899 p50=1729427 p95=2410292 p99=3545580
+LATENCY name=index_lookup_point_get stage=gc.total unit=ns samples=4899 p50=54111352 p95=84537746 p99=106171462
+LATENCY name=index_lookup_point_get stage=watermark.fence_wait unit=ns samples=321 p50=779797394 p95=1568525003 p99=1884009115
+LATENCY name=index_lookup_point_get stage=watermark.projection_wait unit=ns samples=321 p50=12283283 p95=14934005 p99=753667607
+LATENCY name=index_lookup_point_get stage=watermark.persist unit=ns samples=321 p50=945809 p95=1045117 p99=2496104
+LATENCY name=index_lookup_point_get stage=watermark.total unit=ns samples=321 p50=795059870 p95=1582165126 p99=1897010851
+LATENCY name=index_lookup_point_get stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_point_get stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_point_get stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=index_lookup_point_get projection_batches=39056 projection_records=9998336 gc_steps=4899 gc_scanned_during_clients=1254144 gc_deleted_during_clients=1254144 gc_backlog_records_near_client_end=8895856 setup_preflight_cpu_pct=1.46 setup_preflight_disk_pct=0.10 measure_preflight_cpu_pct=1.34 measure_preflight_disk_pct=0.07
+INDEX_LOOKUP_TRIAL mode=point_get workers=4 requests=10000000 batches=4883 native_calls=10000000 keys=10000000 hits=0 misses=10000000 latest_seq=10150000 projected_seq=10148336 destination_seq=10148592 gc_prefix=10150000

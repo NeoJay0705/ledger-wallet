@@ -1,0 +1,2 @@
+case,index_lookup_strategy,index_group_size,index_concurrency,runtime_workers,batch_count,lookup_requests,native_calls,hits,misses,max_in_flight_groups,max_running_query_jobs
+index_lookup_chunked_256_p8,chunked,256,8,4,4883,10000000,39063,0,10000000,8,8
