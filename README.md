@@ -123,6 +123,24 @@ BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
 
 Integrated profile 完整矩陣已於 2026-10-02 完成：9 trials、每 trial 10M requests，共 90M requests。矩陣資料與逐 trial artifacts 全部通過 report-only 驗證。原始 runner 在所有 trials 與 aggregate validation 成功後，因 canonical report 路徑重複 `benches/` 而以 exit 1 結束；`--report-only` 從預設 archive 重新驗證完整矩陣並產生報告，保留原始 `run_status=failed` metadata。請見 [完整 integrated benchmark report](benches/ledger_pipeline_index_lookup_tokio_report.md)、[archive review report](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/report.md)、[run summary CSV](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/ledger_index_lookup_summary.csv)、[stage percentile CSV](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/ledger_index_lookup_stages.csv)、[trial manifest](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/trial_manifest.csv)、[run metadata](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/run_metadata.txt)、[report recovery record](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/report_recovery.txt) 與 [original report-generation incident](benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/report_incident.txt)。
 
+## Tokio 多分片 Ledger Pipeline 擴展基準測試
+
+`ledger_pipeline_sharding_tokio` 比較 S2／S4、共用單一 RocksDB／每 shard 獨立 RocksDB，以及每 shard 的 Chunked 256-key 查詢 P4／P8。矩陣為八種設定各三次，共 24 個 fresh trials；每 trial 執行 10M requests。工作負載、資源預算、量測範圍與限制見 [多分片 pipeline benchmark 設計](docs/01-29.development-design-ledger-pipeline-sharding-tokio-benchmark.md)。
+
+```sh
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_pipeline_sharding_tokio
+
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo bench --locked --bench ledger_pipeline_sharding_tokio -- --smoke
+```
+
+Smoke 用於檢查 runner 與正確性流程，不代表正式負載效能結果。
+
+正式矩陣已於 2026-10-02 完成：8 cases × 3 trials，每 trial 10M requests，共 240M requests；24 個 child 與 parent 均 exit 0。4 個 focused integration tests 與 CLI smoke 通過。DB close/reopen 後餘額、sequence、projection 與 GC 安全性驗證通過，owned DB scratch 全部刪除；source hash audit 為 10/10 matched。請見 [canonical report](benches/ledger_pipeline_sharding_tokio_report.md)、[archive index](benches/data/ledger_pipeline_sharding/run-1790925219743034498/evidence_archive.md)、[trial manifest](benches/data/ledger_pipeline_sharding/run-1790925219743034498/trial_manifest.csv)、[matrix trials](benches/data/ledger_pipeline_sharding/run-1790925219743034498/matrix_trials.csv)、[matrix shards](benches/data/ledger_pipeline_sharding/run-1790925219743034498/matrix_shards.csv)、[matrix stages](benches/data/ledger_pipeline_sharding/run-1790925219743034498/matrix_stages.csv)、[parent run status](benches/data/ledger_pipeline_sharding/run-1790925219743034498/parent_run_status.txt)、[run completion audit](benches/data/ledger_pipeline_sharding/run-1790925219743034498/run_completion_audit.txt)、[source hash audit](benches/data/ledger_pipeline_sharding/run-1790925219743034498/source_hash_audit.txt) 與 [complete file inventory](benches/data/ledger_pipeline_sharding/run-1790925219743034498/evidence_manifest.csv)。
+
+Git 保存矩陣、trial summaries、stage summaries、稽核資料與完整 SHA-256 inventory。完整原始 run（包括 request/stage/group/batch/background samples、trial logs、RocksDB options、原始 `report.md` 與 `run.log`）保存在 archive index 所述的 Git 外本機 gzip archive。Standalone clone 不含原始 samples 或完整 logs；需要 tail 分析時，必須另外取得 `/home/neojhou/benchmark-archives/ledger-wallet/ledger_pipeline_sharding/run-1790925219743034498.tar.gz`。Archive 尚未上傳，沒有共用下載 URL。原始 parent `run.log` 的 build warnings 不完整，且有一次 poll output capture gap；archive 保留原始 capture，沒有補造遺失內容。
+
 ## 文件
 
 - [歷史原始需求（待重新設計）](docs/01-01.raw-requirement-ledger-wallet.md)

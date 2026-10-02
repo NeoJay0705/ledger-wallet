@@ -1,0 +1,7 @@
+trial=trial-01-s4_shared_chunked256_c4-p05
+case=s4_shared_chunked256_c4
+repetition=1
+position=5
+exit_status=exit status: 0
+stdout=stdout.log
+stderr=stderr.log

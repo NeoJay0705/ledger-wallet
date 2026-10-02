@@ -1,0 +1,524 @@
+run_id=1790925219743034498
+parent_exit_code=0
+child_trials=24
+child_status_exit_zero=24/24
+total_requests=240000000
+total_credits=120000000
+total_debits=120000000
+per_trial_shard_rows=72
+per_trial_stage_rows=3456
+request_sample_rows=3739392
+final_balance_per_account=100
+projection_destination_latest_equal=true for 24/24
+final_sequence_projection_destination_gc_prefix_equal=true for every shard
+owned_scratch_removed=true for 24/24
+recovery_and_integrity_metrics_present=true for 24/24
+source_hashes=10/10 MATCH
+max_file=trials/trial-02-s2_dedicated_chunked256_c4-p08/raw_stage_samples.csv
+max_file_bytes=48269488
+max_file_mib=46.03
+max_file_limit_bytes=104857600
+max_file_below_100MiB=True
+canonical_report=report.md
+immutable_manifest=run_manifest.txt
+source_hash_audit=source_hash_audit.txt
+check_source_hashes=PASS; 10/10 match
+check_matrix_trial_rows=PASS; rows=24
+check_matrix_shard_rows=PASS; rows=72
+check_matrix_stage_rows=PASS; rows=3456
+check_trial_manifest_rows=PASS; rows=24
+check_unique_matrix_trial_names=PASS
+check_unique_trial_manifest_names=PASS
+check_matrix_requests=PASS; 240000000
+check_matrix_credits=PASS; 120000000
+check_matrix_debits=PASS; 120000000
+check_trial_directories=PASS; dirs=24
+check_trial-01-s2_dedicated_chunked256_c4-p03 status=PASS; exit status: 0
+check_trial-01-s2_dedicated_chunked256_c4-p03 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s2_dedicated_chunked256_c4-p03 integrity=PASS; passed; balance=100
+check_trial-01-s2_dedicated_chunked256_c4-p03 durable_progress=PASS; true
+check_trial-01-s2_dedicated_chunked256_c4-p03 recovery_metrics=PASS; recovery=3.228366948 integrity=0.194487099
+check_trial-01-s2_dedicated_chunked256_c4-p03 raw diagnostics=PASS
+check_trial-01-s2_dedicated_chunked256_c4-p03 summary_rows=PASS; rows=1
+check_trial-01-s2_dedicated_chunked256_c4-p03 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s2_dedicated_chunked256_c4-p03 db_topology=PASS; layout=dedicated db_count=2 expected=2
+check_trial-01-s2_dedicated_chunked256_c4-p03 summary_metrics=PASS
+check_trial-01-s2_dedicated_chunked256_c4-p03 shard_rows=PASS; rows=2 expected=2
+check_trial-01-s2_dedicated_chunked256_c4-p03 shard_ids=PASS; [0, 1]
+check_trial-01-s2_dedicated_chunked256_c4-p03 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-01-s2_dedicated_chunked256_c4-p03 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s2_dedicated_chunked256_c4-p03 stage_rows=PASS; rows=108 expected=108
+check_trial-01-s2_dedicated_chunked256_c4-p03 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s2_dedicated_chunked256_c4-p03 stage_metrics_numeric=PASS
+check_trial-01-s2_dedicated_chunked256_c4-p03 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s2_dedicated_chunked256_c4-p03 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s2_dedicated_chunked256_c4-p03 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s2_dedicated_chunked256_c8-p04 status=PASS; exit status: 0
+check_trial-01-s2_dedicated_chunked256_c8-p04 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s2_dedicated_chunked256_c8-p04 integrity=PASS; passed; balance=100
+check_trial-01-s2_dedicated_chunked256_c8-p04 durable_progress=PASS; true
+check_trial-01-s2_dedicated_chunked256_c8-p04 recovery_metrics=PASS; recovery=2.285838547 integrity=1.520760639
+check_trial-01-s2_dedicated_chunked256_c8-p04 raw diagnostics=PASS
+check_trial-01-s2_dedicated_chunked256_c8-p04 summary_rows=PASS; rows=1
+check_trial-01-s2_dedicated_chunked256_c8-p04 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s2_dedicated_chunked256_c8-p04 db_topology=PASS; layout=dedicated db_count=2 expected=2
+check_trial-01-s2_dedicated_chunked256_c8-p04 summary_metrics=PASS
+check_trial-01-s2_dedicated_chunked256_c8-p04 shard_rows=PASS; rows=2 expected=2
+check_trial-01-s2_dedicated_chunked256_c8-p04 shard_ids=PASS; [0, 1]
+check_trial-01-s2_dedicated_chunked256_c8-p04 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-01-s2_dedicated_chunked256_c8-p04 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s2_dedicated_chunked256_c8-p04 stage_rows=PASS; rows=108 expected=108
+check_trial-01-s2_dedicated_chunked256_c8-p04 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s2_dedicated_chunked256_c8-p04 stage_metrics_numeric=PASS
+check_trial-01-s2_dedicated_chunked256_c8-p04 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s2_dedicated_chunked256_c8-p04 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s2_dedicated_chunked256_c8-p04 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s2_shared_chunked256_c4-p01 status=PASS; exit status: 0
+check_trial-01-s2_shared_chunked256_c4-p01 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s2_shared_chunked256_c4-p01 integrity=PASS; passed; balance=100
+check_trial-01-s2_shared_chunked256_c4-p01 durable_progress=PASS; true
+check_trial-01-s2_shared_chunked256_c4-p01 recovery_metrics=PASS; recovery=1.690836775 integrity=0.911815341
+check_trial-01-s2_shared_chunked256_c4-p01 raw diagnostics=PASS
+check_trial-01-s2_shared_chunked256_c4-p01 summary_rows=PASS; rows=1
+check_trial-01-s2_shared_chunked256_c4-p01 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s2_shared_chunked256_c4-p01 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-01-s2_shared_chunked256_c4-p01 summary_metrics=PASS
+check_trial-01-s2_shared_chunked256_c4-p01 shard_rows=PASS; rows=2 expected=2
+check_trial-01-s2_shared_chunked256_c4-p01 shard_ids=PASS; [0, 1]
+check_trial-01-s2_shared_chunked256_c4-p01 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-01-s2_shared_chunked256_c4-p01 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s2_shared_chunked256_c4-p01 stage_rows=PASS; rows=108 expected=108
+check_trial-01-s2_shared_chunked256_c4-p01 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s2_shared_chunked256_c4-p01 stage_metrics_numeric=PASS
+check_trial-01-s2_shared_chunked256_c4-p01 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s2_shared_chunked256_c4-p01 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s2_shared_chunked256_c4-p01 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s2_shared_chunked256_c8-p02 status=PASS; exit status: 0
+check_trial-01-s2_shared_chunked256_c8-p02 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s2_shared_chunked256_c8-p02 integrity=PASS; passed; balance=100
+check_trial-01-s2_shared_chunked256_c8-p02 durable_progress=PASS; true
+check_trial-01-s2_shared_chunked256_c8-p02 recovery_metrics=PASS; recovery=1.124883355 integrity=1.298582340
+check_trial-01-s2_shared_chunked256_c8-p02 raw diagnostics=PASS
+check_trial-01-s2_shared_chunked256_c8-p02 summary_rows=PASS; rows=1
+check_trial-01-s2_shared_chunked256_c8-p02 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s2_shared_chunked256_c8-p02 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-01-s2_shared_chunked256_c8-p02 summary_metrics=PASS
+check_trial-01-s2_shared_chunked256_c8-p02 shard_rows=PASS; rows=2 expected=2
+check_trial-01-s2_shared_chunked256_c8-p02 shard_ids=PASS; [0, 1]
+check_trial-01-s2_shared_chunked256_c8-p02 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-01-s2_shared_chunked256_c8-p02 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s2_shared_chunked256_c8-p02 stage_rows=PASS; rows=108 expected=108
+check_trial-01-s2_shared_chunked256_c8-p02 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s2_shared_chunked256_c8-p02 stage_metrics_numeric=PASS
+check_trial-01-s2_shared_chunked256_c8-p02 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s2_shared_chunked256_c8-p02 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s2_shared_chunked256_c8-p02 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s4_dedicated_chunked256_c4-p07 status=PASS; exit status: 0
+check_trial-01-s4_dedicated_chunked256_c4-p07 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s4_dedicated_chunked256_c4-p07 integrity=PASS; passed; balance=100
+check_trial-01-s4_dedicated_chunked256_c4-p07 durable_progress=PASS; true
+check_trial-01-s4_dedicated_chunked256_c4-p07 recovery_metrics=PASS; recovery=0.614281036 integrity=0.639072607
+check_trial-01-s4_dedicated_chunked256_c4-p07 raw diagnostics=PASS
+check_trial-01-s4_dedicated_chunked256_c4-p07 summary_rows=PASS; rows=1
+check_trial-01-s4_dedicated_chunked256_c4-p07 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s4_dedicated_chunked256_c4-p07 db_topology=PASS; layout=dedicated db_count=4 expected=4
+check_trial-01-s4_dedicated_chunked256_c4-p07 summary_metrics=PASS
+check_trial-01-s4_dedicated_chunked256_c4-p07 shard_rows=PASS; rows=4 expected=4
+check_trial-01-s4_dedicated_chunked256_c4-p07 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-01-s4_dedicated_chunked256_c4-p07 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-01-s4_dedicated_chunked256_c4-p07 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s4_dedicated_chunked256_c4-p07 stage_rows=PASS; rows=180 expected=180
+check_trial-01-s4_dedicated_chunked256_c4-p07 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s4_dedicated_chunked256_c4-p07 stage_metrics_numeric=PASS
+check_trial-01-s4_dedicated_chunked256_c4-p07 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s4_dedicated_chunked256_c4-p07 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s4_dedicated_chunked256_c4-p07 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s4_dedicated_chunked256_c8-p08 status=PASS; exit status: 0
+check_trial-01-s4_dedicated_chunked256_c8-p08 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s4_dedicated_chunked256_c8-p08 integrity=PASS; passed; balance=100
+check_trial-01-s4_dedicated_chunked256_c8-p08 durable_progress=PASS; true
+check_trial-01-s4_dedicated_chunked256_c8-p08 recovery_metrics=PASS; recovery=0.582169731 integrity=0.605200214
+check_trial-01-s4_dedicated_chunked256_c8-p08 raw diagnostics=PASS
+check_trial-01-s4_dedicated_chunked256_c8-p08 summary_rows=PASS; rows=1
+check_trial-01-s4_dedicated_chunked256_c8-p08 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s4_dedicated_chunked256_c8-p08 db_topology=PASS; layout=dedicated db_count=4 expected=4
+check_trial-01-s4_dedicated_chunked256_c8-p08 summary_metrics=PASS
+check_trial-01-s4_dedicated_chunked256_c8-p08 shard_rows=PASS; rows=4 expected=4
+check_trial-01-s4_dedicated_chunked256_c8-p08 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-01-s4_dedicated_chunked256_c8-p08 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-01-s4_dedicated_chunked256_c8-p08 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s4_dedicated_chunked256_c8-p08 stage_rows=PASS; rows=180 expected=180
+check_trial-01-s4_dedicated_chunked256_c8-p08 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s4_dedicated_chunked256_c8-p08 stage_metrics_numeric=PASS
+check_trial-01-s4_dedicated_chunked256_c8-p08 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s4_dedicated_chunked256_c8-p08 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s4_dedicated_chunked256_c8-p08 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s4_shared_chunked256_c4-p05 status=PASS; exit status: 0
+check_trial-01-s4_shared_chunked256_c4-p05 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s4_shared_chunked256_c4-p05 integrity=PASS; passed; balance=100
+check_trial-01-s4_shared_chunked256_c4-p05 durable_progress=PASS; true
+check_trial-01-s4_shared_chunked256_c4-p05 recovery_metrics=PASS; recovery=4.134610397 integrity=1.002053554
+check_trial-01-s4_shared_chunked256_c4-p05 raw diagnostics=PASS
+check_trial-01-s4_shared_chunked256_c4-p05 summary_rows=PASS; rows=1
+check_trial-01-s4_shared_chunked256_c4-p05 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s4_shared_chunked256_c4-p05 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-01-s4_shared_chunked256_c4-p05 summary_metrics=PASS
+check_trial-01-s4_shared_chunked256_c4-p05 shard_rows=PASS; rows=4 expected=4
+check_trial-01-s4_shared_chunked256_c4-p05 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-01-s4_shared_chunked256_c4-p05 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-01-s4_shared_chunked256_c4-p05 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s4_shared_chunked256_c4-p05 stage_rows=PASS; rows=180 expected=180
+check_trial-01-s4_shared_chunked256_c4-p05 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s4_shared_chunked256_c4-p05 stage_metrics_numeric=PASS
+check_trial-01-s4_shared_chunked256_c4-p05 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s4_shared_chunked256_c4-p05 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s4_shared_chunked256_c4-p05 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-01-s4_shared_chunked256_c8-p06 status=PASS; exit status: 0
+check_trial-01-s4_shared_chunked256_c8-p06 scratch_removed=PASS; owned_scratch_removed
+check_trial-01-s4_shared_chunked256_c8-p06 integrity=PASS; passed; balance=100
+check_trial-01-s4_shared_chunked256_c8-p06 durable_progress=PASS; true
+check_trial-01-s4_shared_chunked256_c8-p06 recovery_metrics=PASS; recovery=2.298209026 integrity=0.453538161
+check_trial-01-s4_shared_chunked256_c8-p06 raw diagnostics=PASS
+check_trial-01-s4_shared_chunked256_c8-p06 summary_rows=PASS; rows=1
+check_trial-01-s4_shared_chunked256_c8-p06 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-01-s4_shared_chunked256_c8-p06 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-01-s4_shared_chunked256_c8-p06 summary_metrics=PASS
+check_trial-01-s4_shared_chunked256_c8-p06 shard_rows=PASS; rows=4 expected=4
+check_trial-01-s4_shared_chunked256_c8-p06 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-01-s4_shared_chunked256_c8-p06 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-01-s4_shared_chunked256_c8-p06 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-01-s4_shared_chunked256_c8-p06 stage_rows=PASS; rows=180 expected=180
+check_trial-01-s4_shared_chunked256_c8-p06 stage_metric_coverage=PASS; metrics=36
+check_trial-01-s4_shared_chunked256_c8-p06 stage_metrics_numeric=PASS
+check_trial-01-s4_shared_chunked256_c8-p06 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-01-s4_shared_chunked256_c8-p06 request_samples=PASS; rows=155808 summary=155808
+check_trial-01-s4_shared_chunked256_c8-p06 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s2_dedicated_chunked256_c4-p08 status=PASS; exit status: 0
+check_trial-02-s2_dedicated_chunked256_c4-p08 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s2_dedicated_chunked256_c4-p08 integrity=PASS; passed; balance=100
+check_trial-02-s2_dedicated_chunked256_c4-p08 durable_progress=PASS; true
+check_trial-02-s2_dedicated_chunked256_c4-p08 recovery_metrics=PASS; recovery=2.169733222 integrity=1.608735652
+check_trial-02-s2_dedicated_chunked256_c4-p08 raw diagnostics=PASS
+check_trial-02-s2_dedicated_chunked256_c4-p08 summary_rows=PASS; rows=1
+check_trial-02-s2_dedicated_chunked256_c4-p08 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s2_dedicated_chunked256_c4-p08 db_topology=PASS; layout=dedicated db_count=2 expected=2
+check_trial-02-s2_dedicated_chunked256_c4-p08 summary_metrics=PASS
+check_trial-02-s2_dedicated_chunked256_c4-p08 shard_rows=PASS; rows=2 expected=2
+check_trial-02-s2_dedicated_chunked256_c4-p08 shard_ids=PASS; [0, 1]
+check_trial-02-s2_dedicated_chunked256_c4-p08 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-02-s2_dedicated_chunked256_c4-p08 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s2_dedicated_chunked256_c4-p08 stage_rows=PASS; rows=108 expected=108
+check_trial-02-s2_dedicated_chunked256_c4-p08 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s2_dedicated_chunked256_c4-p08 stage_metrics_numeric=PASS
+check_trial-02-s2_dedicated_chunked256_c4-p08 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s2_dedicated_chunked256_c4-p08 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s2_dedicated_chunked256_c4-p08 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s2_dedicated_chunked256_c8-p01 status=PASS; exit status: 0
+check_trial-02-s2_dedicated_chunked256_c8-p01 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s2_dedicated_chunked256_c8-p01 integrity=PASS; passed; balance=100
+check_trial-02-s2_dedicated_chunked256_c8-p01 durable_progress=PASS; true
+check_trial-02-s2_dedicated_chunked256_c8-p01 recovery_metrics=PASS; recovery=2.311419375 integrity=1.536070663
+check_trial-02-s2_dedicated_chunked256_c8-p01 raw diagnostics=PASS
+check_trial-02-s2_dedicated_chunked256_c8-p01 summary_rows=PASS; rows=1
+check_trial-02-s2_dedicated_chunked256_c8-p01 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s2_dedicated_chunked256_c8-p01 db_topology=PASS; layout=dedicated db_count=2 expected=2
+check_trial-02-s2_dedicated_chunked256_c8-p01 summary_metrics=PASS
+check_trial-02-s2_dedicated_chunked256_c8-p01 shard_rows=PASS; rows=2 expected=2
+check_trial-02-s2_dedicated_chunked256_c8-p01 shard_ids=PASS; [0, 1]
+check_trial-02-s2_dedicated_chunked256_c8-p01 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-02-s2_dedicated_chunked256_c8-p01 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s2_dedicated_chunked256_c8-p01 stage_rows=PASS; rows=108 expected=108
+check_trial-02-s2_dedicated_chunked256_c8-p01 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s2_dedicated_chunked256_c8-p01 stage_metrics_numeric=PASS
+check_trial-02-s2_dedicated_chunked256_c8-p01 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s2_dedicated_chunked256_c8-p01 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s2_dedicated_chunked256_c8-p01 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s2_shared_chunked256_c4-p06 status=PASS; exit status: 0
+check_trial-02-s2_shared_chunked256_c4-p06 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s2_shared_chunked256_c4-p06 integrity=PASS; passed; balance=100
+check_trial-02-s2_shared_chunked256_c4-p06 durable_progress=PASS; true
+check_trial-02-s2_shared_chunked256_c4-p06 recovery_metrics=PASS; recovery=3.496640639 integrity=0.963379818
+check_trial-02-s2_shared_chunked256_c4-p06 raw diagnostics=PASS
+check_trial-02-s2_shared_chunked256_c4-p06 summary_rows=PASS; rows=1
+check_trial-02-s2_shared_chunked256_c4-p06 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s2_shared_chunked256_c4-p06 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-02-s2_shared_chunked256_c4-p06 summary_metrics=PASS
+check_trial-02-s2_shared_chunked256_c4-p06 shard_rows=PASS; rows=2 expected=2
+check_trial-02-s2_shared_chunked256_c4-p06 shard_ids=PASS; [0, 1]
+check_trial-02-s2_shared_chunked256_c4-p06 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-02-s2_shared_chunked256_c4-p06 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s2_shared_chunked256_c4-p06 stage_rows=PASS; rows=108 expected=108
+check_trial-02-s2_shared_chunked256_c4-p06 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s2_shared_chunked256_c4-p06 stage_metrics_numeric=PASS
+check_trial-02-s2_shared_chunked256_c4-p06 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s2_shared_chunked256_c4-p06 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s2_shared_chunked256_c4-p06 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s2_shared_chunked256_c8-p07 status=PASS; exit status: 0
+check_trial-02-s2_shared_chunked256_c8-p07 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s2_shared_chunked256_c8-p07 integrity=PASS; passed; balance=100
+check_trial-02-s2_shared_chunked256_c8-p07 durable_progress=PASS; true
+check_trial-02-s2_shared_chunked256_c8-p07 recovery_metrics=PASS; recovery=4.190563937 integrity=1.423435395
+check_trial-02-s2_shared_chunked256_c8-p07 raw diagnostics=PASS
+check_trial-02-s2_shared_chunked256_c8-p07 summary_rows=PASS; rows=1
+check_trial-02-s2_shared_chunked256_c8-p07 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s2_shared_chunked256_c8-p07 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-02-s2_shared_chunked256_c8-p07 summary_metrics=PASS
+check_trial-02-s2_shared_chunked256_c8-p07 shard_rows=PASS; rows=2 expected=2
+check_trial-02-s2_shared_chunked256_c8-p07 shard_ids=PASS; [0, 1]
+check_trial-02-s2_shared_chunked256_c8-p07 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-02-s2_shared_chunked256_c8-p07 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s2_shared_chunked256_c8-p07 stage_rows=PASS; rows=108 expected=108
+check_trial-02-s2_shared_chunked256_c8-p07 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s2_shared_chunked256_c8-p07 stage_metrics_numeric=PASS
+check_trial-02-s2_shared_chunked256_c8-p07 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s2_shared_chunked256_c8-p07 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s2_shared_chunked256_c8-p07 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s4_dedicated_chunked256_c4-p04 status=PASS; exit status: 0
+check_trial-02-s4_dedicated_chunked256_c4-p04 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s4_dedicated_chunked256_c4-p04 integrity=PASS; passed; balance=100
+check_trial-02-s4_dedicated_chunked256_c4-p04 durable_progress=PASS; true
+check_trial-02-s4_dedicated_chunked256_c4-p04 recovery_metrics=PASS; recovery=0.594735569 integrity=0.604315610
+check_trial-02-s4_dedicated_chunked256_c4-p04 raw diagnostics=PASS
+check_trial-02-s4_dedicated_chunked256_c4-p04 summary_rows=PASS; rows=1
+check_trial-02-s4_dedicated_chunked256_c4-p04 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s4_dedicated_chunked256_c4-p04 db_topology=PASS; layout=dedicated db_count=4 expected=4
+check_trial-02-s4_dedicated_chunked256_c4-p04 summary_metrics=PASS
+check_trial-02-s4_dedicated_chunked256_c4-p04 shard_rows=PASS; rows=4 expected=4
+check_trial-02-s4_dedicated_chunked256_c4-p04 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-02-s4_dedicated_chunked256_c4-p04 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-02-s4_dedicated_chunked256_c4-p04 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s4_dedicated_chunked256_c4-p04 stage_rows=PASS; rows=180 expected=180
+check_trial-02-s4_dedicated_chunked256_c4-p04 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s4_dedicated_chunked256_c4-p04 stage_metrics_numeric=PASS
+check_trial-02-s4_dedicated_chunked256_c4-p04 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s4_dedicated_chunked256_c4-p04 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s4_dedicated_chunked256_c4-p04 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s4_dedicated_chunked256_c8-p05 status=PASS; exit status: 0
+check_trial-02-s4_dedicated_chunked256_c8-p05 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s4_dedicated_chunked256_c8-p05 integrity=PASS; passed; balance=100
+check_trial-02-s4_dedicated_chunked256_c8-p05 durable_progress=PASS; true
+check_trial-02-s4_dedicated_chunked256_c8-p05 recovery_metrics=PASS; recovery=0.632321353 integrity=0.650405217
+check_trial-02-s4_dedicated_chunked256_c8-p05 raw diagnostics=PASS
+check_trial-02-s4_dedicated_chunked256_c8-p05 summary_rows=PASS; rows=1
+check_trial-02-s4_dedicated_chunked256_c8-p05 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s4_dedicated_chunked256_c8-p05 db_topology=PASS; layout=dedicated db_count=4 expected=4
+check_trial-02-s4_dedicated_chunked256_c8-p05 summary_metrics=PASS
+check_trial-02-s4_dedicated_chunked256_c8-p05 shard_rows=PASS; rows=4 expected=4
+check_trial-02-s4_dedicated_chunked256_c8-p05 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-02-s4_dedicated_chunked256_c8-p05 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-02-s4_dedicated_chunked256_c8-p05 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s4_dedicated_chunked256_c8-p05 stage_rows=PASS; rows=180 expected=180
+check_trial-02-s4_dedicated_chunked256_c8-p05 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s4_dedicated_chunked256_c8-p05 stage_metrics_numeric=PASS
+check_trial-02-s4_dedicated_chunked256_c8-p05 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s4_dedicated_chunked256_c8-p05 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s4_dedicated_chunked256_c8-p05 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s4_shared_chunked256_c4-p02 status=PASS; exit status: 0
+check_trial-02-s4_shared_chunked256_c4-p02 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s4_shared_chunked256_c4-p02 integrity=PASS; passed; balance=100
+check_trial-02-s4_shared_chunked256_c4-p02 durable_progress=PASS; true
+check_trial-02-s4_shared_chunked256_c4-p02 recovery_metrics=PASS; recovery=4.031101277 integrity=1.001640492
+check_trial-02-s4_shared_chunked256_c4-p02 raw diagnostics=PASS
+check_trial-02-s4_shared_chunked256_c4-p02 summary_rows=PASS; rows=1
+check_trial-02-s4_shared_chunked256_c4-p02 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s4_shared_chunked256_c4-p02 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-02-s4_shared_chunked256_c4-p02 summary_metrics=PASS
+check_trial-02-s4_shared_chunked256_c4-p02 shard_rows=PASS; rows=4 expected=4
+check_trial-02-s4_shared_chunked256_c4-p02 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-02-s4_shared_chunked256_c4-p02 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-02-s4_shared_chunked256_c4-p02 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s4_shared_chunked256_c4-p02 stage_rows=PASS; rows=180 expected=180
+check_trial-02-s4_shared_chunked256_c4-p02 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s4_shared_chunked256_c4-p02 stage_metrics_numeric=PASS
+check_trial-02-s4_shared_chunked256_c4-p02 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s4_shared_chunked256_c4-p02 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s4_shared_chunked256_c4-p02 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-02-s4_shared_chunked256_c8-p03 status=PASS; exit status: 0
+check_trial-02-s4_shared_chunked256_c8-p03 scratch_removed=PASS; owned_scratch_removed
+check_trial-02-s4_shared_chunked256_c8-p03 integrity=PASS; passed; balance=100
+check_trial-02-s4_shared_chunked256_c8-p03 durable_progress=PASS; true
+check_trial-02-s4_shared_chunked256_c8-p03 recovery_metrics=PASS; recovery=2.371799108 integrity=1.050324946
+check_trial-02-s4_shared_chunked256_c8-p03 raw diagnostics=PASS
+check_trial-02-s4_shared_chunked256_c8-p03 summary_rows=PASS; rows=1
+check_trial-02-s4_shared_chunked256_c8-p03 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-02-s4_shared_chunked256_c8-p03 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-02-s4_shared_chunked256_c8-p03 summary_metrics=PASS
+check_trial-02-s4_shared_chunked256_c8-p03 shard_rows=PASS; rows=4 expected=4
+check_trial-02-s4_shared_chunked256_c8-p03 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-02-s4_shared_chunked256_c8-p03 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-02-s4_shared_chunked256_c8-p03 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-02-s4_shared_chunked256_c8-p03 stage_rows=PASS; rows=180 expected=180
+check_trial-02-s4_shared_chunked256_c8-p03 stage_metric_coverage=PASS; metrics=36
+check_trial-02-s4_shared_chunked256_c8-p03 stage_metrics_numeric=PASS
+check_trial-02-s4_shared_chunked256_c8-p03 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-02-s4_shared_chunked256_c8-p03 request_samples=PASS; rows=155808 summary=155808
+check_trial-02-s4_shared_chunked256_c8-p03 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s2_dedicated_chunked256_c4-p05 status=PASS; exit status: 0
+check_trial-03-s2_dedicated_chunked256_c4-p05 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s2_dedicated_chunked256_c4-p05 integrity=PASS; passed; balance=100
+check_trial-03-s2_dedicated_chunked256_c4-p05 durable_progress=PASS; true
+check_trial-03-s2_dedicated_chunked256_c4-p05 recovery_metrics=PASS; recovery=4.445465521 integrity=2.855279159
+check_trial-03-s2_dedicated_chunked256_c4-p05 raw diagnostics=PASS
+check_trial-03-s2_dedicated_chunked256_c4-p05 summary_rows=PASS; rows=1
+check_trial-03-s2_dedicated_chunked256_c4-p05 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s2_dedicated_chunked256_c4-p05 db_topology=PASS; layout=dedicated db_count=2 expected=2
+check_trial-03-s2_dedicated_chunked256_c4-p05 summary_metrics=PASS
+check_trial-03-s2_dedicated_chunked256_c4-p05 shard_rows=PASS; rows=2 expected=2
+check_trial-03-s2_dedicated_chunked256_c4-p05 shard_ids=PASS; [0, 1]
+check_trial-03-s2_dedicated_chunked256_c4-p05 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-03-s2_dedicated_chunked256_c4-p05 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s2_dedicated_chunked256_c4-p05 stage_rows=PASS; rows=108 expected=108
+check_trial-03-s2_dedicated_chunked256_c4-p05 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s2_dedicated_chunked256_c4-p05 stage_metrics_numeric=PASS
+check_trial-03-s2_dedicated_chunked256_c4-p05 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s2_dedicated_chunked256_c4-p05 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s2_dedicated_chunked256_c4-p05 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s2_dedicated_chunked256_c8-p06 status=PASS; exit status: 0
+check_trial-03-s2_dedicated_chunked256_c8-p06 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s2_dedicated_chunked256_c8-p06 integrity=PASS; passed; balance=100
+check_trial-03-s2_dedicated_chunked256_c8-p06 durable_progress=PASS; true
+check_trial-03-s2_dedicated_chunked256_c8-p06 recovery_metrics=PASS; recovery=2.215381498 integrity=1.638931775
+check_trial-03-s2_dedicated_chunked256_c8-p06 raw diagnostics=PASS
+check_trial-03-s2_dedicated_chunked256_c8-p06 summary_rows=PASS; rows=1
+check_trial-03-s2_dedicated_chunked256_c8-p06 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s2_dedicated_chunked256_c8-p06 db_topology=PASS; layout=dedicated db_count=2 expected=2
+check_trial-03-s2_dedicated_chunked256_c8-p06 summary_metrics=PASS
+check_trial-03-s2_dedicated_chunked256_c8-p06 shard_rows=PASS; rows=2 expected=2
+check_trial-03-s2_dedicated_chunked256_c8-p06 shard_ids=PASS; [0, 1]
+check_trial-03-s2_dedicated_chunked256_c8-p06 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-03-s2_dedicated_chunked256_c8-p06 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s2_dedicated_chunked256_c8-p06 stage_rows=PASS; rows=108 expected=108
+check_trial-03-s2_dedicated_chunked256_c8-p06 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s2_dedicated_chunked256_c8-p06 stage_metrics_numeric=PASS
+check_trial-03-s2_dedicated_chunked256_c8-p06 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s2_dedicated_chunked256_c8-p06 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s2_dedicated_chunked256_c8-p06 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s2_shared_chunked256_c4-p03 status=PASS; exit status: 0
+check_trial-03-s2_shared_chunked256_c4-p03 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s2_shared_chunked256_c4-p03 integrity=PASS; passed; balance=100
+check_trial-03-s2_shared_chunked256_c4-p03 durable_progress=PASS; true
+check_trial-03-s2_shared_chunked256_c4-p03 recovery_metrics=PASS; recovery=1.676800640 integrity=0.933981211
+check_trial-03-s2_shared_chunked256_c4-p03 raw diagnostics=PASS
+check_trial-03-s2_shared_chunked256_c4-p03 summary_rows=PASS; rows=1
+check_trial-03-s2_shared_chunked256_c4-p03 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s2_shared_chunked256_c4-p03 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-03-s2_shared_chunked256_c4-p03 summary_metrics=PASS
+check_trial-03-s2_shared_chunked256_c4-p03 shard_rows=PASS; rows=2 expected=2
+check_trial-03-s2_shared_chunked256_c4-p03 shard_ids=PASS; [0, 1]
+check_trial-03-s2_shared_chunked256_c4-p03 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-03-s2_shared_chunked256_c4-p03 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s2_shared_chunked256_c4-p03 stage_rows=PASS; rows=108 expected=108
+check_trial-03-s2_shared_chunked256_c4-p03 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s2_shared_chunked256_c4-p03 stage_metrics_numeric=PASS
+check_trial-03-s2_shared_chunked256_c4-p03 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s2_shared_chunked256_c4-p03 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s2_shared_chunked256_c4-p03 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s2_shared_chunked256_c8-p04 status=PASS; exit status: 0
+check_trial-03-s2_shared_chunked256_c8-p04 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s2_shared_chunked256_c8-p04 integrity=PASS; passed; balance=100
+check_trial-03-s2_shared_chunked256_c8-p04 durable_progress=PASS; true
+check_trial-03-s2_shared_chunked256_c8-p04 recovery_metrics=PASS; recovery=4.495575328 integrity=1.062960396
+check_trial-03-s2_shared_chunked256_c8-p04 raw diagnostics=PASS
+check_trial-03-s2_shared_chunked256_c8-p04 summary_rows=PASS; rows=1
+check_trial-03-s2_shared_chunked256_c8-p04 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s2_shared_chunked256_c8-p04 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-03-s2_shared_chunked256_c8-p04 summary_metrics=PASS
+check_trial-03-s2_shared_chunked256_c8-p04 shard_rows=PASS; rows=2 expected=2
+check_trial-03-s2_shared_chunked256_c8-p04 shard_ids=PASS; [0, 1]
+check_trial-03-s2_shared_chunked256_c8-p04 shard_exact_counts_and_progress=PASS; expected each accounts=25000, requests=5000000, seq=5075000
+check_trial-03-s2_shared_chunked256_c8-p04 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s2_shared_chunked256_c8-p04 stage_rows=PASS; rows=108 expected=108
+check_trial-03-s2_shared_chunked256_c8-p04 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s2_shared_chunked256_c8-p04 stage_metrics_numeric=PASS
+check_trial-03-s2_shared_chunked256_c8-p04 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s2_shared_chunked256_c8-p04 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s2_shared_chunked256_c8-p04 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s4_dedicated_chunked256_c4-p01 status=PASS; exit status: 0
+check_trial-03-s4_dedicated_chunked256_c4-p01 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s4_dedicated_chunked256_c4-p01 integrity=PASS; passed; balance=100
+check_trial-03-s4_dedicated_chunked256_c4-p01 durable_progress=PASS; true
+check_trial-03-s4_dedicated_chunked256_c4-p01 recovery_metrics=PASS; recovery=0.608841222 integrity=0.626758082
+check_trial-03-s4_dedicated_chunked256_c4-p01 raw diagnostics=PASS
+check_trial-03-s4_dedicated_chunked256_c4-p01 summary_rows=PASS; rows=1
+check_trial-03-s4_dedicated_chunked256_c4-p01 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s4_dedicated_chunked256_c4-p01 db_topology=PASS; layout=dedicated db_count=4 expected=4
+check_trial-03-s4_dedicated_chunked256_c4-p01 summary_metrics=PASS
+check_trial-03-s4_dedicated_chunked256_c4-p01 shard_rows=PASS; rows=4 expected=4
+check_trial-03-s4_dedicated_chunked256_c4-p01 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-03-s4_dedicated_chunked256_c4-p01 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-03-s4_dedicated_chunked256_c4-p01 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s4_dedicated_chunked256_c4-p01 stage_rows=PASS; rows=180 expected=180
+check_trial-03-s4_dedicated_chunked256_c4-p01 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s4_dedicated_chunked256_c4-p01 stage_metrics_numeric=PASS
+check_trial-03-s4_dedicated_chunked256_c4-p01 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s4_dedicated_chunked256_c4-p01 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s4_dedicated_chunked256_c4-p01 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s4_dedicated_chunked256_c8-p02 status=PASS; exit status: 0
+check_trial-03-s4_dedicated_chunked256_c8-p02 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s4_dedicated_chunked256_c8-p02 integrity=PASS; passed; balance=100
+check_trial-03-s4_dedicated_chunked256_c8-p02 durable_progress=PASS; true
+check_trial-03-s4_dedicated_chunked256_c8-p02 recovery_metrics=PASS; recovery=0.606933071 integrity=0.636857758
+check_trial-03-s4_dedicated_chunked256_c8-p02 raw diagnostics=PASS
+check_trial-03-s4_dedicated_chunked256_c8-p02 summary_rows=PASS; rows=1
+check_trial-03-s4_dedicated_chunked256_c8-p02 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s4_dedicated_chunked256_c8-p02 db_topology=PASS; layout=dedicated db_count=4 expected=4
+check_trial-03-s4_dedicated_chunked256_c8-p02 summary_metrics=PASS
+check_trial-03-s4_dedicated_chunked256_c8-p02 shard_rows=PASS; rows=4 expected=4
+check_trial-03-s4_dedicated_chunked256_c8-p02 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-03-s4_dedicated_chunked256_c8-p02 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-03-s4_dedicated_chunked256_c8-p02 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s4_dedicated_chunked256_c8-p02 stage_rows=PASS; rows=180 expected=180
+check_trial-03-s4_dedicated_chunked256_c8-p02 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s4_dedicated_chunked256_c8-p02 stage_metrics_numeric=PASS
+check_trial-03-s4_dedicated_chunked256_c8-p02 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s4_dedicated_chunked256_c8-p02 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s4_dedicated_chunked256_c8-p02 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s4_shared_chunked256_c4-p07 status=PASS; exit status: 0
+check_trial-03-s4_shared_chunked256_c4-p07 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s4_shared_chunked256_c4-p07 integrity=PASS; passed; balance=100
+check_trial-03-s4_shared_chunked256_c4-p07 durable_progress=PASS; true
+check_trial-03-s4_shared_chunked256_c4-p07 recovery_metrics=PASS; recovery=4.535511260 integrity=1.060289522
+check_trial-03-s4_shared_chunked256_c4-p07 raw diagnostics=PASS
+check_trial-03-s4_shared_chunked256_c4-p07 summary_rows=PASS; rows=1
+check_trial-03-s4_shared_chunked256_c4-p07 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s4_shared_chunked256_c4-p07 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-03-s4_shared_chunked256_c4-p07 summary_metrics=PASS
+check_trial-03-s4_shared_chunked256_c4-p07 shard_rows=PASS; rows=4 expected=4
+check_trial-03-s4_shared_chunked256_c4-p07 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-03-s4_shared_chunked256_c4-p07 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-03-s4_shared_chunked256_c4-p07 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s4_shared_chunked256_c4-p07 stage_rows=PASS; rows=180 expected=180
+check_trial-03-s4_shared_chunked256_c4-p07 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s4_shared_chunked256_c4-p07 stage_metrics_numeric=PASS
+check_trial-03-s4_shared_chunked256_c4-p07 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s4_shared_chunked256_c4-p07 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s4_shared_chunked256_c4-p07 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_trial-03-s4_shared_chunked256_c8-p08 status=PASS; exit status: 0
+check_trial-03-s4_shared_chunked256_c8-p08 scratch_removed=PASS; owned_scratch_removed
+check_trial-03-s4_shared_chunked256_c8-p08 integrity=PASS; passed; balance=100
+check_trial-03-s4_shared_chunked256_c8-p08 durable_progress=PASS; true
+check_trial-03-s4_shared_chunked256_c8-p08 recovery_metrics=PASS; recovery=2.612019291 integrity=1.048860883
+check_trial-03-s4_shared_chunked256_c8-p08 raw diagnostics=PASS
+check_trial-03-s4_shared_chunked256_c8-p08 summary_rows=PASS; rows=1
+check_trial-03-s4_shared_chunked256_c8-p08 summary_totals=PASS; req=10000000 credits=5000000 debits=5000000 seqsum=10150000
+check_trial-03-s4_shared_chunked256_c8-p08 db_topology=PASS; layout=shared db_count=1 expected=1
+check_trial-03-s4_shared_chunked256_c8-p08 summary_metrics=PASS
+check_trial-03-s4_shared_chunked256_c8-p08 shard_rows=PASS; rows=4 expected=4
+check_trial-03-s4_shared_chunked256_c8-p08 shard_ids=PASS; [0, 1, 2, 3]
+check_trial-03-s4_shared_chunked256_c8-p08 shard_exact_counts_and_progress=PASS; expected each accounts=12500, requests=2500000, seq=2537500
+check_trial-03-s4_shared_chunked256_c8-p08 final_sequence_sum=PASS; shards=10150000 summary=10150000
+check_trial-03-s4_shared_chunked256_c8-p08 stage_rows=PASS; rows=180 expected=180
+check_trial-03-s4_shared_chunked256_c8-p08 stage_metric_coverage=PASS; metrics=36
+check_trial-03-s4_shared_chunked256_c8-p08 stage_metrics_numeric=PASS
+check_trial-03-s4_shared_chunked256_c8-p08 stage_global_counts_pooled=PASS; global sample counts equal sum of shard sample counts
+check_trial-03-s4_shared_chunked256_c8-p08 request_samples=PASS; rows=155808 summary=155808
+check_trial-03-s4_shared_chunked256_c8-p08 metadata_request_samples=PASS; rows=155808 metadata=155808
+check_all_child_status_zero=PASS; 24/24
+check_all_child_request_sum=PASS; 240000000
+check_all_child_credit_sum=PASS; 120000000
+check_all_child_debit_sum=PASS; 120000000
+check_child_shard_row_count=PASS; 72
+check_child_stage_row_count=PASS; 3456
+check_child_request_sample_rows=PASS; 3739392
+check_canonical_report_present=PASS
+check_max_file_under_100MiB=PASS; trials/trial-02-s2_dedicated_chunked256_c4-p08/raw_stage_samples.csv 48269488 bytes (46.03 MiB)

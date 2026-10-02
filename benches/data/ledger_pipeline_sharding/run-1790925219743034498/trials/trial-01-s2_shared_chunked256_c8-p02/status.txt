@@ -1,0 +1,7 @@
+trial=trial-01-s2_shared_chunked256_c8-p02
+case=s2_shared_chunked256_c8
+repetition=1
+position=2
+exit_status=exit status: 0
+stdout=stdout.log
+stderr=stderr.log

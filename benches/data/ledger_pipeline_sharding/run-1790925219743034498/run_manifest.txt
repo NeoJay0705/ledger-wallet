@@ -1,0 +1,81 @@
+profile=FORMAL_MATRIX
+run_id=1790925219743034498
+repo_root=/home/neojhou/repos/ledger-wallet
+git_base_HEAD=21ac904d7015b4de673c42a66593d27d98eddccd
+users=50000
+coroutines=50000
+requests_per_user=200
+expected_requests_per_trial=10000000
+expected_ledger_records_per_trial=10150000
+operations=exactly_50_percent_credit_50_percent_debit_amount_1
+account_routing=global_account_id_modulo_shard_count
+shard_cases=s2_shared_chunked256_c4,s2_shared_chunked256_c8,s2_dedicated_chunked256_c4,s2_dedicated_chunked256_c8,s4_shared_chunked256_c4,s4_shared_chunked256_c8,s4_dedicated_chunked256_c4,s4_dedicated_chunked256_c8
+repetitions=3
+rotated_order=left_rotation_by_3_positions_per_repetition
+rocksdb_layouts=shared_or_dedicated
+index_lookup=Chunked_group_256_concurrency_4_or_8
+balance_mode=PerBatch
+runtime_worker_threads=4
+runtime_max_blocking_threads=Tokio_default_unmodified
+affinity=inherited
+queue_capacity_total=50000
+queue_capacity_per_shard_formula=users_count_per_shard
+batch_size=2048
+first_dequeue_timeout_ms=5
+projector_batch_size=256
+watermark_interval_ms=100
+retention_ms=500
+gc_batch_size=256
+gc_interval_ms=100
+seed_transactions_per_account=3
+seed_records_per_trial=150000
+preflight_setup_path=/home/neojhou/repos/ledger-wallet/benches/data
+preflight_filesystem=ext4
+preflight_device=sdb2(8:18)
+preflight_attempts=1
+preflight_cpu_busy_pct=1.691
+preflight_device_busy_pct=0.133
+preflight_available_memory_bytes=43589832704
+preflight_free_bytes=88494374912
+formal_command=cargo bench --bench ledger_pipeline_sharding_tokio -- --bench
+benchmark_executable_args=--bench
+rustc=
+rustc 1.98.1 (48a229cea 2026-09-01)
+binary: rustc
+commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985
+commit-date: 2026-09-01
+host: x86_64-unknown-linux-gnu
+release: 1.98.1
+LLVM version: 22.1.8
+cargo=cargo 1.98.1 (797e8a9bc 2026-08-05)
+rocksdb_crates=librocksdb-sys 0.19.0+11.8.1 rocksdb 0.25.0 
+kernel=Linux master 6.17.0-35-generic #35~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 19:30:42 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+cpu_online=0-15
+Cpus_allowed_list:	0-15
+model name	: AMD Ryzen 7 3700X 8-Core Processor
+source_hashes:
+source_00_path=/home/neojhou/repos/ledger-wallet/benches/ledger_pipeline_sharding_tokio.rs
+source_00_sha256=32d81f8c663472098816afcae3d64e60e1ba72330da2809834dca091a2cce1af
+source_01_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_pipeline.rs
+source_01_sha256=876520902a22d7252e203d7db1d4d07cf4614bd9b524c52330df2b279c571e02
+source_02_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_pipeline_sharding.rs
+source_02_sha256=0c74b7e5320158d22b6295d5896ab98f87c08564e1a0df039379bc40c98cdffe
+source_03_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_pipeline_sharding_artifacts.rs
+source_03_sha256=ddfa245ab1dae27a694a8c6760d72a18040c4206f1c843f92dd252852df7a2f3
+source_04_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_account_store.rs
+source_04_sha256=bb277a053a51ad36765611f706c42e6450a7a9e74b02e48819e1fd32c8525f60
+source_05_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_time_boundary.rs
+source_05_sha256=eb36173ad9e3c2961f820274d435666300a5f55cd8b39484e7188fb50eb9bc24
+source_06_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_projection_worker.rs
+source_06_sha256=ec19308358dfcaa0e64dfee160cdb4e15b9952172a78fdd79a5d369707b3414f
+source_07_path=/home/neojhou/repos/ledger-wallet/benches/support/request_batch_queue.rs
+source_07_sha256=acca704ee015709df7c35db35373d23ed5e9eb411b8ce4c2b636d1adaa140255
+source_08_path=/home/neojhou/repos/ledger-wallet/benches/support/ledger_preflight.rs
+source_08_sha256=9bfc142c2e910b24a83577e65fb71b5f651aa3e3707f2f5b55332d03123ef8ed
+source_09_path=/home/neojhou/repos/ledger-wallet/Cargo.lock
+source_09_sha256=ef68a46267677a311fa63916de47057354a5eaad1cf76a889f20a7931428f59e
+rocksdb_env_scope=shared_default_env_for_child_process
+rocksdb_env_low_priority_threads=6
+rocksdb_env_high_priority_threads=2
+rocksdb_environment_pools_are_configured_limits_not_hard_active_thread_or_cpu_caps=true
+historical_S1_context=descriptive_only; prior report P4 56982.273 RPS CPU 2.093051 core_equivalents; P8 75076.856 RPS CPU 3.177564 core_equivalents; old default resource budget and old namespace make it unpaired; no saturation claim is valid.
