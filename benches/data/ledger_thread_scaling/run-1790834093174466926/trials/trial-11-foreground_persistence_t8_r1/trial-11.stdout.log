@@ -1,0 +1,29 @@
+CASE name=foreground_persistence users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=false gc_enabled=false runtime_workers=8 wall_s=245.974 settled_s=0.001 rps=40654.7 cpu_s=321.430 cpu_cores=1.307 peak_rss_bytes=802746368 db_bytes=638543479 gc_prefix_near_client_end=0 gc_backlog_records_near_client_end=10150000 gc_prefix_after_settle=0 final_seq=10150000 watermark_updates=0 recovery_s=0.396525 integrity_s=62.263757
+CASE_IO name=foreground_persistence cpu_sample_offset_us=0 progress_sample_offset_us=578 io_sample_offset_us=587 storage_sample_offset_us=1119 device=sdb2(8:18) process_rchar=47839295691 process_wchar=3819328619 process_read=0 process_write=3839729664 device_read=8192 device_write=3986575360 device_busy_ms=17537 wal_syncs=4883 wal_bytes=1620170905 writes_with_wal=4883 flush_write_bytes=634740607 compact_read_bytes=1462174695 compact_write_bytes=1563703360 stall_us=0 projected_sync_ns=0 gc_scan_ns=0 gc_delete_ns=0 gc_write_ns=0 gc_scanned=0 gc_deleted=0 gc_deleted_bytes=0
+LATENCY name=foreground_persistence stage=request.total unit=ns samples=155808 p50=1201544474 p95=1813757797 p99=2208492546
+LATENCY name=foreground_persistence stage=request.admission unit=ns samples=155808 p50=1062 p95=12854 p99=21541
+LATENCY name=foreground_persistence stage=request.enqueue unit=ns samples=155808 p50=80 p95=180 p99=271
+LATENCY name=foreground_persistence stage=request.queue unit=ns samples=155808 p50=1152854827 p95=1743967859 p99=2116425049
+LATENCY name=foreground_persistence stage=request.batch unit=ns samples=155808 p50=135234 p95=1463895 p99=1725185
+LATENCY name=foreground_persistence stage=request.handler unit=ns samples=155808 p50=46741841 p95=72975895 p99=107181266
+LATENCY name=foreground_persistence stage=request.response unit=ns samples=155808 p50=981139 p95=1994229 p99=2170239
+LATENCY name=foreground_persistence stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.read unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.apply unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.progress_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.scan unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.delete_build unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.sync_write unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.fence_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.projection_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.persist unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=foreground_persistence projection_batches=0 projection_records=0 gc_steps=0 gc_scanned_during_clients=0 gc_deleted_during_clients=0 gc_backlog_records_near_client_end=10150000 setup_preflight_cpu_pct=1.86 setup_preflight_disk_pct=4.53 measure_preflight_cpu_pct=2.38 measure_preflight_disk_pct=3.80
+ARCHIVE /home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-11-foreground_persistence_t8_r1

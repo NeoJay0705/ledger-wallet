@@ -1,0 +1,2 @@
+QUEUE_ECHO_SUMMARY case=queue_echo_t4_r2 users=50000 coroutines=50000 requests=10000000 runtime_workers=4 wall_s=3.498803 rps=2858120.606 process_cpu_s=11.348548 cpu_wall_s=3.498817 cpu_core_equivalents=3.243539 cpu_sample_after_reply_ns=1062
+QUEUE_ECHO_CSV /home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-13-queue_echo_t4_r2/queue_echo_summary.csv

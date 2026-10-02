@@ -1,0 +1,2 @@
+QUEUE_ECHO_SUMMARY case=queue_echo_t8_r1 users=50000 coroutines=50000 requests=10000000 runtime_workers=8 wall_s=3.781827 rps=2644224.357 process_cpu_s=19.106057 cpu_wall_s=3.781841 cpu_core_equivalents=5.052052 cpu_sample_after_reply_ns=1103
+QUEUE_ECHO_CSV /home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-10-queue_echo_t8_r1/queue_echo_summary.csv

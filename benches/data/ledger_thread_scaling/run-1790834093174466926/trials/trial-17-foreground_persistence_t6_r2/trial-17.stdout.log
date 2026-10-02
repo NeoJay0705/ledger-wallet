@@ -1,0 +1,29 @@
+CASE name=foreground_persistence users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=false gc_enabled=false runtime_workers=6 wall_s=241.211 settled_s=0.001 rps=41457.5 cpu_s=304.437 cpu_cores=1.262 peak_rss_bytes=817266688 db_bytes=638094329 gc_prefix_near_client_end=0 gc_backlog_records_near_client_end=10150000 gc_prefix_after_settle=0 final_seq=10150000 watermark_updates=0 recovery_s=0.389557 integrity_s=59.483465
+CASE_IO name=foreground_persistence cpu_sample_offset_us=1 progress_sample_offset_us=65 io_sample_offset_us=73 storage_sample_offset_us=802 device=sdb2(8:18) process_rchar=47842213447 process_wchar=3817096288 process_read=0 process_write=3837472768 device_read=77824 device_write=3978567680 device_busy_ms=13842 wal_syncs=4883 wal_bytes=1620170905 writes_with_wal=4883 flush_write_bytes=634243668 compact_read_bytes=1459273670 compact_write_bytes=1561947614 stall_us=0 projected_sync_ns=0 gc_scan_ns=0 gc_delete_ns=0 gc_write_ns=0 gc_scanned=0 gc_deleted=0 gc_deleted_bytes=0
+LATENCY name=foreground_persistence stage=request.total unit=ns samples=155808 p50=1191515457 p95=1799049218 p99=2043404860
+LATENCY name=foreground_persistence stage=request.admission unit=ns samples=155808 p50=912 p95=9969 p99=16672
+LATENCY name=foreground_persistence stage=request.enqueue unit=ns samples=155808 p50=71 p95=160 p99=241
+LATENCY name=foreground_persistence stage=request.queue unit=ns samples=155808 p50=1142601740 p95=1725297697 p99=1950757093
+LATENCY name=foreground_persistence stage=request.batch unit=ns samples=155808 p50=134242 p95=1538845 p99=1832325
+LATENCY name=foreground_persistence stage=request.handler unit=ns samples=155808 p50=46270619 p95=71374544 p99=79843442
+LATENCY name=foreground_persistence stage=request.response unit=ns samples=155808 p50=951424 p95=2067827 p99=2282118
+LATENCY name=foreground_persistence stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.read unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.apply unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.progress_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.scan unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.delete_build unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.sync_write unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.fence_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.projection_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.persist unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=foreground_persistence projection_batches=0 projection_records=0 gc_steps=0 gc_scanned_during_clients=0 gc_deleted_during_clients=0 gc_backlog_records_near_client_end=10150000 setup_preflight_cpu_pct=1.71 setup_preflight_disk_pct=0.10 measure_preflight_cpu_pct=1.69 measure_preflight_disk_pct=0.33
+ARCHIVE /home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-17-foreground_persistence_t6_r2

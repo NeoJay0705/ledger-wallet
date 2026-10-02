@@ -1,0 +1,29 @@
+CASE name=foreground_persistence users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=false gc_enabled=false runtime_workers=4 wall_s=234.486 settled_s=0.003 rps=42646.5 cpu_s=275.588 cpu_cores=1.175 peak_rss_bytes=805629952 db_bytes=633393741 gc_prefix_near_client_end=0 gc_backlog_records_near_client_end=10150000 gc_prefix_after_settle=0 final_seq=10150000 watermark_updates=0 recovery_s=0.456162 integrity_s=58.895762
+CASE_IO name=foreground_persistence cpu_sample_offset_us=0 progress_sample_offset_us=18 io_sample_offset_us=2095 storage_sample_offset_us=2646 device=sdb2(8:18) process_rchar=47630056672 process_wchar=3802303898 process_read=0 process_write=3822645248 device_read=0 device_write=3953319936 device_busy_ms=13586 wal_syncs=4883 wal_bytes=1620170905 writes_with_wal=4883 flush_write_bytes=629927881 compact_read_bytes=1451315283 compact_write_bytes=1551433517 stall_us=0 projected_sync_ns=0 gc_scan_ns=0 gc_delete_ns=0 gc_write_ns=0 gc_scanned=0 gc_deleted=0 gc_deleted_bytes=0
+LATENCY name=foreground_persistence stage=request.total unit=ns samples=155808 p50=1157739454 p95=1752832126 p99=2130229115
+LATENCY name=foreground_persistence stage=request.admission unit=ns samples=155808 p50=461 p95=1453 p99=3777
+LATENCY name=foreground_persistence stage=request.enqueue unit=ns samples=155808 p50=60 p95=141 p99=231
+LATENCY name=foreground_persistence stage=request.queue unit=ns samples=155808 p50=1110437119 p95=1682890641 p99=2042237732
+LATENCY name=foreground_persistence stage=request.batch unit=ns samples=155808 p50=134242 p95=774953 p99=1433628
+LATENCY name=foreground_persistence stage=request.handler unit=ns samples=155808 p50=45518465 p95=70896132 p99=84586459
+LATENCY name=foreground_persistence stage=request.response unit=ns samples=155808 p50=669775 p95=1433057 p99=1914950
+LATENCY name=foreground_persistence stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.read unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.apply unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.progress_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=projection.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.scan unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.delete_build unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.sync_write unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=gc.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.fence_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.projection_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.persist unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=watermark.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=foreground_persistence stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=foreground_persistence projection_batches=0 projection_records=0 gc_steps=0 gc_scanned_during_clients=0 gc_deleted_during_clients=0 gc_backlog_records_near_client_end=10150000 setup_preflight_cpu_pct=1.50 setup_preflight_disk_pct=0.07 measure_preflight_cpu_pct=1.57 measure_preflight_disk_pct=0.07
+ARCHIVE /home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-14-foreground_persistence_t4_r2

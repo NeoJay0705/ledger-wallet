@@ -1,0 +1,1 @@
+PREFLIGHT case=queue_echo_t8_r2 path=/home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-19-queue_echo_t8_r2 filesystem=ext4 device=sdb2 attempts=1 cpu_busy_pct=1.588 disk_busy_pct=0.533 available_mem_bytes=44774985728 free_bytes=91721158656 estimated_working_set_bytes=67453072

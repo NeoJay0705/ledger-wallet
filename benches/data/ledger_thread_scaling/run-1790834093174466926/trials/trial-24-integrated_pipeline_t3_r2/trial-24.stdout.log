@@ -1,0 +1,29 @@
+CASE name=integrated_pipeline users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=true gc_enabled=true runtime_workers=3 wall_s=300.908 settled_s=261.808 rps=33232.8 cpu_s=337.172 cpu_cores=1.121 peak_rss_bytes=1882836992 db_bytes=613313781 gc_prefix_near_client_end=1251072 gc_backlog_records_near_client_end=8898928 gc_prefix_after_settle=10150000 final_seq=10150000 watermark_updates=322 recovery_s=3.219104 integrity_s=0.343096
+CASE_IO name=integrated_pipeline cpu_sample_offset_us=0 progress_sample_offset_us=7 io_sample_offset_us=16 storage_sample_offset_us=648 device=sdb2(8:18) process_rchar=51451362924 process_wchar=4058956732 process_read=0 process_write=4260360192 device_read=98304 device_write=5002575872 device_busy_ms=89556 wal_syncs=49143 wal_bytes=1669405243 writes_with_wal=49148 flush_write_bytes=652956948 compact_read_bytes=1684891883 compact_write_bytes=1735182740 stall_us=0 projected_sync_ns=83818410672 gc_scan_ns=28656717483 gc_delete_ns=281030845 gc_write_ns=25803103815 gc_scanned=1251072 gc_deleted=1251072 gc_deleted_bytes=170145792
+LATENCY name=integrated_pipeline stage=request.total unit=ns samples=155808 p50=1314342741 p95=2105486083 p99=11747531383
+LATENCY name=integrated_pipeline stage=request.admission unit=ns samples=155808 p50=360 p95=1112 p99=1653
+LATENCY name=integrated_pipeline stage=request.enqueue unit=ns samples=155808 p50=70 p95=150 p99=241
+LATENCY name=integrated_pipeline stage=request.queue unit=ns samples=155808 p50=1260523195 p95=2021695308 p99=11408619560
+LATENCY name=integrated_pipeline stage=request.batch unit=ns samples=155808 p50=168175 p95=1309504 p99=1881065
+LATENCY name=integrated_pipeline stage=request.handler unit=ns samples=155808 p50=51573588 p95=83785664 p99=488225994
+LATENCY name=integrated_pipeline stage=request.response unit=ns samples=155808 p50=925254 p95=1937631 p99=2382294
+LATENCY name=integrated_pipeline stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=integrated_pipeline stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=integrated_pipeline stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=integrated_pipeline stage=projection.read unit=ns samples=39056 p50=304821 p95=494196 p99=605875
+LATENCY name=integrated_pipeline stage=projection.apply unit=ns samples=39056 p50=141655 p95=231394 p99=398807
+LATENCY name=integrated_pipeline stage=projection.progress_sync unit=ns samples=39056 p50=964818 p95=2129901 p99=8049533
+LATENCY name=integrated_pipeline stage=projection.total unit=ns samples=39056 p50=1473751 p95=2749653 p99=8770020
+LATENCY name=integrated_pipeline stage=gc.scan unit=ns samples=4887 p50=5790857 p95=10084805 p99=12115889
+LATENCY name=integrated_pipeline stage=gc.delete_build unit=ns samples=4887 p50=53308 p95=77752 p99=165709
+LATENCY name=integrated_pipeline stage=gc.sync_write unit=ns samples=4887 p50=1724632 p95=2429402 p99=228453543
+LATENCY name=integrated_pipeline stage=gc.total unit=ns samples=4887 p50=53143024 p95=85524161 p99=490576827
+LATENCY name=integrated_pipeline stage=watermark.fence_wait unit=ns samples=322 p50=761241388 p95=1577229542 p99=1974441403
+LATENCY name=integrated_pipeline stage=watermark.projection_wait unit=ns samples=322 p50=12402166 p95=15036214 p99=1075373519
+LATENCY name=integrated_pipeline stage=watermark.persist unit=ns samples=322 p50=949820 p95=1058333 p99=2466593
+LATENCY name=integrated_pipeline stage=watermark.total unit=ns samples=322 p50=782676268 p95=1590193637 p99=1987987229
+LATENCY name=integrated_pipeline stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=integrated_pipeline stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=integrated_pipeline stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=integrated_pipeline projection_batches=39056 projection_records=9998336 gc_steps=4887 gc_scanned_during_clients=1251072 gc_deleted_during_clients=1251072 gc_backlog_records_near_client_end=8898928 setup_preflight_cpu_pct=1.82 setup_preflight_disk_pct=0.07 measure_preflight_cpu_pct=1.61 measure_preflight_disk_pct=0.10
+ARCHIVE /home/neojhou/repos/ledger-wallet/benches/data/ledger_thread_scaling/run-1790834093174466926/trials/trial-24-integrated_pipeline_t3_r2
