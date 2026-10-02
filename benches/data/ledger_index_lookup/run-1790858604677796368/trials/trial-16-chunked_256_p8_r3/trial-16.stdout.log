@@ -1,0 +1,29 @@
+CASE name=index_lookup_chunked_256_p8 users=50000 requests=10000000 fresh=10000000 old_hit=0 old_miss=0 projection_enabled=false gc_enabled=false runtime_workers=4 wall_s=100.812 settled_s=0.003 rps=99194.6 cpu_s=351.915 cpu_cores=3.491 peak_rss_bytes=841805824 db_bytes=633868362 gc_prefix_near_client_end=0 gc_backlog_records_near_client_end=10150000 gc_prefix_after_settle=0 final_seq=10150000 watermark_updates=0 recovery_s=0.424497 integrity_s=58.672149
+CASE_IO name=index_lookup_chunked_256_p8 cpu_sample_offset_us=1 progress_sample_offset_us=140 io_sample_offset_us=953 storage_sample_offset_us=1543 device=sdb2(8:18) process_rchar=58017509820 process_wchar=3803473835 process_read=0 process_write=3823714304 device_read=0 device_write=3923828736 device_busy_ms=13132 wal_syncs=4883 wal_bytes=1620170905 writes_with_wal=4883 flush_write_bytes=630021302 compact_read_bytes=1452339372 compact_write_bytes=1552422963 stall_us=0 projected_sync_ns=0 gc_scan_ns=0 gc_delete_ns=0 gc_write_ns=0 gc_scanned=0 gc_deleted=0 gc_deleted_bytes=0
+LATENCY name=index_lookup_chunked_256_p8 stage=request.total unit=ns samples=155808 p50=489088252 p95=713669642 p99=836057612
+LATENCY name=index_lookup_chunked_256_p8 stage=request.admission unit=ns samples=155808 p50=511 p95=1563 p99=3907
+LATENCY name=index_lookup_chunked_256_p8 stage=request.enqueue unit=ns samples=155808 p50=70 p95=150 p99=240
+LATENCY name=index_lookup_chunked_256_p8 stage=request.queue unit=ns samples=155808 p50=469581784 p95=688022471 p99=807838357
+LATENCY name=index_lookup_chunked_256_p8 stage=request.batch unit=ns samples=155808 p50=149931 p95=1102988 p99=1438336
+LATENCY name=index_lookup_chunked_256_p8 stage=request.handler unit=ns samples=155808 p50=18111214 p95=24506813 p99=46848658
+LATENCY name=index_lookup_chunked_256_p8 stage=request.response unit=ns samples=155808 p50=746650 p95=1670812 p99=1922514
+LATENCY name=index_lookup_chunked_256_p8 stage=request.historical_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=request.historical_hit_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=request.historical_miss_lookup unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=projection.read unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=projection.apply unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=projection.progress_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=projection.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=gc.scan unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=gc.delete_build unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=gc.sync_write unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=gc.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=watermark.fence_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=watermark.projection_wait unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=watermark.persist unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=watermark.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=checkpoint.total unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=checkpoint.chunk_sync unit=ns samples=0 p50=0 p95=0 p99=0
+LATENCY name=index_lookup_chunked_256_p8 stage=checkpoint.manifest_sync unit=ns samples=0 p50=0 p95=0 p99=0
+BACKGROUND name=index_lookup_chunked_256_p8 projection_batches=0 projection_records=0 gc_steps=0 gc_scanned_during_clients=0 gc_deleted_during_clients=0 gc_backlog_records_near_client_end=10150000 setup_preflight_cpu_pct=1.67 setup_preflight_disk_pct=0.00 measure_preflight_cpu_pct=1.86 measure_preflight_disk_pct=0.07
+INDEX_LOOKUP_TRIAL mode=chunked_256_p8 workers=4 requests=10000000 batches=4883 native_calls=39063 keys=10000000 hits=0 misses=10000000 latest_seq=10150000 projected_seq=150000 destination_seq=150000 gc_prefix=0
