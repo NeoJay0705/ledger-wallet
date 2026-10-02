@@ -1,0 +1,2 @@
+case,index_lookup_strategy,index_group_size,index_concurrency,runtime_workers,batch_count,lookup_requests,native_calls,hits,misses,max_in_flight_groups,max_running_query_jobs
+index_lookup_point_get,point_get,NA,NA,4,4883,10000000,10000000,0,10000000,0,0
