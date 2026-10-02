@@ -1,0 +1,15 @@
+run_id=1790925219743034498
+parent_session_id=78242
+parent_exit_code=0
+benchmark_command=BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo --locked bench --bench ledger_pipeline_sharding_tokio
+actual_wrapper_command=set +e; print command/env/start UTC; run benchmark command; capture parent status; print end UTC; exit with status (stdout/stderr redirection applied only to final exit builtin)
+BINDGEN_EXTRA_CLANG_ARGS=-I/usr/lib/gcc/x86_64-linux-gnu/13/include
+start_utc=2026-10-02 07:13:36 UTC
+end_utc=2026-10-02 09:34:28 UTC
+parent_log_capture=initial_build_warnings_may_be_incomplete; the wrapper redirection was attached only to the final exit command, so the original Cargo stdout/stderr were not fully persisted
+tool_capture_gap=initial output reported 7801 original tokens with 1000 token cap; the complete compiler/build output is unavailable
+tool_poll_gap=one poll response was consumed before a missing-JS-global error; that output is unavailable
+child_stdout_stderr=retained per trial under trials/<trial>/stdout.log and stderr.log
+run_log=run.log
+completion_audit=run_completion_audit.txt
+source_hash_audit=source_hash_audit.txt

@@ -1,0 +1,7 @@
+trial=trial-03-s2_dedicated_chunked256_c8-p06
+case=s2_dedicated_chunked256_c8
+repetition=3
+position=6
+exit_status=exit status: 0
+stdout=stdout.log
+stderr=stderr.log
