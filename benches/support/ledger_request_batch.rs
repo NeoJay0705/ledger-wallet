@@ -7,8 +7,8 @@ use std::collections::BTreeMap;
 use std::fs::{self, OpenOptions};
 use std::io::Write;
 use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
 use tokio::runtime::Builder;
 use tokio::sync::{mpsc, watch};
@@ -35,6 +35,8 @@ struct Config {
     users: usize,
     coroutines: usize,
     sample_stride: u64,
+    runtime_workers: usize,
+    reply_endpoint_cpu: bool,
     batch_sizes: Vec<usize>,
     timeouts_ms: Vec<u64>,
     csv_path: PathBuf,
@@ -55,6 +57,8 @@ impl Default for Config {
             users: DEFAULT_USERS,
             coroutines: DEFAULT_COROUTINES,
             sample_stride: DEFAULT_SAMPLE_STRIDE,
+            runtime_workers: RUNTIME_WORKERS,
+            reply_endpoint_cpu: false,
             batch_sizes: DEFAULT_BATCH_SIZES.to_vec(),
             timeouts_ms: DEFAULT_TIMEOUTS_MS.to_vec(),
             csv_path: PathBuf::from("target/ledger-request-batch-tokio.csv"),
@@ -93,6 +97,7 @@ struct ClientReport {
     batch_request_counts: BTreeMap<(usize, &'static str), u64>,
     first_request_started_at: Option<Instant>,
     last_response_observed_at: Option<Instant>,
+    last_response_process_cpu: Option<(Instant, Duration, u64)>,
 }
 
 impl ClientReport {
@@ -104,6 +109,7 @@ impl ClientReport {
             batch_request_counts: BTreeMap::new(),
             first_request_started_at: None,
             last_response_observed_at: None,
+            last_response_process_cpu: None,
         }
     }
 }
@@ -163,6 +169,7 @@ struct RunSummary {
     batch_request_counts: BTreeMap<(usize, &'static str), u64>,
     first_request_started_at: Option<Instant>,
     last_response_observed_at: Option<Instant>,
+    last_response_process_cpu: Option<(Instant, Duration, u64)>,
 }
 
 impl RunSummary {
@@ -174,6 +181,7 @@ impl RunSummary {
             batch_request_counts: BTreeMap::new(),
             first_request_started_at: None,
             last_response_observed_at: None,
+            last_response_process_cpu: None,
         }
     }
 
@@ -205,6 +213,14 @@ impl RunSummary {
                 self.last_response_observed_at
                     .map_or(observed_at, |current| current.max(observed_at)),
             );
+        }
+        if let Some(cpu_sample) = client.last_response_process_cpu {
+            if self
+                .last_response_process_cpu
+                .is_none_or(|current| cpu_sample.0 > current.0)
+            {
+                self.last_response_process_cpu = Some(cpu_sample);
+            }
         }
         Ok(())
     }
@@ -252,6 +268,9 @@ struct CaseResult {
     request_wall: Duration,
     cpu_wall: Duration,
     process_cpu: Duration,
+    cpu_sample_after_reply_ns: u64,
+    io_sample_offset_us: u64,
+    peak_rss_bytes: u64,
     io_delta: IoDelta,
 }
 
@@ -308,7 +327,7 @@ pub fn run_from_args() -> Result<(), String> {
         .map_err(|error| format!("cannot write CSV header: {error}"))?;
 
     let runtime = Builder::new_multi_thread()
-        .worker_threads(RUNTIME_WORKERS)
+        .worker_threads(config.runtime_workers)
         .enable_time()
         .build()
         .map_err(|error| format!("cannot create Tokio runtime: {error}"))?;
@@ -359,6 +378,78 @@ pub fn run_from_args() -> Result<(), String> {
     Ok(())
 }
 
+/// Run the queue echo case used by the thread-scaling matrix. The original
+/// command-line benchmark remains a separate, compatible entry point.
+pub(crate) fn run_thread_scaling_trial(
+    case_name: &str,
+    iterations: u64,
+    users: usize,
+    coroutines: usize,
+    sample_stride: u64,
+    runtime_workers: usize,
+    output_dir: &Path,
+    preflight_observation_ms: u64,
+    preflight_timeout_ms: u64,
+) -> Result<(), String> {
+    let mut config = Config::default();
+    config.iterations = iterations;
+    config.repetitions = 1;
+    config.users = users;
+    config.coroutines = coroutines;
+    config.sample_stride = sample_stride;
+    config.runtime_workers = runtime_workers;
+    config.reply_endpoint_cpu = true;
+    config.batch_sizes = vec![2_048];
+    config.timeouts_ms = vec![5];
+    config.csv_path = output_dir.join("queue_echo_summary.csv");
+    config.preflight_path = output_dir.to_owned();
+    config.preflight_observation_ms = preflight_observation_ms;
+    config.preflight_timeout_ms = preflight_timeout_ms;
+    validate_config(&config)?;
+    fs::create_dir_all(output_dir).map_err(|error| {
+        format!(
+            "cannot create queue echo trial output {}: {error}",
+            output_dir.display()
+        )
+    })?;
+
+    let preflight = run_preflight(&config, case_name)?;
+    let runtime = Builder::new_multi_thread()
+        .worker_threads(runtime_workers)
+        .thread_name("ledger-queue-echo")
+        .enable_time()
+        .build()
+        .map_err(|error| format!("cannot build queue echo Tokio runtime: {error}"))?;
+    let result = runtime.block_on(run_case(&config, 2_048, 5, output_dir))?;
+    let row = csv_row(case_name, 1, &config, 2_048, 5, &preflight, &result)?;
+    let mut csv_file = OpenOptions::new()
+        .create(true)
+        .truncate(true)
+        .write(true)
+        .open(&config.csv_path)
+        .map_err(|error| format!("cannot create {}: {error}", config.csv_path.display()))?;
+    writeln!(csv_file, "{}", csv_header())
+        .and_then(|_| writeln!(csv_file, "{row}"))
+        .and_then(|_| csv_file.flush())
+        .map_err(|error| format!("cannot write queue echo summary: {error}"))?;
+    println!(
+        "QUEUE_ECHO_SUMMARY case={} users={} coroutines={} requests={} runtime_workers={} wall_s={:.6} rps={:.3} process_cpu_s={:.6} cpu_wall_s={:.6} cpu_core_equivalents={:.6} cpu_sample_after_reply_ns={}",
+        case_name,
+        users,
+        coroutines,
+        result.summary.completed,
+        runtime_workers,
+        result.request_wall.as_secs_f64(),
+        result.summary.completed as f64 / result.request_wall.as_secs_f64(),
+        result.process_cpu.as_secs_f64(),
+        result.cpu_wall.as_secs_f64(),
+        result.process_cpu.as_secs_f64() / result.cpu_wall.as_secs_f64(),
+        result.cpu_sample_after_reply_ns
+    );
+    println!("QUEUE_ECHO_CSV {}", config.csv_path.display());
+    Ok(())
+}
+
 fn parse_args() -> Result<Config, String> {
     let mut config = Config::default();
     let mut args = std::env::args().skip(1);
@@ -382,6 +473,7 @@ fn parse_args() -> Result<Config, String> {
         };
         match name.as_str() {
             "--iterations" => config.iterations = parse_value(&name, &value)?,
+            "--runtime-workers" => config.runtime_workers = parse_value(&name, &value)?,
             "--repetitions" => config.repetitions = parse_value(&name, &value)?,
             "--users" => config.users = parse_value(&name, &value)?,
             "--coroutines" => config.coroutines = parse_value(&name, &value)?,
@@ -464,6 +556,9 @@ fn validate_config(config: &Config) -> Result<(), String> {
     if config.repetitions == 0 {
         return Err("--repetitions must be greater than zero".to_owned());
     }
+    if config.runtime_workers == 0 {
+        return Err("--runtime-workers must be greater than zero".to_owned());
+    }
     if config.users == 0 || config.coroutines == 0 {
         return Err("--users and --coroutines must be greater than zero".to_owned());
     }
@@ -500,6 +595,7 @@ fn print_help() {
     eprintln!("ledger_request_batch_tokio options:");
     eprintln!("  --iterations N (default 10000000)");
     eprintln!("  --repetitions N (default 1)");
+    eprintln!("  --runtime-workers N (default 3)");
     eprintln!("  --users N (default 50000)");
     eprintln!("  --coroutines N (default 50000; one outstanding request each)");
     eprintln!("  --batch-size all|2048|4096|2048,4096 (default 2048)");
@@ -592,6 +688,7 @@ async fn run_case(
 
     let (start_sender, start_receiver) = watch::channel(false);
     let (ready_sender, mut ready_receiver) = mpsc::unbounded_channel();
+    let cpu_started = Arc::new(std::sync::Mutex::new(ProcessTime::now()));
     let mut clients = JoinSet::new();
     for coroutine_id in 0..config.coroutines {
         let client = queue.clone();
@@ -602,6 +699,8 @@ async fn run_case(
         let coroutines = config.coroutines;
         let users = config.users;
         let sample_stride = config.sample_stride;
+        let cpu_started = Arc::clone(&cpu_started);
+        let reply_endpoint_cpu = config.reply_endpoint_cpu;
         clients.spawn(async move {
             let _ = ready.send(());
             wait_for_start(start).await?;
@@ -613,6 +712,8 @@ async fn run_case(
                 sample_stride,
                 client,
                 verifier,
+                cpu_started,
+                reply_endpoint_cpu,
             )
             .await
         });
@@ -631,8 +732,11 @@ async fn run_case(
 
     let io_before = crate::ledger_preflight::sample_io(io_path)
         .map_err(|error| format!("cannot sample I/O before case: {error}"))?;
-    let cpu_started = ProcessTime::now();
     let cpu_wall_started = Instant::now();
+    let process_cpu_started = ProcessTime::now();
+    *cpu_started
+        .lock()
+        .map_err(|_| "CPU start timer mutex poisoned".to_owned())? = process_cpu_started;
     if start_sender.send(true).is_err() {
         clients.abort_all();
         while clients.join_next().await.is_some() {}
@@ -669,14 +773,30 @@ async fn run_case(
 
     drop(queue);
     let worker_result = worker.join().await;
-    let process_cpu = cpu_started.elapsed();
-    let cpu_wall = cpu_wall_started.elapsed();
-    let io_after = crate::ledger_preflight::sample_io(io_path)
-        .map_err(|error| format!("cannot sample I/O after case: {error}"))?;
     if let Some(error) = client_error {
         return Err(error);
     }
     worker_result?;
+    let legacy_process_cpu = ProcessTime::now().duration_since(process_cpu_started);
+    let (process_cpu, cpu_wall, cpu_sample_after_reply_ns) = if config.reply_endpoint_cpu {
+        let (last_response, process_cpu, sample_offset) = summary
+            .last_response_process_cpu
+            .ok_or_else(|| "no final-response process CPU sample was recorded".to_owned())?;
+        let cpu_wall = last_response
+            .checked_duration_since(cpu_wall_started)
+            .ok_or_else(|| "CPU measurement wall interval moved backwards".to_owned())?;
+        (process_cpu, cpu_wall, sample_offset)
+    } else {
+        (legacy_process_cpu, cpu_wall_started.elapsed(), 0)
+    };
+    let last_response_at = summary
+        .last_response_observed_at
+        .ok_or_else(|| "no request response endpoint was recorded".to_owned())?;
+    let io_after = crate::ledger_preflight::sample_io(io_path)
+        .map_err(|error| format!("cannot sample I/O after case: {error}"))?;
+    let io_sample_offset_us =
+        u64::try_from(Instant::now().duration_since(last_response_at).as_micros())
+            .unwrap_or(u64::MAX);
     if summary.completed != config.iterations {
         return Err(format!(
             "completed {} requests, expected exactly {}",
@@ -707,6 +827,9 @@ async fn run_case(
         request_wall,
         cpu_wall,
         process_cpu,
+        cpu_sample_after_reply_ns,
+        io_sample_offset_us,
+        peak_rss_bytes: peak_rss_bytes()?,
         io_delta: io_delta(&io_before, &io_after)?,
     })
 }
@@ -733,6 +856,8 @@ async fn run_client(
     sample_stride: u64,
     queue: BatchQueue<Payload, Reply>,
     verifier: Arc<IdVerifier>,
+    cpu_started: Arc<std::sync::Mutex<ProcessTime>>,
+    reply_endpoint_cpu: bool,
 ) -> Result<ClientReport, String> {
     let mut report = ClientReport::new();
     let user_id = coroutine_id % users;
@@ -751,6 +876,22 @@ async fn run_client(
             .wait()
             .await
             .map_err(|error| format!("request {request_id} failed: {error}"))?;
+        if reply_endpoint_cpu && iterations.saturating_sub(stride) <= request_id {
+            let sample_cpu = ProcessTime::now();
+            let sample_at = Instant::now();
+            let cpu_start = *cpu_started
+                .lock()
+                .map_err(|_| "CPU start timer mutex poisoned".to_owned())?;
+            let elapsed_cpu = sample_cpu.duration_since(cpu_start);
+            let offset = u64::try_from(
+                sample_at
+                    .duration_since(completed.response_observed_at)
+                    .as_nanos(),
+            )
+            .unwrap_or(u64::MAX);
+            report.last_response_process_cpu =
+                Some((completed.response_observed_at, elapsed_cpu, offset));
+        }
         if completed.reply.request_id != request_id {
             return Err(format!(
                 "coroutine {coroutine_id} expected reply ID {request_id}, received {}",
@@ -833,6 +974,23 @@ fn splitmix64(index: u64) -> u64 {
     value ^ (value >> 31)
 }
 
+fn peak_rss_bytes() -> Result<u64, String> {
+    let status = fs::read_to_string("/proc/self/status")
+        .map_err(|error| format!("cannot read /proc/self/status for peak RSS: {error}"))?;
+    for line in status.lines() {
+        if let Some(value) = line.strip_prefix("VmHWM:") {
+            let kib = value
+                .split_whitespace()
+                .next()
+                .ok_or_else(|| "VmHWM has no numeric value".to_owned())?
+                .parse::<u64>()
+                .map_err(|error| format!("invalid VmHWM value: {error}"))?;
+            return Ok(kib.saturating_mul(1024));
+        }
+    }
+    Err("VmHWM is missing from /proc/self/status".to_owned())
+}
+
 fn io_delta(before: &IoSample, after: &IoSample) -> Result<IoDelta, String> {
     if before.target_major_minor != after.target_major_minor {
         return Err("target device changed during the benchmark I/O bracket".to_owned());
@@ -884,6 +1042,7 @@ fn csv_header() -> String {
     let mut fields = vec![
         "case",
         "repetition",
+        "runtime_workers",
         "users",
         "coroutines",
         "iterations",
@@ -895,6 +1054,9 @@ fn csv_header() -> String {
         "request_wall_seconds",
         "process_cpu_seconds",
         "cpu_wall_seconds",
+        "cpu_sample_after_reply_ns",
+        "io_sample_offset_us",
+        "peak_rss_bytes",
         "cpu_core_equivalents",
         "batch_count",
         "batch_size_flush_counts",
@@ -1000,6 +1162,7 @@ fn csv_row(
     let mut fields = vec![
         csv_quote(case_name),
         repetition.to_string(),
+        config.runtime_workers.to_string(),
         config.users.to_string(),
         config.coroutines.to_string(),
         config.iterations.to_string(),
@@ -1011,6 +1174,9 @@ fn csv_row(
         format!("{:.9}", result.request_wall.as_secs_f64()),
         format!("{:.9}", result.process_cpu.as_secs_f64()),
         format!("{:.9}", result.cpu_wall.as_secs_f64()),
+        result.cpu_sample_after_reply_ns.to_string(),
+        result.io_sample_offset_us.to_string(),
+        result.peak_rss_bytes.to_string(),
         format!("{cpu_core_equivalents:.6}"),
         batch_count.to_string(),
         csv_quote(&batch_size_counts),

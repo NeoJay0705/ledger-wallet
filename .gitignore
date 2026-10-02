@@ -5,3 +5,14 @@ tmp*
 /practice/
 
 benches/__pycache__/
+
+# Keep the explicitly archived benchmark runs while ignoring other run folders.
+/benches/data/ledger_thread_scaling/*
+!/benches/data/ledger_thread_scaling/run-1790834093174466926/
+/benches/data/ledger_index_lookup/*
+!/benches/data/ledger_index_lookup/run-1790858604677796368/
+/benches/data/ledger_pipeline_index_lookup/*
+!/benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/
+
+# Ignore per-run benchmark scratch directories.
+/benches/data/**/.ledger-*/
