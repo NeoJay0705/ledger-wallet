@@ -29,6 +29,10 @@ name = "ledger_pipeline_tokio"
 harness = false
 
 [[bench]]
+name = "ledger_pipeline_sharding_tokio"
+harness = false
+
+[[bench]]
 name = "ledger_index_lookup_tokio"
 harness = false
 

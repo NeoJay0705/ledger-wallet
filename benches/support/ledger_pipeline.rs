@@ -22,6 +22,9 @@ use tokio::runtime::Builder;
 use tokio::sync::{watch, Barrier};
 use tokio::task::{JoinHandle, JoinSet};
 
+#[path = "ledger_pipeline_sharding.rs"]
+pub(crate) mod sharding;
+
 const DEFAULT_USERS: usize = 50_000;
 const DEFAULT_REQUESTS_PER_USER: usize = 200;
 const DEFAULT_SAMPLE_STRIDE: u64 = 64;
@@ -469,8 +472,9 @@ impl Drop for TrialDirectory {
     }
 }
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 struct StageSamples {
+    logical_ids: Vec<u64>,
     total: Vec<u64>,
     admission: Vec<u64>,
     enqueue: Vec<u64>,
@@ -504,7 +508,7 @@ impl StageSamples {
     }
 }
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 struct ClientStats {
     requests: u64,
     fresh: u64,
@@ -572,6 +576,7 @@ struct LatencySummary {
     sample_count: usize,
 }
 
+#[derive(Clone)]
 struct IoDelta {
     process_rchar_bytes: u64,
     process_wchar_bytes: u64,
@@ -2663,8 +2668,18 @@ async fn seed_source(
     batch_size: usize,
     seed_time: u64,
 ) -> Result<(), String> {
+    let account_ids = (0..users as u64).collect::<Vec<_>>();
+    seed_accounts(source, &account_ids, batch_size, seed_time).await
+}
+
+async fn seed_accounts(
+    source: &AccountStore,
+    account_ids: &[u64],
+    batch_size: usize,
+    seed_time: u64,
+) -> Result<(), String> {
     let mut batch = Vec::with_capacity(batch_size);
-    for account_id in 0..users as u64 {
+    for &account_id in account_ids {
         for tx_id in 1..=SEED_TRANSACTIONS_PER_USER as u64 {
             let (operation, amount) = match tx_id {
                 1 => (Operation::Credit, 100),
@@ -2850,6 +2865,7 @@ async fn run_client(
             .saturating_add(request_index as u64);
         let sampled = splitmix64(logical_id) % sample_stride == 0;
         if sampled {
+            stats.stages.logical_ids.push(logical_id);
             stats.stages.record(outcome.stages);
             match class {
                 RequestClass::HistoricalHit => {
@@ -2949,6 +2965,7 @@ fn combine_client_stats(total: &mut ClientStats, mut next: ClientStats) {
     }) {
         total.completion = next.completion;
     }
+    total.stages.logical_ids.append(&mut next.stages.logical_ids);
     total.stages.total.append(&mut next.stages.total);
     total.stages.admission.append(&mut next.stages.admission);
     total.stages.enqueue.append(&mut next.stages.enqueue);
@@ -3293,9 +3310,18 @@ fn verify_historical_history(
     users: usize,
     seed_time: u64,
 ) -> Result<(), String> {
+    let account_ids = (0..users as u64).collect::<Vec<_>>();
+    verify_historical_accounts(history, &account_ids, seed_time)
+}
+
+fn verify_historical_accounts(
+    history: &MockProjectionStore,
+    account_ids: &[u64],
+    seed_time: u64,
+) -> Result<(), String> {
     // Recheck both operation kinds and an absent key for every user after
     // source GC and source reopen; the destination remains query authority.
-    for account_id in 0..users as u64 {
+    for &account_id in account_ids {
         for (tx_id, operation, expected_balance) in
             [(2, Operation::Credit, 101), (3, Operation::Debit, 100)]
         {
@@ -3346,17 +3372,27 @@ fn verify_historical_history(
 }
 
 fn verify_balances(source: &AccountStore, users: usize, expected: u64) -> Result<(), String> {
+    let account_ids = (0..users as u64).collect::<Vec<_>>();
+    verify_account_balances(source, &account_ids, expected)
+}
+
+fn verify_account_balances(
+    source: &AccountStore,
+    account_ids: &[u64],
+    expected: u64,
+) -> Result<(), String> {
     let balances = source.all_balances();
-    if balances.len() != users {
+    if balances.len() != account_ids.len() {
         return Err(format!(
-            "balance count {} does not match configured user count {users}",
-            balances.len()
+            "balance count {} does not match configured account count {}",
+            balances.len(),
+            account_ids.len()
         ));
     }
-    for (account_id, balance) in balances {
-        if account_id >= users as u64 || balance != expected {
+    for ((account_id, balance), expected_id) in balances.iter().zip(account_ids.iter()) {
+        if account_id != expected_id || *balance != expected {
             return Err(format!(
-                "balance mismatch for account {account_id}: expected {expected}, got {balance}"
+                "balance mismatch for account {account_id}: expected account {expected_id} at balance {expected}, got {balance}"
             ));
         }
     }
