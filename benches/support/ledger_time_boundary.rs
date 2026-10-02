@@ -5,7 +5,9 @@
 //! the caller future therefore cannot make a not-yet-committed request
 //! invisible to a watermark fence.
 
-use crate::ledger_account_store::{AccountStore, Reply, Transaction};
+use crate::ledger_account_store::{
+    AccountStore, IndexLookupBatchMetrics, IndexLookupConfig, Reply, Transaction,
+};
 use crate::ledger_projection_worker::{HistoricalLookup, MockProjectionStore};
 use crate::request_batch_queue::{self, BatchQueue, BatchWorker, Completed};
 use std::collections::BTreeMap;
@@ -27,6 +29,13 @@ pub enum RoutedReply {
 pub struct AdmittedTransaction {
     pub transaction: Transaction,
     guard: CommitGuard,
+}
+
+impl AdmittedTransaction {
+    #[cfg(test)]
+    pub(crate) fn with_guard_for_test(transaction: Transaction, guard: CommitGuard) -> Self {
+        Self { transaction, guard }
+    }
 }
 
 pub struct GuardedReply {
@@ -765,6 +774,82 @@ pub fn spawn_commit_queue(
     )
 }
 
+/// Start the same bounded foreground queue with a selected index strategy.
+/// An owned coordinator retains admission guards and the commit-head sender
+/// until the account-store coordinator has completed, even if the queue
+/// handler future is cancelled. A diagnostic metrics failure can still fail
+/// the queue after the successful account commit has published its new head.
+pub fn spawn_commit_queue_with_index_lookup(
+    store: AccountStore,
+    committed_head: watch::Sender<u64>,
+    capacity: usize,
+    max_batch_size: usize,
+    timeout: Duration,
+    lookup: IndexLookupConfig,
+    batch_metrics: Arc<Mutex<Vec<IndexLookupBatchMetrics>>>,
+) -> Result<(BatchQueue<AdmittedTransaction, GuardedReply>, BatchWorker), String> {
+    request_batch_queue::spawn(
+        request_batch_queue::Config {
+            capacity,
+            max_batch_size,
+            timeout,
+        },
+        move |requests: Vec<AdmittedTransaction>| {
+            let store = store.clone();
+            let committed_head = committed_head.clone();
+            let batch_metrics = Arc::clone(&batch_metrics);
+            async move {
+                run_index_lookup_queue_coordinator(
+                    store,
+                    committed_head,
+                    requests,
+                    lookup,
+                    batch_metrics,
+                )
+                .await
+            }
+        },
+    )
+}
+
+/// Own one accepted queue batch independently from the queue handler waiter.
+/// The detached task holds commit guards and publishes the committed head
+/// through completion if its caller future is cancelled.
+pub(crate) async fn run_index_lookup_queue_coordinator(
+    store: AccountStore,
+    committed_head: watch::Sender<u64>,
+    requests: Vec<AdmittedTransaction>,
+    lookup: IndexLookupConfig,
+    batch_metrics: Arc<Mutex<Vec<IndexLookupBatchMetrics>>>,
+) -> Result<Vec<GuardedReply>, String> {
+    tokio::spawn(async move {
+        let mut guards = Vec::with_capacity(requests.len());
+        let transactions = requests
+            .into_iter()
+            .map(|request| {
+                guards.push(request.guard);
+                request.transaction
+            })
+            .collect();
+        let result = store
+            .handle_batch_with_index_lookup(transactions, lookup)
+            .await?;
+        committed_head.send_replace(store.latest_seq());
+        batch_metrics
+            .lock()
+            .map_err(|error| format!("index-lookup metrics mutex poisoned: {error}"))?
+            .push(result.metrics);
+        Ok(result
+            .replies
+            .into_iter()
+            .zip(guards)
+            .map(|(reply, guard)| GuardedReply::committed(RoutedReply::Commit(reply), guard))
+            .collect())
+    })
+    .await
+    .map_err(|error| format!("index-lookup queue coordinator failed: {error}"))?
+}
+
 #[derive(Clone, Copy, Debug, Default)]
 pub struct RequestStages {
     pub overall_ns: u64,
@@ -917,7 +1002,7 @@ mod tests {
     use std::path::PathBuf;
     use std::sync::atomic::{AtomicU64, Ordering};
     #[allow(unused_imports)]
-    use tokio::sync::{Barrier, Semaphore, oneshot};
+    use tokio::sync::{oneshot, Barrier, Semaphore};
 
     static NEXT_PATH: AtomicU64 = AtomicU64::new(0);
 
@@ -982,11 +1067,9 @@ mod tests {
                 .await
                 .is_err()
         );
-        assert!(
-            tokio::time::timeout(Duration::from_millis(20), &mut waiter)
-                .await
-                .is_err()
-        );
+        assert!(tokio::time::timeout(Duration::from_millis(20), &mut waiter)
+            .await
+            .is_err());
         drop(prior);
         lease.wait_for_admitted_commits().await.unwrap();
         lease.publish().unwrap();

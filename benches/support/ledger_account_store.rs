@@ -6,14 +6,15 @@
 
 use rocksdb::statistics::{StatsLevel, Ticker};
 use rocksdb::{
-    BlockBasedOptions, Cache, DB, Direction as DbDirection, IteratorMode, Options, WriteBatch,
-    WriteOptions,
+    BlockBasedOptions, Cache, Direction as DbDirection, IteratorMode, Options, WriteBatch,
+    WriteOptions, DB, DEFAULT_COLUMN_FAMILY_NAME,
 };
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::{Duration, Instant};
-use tokio::sync::{Mutex as AsyncMutex, mpsc};
+use tokio::sync::{mpsc, Mutex as AsyncMutex};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct TransactionKey {
@@ -21,6 +22,10 @@ pub struct TransactionKey {
     pub tx_id: u64,
     pub transaction_at: u64,
 }
+
+#[cfg(test)]
+#[path = "ledger_index_lookup_fault_tests.rs"]
+mod index_lookup_fault_tests;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Operation {
@@ -85,6 +90,116 @@ pub enum Reply {
 pub enum BalanceMode {
     PerBatch,
     Checkpoint,
+}
+
+const MAX_INDEX_LOOKUP_GROUP_SIZE: usize = 2_048;
+const MAX_INDEX_LOOKUP_IN_FLIGHT: usize = 8;
+
+/// Immutable strategy selection for one account-store invocation.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum IndexLookupMode {
+    PointGet,
+    WholeBatchMultiGet,
+    Chunked {
+        group_size: usize,
+        max_in_flight: usize,
+    },
+}
+
+/// Validated transaction-index lookup strategy.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct IndexLookupConfig {
+    mode: IndexLookupMode,
+}
+
+impl IndexLookupConfig {
+    pub fn new(mode: IndexLookupMode) -> Result<Self, String> {
+        if let IndexLookupMode::Chunked {
+            group_size,
+            max_in_flight,
+        } = mode
+        {
+            if group_size == 0 || group_size > MAX_INDEX_LOOKUP_GROUP_SIZE {
+                return Err(format!(
+                    "index lookup group size must be in 1..={MAX_INDEX_LOOKUP_GROUP_SIZE}"
+                ));
+            }
+            if max_in_flight == 0 || max_in_flight > MAX_INDEX_LOOKUP_IN_FLIGHT {
+                return Err(format!(
+                    "index lookup max in-flight groups must be in 1..={MAX_INDEX_LOOKUP_IN_FLIGHT}"
+                ));
+            }
+        }
+        Ok(Self { mode })
+    }
+
+    pub fn mode(self) -> IndexLookupMode {
+        self.mode
+    }
+}
+
+/// Per-group read timings. Durations are cumulative within each group; groups
+/// can overlap, so these values must not be added to the batch wall time.
+#[derive(Clone, Debug, Default)]
+pub struct IndexLookupGroupMetrics {
+    pub group_index: usize,
+    pub first_position: usize,
+    pub key_count: usize,
+    pub blocking_pool_wait_ns: u64,
+    pub native_get_ns: u64,
+    pub decode_ns: u64,
+    pub submit_to_collection_ns: u64,
+}
+
+/// Opt-in per-batch metrics returned by the selected-strategy handler.
+#[derive(Clone, Debug)]
+pub struct IndexLookupBatchMetrics {
+    pub mode: IndexLookupMode,
+    pub transaction_count: usize,
+    pub dispatch_wait_ns: u64,
+    /// Time from immediately before acquisition of the exclusive account
+    /// batch gate until it is acquired. This includes prior batches and GC.
+    pub batch_gate_wait_ns: u64,
+    pub key_prep_ns: u64,
+    /// `None` for the legacy interleaved point-get loop.
+    pub query_wall_ns: Option<u64>,
+    /// Lookup worker wait; `None` for PointGet because reads and apply share
+    /// the legacy process worker.
+    pub blocking_pool_wait_ns: Option<u64>,
+    pub native_get_ns: u64,
+    pub decode_ns: u64,
+    /// Sum of group submit-to-collection durations. Parallel group values
+    /// overlap; `None` for PointGet, which has no lookup groups.
+    pub submit_to_collection_ns: Option<u64>,
+    /// Wait for the sequential apply/build worker to be collected.
+    pub apply_submit_to_collection_ns: u64,
+    /// Apply worker wait; for PointGet this is the wait for the legacy worker
+    /// that interleaves reads with apply.
+    pub apply_blocking_pool_wait_ns: u64,
+    /// Includes the in-loop point reads and decode for PointGet, matching its
+    /// original interleaved lookup/apply order.
+    pub sequential_apply_build_ns: u64,
+    pub sync_write_batch_ns: u64,
+    pub memory_publish_ns: u64,
+    /// Native RocksDB `get` calls or batched `MultiGet` calls, as selected.
+    pub get_calls: u64,
+    /// Transaction-index keys returned by the native read operation.
+    pub keys_looked_up: u64,
+    pub hits: u64,
+    pub misses: u64,
+    pub groups_submitted: usize,
+    pub max_observed_in_flight_groups: usize,
+    /// Maximum blocking MultiGet closures simultaneously running. PointGet
+    /// has no group jobs and reports zero here.
+    pub max_observed_running_query_jobs: usize,
+    /// Completion order, which may differ from group order.
+    pub groups: Vec<IndexLookupGroupMetrics>,
+}
+
+#[derive(Clone, Debug)]
+pub struct IndexLookupBatchResult {
+    pub replies: Vec<Reply>,
+    pub metrics: IndexLookupBatchMetrics,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -178,10 +293,34 @@ struct Inner {
     projected_seq: std::sync::atomic::AtomicU64,
     gc_prefix_seq: std::sync::atomic::AtomicU64,
     #[cfg(test)]
+    index_lookup_test_faults: Mutex<Vec<IndexLookupTestFault>>,
+    #[cfg(test)]
     fail_next_progress_sync: std::sync::atomic::AtomicBool,
     #[cfg(test)]
     fail_next_gc_sync: std::sync::atomic::AtomicBool,
 }
+
+#[cfg(test)]
+#[derive(Clone)]
+enum IndexLookupTestFault {
+    FailReadGroup(usize),
+    PanicReadGroup(usize),
+    DelayReadGroup(usize, Duration),
+    BlockReadGroup(
+        usize,
+        std::sync::mpsc::Sender<()>,
+        Arc<(Mutex<bool>, std::sync::Condvar)>,
+    ),
+    CorruptGroupBounds(usize),
+    DropGroupResult(usize),
+    DuplicateGroupResult(usize),
+    GroupCollectedSignal(usize, std::sync::mpsc::Sender<usize>),
+    FailSyncWrite,
+}
+
+#[cfg(not(test))]
+#[derive(Clone)]
+enum IndexLookupTestFault {}
 
 enum CheckpointMessage {
     Snapshot(CheckpointSnapshot),
@@ -217,6 +356,70 @@ struct BatchOutcome {
     new_transactions: u64,
     read_build_ns: u64,
     wal_sync_ns: u64,
+    index_metrics: IndexApplyMetrics,
+}
+
+#[derive(Clone, Debug, Default)]
+struct IndexApplyMetrics {
+    blocking_pool_wait_ns: u64,
+    key_prep_ns: u64,
+    native_get_ns: u64,
+    decode_ns: u64,
+    get_calls: u64,
+    keys_looked_up: u64,
+    hits: u64,
+    misses: u64,
+    sequential_apply_build_ns: u64,
+    sync_write_batch_ns: u64,
+}
+
+#[derive(Default)]
+struct IndexPrefetchMetrics {
+    key_prep_ns: u64,
+    query_wall_ns: u64,
+    blocking_pool_wait_ns: u64,
+    native_get_ns: u64,
+    decode_ns: u64,
+    submit_to_collection_ns: u64,
+    groups_submitted: usize,
+    max_observed_in_flight_groups: usize,
+    max_observed_running_query_jobs: usize,
+    groups: Vec<IndexLookupGroupMetrics>,
+    get_calls: u64,
+    keys_looked_up: u64,
+    hits: u64,
+    misses: u64,
+}
+
+#[derive(Clone, Debug)]
+struct IndexLookupGroupCompletion {
+    group_index: usize,
+    first_position: usize,
+    end_position: usize,
+    entries: Vec<(usize, Option<StoredTransaction>)>,
+    metrics: IndexLookupGroupMetrics,
+}
+
+#[derive(Default)]
+struct QueryJobActivity {
+    active: AtomicUsize,
+    peak: AtomicUsize,
+}
+
+struct QueryJobActivityGuard(Arc<QueryJobActivity>);
+
+impl QueryJobActivity {
+    fn enter(self: &Arc<Self>) -> QueryJobActivityGuard {
+        let active = self.active.fetch_add(1, Ordering::AcqRel) + 1;
+        self.peak.fetch_max(active, Ordering::AcqRel);
+        QueryJobActivityGuard(Arc::clone(self))
+    }
+}
+
+impl Drop for QueryJobActivityGuard {
+    fn drop(&mut self) {
+        self.0.active.fetch_sub(1, Ordering::AcqRel);
+    }
 }
 
 const LEDGER_PREFIX: u8 = b'L';
@@ -434,6 +637,8 @@ impl AccountStore {
                 fail_next_progress_sync: std::sync::atomic::AtomicBool::new(false),
                 #[cfg(test)]
                 fail_next_gc_sync: std::sync::atomic::AtomicBool::new(false),
+                #[cfg(test)]
+                index_lookup_test_faults: Mutex::new(Vec::new()),
             }),
         })
     }
@@ -615,6 +820,288 @@ impl AccountStore {
         Ok(outcome.replies)
     }
 
+    /// Run a batch with the explicitly selected transaction-index strategy.
+    /// The coordinator owns the store and batch after it is spawned, so
+    /// dropping this caller future cannot release the batch gate while a
+    /// blocking RocksDB query or sync write is still running.
+    pub async fn handle_batch_with_index_lookup(
+        &self,
+        transactions: Vec<Transaction>,
+        config: IndexLookupConfig,
+    ) -> Result<IndexLookupBatchResult, String> {
+        let store = self.clone();
+        let submitted_at = Instant::now();
+        tokio::spawn(async move {
+            store
+                .handle_batch_with_index_lookup_coordinator(transactions, config, submitted_at)
+                .await
+        })
+        .await
+        .map_err(|error| format!("index-lookup batch coordinator failed: {error}"))?
+    }
+
+    async fn handle_batch_with_index_lookup_coordinator(
+        &self,
+        transactions: Vec<Transaction>,
+        config: IndexLookupConfig,
+        submitted_at: Instant,
+    ) -> Result<IndexLookupBatchResult, String> {
+        let dispatch_wait_ns = nanos(submitted_at.elapsed());
+        if transactions.is_empty() {
+            return Ok(IndexLookupBatchResult {
+                replies: Vec::new(),
+                metrics: IndexLookupBatchMetrics {
+                    mode: config.mode,
+                    transaction_count: 0,
+                    dispatch_wait_ns,
+                    batch_gate_wait_ns: 0,
+                    key_prep_ns: 0,
+                    query_wall_ns: match config.mode {
+                        IndexLookupMode::PointGet => None,
+                        IndexLookupMode::WholeBatchMultiGet | IndexLookupMode::Chunked { .. } => {
+                            Some(0)
+                        }
+                    },
+                    blocking_pool_wait_ns: None,
+                    native_get_ns: 0,
+                    decode_ns: 0,
+                    sequential_apply_build_ns: 0,
+                    sync_write_batch_ns: 0,
+                    memory_publish_ns: 0,
+                    get_calls: 0,
+                    keys_looked_up: 0,
+                    hits: 0,
+                    misses: 0,
+                    submit_to_collection_ns: None,
+                    apply_submit_to_collection_ns: 0,
+                    apply_blocking_pool_wait_ns: 0,
+                    groups_submitted: 0,
+                    max_observed_in_flight_groups: 0,
+                    max_observed_running_query_jobs: 0,
+                    groups: Vec::new(),
+                },
+            });
+        }
+
+        let batch_gate_wait_started = Instant::now();
+        let _batch_guard = self.inner.batch_gate.lock().await;
+        let batch_gate_wait_ns = nanos(batch_gate_wait_started.elapsed());
+        self.check_checkpoint_failure()?;
+        let tx_count = transactions.len() as u64;
+        let sample_ids: Vec<_> = transactions
+            .iter()
+            .map(|transaction| (transaction.key.account_id, transaction.key.tx_id))
+            .collect();
+        let (starting_seq, starting_balances) = {
+            let state = self
+                .inner
+                .state
+                .lock()
+                .map_err(|_| "account state mutex poisoned")?;
+            let mut balances = HashMap::new();
+            for transaction in &transactions {
+                let account = transaction.key.account_id;
+                if !state.balances.contains_key(&account) {
+                    return Err(format!(
+                        "account {account} is outside this store's configured account set"
+                    ));
+                }
+                balances.entry(account).or_insert_with(|| {
+                    *state
+                        .balances
+                        .get(&account)
+                        .expect("all configured account balances are initialized")
+                });
+            }
+            (state.seq, balances)
+        };
+
+        #[cfg(test)]
+        let test_faults = self.take_index_lookup_test_faults()?;
+        #[cfg(not(test))]
+        let test_faults = Vec::new();
+
+        let db = Arc::clone(&self.inner.db);
+        let mode = self.inner.mode;
+        let keyspace = self.inner.keyspace.clone();
+        let refund_history = self
+            .inner
+            .refund_history
+            .read()
+            .map_err(|_| "refund-history lock poisoned")?
+            .clone();
+        let gc_prefix_seq = self.gc_prefix_seq();
+        let (prefetched, mut prefetch_metrics, query_wall_ns) = match config.mode {
+            IndexLookupMode::PointGet => (None, IndexPrefetchMetrics::default(), None),
+            IndexLookupMode::WholeBatchMultiGet | IndexLookupMode::Chunked { .. } => {
+                let query_started = Instant::now();
+                let (records, metrics) = prefetch_transaction_indexes(
+                    Arc::clone(&db),
+                    keyspace.clone(),
+                    &transactions,
+                    config,
+                    &test_faults,
+                )
+                .await?;
+                let wall_ns = nanos(query_started.elapsed());
+                let mut metrics = metrics;
+                metrics.query_wall_ns = wall_ns;
+                (Some(records), metrics, Some(wall_ns))
+            }
+        };
+
+        let process_submitted_at = Instant::now();
+        let apply_started = Instant::now();
+        let outcome = tokio::task::spawn_blocking(move || {
+            process_batch_with_index_lookup(
+                db,
+                keyspace,
+                transactions,
+                starting_balances,
+                starting_seq,
+                mode,
+                refund_history,
+                gc_prefix_seq,
+                prefetched,
+                process_submitted_at,
+                test_faults,
+            )
+        })
+        .await
+        .map_err(|error| format!("index-lookup account batch worker failed: {error}"))??;
+        let apply_submit_to_collection_ns = nanos(apply_started.elapsed());
+        if config.mode == IndexLookupMode::PointGet {
+            prefetch_metrics.blocking_pool_wait_ns = outcome.index_metrics.blocking_pool_wait_ns;
+            prefetch_metrics.key_prep_ns = outcome.index_metrics.key_prep_ns;
+            prefetch_metrics.native_get_ns = outcome.index_metrics.native_get_ns;
+            prefetch_metrics.decode_ns = outcome.index_metrics.decode_ns;
+            prefetch_metrics.get_calls = outcome.index_metrics.get_calls;
+            prefetch_metrics.keys_looked_up = outcome.index_metrics.keys_looked_up;
+            prefetch_metrics.hits = outcome.index_metrics.hits;
+            prefetch_metrics.misses = outcome.index_metrics.misses;
+        }
+
+        let publish_started = Instant::now();
+        let mut snapshots = Vec::new();
+        let mut checkpoint_snapshot_ns = 0_u64;
+        {
+            let mut state = self
+                .inner
+                .state
+                .lock()
+                .map_err(|_| "account state mutex poisoned")?;
+            for (account, balance) in outcome.balances.iter().copied() {
+                state.balances.insert(account, balance);
+            }
+            state.seq = outcome.latest_seq;
+            if self.inner.mode == BalanceMode::Checkpoint && outcome.new_transactions > 0 {
+                let before = starting_seq / self.inner.checkpoint_quantity;
+                let after = state.seq / self.inner.checkpoint_quantity;
+                if before < after {
+                    let snapshot_started = Instant::now();
+                    let mut balances: Vec<_> = state
+                        .balances
+                        .iter()
+                        .map(|(account, balance)| (*account, *balance))
+                        .collect();
+                    balances.sort_unstable_by_key(|(account, _)| *account);
+                    for _ in before..after {
+                        snapshots.push(CheckpointSnapshot {
+                            seq: state.seq,
+                            balances: balances.clone(),
+                        });
+                    }
+                    checkpoint_snapshot_ns += nanos(snapshot_started.elapsed());
+                }
+            }
+        }
+        let memory_publish_ns = nanos(publish_started.elapsed());
+        {
+            let mut metrics = self
+                .inner
+                .metrics
+                .lock()
+                .map_err(|_| "account metrics mutex poisoned")?;
+            metrics.transactions += tx_count;
+            metrics.batches += 1;
+            metrics.read_build_ns += outcome.read_build_ns;
+            metrics.wal_sync_ns += outcome.wal_sync_ns;
+            metrics.publish_ns += memory_publish_ns;
+            metrics.checkpoint_snapshot_ns += checkpoint_snapshot_ns;
+        }
+
+        for snapshot in snapshots {
+            let queued_at = Instant::now();
+            let sender = self
+                .inner
+                .checkpoint_tx
+                .lock()
+                .map_err(|_| "checkpoint sender mutex poisoned")?
+                .as_ref()
+                .cloned()
+                .ok_or_else(|| "checkpoint writer is not available".to_owned())?;
+            sender
+                .send(CheckpointMessage::Snapshot(snapshot))
+                .await
+                .map_err(|_| self.checkpoint_failure_message("checkpoint writer stopped"))?;
+            let queue_wait_ns = nanos(queued_at.elapsed());
+            let mut metrics = self
+                .inner
+                .metrics
+                .lock()
+                .map_err(|_| "account metrics mutex poisoned")?;
+            metrics.checkpoint_queue_wait_ns += queue_wait_ns;
+            metrics.checkpoint_snapshots_enqueued += 1;
+        }
+        self.check_checkpoint_failure()?;
+        let handler_latency_ns = nanos(submitted_at.elapsed());
+        let mut metrics = self
+            .inner
+            .metrics
+            .lock()
+            .map_err(|_| "account metrics mutex poisoned")?;
+        metrics.transaction_latency_ns = metrics
+            .transaction_latency_ns
+            .saturating_add(handler_latency_ns.saturating_mul(tx_count));
+        metrics
+            .transaction_samples_ns
+            .extend(sample_ids.into_iter().filter_map(|(account, tx_id)| {
+                stable_sample(account, tx_id).then_some(handler_latency_ns)
+            }));
+
+        let index_metrics = outcome.index_metrics;
+        Ok(IndexLookupBatchResult {
+            replies: outcome.replies,
+            metrics: IndexLookupBatchMetrics {
+                mode: config.mode,
+                transaction_count: tx_count as usize,
+                dispatch_wait_ns,
+                batch_gate_wait_ns,
+                key_prep_ns: prefetch_metrics.key_prep_ns,
+                query_wall_ns,
+                blocking_pool_wait_ns: (config.mode != IndexLookupMode::PointGet)
+                    .then_some(prefetch_metrics.blocking_pool_wait_ns),
+                native_get_ns: prefetch_metrics.native_get_ns,
+                decode_ns: prefetch_metrics.decode_ns,
+                submit_to_collection_ns: (config.mode != IndexLookupMode::PointGet)
+                    .then_some(prefetch_metrics.submit_to_collection_ns),
+                apply_submit_to_collection_ns,
+                apply_blocking_pool_wait_ns: index_metrics.blocking_pool_wait_ns,
+                sequential_apply_build_ns: index_metrics.sequential_apply_build_ns,
+                sync_write_batch_ns: index_metrics.sync_write_batch_ns,
+                memory_publish_ns,
+                get_calls: prefetch_metrics.get_calls,
+                keys_looked_up: prefetch_metrics.keys_looked_up,
+                hits: prefetch_metrics.hits,
+                misses: prefetch_metrics.misses,
+                groups_submitted: prefetch_metrics.groups_submitted,
+                max_observed_in_flight_groups: prefetch_metrics.max_observed_in_flight_groups,
+                max_observed_running_query_jobs: prefetch_metrics.max_observed_running_query_jobs,
+                groups: prefetch_metrics.groups,
+            },
+        })
+    }
+
     pub fn balance(&self, account_id: u64) -> Result<u64, String> {
         self.balance_for_request(account_id, account_id)
     }
@@ -756,6 +1243,58 @@ impl AccountStore {
         self.inner
             .fail_next_gc_sync
             .store(true, std::sync::atomic::Ordering::Release);
+    }
+
+    #[cfg(test)]
+    fn push_index_lookup_test_fault(&self, fault: IndexLookupTestFault) {
+        self.inner
+            .index_lookup_test_faults
+            .lock()
+            .expect("index-lookup test-fault mutex poisoned")
+            .push(fault);
+    }
+
+    #[cfg(test)]
+    pub fn block_index_lookup_group_for_test(
+        &self,
+        group_index: usize,
+    ) -> (
+        std::sync::mpsc::Receiver<()>,
+        Arc<(Mutex<bool>, std::sync::Condvar)>,
+    ) {
+        let (started, started_receiver) = std::sync::mpsc::channel();
+        let release = Arc::new((Mutex::new(false), std::sync::Condvar::new()));
+        self.push_index_lookup_test_fault(IndexLookupTestFault::BlockReadGroup(
+            group_index,
+            started,
+            Arc::clone(&release),
+        ));
+        (started_receiver, release)
+    }
+
+    #[cfg(test)]
+    pub fn fail_index_lookup_group_for_test(&self, group_index: usize) {
+        self.push_index_lookup_test_fault(IndexLookupTestFault::FailReadGroup(group_index));
+    }
+
+    #[cfg(test)]
+    pub fn panic_index_lookup_group_for_test(&self, group_index: usize) {
+        self.push_index_lookup_test_fault(IndexLookupTestFault::PanicReadGroup(group_index));
+    }
+
+    #[cfg(test)]
+    pub fn fail_next_index_lookup_write_for_test(&self) {
+        self.push_index_lookup_test_fault(IndexLookupTestFault::FailSyncWrite);
+    }
+
+    #[cfg(test)]
+    fn take_index_lookup_test_faults(&self) -> Result<Vec<IndexLookupTestFault>, String> {
+        let mut faults = self
+            .inner
+            .index_lookup_test_faults
+            .lock()
+            .map_err(|_| "index-lookup test-fault mutex poisoned")?;
+        Ok(std::mem::take(&mut *faults))
     }
 
     #[cfg(test)]
@@ -1235,8 +1774,12 @@ fn open_database_default(path: &Path) -> Result<(Arc<DB>, Arc<Options>), String>
     options.enable_statistics();
     options.set_statistics_level(StatsLevel::ExceptDetailedTimers);
     let db = Arc::new(
-        DB::open(&options, path)
-            .map_err(|error| format!("cannot open RocksDB {}: {error}", path.display()))?,
+        DB::open_cf_with_opts(
+            &options,
+            path,
+            [(DEFAULT_COLUMN_FAMILY_NAME, options.clone())],
+        )
+        .map_err(|error| format!("cannot open RocksDB {}: {error}", path.display()))?,
     );
     Ok((db, Arc::new(options)))
 }
@@ -1267,8 +1810,12 @@ fn open_database_budgeted(
     table_options.set_block_cache(&cache);
     options.set_block_based_table_factory(&table_options);
     let db = Arc::new(
-        DB::open(&options, path)
-            .map_err(|error| format!("cannot open RocksDB {}: {error}", path.display()))?,
+        DB::open_cf_with_opts(
+            &options,
+            path,
+            [(DEFAULT_COLUMN_FAMILY_NAME, options.clone())],
+        )
+        .map_err(|error| format!("cannot open RocksDB {}: {error}", path.display()))?,
     );
     Ok((db, Arc::new(options)))
 }
@@ -1792,13 +2339,73 @@ fn process_batch(
     db: Arc<DB>,
     keyspace: Keyspace,
     transactions: Vec<Transaction>,
-    mut balances: HashMap<u64, u64>,
+    balances: HashMap<u64, u64>,
     starting_seq: u64,
     mode: BalanceMode,
     refund_history: Option<Arc<dyn RefundHistory>>,
     gc_prefix_seq: u64,
 ) -> Result<BatchOutcome, String> {
+    process_batch_selected(
+        db,
+        keyspace,
+        transactions,
+        balances,
+        starting_seq,
+        mode,
+        refund_history,
+        gc_prefix_seq,
+        None,
+        None,
+        Vec::new(),
+    )
+}
+
+fn process_batch_with_index_lookup(
+    db: Arc<DB>,
+    keyspace: Keyspace,
+    transactions: Vec<Transaction>,
+    balances: HashMap<u64, u64>,
+    starting_seq: u64,
+    mode: BalanceMode,
+    refund_history: Option<Arc<dyn RefundHistory>>,
+    gc_prefix_seq: u64,
+    prefetched: Option<Vec<Option<StoredTransaction>>>,
+    submitted_at: Instant,
+    test_faults: Vec<IndexLookupTestFault>,
+) -> Result<BatchOutcome, String> {
+    process_batch_selected(
+        db,
+        keyspace,
+        transactions,
+        balances,
+        starting_seq,
+        mode,
+        refund_history,
+        gc_prefix_seq,
+        prefetched,
+        Some(submitted_at),
+        test_faults,
+    )
+}
+
+fn process_batch_selected(
+    db: Arc<DB>,
+    keyspace: Keyspace,
+    transactions: Vec<Transaction>,
+    mut balances: HashMap<u64, u64>,
+    starting_seq: u64,
+    mode: BalanceMode,
+    refund_history: Option<Arc<dyn RefundHistory>>,
+    gc_prefix_seq: u64,
+    prefetched: Option<Vec<Option<StoredTransaction>>>,
+    submitted_at: Option<Instant>,
+    test_faults: Vec<IndexLookupTestFault>,
+) -> Result<BatchOutcome, String> {
     let build_started = Instant::now();
+    let mut index_metrics = IndexApplyMetrics::default();
+    if let Some(submitted_at) = submitted_at {
+        index_metrics.blocking_pool_wait_ns = nanos(Instant::now().duration_since(submitted_at));
+    }
     let mut final_seq = starting_seq;
     let mut batch = WriteBatch::default();
     let mut staged = HashMap::<TransactionKey, StoredTransaction>::new();
@@ -1807,7 +2414,8 @@ fn process_batch(
     let mut replies = Vec::with_capacity(transactions.len());
     let mut new_transactions = 0_u64;
 
-    for transaction in transactions {
+    let apply_started = Instant::now();
+    for (position, transaction) in transactions.into_iter().enumerate() {
         let current = *balances.get(&transaction.key.account_id).ok_or_else(|| {
             format!(
                 "starting balance for account {} is missing",
@@ -1829,11 +2437,58 @@ fn process_batch(
             continue;
         }
 
-        if let Some(bytes) = db
-            .get(keyspace.transaction(transaction.key))
-            .map_err(db_error("check transaction index"))?
-        {
-            let prior = decode_transaction(&bytes)?;
+        let stored_prior = if let Some(prefetched) = prefetched.as_ref() {
+            index_metrics.keys_looked_up = index_metrics.keys_looked_up.saturating_add(1);
+            let prior = prefetched.get(position).ok_or_else(|| {
+                format!("prefetched transaction-index results omit position {position}")
+            })?;
+            if prior.is_some() {
+                index_metrics.hits = index_metrics.hits.saturating_add(1);
+            } else {
+                index_metrics.misses = index_metrics.misses.saturating_add(1);
+            }
+            prior.clone()
+        } else {
+            let key_started = submitted_at.map(|_| Instant::now());
+            let encoded_key = keyspace.transaction(transaction.key);
+            if let Some(key_started) = key_started {
+                index_metrics.key_prep_ns = index_metrics
+                    .key_prep_ns
+                    .saturating_add(nanos(key_started.elapsed()));
+            }
+            let get_started = submitted_at.map(|_| Instant::now());
+            let bytes = db
+                .get(&encoded_key)
+                .map_err(db_error("check transaction index"))?;
+            if let Some(get_started) = get_started {
+                index_metrics.get_calls = index_metrics.get_calls.saturating_add(1);
+                index_metrics.keys_looked_up = index_metrics.keys_looked_up.saturating_add(1);
+                index_metrics.native_get_ns = index_metrics
+                    .native_get_ns
+                    .saturating_add(nanos(get_started.elapsed()));
+            }
+            match bytes {
+                Some(bytes) => {
+                    let decode_started = submitted_at.map(|_| Instant::now());
+                    let decoded = decode_transaction(&bytes)?;
+                    if let Some(decode_started) = decode_started {
+                        index_metrics.decode_ns = index_metrics
+                            .decode_ns
+                            .saturating_add(nanos(decode_started.elapsed()));
+                        index_metrics.hits = index_metrics.hits.saturating_add(1);
+                    }
+                    Some(decoded)
+                }
+                None => {
+                    if submitted_at.is_some() {
+                        index_metrics.misses = index_metrics.misses.saturating_add(1);
+                    }
+                    None
+                }
+            }
+        };
+
+        if let Some(prior) = stored_prior {
             if prior.request.key != transaction.key {
                 return Err("transaction index value has a mismatched key".to_owned());
             }
@@ -1929,6 +2584,7 @@ fn process_batch(
         new_transactions += 1;
     }
 
+    index_metrics.sequential_apply_build_ns = nanos(apply_started.elapsed());
     let read_build_ns = nanos(build_started.elapsed());
     let wal_started = Instant::now();
     if new_transactions > 0 {
@@ -1938,10 +2594,14 @@ fn process_batch(
                 batch.put(keyspace.balance(account), balances[&account].to_be_bytes());
             }
         }
+        if should_fail_sync_write(&test_faults) {
+            return Err("injected synchronous account batch write failure".to_owned());
+        }
         db.write_opt(batch, &sync_write_options())
             .map_err(db_error("synchronously commit account batch"))?;
     }
     let wal_sync_ns = nanos(wal_started.elapsed());
+    index_metrics.sync_write_batch_ns = wal_sync_ns;
     let final_balances = touched_accounts
         .into_iter()
         .map(|account| (account, balances[&account]))
@@ -1953,7 +2613,403 @@ fn process_batch(
         new_transactions,
         read_build_ns,
         wal_sync_ns,
+        index_metrics,
     })
+}
+
+#[derive(Clone)]
+struct PreparedIndexKey {
+    position: usize,
+    expected_key: TransactionKey,
+    encoded_key: Vec<u8>,
+}
+
+async fn prefetch_transaction_indexes(
+    db: Arc<DB>,
+    keyspace: Keyspace,
+    transactions: &[Transaction],
+    config: IndexLookupConfig,
+    test_faults: &[IndexLookupTestFault],
+) -> Result<(Vec<Option<StoredTransaction>>, IndexPrefetchMetrics), String> {
+    let query_prepare_started = Instant::now();
+    let group_size = match config.mode {
+        IndexLookupMode::PointGet => {
+            return Err("PointGet does not use the MultiGet prefetch path".to_owned());
+        }
+        IndexLookupMode::WholeBatchMultiGet => transactions.len(),
+        IndexLookupMode::Chunked { group_size, .. } => group_size,
+    };
+    let max_in_flight = match config.mode {
+        IndexLookupMode::WholeBatchMultiGet => 1,
+        IndexLookupMode::Chunked { max_in_flight, .. } => max_in_flight,
+        IndexLookupMode::PointGet => unreachable!(),
+    };
+    let prepared: Vec<_> = transactions
+        .iter()
+        .enumerate()
+        .map(|(position, transaction)| PreparedIndexKey {
+            position,
+            expected_key: transaction.key,
+            encoded_key: keyspace.transaction(transaction.key),
+        })
+        .collect();
+    let key_prep_ns = nanos(query_prepare_started.elapsed());
+    let group_count = prepared.len().div_ceil(group_size);
+    let mut slots = (0..transactions.len())
+        .map(|_| None::<Option<StoredTransaction>>)
+        .collect::<Vec<_>>();
+    let mut seen_groups = vec![false; group_count];
+    let mut submitted_at = vec![None; group_count];
+    let mut tasks = tokio::task::JoinSet::new();
+    let activity = Arc::new(QueryJobActivity::default());
+    let mut next_group = 0_usize;
+    let mut metrics = IndexPrefetchMetrics {
+        key_prep_ns,
+        ..Default::default()
+    };
+    let mut first_error = None::<String>;
+
+    while !tasks.is_empty() || (first_error.is_none() && next_group < group_count) {
+        while first_error.is_none() && next_group < group_count && tasks.len() < max_in_flight {
+            let group_index = next_group;
+            let first_position = group_index * group_size;
+            let end_position = first_position
+                .saturating_add(group_size)
+                .min(prepared.len());
+            let group = prepared[first_position..end_position].to_vec();
+            let group_db = Arc::clone(&db);
+            let group_activity = Arc::clone(&activity);
+            let group_faults = test_faults
+                .iter()
+                .filter(|fault| test_fault_applies_to_group(fault, group_index))
+                .cloned()
+                .collect::<Vec<_>>();
+            let submitted = Instant::now();
+            submitted_at[group_index] = Some(submitted);
+            tasks.spawn_blocking(move || {
+                let _running = group_activity.enter();
+                run_query_group(
+                    group_db,
+                    group_index,
+                    first_position,
+                    end_position,
+                    group,
+                    submitted,
+                    group_faults,
+                )
+            });
+            next_group += 1;
+            metrics.groups_submitted += 1;
+            metrics.max_observed_in_flight_groups =
+                metrics.max_observed_in_flight_groups.max(tasks.len());
+        }
+
+        let Some(joined) = tasks.join_next().await else {
+            break;
+        };
+        match joined {
+            Ok(Ok(mut completion)) => {
+                let group_index = completion.group_index;
+                let Some(Some(group_submitted)) = submitted_at.get(group_index).copied() else {
+                    first_error.get_or_insert_with(|| {
+                        format!("MultiGet returned out-of-range group {group_index}")
+                    });
+                    continue;
+                };
+                completion.metrics.submit_to_collection_ns =
+                    nanos(Instant::now().duration_since(group_submitted));
+                let expected_first = group_index.saturating_mul(group_size);
+                let expected_end = expected_first
+                    .saturating_add(group_size)
+                    .min(prepared.len());
+                if group_index >= group_count {
+                    first_error.get_or_insert_with(|| {
+                        format!("MultiGet returned out-of-range group {group_index}")
+                    });
+                    continue;
+                }
+                if seen_groups[group_index] {
+                    first_error.get_or_insert_with(|| {
+                        format!("MultiGet returned duplicate group {group_index}")
+                    });
+                    continue;
+                }
+                if completion.first_position != expected_first
+                    || completion.end_position != expected_end
+                {
+                    first_error.get_or_insert_with(|| {
+                        format!(
+                            "MultiGet group {group_index} returned bounds {}..{}, expected {expected_first}..{expected_end}",
+                            completion.first_position, completion.end_position
+                        )
+                    });
+                    continue;
+                }
+                seen_groups[group_index] = true;
+                let expected_len = expected_end.saturating_sub(expected_first);
+                if completion.entries.len() != expected_len {
+                    first_error.get_or_insert_with(|| {
+                        format!(
+                            "MultiGet group {group_index} returned {} positions, expected {expected_len}",
+                            completion.entries.len()
+                        )
+                    });
+                    continue;
+                }
+                for (position, record) in &completion.entries {
+                    if *position < expected_first || *position >= expected_end {
+                        first_error.get_or_insert_with(|| {
+                            format!(
+                                "MultiGet group {group_index} returned out-of-range position {position}"
+                            )
+                        });
+                        break;
+                    }
+                    if slots[*position].is_some() {
+                        first_error.get_or_insert_with(|| {
+                            format!("MultiGet returned duplicate position {position}")
+                        });
+                        break;
+                    }
+                    slots[*position] = Some(record.clone());
+                }
+                metrics.blocking_pool_wait_ns = metrics
+                    .blocking_pool_wait_ns
+                    .saturating_add(completion.metrics.blocking_pool_wait_ns);
+                metrics.native_get_ns = metrics
+                    .native_get_ns
+                    .saturating_add(completion.metrics.native_get_ns);
+                metrics.decode_ns = metrics
+                    .decode_ns
+                    .saturating_add(completion.metrics.decode_ns);
+                metrics.submit_to_collection_ns = metrics
+                    .submit_to_collection_ns
+                    .saturating_add(completion.metrics.submit_to_collection_ns);
+                metrics.groups.push(completion.metrics);
+                signal_group_collected_for_test(group_index, &test_faults);
+            }
+            Ok(Err(error)) => {
+                first_error.get_or_insert(error);
+            }
+            Err(error) => {
+                first_error
+                    .get_or_insert_with(|| format!("MultiGet blocking task failed: {error}"));
+            }
+        }
+    }
+
+    // join_next above drains every submitted blocking closure, including jobs
+    // still running after the first query, decode, or result-validation error.
+    if let Some(error) = first_error {
+        return Err(error);
+    }
+    if metrics.groups_submitted != group_count || seen_groups.iter().any(|seen| !seen) {
+        return Err(format!(
+            "MultiGet returned {} of {group_count} expected groups",
+            seen_groups.iter().filter(|seen| **seen).count()
+        ));
+    }
+    if slots.iter().any(Option::is_none) {
+        return Err("MultiGet result omitted one or more original positions".to_owned());
+    }
+    let records = slots
+        .into_iter()
+        .map(|slot| slot.expect("all MultiGet result positions were validated"))
+        .collect::<Vec<_>>();
+    metrics.keys_looked_up = transactions.len() as u64;
+    metrics.get_calls = metrics.groups_submitted as u64;
+    metrics.hits = records.iter().filter(|record| record.is_some()).count() as u64;
+    metrics.misses = records.iter().filter(|record| record.is_none()).count() as u64;
+    metrics.max_observed_running_query_jobs = activity.peak.load(Ordering::Acquire);
+    Ok((records, metrics))
+}
+
+fn run_query_group(
+    db: Arc<DB>,
+    group_index: usize,
+    first_position: usize,
+    end_position: usize,
+    group: Vec<PreparedIndexKey>,
+    submitted_at: Instant,
+    test_faults: Vec<IndexLookupTestFault>,
+) -> Result<IndexLookupGroupCompletion, String> {
+    let blocking_pool_wait_ns = nanos(submitted_at.elapsed());
+    apply_query_test_faults(group_index, &test_faults)?;
+    let cf = db
+        .cf_handle("default")
+        .ok_or_else(|| "RocksDB default column family is unavailable".to_owned())?;
+    let native_started = Instant::now();
+    let values = db.batched_multi_get_cf(
+        &cf,
+        group.iter().map(|key| key.encoded_key.as_slice()),
+        false,
+    );
+    let native_get_ns = nanos(native_started.elapsed());
+    if values.len() != group.len() {
+        return Err(format!(
+            "MultiGet group {group_index} returned {} values for {} keys",
+            values.len(),
+            group.len()
+        ));
+    }
+    let mut entries = Vec::with_capacity(group.len());
+    let mut decode_ns = 0_u64;
+    for (prepared, value) in group.iter().zip(values) {
+        let value = value.map_err(db_error("read transaction index with MultiGet"))?;
+        let record = if let Some(value) = value {
+            let decode_started = Instant::now();
+            let record = decode_transaction(&value)?;
+            if record.request.key != prepared.expected_key {
+                return Err(format!(
+                    "transaction index value at position {} has a mismatched key",
+                    prepared.position
+                ));
+            }
+            decode_ns = decode_ns.saturating_add(nanos(decode_started.elapsed()));
+            Some(record)
+        } else {
+            None
+        };
+        entries.push((prepared.position, record));
+    }
+    let mut completion = IndexLookupGroupCompletion {
+        group_index,
+        first_position,
+        end_position,
+        entries,
+        metrics: IndexLookupGroupMetrics {
+            group_index,
+            first_position,
+            key_count: group.len(),
+            blocking_pool_wait_ns,
+            native_get_ns,
+            decode_ns,
+            submit_to_collection_ns: 0,
+        },
+    };
+    mutate_group_result_for_test(group_index, &mut completion, &test_faults);
+    Ok(completion)
+}
+
+#[cfg(test)]
+fn test_fault_applies_to_group(fault: &IndexLookupTestFault, group_index: usize) -> bool {
+    match fault {
+        IndexLookupTestFault::FailReadGroup(index)
+        | IndexLookupTestFault::PanicReadGroup(index)
+        | IndexLookupTestFault::DelayReadGroup(index, _)
+        | IndexLookupTestFault::BlockReadGroup(index, _, _)
+        | IndexLookupTestFault::CorruptGroupBounds(index)
+        | IndexLookupTestFault::DropGroupResult(index)
+        | IndexLookupTestFault::DuplicateGroupResult(index)
+        | IndexLookupTestFault::GroupCollectedSignal(index, _) => *index == group_index,
+        IndexLookupTestFault::FailSyncWrite => false,
+    }
+}
+
+#[cfg(not(test))]
+fn test_fault_applies_to_group(_: &IndexLookupTestFault, _: usize) -> bool {
+    false
+}
+
+#[cfg(test)]
+fn signal_group_collected_for_test(group_index: usize, faults: &[IndexLookupTestFault]) {
+    for fault in faults {
+        if let IndexLookupTestFault::GroupCollectedSignal(index, sender) = fault {
+            if *index == group_index {
+                let _ = sender.send(group_index);
+            }
+        }
+    }
+}
+
+#[cfg(not(test))]
+fn signal_group_collected_for_test(_: usize, _: &[IndexLookupTestFault]) {}
+
+#[cfg(test)]
+fn apply_query_test_faults(
+    group_index: usize,
+    faults: &[IndexLookupTestFault],
+) -> Result<(), String> {
+    for fault in faults {
+        match fault {
+            IndexLookupTestFault::FailReadGroup(index) if *index == group_index => {
+                return Err(format!(
+                    "injected MultiGet read failure in group {group_index}"
+                ));
+            }
+            IndexLookupTestFault::PanicReadGroup(index) if *index == group_index => {
+                panic!("injected MultiGet task panic in group {group_index}");
+            }
+            IndexLookupTestFault::DelayReadGroup(index, delay) if *index == group_index => {
+                std::thread::sleep(*delay);
+            }
+            IndexLookupTestFault::BlockReadGroup(index, started, release)
+                if *index == group_index =>
+            {
+                let _ = started.send(());
+                let (lock, changed) = &**release;
+                let mut released = lock
+                    .lock()
+                    .map_err(|_| "test query-release mutex poisoned".to_owned())?;
+                while !*released {
+                    released = changed
+                        .wait(released)
+                        .map_err(|_| "test query-release mutex poisoned".to_owned())?;
+                }
+            }
+            _ => {}
+        }
+    }
+    Ok(())
+}
+
+#[cfg(not(test))]
+fn apply_query_test_faults(_: usize, _: &[IndexLookupTestFault]) -> Result<(), String> {
+    Ok(())
+}
+
+#[cfg(test)]
+fn mutate_group_result_for_test(
+    group_index: usize,
+    completion: &mut IndexLookupGroupCompletion,
+    faults: &[IndexLookupTestFault],
+) {
+    for fault in faults {
+        match fault {
+            IndexLookupTestFault::CorruptGroupBounds(index) if *index == group_index => {
+                completion.first_position = completion.first_position.saturating_add(1);
+            }
+            IndexLookupTestFault::DropGroupResult(index) if *index == group_index => {
+                completion.entries.pop();
+            }
+            IndexLookupTestFault::DuplicateGroupResult(index) if *index == group_index => {
+                if let Some(entry) = completion.entries.first().cloned() {
+                    completion.entries.push(entry);
+                }
+            }
+            _ => {}
+        }
+    }
+}
+
+#[cfg(not(test))]
+fn mutate_group_result_for_test(
+    _: usize,
+    _: &mut IndexLookupGroupCompletion,
+    _: &[IndexLookupTestFault],
+) {
+}
+
+#[cfg(test)]
+fn should_fail_sync_write(faults: &[IndexLookupTestFault]) -> bool {
+    faults
+        .iter()
+        .any(|fault| matches!(fault, IndexLookupTestFault::FailSyncWrite))
+}
+
+#[cfg(not(test))]
+fn should_fail_sync_write(_: &[IndexLookupTestFault]) -> bool {
+    false
 }
 
 enum RefundTarget {
@@ -2002,10 +3058,11 @@ fn resolve_refund_target(
         {
             return Ok(RefundTarget::Invalid);
         }
-        if db
-            .get(keyspace.refund(refund_key_value))
-            .map_err(db_error("read refund marker"))?
-            .is_some()
+        if staged_refunds.contains(&refund_key_value)
+            || db
+                .get(keyspace.refund(refund_key_value))
+                .map_err(db_error("read refund marker"))?
+                .is_some()
         {
             return Ok(RefundTarget::Used);
         }
@@ -2025,10 +3082,11 @@ fn resolve_refund_target(
     if historical.amount != transaction.amount {
         return Ok(RefundTarget::Invalid);
     }
-    if db
-        .get(keyspace.refund(refund_key_value))
-        .map_err(db_error("read refund marker"))?
-        .is_some()
+    if staged_refunds.contains(&refund_key_value)
+        || db
+            .get(keyspace.refund(refund_key_value))
+            .map_err(db_error("read refund marker"))?
+            .is_some()
         || historical.already_refunded
     {
         return Ok(RefundTarget::Used);
@@ -2781,12 +3839,10 @@ mod tests {
         assert_eq!(store.balance(0).unwrap(), u64::MAX);
         assert_eq!(store.balance(1).unwrap(), 1);
         assert_eq!(store.latest_seq(), 8);
-        assert!(
-            store
-                .handle_batch(vec![txn(2, 99, 99, Operation::Credit, 1, None)])
-                .await
-                .is_err()
-        );
+        assert!(store
+            .handle_batch(vec![txn(2, 99, 99, Operation::Credit, 1, None)])
+            .await
+            .is_err());
         assert_eq!(store.latest_seq(), 8);
         store.shutdown().await.unwrap();
     }
@@ -2830,14 +3886,12 @@ mod tests {
             .unwrap();
         assert_eq!(recovered.latest_seq(), 1);
         assert_eq!(recovered.all_balances(), [(0, 0), (1, 0), (2, 5)]);
-        assert!(
-            recovered
-                .inner
-                .db
-                .get(checkpoint_chunk_key(99, 0))
-                .unwrap()
-                .is_none()
-        );
+        assert!(recovered
+            .inner
+            .db
+            .get(checkpoint_chunk_key(99, 0))
+            .unwrap()
+            .is_none());
         recovered.validate_integrity().await.unwrap();
         recovered.shutdown().await.unwrap();
     }
@@ -2912,22 +3966,18 @@ mod tests {
                 .collect::<Vec<_>>(),
             [2, 3]
         );
-        assert!(
-            store
-                .read_ledger_range(4, 2)
-                .await
-                .unwrap()
-                .records
-                .is_empty()
-        );
-        assert!(
-            store
-                .read_ledger_range(1, 0)
-                .await
-                .unwrap()
-                .records
-                .is_empty()
-        );
+        assert!(store
+            .read_ledger_range(4, 2)
+            .await
+            .unwrap()
+            .records
+            .is_empty());
+        assert!(store
+            .read_ledger_range(1, 0)
+            .await
+            .unwrap()
+            .records
+            .is_empty());
         assert!(store.read_ledger_range(0, 1).await.is_err());
 
         let shared_db = Arc::clone(&store.inner.db);
@@ -2972,13 +4022,11 @@ mod tests {
             .db
             .delete(missing.inner.keyspace.ledger(2))
             .unwrap();
-        assert!(
-            missing
-                .read_ledger_range(1, 2)
-                .await
-                .unwrap_err()
-                .contains("ledger sequence 2 is missing")
-        );
+        assert!(missing
+            .read_ledger_range(1, 2)
+            .await
+            .unwrap_err()
+            .contains("ledger sequence 2 is missing"));
         missing.shutdown().await.unwrap();
 
         let corrupt_directory = TestDb::new("ledger-range-corrupt");
@@ -3000,13 +4048,11 @@ mod tests {
             .db
             .put(corrupt.inner.keyspace.ledger(1), [0_u8])
             .unwrap();
-        assert!(
-            corrupt
-                .read_ledger_range(1, 1)
-                .await
-                .unwrap_err()
-                .contains("ledger sequence 1 is corrupt")
-        );
+        assert!(corrupt
+            .read_ledger_range(1, 1)
+            .await
+            .unwrap_err()
+            .contains("ledger sequence 1 is corrupt"));
 
         let mut decoded = decode_transaction(&original).unwrap();
         decoded.result.seq = 2;
@@ -3018,13 +4064,11 @@ mod tests {
                 encode_transaction(&decoded),
             )
             .unwrap();
-        assert!(
-            corrupt
-                .read_ledger_range(1, 1)
-                .await
-                .unwrap_err()
-                .contains("ledger key sequence 1 contains sequence 2")
-        );
+        assert!(corrupt
+            .read_ledger_range(1, 1)
+            .await
+            .unwrap_err()
+            .contains("ledger key sequence 1 contains sequence 2"));
         corrupt.shutdown().await.unwrap();
     }
 }

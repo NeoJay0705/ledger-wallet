@@ -1,8 +1,9 @@
 //! Paired Tokio benchmark for durable projection progress and safe RocksDB GC.
 
 use crate::ledger_account_store::{
-    AccountStore, BalanceMode, GcStepOutcome, Operation, RefundHistory, Reply, Transaction,
-    TransactionKey, TransactionStatus,
+    AccountStore, BalanceMode, GcStepOutcome, IndexLookupBatchMetrics, IndexLookupConfig,
+    IndexLookupMode, Operation, RefundHistory, Reply, Transaction, TransactionKey,
+    TransactionStatus,
 };
 use crate::ledger_preflight::{self, IoSample, PreflightConfig, PreflightReport};
 use crate::ledger_projection_worker::{HistoricalLookup, MockProjectionStore};
@@ -10,7 +11,7 @@ use crate::ledger_time_boundary::{
     self, AdmissionGate, GuardedReply, ProjectionProgress, RoutedReply, WatermarkManager,
     WatermarkSample,
 };
-use crate::request_batch_queue::BatchQueue;
+use crate::request_batch_queue::{BatchQueue, BatchWorker};
 use cpu_time::ProcessTime;
 use std::fs::{self, File};
 use std::io::{BufWriter, Write};
@@ -18,7 +19,7 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tokio::runtime::Builder;
-use tokio::sync::{Barrier, watch};
+use tokio::sync::{watch, Barrier};
 use tokio::task::{JoinHandle, JoinSet};
 
 const DEFAULT_USERS: usize = 50_000;
@@ -53,7 +54,7 @@ const RUN_CASES: [(BalanceMode, bool, u8); 6] = [
     (BalanceMode::Checkpoint, true, 0),
     (BalanceMode::Checkpoint, true, 5),
 ];
-const WORKERS: usize = 3;
+const WORKERS: usize = 4;
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
@@ -74,6 +75,8 @@ pub(crate) struct Config {
     preflight: PreflightConfig,
     memory_reserve_bytes: u64,
     free_space_reserve_bytes: u64,
+    runtime_workers: usize,
+    index_lookup: IndexLookupConfig,
     smoke: bool,
 }
 
@@ -104,6 +107,12 @@ impl Default for Config {
             },
             memory_reserve_bytes: DEFAULT_MEMORY_RESERVE_BYTES,
             free_space_reserve_bytes: DEFAULT_FREE_SPACE_RESERVE_BYTES,
+            runtime_workers: WORKERS,
+            index_lookup: IndexLookupConfig::new(IndexLookupMode::Chunked {
+                group_size: 256,
+                max_in_flight: 4,
+            })
+            .expect("default transaction-index lookup settings are valid"),
             smoke: false,
         }
     }
@@ -121,6 +130,11 @@ impl Config {
         let mut requests_per_user_explicit = false;
         let mut sample_stride_explicit = false;
         let mut checkpoint_quantity_explicit = false;
+        let mut index_lookup_name = None::<String>;
+        let mut index_group_size = 256_usize;
+        let mut index_group_size_explicit = false;
+        let mut index_concurrency = 4_usize;
+        let mut index_concurrency_explicit = false;
         let mut index = 0;
         while index < args.len() {
             let flag = args[index].as_str();
@@ -202,6 +216,16 @@ impl Config {
                         .checked_mul(1024 * 1024)
                         .ok_or_else(|| format!("{flag} is too large"))?
                 }
+                "--runtime-workers" => config.runtime_workers = parse_value(flag, value)?,
+                "--index-lookup" => index_lookup_name = Some(value.clone()),
+                "--index-group-size" => {
+                    index_group_size = parse_value(flag, value)?;
+                    index_group_size_explicit = true;
+                }
+                "--index-concurrency" => {
+                    index_concurrency = parse_value(flag, value)?;
+                    index_concurrency_explicit = true;
+                }
                 _ => return Err(format!("unknown option {flag}")),
             }
             index += 1;
@@ -220,6 +244,29 @@ impl Config {
                 config.checkpoint_quantity = 100;
             }
         }
+        let index_lookup_name = index_lookup_name.as_deref().unwrap_or("chunked");
+        let index_lookup_mode = match index_lookup_name {
+            "point_get" => IndexLookupMode::PointGet,
+            "whole_batch_multiget" => IndexLookupMode::WholeBatchMultiGet,
+            "chunked" => IndexLookupMode::Chunked {
+                group_size: index_group_size,
+                max_in_flight: index_concurrency,
+            },
+            _ => {
+                return Err(format!(
+                    "invalid value for --index-lookup: {index_lookup_name}; expected point_get, whole_batch_multiget, or chunked"
+                ));
+            }
+        };
+        if !matches!(index_lookup_mode, IndexLookupMode::Chunked { .. })
+            && (index_group_size_explicit || index_concurrency_explicit)
+        {
+            return Err(
+                "--index-group-size and --index-concurrency apply only to --index-lookup chunked"
+                    .to_owned(),
+            );
+        }
+        config.index_lookup = IndexLookupConfig::new(index_lookup_mode)?;
         config.validate()?;
         Ok(config)
     }
@@ -253,6 +300,7 @@ impl Config {
             || self.retention.is_zero()
             || self.watermark_interval.is_zero()
             || self.checkpoint_quantity == 0
+            || self.runtime_workers == 0
         {
             return Err(
                 "queue, batch, sample, retention, checkpoint, and interval values must be positive"
@@ -323,6 +371,8 @@ impl Config {
             && self.preflight.max_disk_busy_pct == default.preflight.max_disk_busy_pct
             && self.memory_reserve_bytes == default.memory_reserve_bytes
             && self.free_space_reserve_bytes == default.free_space_reserve_bytes
+            && self.runtime_workers == default.runtime_workers
+            && self.index_lookup == default.index_lookup
     }
 }
 
@@ -341,9 +391,12 @@ fn print_help() {
          --projection-batch-size N --gc-batch-size N --gc-interval-ms N\n\
          --retention-ms N --watermark-interval-ms N\n\
          --old-lookup-delay-ms N --checkpoint-quantity N --output-root PATH\n\
+         --index-lookup point_get|whole_batch_multiget|chunked (default chunked)\n\
+         --index-group-size N (default 256, valid 1..=2048)\n\
+         --index-concurrency N (default 4, valid 1..=8)\n\
          --preflight-observation-ms N --preflight-timeout-ms N\n\
          --max-cpu-busy-pct N --max-disk-busy-pct N\n\
-         --memory-reserve-mib N --free-space-reserve-mib N"
+         --memory-reserve-mib N --free-space-reserve-mib N --runtime-workers N"
     );
 }
 
@@ -534,8 +587,11 @@ struct IoDelta {
 struct CaseResult {
     name: String,
     users: usize,
+    projection_enabled: bool,
     gc_enabled: bool,
     mode: BalanceMode,
+    index_lookup_mode: Option<IndexLookupMode>,
+    runtime_workers: usize,
     expired_pct: u8,
     requests: u64,
     fresh: u64,
@@ -570,6 +626,7 @@ struct CaseResult {
     checkpoint_steps: Vec<TimedCheckpointStep>,
     watermark_samples: Vec<WatermarkSample>,
     account_metrics: crate::ledger_account_store::MetricsSnapshot,
+    index_lookup_batches: Vec<IndexLookupBatchMetrics>,
     watermark_updates: usize,
     initial_watermark: u64,
     final_watermark: u64,
@@ -786,6 +843,637 @@ fn case_latency_summaries(result: &CaseResult) -> Vec<(&'static str, LatencySumm
     rows
 }
 
+fn write_index_lookup_trial_artifacts(
+    config: &Config,
+    mode: IndexLookupMode,
+    result: &CaseResult,
+    setup_preflight: &PreflightReport,
+) -> Result<(), String> {
+    let output_root = &config.output_root;
+    let mode_name = index_lookup_mode_name(mode);
+    let lookup_metrics = sum_index_lookup_metrics(&result.index_lookup_batches);
+    let keys = lookup_metrics.keys_looked_up;
+    let get_calls = lookup_metrics.native_get_calls;
+    let misses = lookup_metrics.misses;
+    let hits = lookup_metrics.hits;
+    let summary_path = output_root.join("ledger_index_lookup_trial_summary.csv");
+    let mut summary = BufWriter::new(
+        File::create(&summary_path)
+            .map_err(|error| format!("cannot create {}: {error}", summary_path.display()))?,
+    );
+    let summary_columns = [
+        "mode",
+        "index_lookup_strategy",
+        "index_group_size",
+        "index_concurrency",
+        "workers",
+        "users",
+        "coroutines",
+        "requests",
+        "credits",
+        "debits",
+        "fresh_commits",
+        "historical_hits",
+        "historical_misses",
+        "projection_enabled",
+        "gc_enabled",
+        "watermark_updates",
+        "sample_stride",
+        "client_wall_s",
+        "client_rps",
+        "cpu_s",
+        "cpu_core_equivalents",
+        "cpu_ns_per_request",
+        "cpu_sample_offset_us",
+        "progress_sample_offset_us",
+        "io_sample_offset_us",
+        "storage_sample_offset_us",
+        "rss_bytes",
+        "db_bytes",
+        "process_rchar_bytes",
+        "process_wchar_bytes",
+        "process_read_bytes",
+        "process_write_bytes",
+        "device",
+        "major_minor",
+        "device_read_bytes",
+        "device_write_bytes",
+        "device_busy_ms",
+        "wal_syncs",
+        "wal_bytes",
+        "writes_with_wal",
+        "flush_write_bytes",
+        "compaction_read_bytes",
+        "compaction_write_bytes",
+        "stall_us",
+        "request_sample_count",
+        "request_p50_ns",
+        "request_p95_ns",
+        "request_p99_ns",
+        "batch_count",
+        "native_get_calls",
+        "keys_looked_up",
+        "hits",
+        "misses",
+        "max_in_flight_groups",
+        "max_running_query_jobs",
+        "latest_seq_near_client_end",
+        "projected_seq_near_client_end",
+        "destination_seq_near_client_end",
+        "gc_prefix_near_client_end",
+        "final_seq",
+        "initial_watermark",
+        "final_watermark",
+        "gc_prefix_after_settle",
+        "recovery_s",
+        "integrity_s",
+        "setup_preflight_cpu_pct",
+        "setup_preflight_disk_pct",
+        "measure_preflight_cpu_pct",
+        "measure_preflight_disk_pct",
+    ];
+    write_csv_record(
+        &mut summary,
+        summary_columns.iter().map(|value| value.to_string()),
+    )
+    .map_err(|error| format!("cannot write {}: {error}", summary_path.display()))?;
+    let client_rps = result.requests as f64 / result.client_wall.as_secs_f64();
+    let max_in_flight = result
+        .index_lookup_batches
+        .iter()
+        .map(|batch| batch.max_observed_in_flight_groups)
+        .max()
+        .unwrap_or(0);
+    let max_running = result
+        .index_lookup_batches
+        .iter()
+        .map(|batch| batch.max_observed_running_query_jobs)
+        .max()
+        .unwrap_or(0);
+    let rocks = result.rocks;
+    let (strategy_name, configured_group_size, configured_concurrency) =
+        index_lookup_details(Some(mode));
+    let summary_values = [
+        mode_name.clone(),
+        strategy_name,
+        configured_group_size,
+        configured_concurrency,
+        result.runtime_workers.to_string(),
+        result.users.to_string(),
+        result.users.to_string(),
+        result.requests.to_string(),
+        result.credits.to_string(),
+        result.debits.to_string(),
+        result.fresh.to_string(),
+        result.historical_hits.to_string(),
+        result.historical_misses.to_string(),
+        result.projection_enabled.to_string(),
+        result.gc_enabled.to_string(),
+        result.watermark_updates.to_string(),
+        config.sample_stride.to_string(),
+        format!("{:.6}", result.client_wall.as_secs_f64()),
+        format!("{client_rps:.3}"),
+        format!("{:.6}", result.cpu_seconds),
+        format!("{:.6}", result.cpu_cores),
+        format!(
+            "{:.3}",
+            result.cpu_seconds * 1_000_000_000.0 / result.requests.max(1) as f64
+        ),
+        result.cpu_sample_offset_us.to_string(),
+        result.progress_sample_offset_us.to_string(),
+        result.io_sample_offset_us.to_string(),
+        result.storage_sample_offset_us.to_string(),
+        result.peak_rss_bytes.to_string(),
+        result.db_bytes.to_string(),
+        result.io.process_rchar_bytes.to_string(),
+        result.io.process_wchar_bytes.to_string(),
+        result.io.process_read_bytes.to_string(),
+        result.io.process_write_bytes.to_string(),
+        result.io.target_device.clone(),
+        result.io.target_major_minor.clone(),
+        result.io.target_read_bytes.to_string(),
+        result.io.target_write_bytes.to_string(),
+        result.io.target_busy_ms.to_string(),
+        rocks.0.to_string(),
+        rocks.1.to_string(),
+        rocks.2.to_string(),
+        rocks.3.to_string(),
+        rocks.4.to_string(),
+        rocks.5.to_string(),
+        rocks.6.to_string(),
+        result.user_tx.sample_count.to_string(),
+        result.user_tx.p50_ns.to_string(),
+        result.user_tx.p95_ns.to_string(),
+        result.user_tx.p99_ns.to_string(),
+        result.index_lookup_batches.len().to_string(),
+        get_calls.to_string(),
+        keys.to_string(),
+        hits.to_string(),
+        misses.to_string(),
+        max_in_flight.to_string(),
+        max_running.to_string(),
+        result.latest_seq_near_client_end.to_string(),
+        result.projected_seq_near_client_end.to_string(),
+        result.destination_seq_near_client_end.to_string(),
+        result.gc_prefix_near_client_end.to_string(),
+        result.final_sequence.to_string(),
+        result.initial_watermark.to_string(),
+        result.final_watermark.to_string(),
+        result.gc_prefix_seq.to_string(),
+        format!("{:.6}", result.recovery_seconds),
+        format!("{:.6}", result.integrity_seconds),
+        format!("{:.3}", setup_preflight.cpu_busy_pct),
+        format!("{:.3}", setup_preflight.disk_busy_pct),
+        format!("{:.3}", result.measure_preflight.cpu_busy_pct),
+        format!("{:.3}", result.measure_preflight.disk_busy_pct),
+    ];
+    if summary_columns.len() != summary_values.len() {
+        return Err(format!(
+            "index-lookup summary has {} columns and {} values",
+            summary_columns.len(),
+            summary_values.len()
+        ));
+    }
+    write_csv_record(&mut summary, summary_values)
+        .map_err(|error| format!("cannot write {}: {error}", summary_path.display()))?;
+    summary
+        .flush()
+        .map_err(|error| format!("cannot flush {}: {error}", summary_path.display()))?;
+
+    let batch_path = output_root.join("ledger_index_lookup_trial_batches.csv");
+    let mut batches = BufWriter::new(
+        File::create(&batch_path)
+            .map_err(|error| format!("cannot create {}: {error}", batch_path.display()))?,
+    );
+    writeln!(
+        batches,
+        "mode,batch_index,transaction_count,dispatch_wait_ns,batch_gate_wait_ns,key_prep_ns,query_wall_ns,lookup_blocking_pool_wait_ns,native_get_ns,decode_ns,lookup_submit_to_collection_ns,apply_blocking_pool_wait_ns,apply_submit_to_collection_ns,sequential_apply_build_ns,sync_write_batch_ns,memory_publish_ns,get_calls,keys_looked_up,hits,misses,groups_submitted,max_in_flight_groups,max_running_query_jobs"
+    )
+    .map_err(|error| format!("cannot write {}: {error}", batch_path.display()))?;
+    for (index, batch) in result.index_lookup_batches.iter().enumerate() {
+        writeln!(
+            batches,
+            "{mode_name},{index},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
+            batch.transaction_count,
+            batch.dispatch_wait_ns,
+            batch.batch_gate_wait_ns,
+            batch.key_prep_ns,
+            optional_ns(batch.query_wall_ns),
+            optional_ns(batch.blocking_pool_wait_ns),
+            batch.native_get_ns,
+            batch.decode_ns,
+            optional_ns(batch.submit_to_collection_ns),
+            batch.apply_blocking_pool_wait_ns,
+            batch.apply_submit_to_collection_ns,
+            batch.sequential_apply_build_ns,
+            batch.sync_write_batch_ns,
+            batch.memory_publish_ns,
+            batch.get_calls,
+            batch.keys_looked_up,
+            batch.hits,
+            batch.misses,
+            batch.groups_submitted,
+            batch.max_observed_in_flight_groups,
+            batch.max_observed_running_query_jobs,
+        )
+        .map_err(|error| format!("cannot write {}: {error}", batch_path.display()))?;
+    }
+    batches
+        .flush()
+        .map_err(|error| format!("cannot flush {}: {error}", batch_path.display()))?;
+
+    let stages_path = output_root.join("ledger_index_lookup_trial_stages.csv");
+    let mut stages = BufWriter::new(
+        File::create(&stages_path)
+            .map_err(|error| format!("cannot create {}: {error}", stages_path.display()))?,
+    );
+    writeln!(stages, "stage,unit,scope,sample_count,p50_ns,p95_ns,p99_ns")
+        .map_err(|error| format!("cannot write {}: {error}", stages_path.display()))?;
+    for (name, values) in [
+        ("request.total", &result.user_tx),
+        ("request.admission", &result.admission),
+        ("request.enqueue", &result.enqueue),
+        ("request.queue", &result.queue),
+        ("request.batch", &result.batch),
+        ("request.handler", &result.handler),
+        ("request.response", &result.response),
+    ] {
+        write_index_stage_summary(
+            &mut stages,
+            name,
+            "ns",
+            "per_sample_request",
+            values.sample_count,
+            values.p50_ns,
+            values.p95_ns,
+            values.p99_ns,
+        )
+        .map_err(|error| format!("cannot write {}: {error}", stages_path.display()))?;
+    }
+
+    let mut push_batch_stage =
+        |name: &str, scope: &str, values: Option<Vec<u64>>| -> Result<(), String> {
+            let Some(values) = values else {
+                write_index_stage_summary(&mut stages, name, "ns", scope, 0, 0, 0, 0)
+                    .map_err(|error| format!("cannot write {}: {error}", stages_path.display()))?;
+                return Ok(());
+            };
+            let summary = summarize(&values);
+            write_index_stage_summary(
+                &mut stages,
+                name,
+                "ns",
+                scope,
+                summary.sample_count,
+                summary.p50_ns,
+                summary.p95_ns,
+                summary.p99_ns,
+            )
+            .map_err(|error| format!("cannot write {}: {error}", stages_path.display()))
+        };
+    push_batch_stage(
+        "dispatch.wait",
+        "per_batch_wall",
+        Some(
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.dispatch_wait_ns)
+                .collect(),
+        ),
+    )?;
+    push_batch_stage(
+        "batch_gate.wait",
+        "per_batch_exclusive_batch_gate_lock_wait",
+        Some(
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.batch_gate_wait_ns)
+                .collect(),
+        ),
+    )?;
+    push_batch_stage(
+        "keyprep",
+        if mode == IndexLookupMode::PointGet {
+            "per_batch_sum_of_key_encoding"
+        } else {
+            "per_batch_wall"
+        },
+        Some(
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.key_prep_ns)
+                .collect(),
+        ),
+    )?;
+    push_batch_stage(
+        "query.wall",
+        "per_batch_wall_from_keyprep_start_to_all_groups_validated",
+        if mode == IndexLookupMode::PointGet {
+            None
+        } else {
+            Some(
+                result
+                    .index_lookup_batches
+                    .iter()
+                    .filter_map(|batch| batch.query_wall_ns)
+                    .collect(),
+            )
+        },
+    )?;
+    push_batch_stage(
+        "lookup.blocking_pool_wait",
+        "per_batch_sum_of_group_waits_overlapping",
+        if mode == IndexLookupMode::PointGet {
+            None
+        } else {
+            Some(
+                result
+                    .index_lookup_batches
+                    .iter()
+                    .filter_map(|batch| batch.blocking_pool_wait_ns)
+                    .collect(),
+            )
+        },
+    )?;
+    for (name, scope, values) in [
+        (
+            "lookup.native_get",
+            "per_batch_sum_of_get_or_multiget_call_durations",
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.native_get_ns)
+                .collect(),
+        ),
+        (
+            "lookup.decode_validate",
+            "per_batch_sum_of_record_decode_and_key_validation",
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.decode_ns)
+                .collect(),
+        ),
+    ] {
+        push_batch_stage(name, scope, Some(values))?;
+    }
+    push_batch_stage(
+        "lookup.submit_to_collection",
+        "per_batch_sum_of_overlapping_group_durations",
+        if mode == IndexLookupMode::PointGet {
+            None
+        } else {
+            Some(
+                result
+                    .index_lookup_batches
+                    .iter()
+                    .filter_map(|batch| batch.submit_to_collection_ns)
+                    .collect(),
+            )
+        },
+    )?;
+    for (name, scope, values) in [
+        (
+            "apply.blocking_pool_wait",
+            if mode == IndexLookupMode::PointGet {
+                "per_batch_legacy_worker_wait_before_interleaved_loop"
+            } else {
+                "per_batch_sequential_apply_worker_wait"
+            },
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.apply_blocking_pool_wait_ns)
+                .collect(),
+        ),
+        (
+            "apply.submit_to_collection",
+            "per_batch_worker_wall_including_pool_wait",
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.apply_submit_to_collection_ns)
+                .collect(),
+        ),
+        (
+            "sequential_apply_build",
+            if mode == IndexLookupMode::PointGet {
+                "per_batch_legacy_interleaved_loop_including_point_reads_and_decode"
+            } else {
+                "per_batch_sequential_apply_and_build_after_prefetch"
+            },
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.sequential_apply_build_ns)
+                .collect(),
+        ),
+        (
+            "write.sync_write_batch",
+            "per_batch_sync_write_call",
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.sync_write_batch_ns)
+                .collect(),
+        ),
+        (
+            "memory.publish",
+            "per_batch_state_publish_wall",
+            result
+                .index_lookup_batches
+                .iter()
+                .map(|batch| batch.memory_publish_ns)
+                .collect(),
+        ),
+    ] {
+        push_batch_stage(name, scope, Some(values))?;
+    }
+    drop(push_batch_stage);
+
+    let group_stage_values = [
+        (
+            "lookup_group.blocking_pool_wait",
+            "per_group_worker_start_minus_submit",
+            result
+                .index_lookup_batches
+                .iter()
+                .flat_map(|batch| batch.groups.iter())
+                .map(|group| group.blocking_pool_wait_ns)
+                .collect::<Vec<_>>(),
+        ),
+        (
+            "lookup_group.native_get",
+            "per_group_multiget_call_wall",
+            result
+                .index_lookup_batches
+                .iter()
+                .flat_map(|batch| batch.groups.iter())
+                .map(|group| group.native_get_ns)
+                .collect::<Vec<_>>(),
+        ),
+        (
+            "lookup_group.decode_validate",
+            "per_group_record_decode_and_key_validation_sum",
+            result
+                .index_lookup_batches
+                .iter()
+                .flat_map(|batch| batch.groups.iter())
+                .map(|group| group.decode_ns)
+                .collect::<Vec<_>>(),
+        ),
+        (
+            "lookup_group.submit_to_collection",
+            "per_group_submit_to_join_completion_wall",
+            result
+                .index_lookup_batches
+                .iter()
+                .flat_map(|batch| batch.groups.iter())
+                .map(|group| group.submit_to_collection_ns)
+                .collect::<Vec<_>>(),
+        ),
+    ];
+    for (name, scope, values) in group_stage_values {
+        if values.is_empty() {
+            write_index_stage_summary(&mut stages, name, "ns", scope, 0, 0, 0, 0)
+                .map_err(|error| format!("cannot write {}: {error}", stages_path.display()))?;
+        } else {
+            let summary = summarize(&values);
+            write_index_stage_summary(
+                &mut stages,
+                name,
+                "ns",
+                scope,
+                summary.sample_count,
+                summary.p50_ns,
+                summary.p95_ns,
+                summary.p99_ns,
+            )
+            .map_err(|error| format!("cannot write {}: {error}", stages_path.display()))?;
+        }
+    }
+    stages
+        .flush()
+        .map_err(|error| format!("cannot flush {}: {error}", stages_path.display()))?;
+
+    let metadata_path = output_root.join("ledger_index_lookup_trial_metadata.txt");
+    let mut metadata = BufWriter::new(
+        File::create(&metadata_path)
+            .map_err(|error| format!("cannot create {}: {error}", metadata_path.display()))?,
+    );
+    let (strategy_name, configured_group_size, configured_concurrency) =
+        index_lookup_details(Some(mode));
+    writeln!(
+        metadata,
+        "mode={mode_name}\nindex_lookup_strategy={strategy_name}\nindex_group_size={configured_group_size}\nindex_concurrency={configured_concurrency}\nworkers={}\nusers={}\ncoroutines={}\nrequests_per_user={}\nrequests={}\ncredits={}\ndebits={}\nfresh_commits={}\nhistorical_hits={}\nhistorical_misses={}\nprojection_enabled={}\ngc_enabled={}\nwatermark_updates={}\nsample_stride={}\nqueue_capacity={}\nbatch_size={}\nfirst_dequeue_timeout_ms={}\nbalance_mode=per_batch\nseed_transactions_per_user=3\nseed_initial_credit=100\nseed_credit=1\nseed_debit=1\nseed_sequence={}\nfinal_sequence={}\nprojector_spawned={}\nwatermark_manager_spawned={}\ngc_worker_spawned={}\nprojected_seq_near_client_end={}\ndestination_seq_near_client_end={}\ngc_prefix_near_client_end={}\ngc_prefix_after_settle={}\nprojection_backlog_records_near_client_end={}\ngc_backlog_records_near_client_end={}\ninitial_watermark={}\nfinal_watermark={}\ninitial_and_final_watermark_unchanged={}\nmock_destination_contract=successful_apply_is_durable_in_memory_only; no external database/process-crash proof\nmeasurement_wall_endpoint=latest_coroutine_last_reply\nmeasurement_cpu_endpoint=sampled_immediately_after_latest_coroutine_last_reply\nio_sample_offset_us={}\nstorage_sample_offset_us={}\nsetup_preflight_observation_ms={}\nsetup_preflight_timeout_ms={}\nsetup_preflight_cpu_busy_pct={:.3}\nsetup_preflight_disk_busy_pct={:.3}\nmeasure_preflight_cpu_busy_pct={:.3}\nmeasure_preflight_disk_busy_pct={:.3}\nlookup_native_get_calls={}\nlookup_keys_looked_up={}\nlookup_hits={}\nlookup_misses={}\n",
+        result.runtime_workers,
+        config.users,
+        config.users,
+        config.requests_per_user,
+        result.requests,
+        result.credits,
+        result.debits,
+        result.fresh,
+        result.historical_hits,
+        result.historical_misses,
+        result.projection_enabled,
+        result.gc_enabled,
+        result.watermark_updates,
+        config.sample_stride,
+        config.queue_capacity,
+        config.batch_size,
+        config.batch_timeout.as_millis(),
+        config.users as u64 * SEED_TRANSACTIONS_PER_USER as u64,
+        result.final_sequence,
+        result.projection_enabled,
+        result.projection_enabled,
+        result.gc_enabled,
+        result.projected_seq_near_client_end,
+        result.destination_seq_near_client_end,
+        result.gc_prefix_near_client_end,
+        result.gc_prefix_seq,
+        result.projection_backlog_records_near_client_end,
+        result.gc_backlog_records_near_client_end,
+        result.initial_watermark,
+        result.final_watermark,
+        (result.initial_watermark == result.final_watermark),
+        result.io_sample_offset_us,
+        result.storage_sample_offset_us,
+        setup_preflight.observation.as_millis(),
+        config.preflight.timeout.as_millis(),
+        setup_preflight.cpu_busy_pct,
+        setup_preflight.disk_busy_pct,
+        result.measure_preflight.cpu_busy_pct,
+        result.measure_preflight.disk_busy_pct,
+        get_calls,
+        keys,
+        hits,
+        misses,
+    )
+    .map_err(|error| format!("cannot write {}: {error}", metadata_path.display()))?;
+    metadata
+        .flush()
+        .map_err(|error| format!("cannot flush {}: {error}", metadata_path.display()))?;
+    Ok(())
+}
+
+fn optional_ns(value: Option<u64>) -> String {
+    value.map_or_else(|| "NA".to_owned(), |value| value.to_string())
+}
+
+fn write_csv_record(
+    writer: &mut impl Write,
+    values: impl IntoIterator<Item = String>,
+) -> std::io::Result<()> {
+    let mut first = true;
+    for value in values {
+        if !first {
+            write!(writer, ",")?;
+        }
+        first = false;
+        if value
+            .chars()
+            .any(|character| matches!(character, ',' | '"' | '\n' | '\r'))
+        {
+            write!(writer, "\"")?;
+            for character in value.chars() {
+                if character == '"' {
+                    write!(writer, "\"\"")?;
+                } else {
+                    write!(writer, "{character}")?;
+                }
+            }
+            write!(writer, "\"")?;
+        } else {
+            write!(writer, "{value}")?;
+        }
+    }
+    writeln!(writer)
+}
+
+fn write_index_stage_summary(
+    writer: &mut impl Write,
+    stage: &str,
+    unit: &str,
+    scope: &str,
+    sample_count: usize,
+    p50_ns: u64,
+    p95_ns: u64,
+    p99_ns: u64,
+) -> std::io::Result<()> {
+    if sample_count == 0 {
+        writeln!(writer, "{stage},{unit},{scope},0,NA,NA,NA")
+    } else {
+        writeln!(
+            writer,
+            "{stage},{unit},{scope},{sample_count},{p50_ns},{p95_ns},{p99_ns}"
+        )
+    }
+}
+
 fn delta(after: u64, before: u64) -> u64 {
     after.saturating_sub(before)
 }
@@ -913,12 +1601,341 @@ fn peak_rss_bytes() -> Result<u64, String> {
 pub fn run_from_args() -> Result<(), String> {
     let config = Config::parse()?;
     let runtime = Builder::new_multi_thread()
-        .worker_threads(WORKERS)
+        .worker_threads(config.runtime_workers)
         .thread_name("ledger-safe-gc")
         .enable_all()
         .build()
         .map_err(|error| format!("cannot build Tokio runtime: {error}"))?;
     runtime.block_on(run(config))
+}
+
+pub(crate) fn ensure_index_lookup_root_idle(
+    path: &Path,
+    smoke: bool,
+) -> Result<PreflightReport, String> {
+    let mut config = Config::default();
+    if smoke {
+        config.users = 200;
+        config.requests_per_user = 200;
+        config.sample_stride = 1;
+        config.preflight.observation = Duration::from_millis(100);
+    }
+    config.output_root = path.to_path_buf();
+    let mut preflight = config.preflight.clone();
+    preflight.min_available_mem_bytes = config.expected_memory_bytes()?;
+    preflight.min_free_bytes = config.expected_disk_bytes()?;
+    ledger_preflight::ensure_idle(path, &preflight)
+        .map_err(|error| format!("strict index-lookup run preflight failed: {error}"))
+}
+
+/// Run exactly one foreground persistence trial for the independent index
+/// lookup matrix. The existing pipeline setup, timing, settlement, recovery,
+/// and cleanup stay in `run_case`; only its queue handler is selected here.
+pub(crate) fn run_index_lookup_trial(
+    args: &[String],
+    mode: IndexLookupMode,
+    integrated: bool,
+) -> Result<(), String> {
+    let mut config = Config::parse_args(args)?;
+    config.runtime_workers = 4;
+    if config.smoke {
+        config.preflight.observation = Duration::from_millis(100);
+    }
+    if config.queue_capacity != DEFAULT_QUEUE_CAPACITY
+        || config.batch_size != DEFAULT_BATCH_SIZE
+        || config.batch_timeout != Duration::from_millis(DEFAULT_BATCH_TIMEOUT_MS)
+        || config.projection_batch_size != DEFAULT_PROJECTION_BATCH_SIZE
+        || config.gc_batch_size != DEFAULT_GC_BATCH_SIZE
+    {
+        return Err(
+            "index-lookup trial requires the fixed queue, batch, and foreground profile".to_owned(),
+        );
+    }
+    if config.smoke
+        && (config.users != 200 || config.requests_per_user != 200 || config.sample_stride != 1)
+    {
+        return Err(
+            "index-lookup smoke profile must use 200 users, 200 requests, and stride 1".to_owned(),
+        );
+    }
+    if !config.smoke
+        && (config.users != DEFAULT_USERS
+            || config.requests_per_user != DEFAULT_REQUESTS_PER_USER
+            || config.sample_stride != DEFAULT_SAMPLE_STRIDE)
+    {
+        return Err(
+            "index-lookup full profile must use 50,000 users, 200 requests, and stride 64"
+                .to_owned(),
+        );
+    }
+    let lookup = IndexLookupConfig::new(mode)?;
+    let total_disk = config.expected_disk_bytes()?;
+    let total_memory = config.expected_memory_bytes()?;
+    let mut preflight = config.preflight.clone();
+    preflight.min_available_mem_bytes = total_memory;
+    preflight.min_free_bytes = total_disk;
+    let setup_preflight = ledger_preflight::ensure_idle(&config.output_root, &preflight)
+        .map_err(|error| format!("strict index-lookup pre-setup check failed: {error}"))?;
+    fs::create_dir_all(&config.output_root).map_err(|error| {
+        format!(
+            "cannot create index-lookup trial directory {}: {error}",
+            config.output_root.display()
+        )
+    })?;
+    let case_path = config.output_root.join(format!(
+        ".ledger-index-lookup-{}-{}",
+        std::process::id(),
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_err(|error| format!("system clock is before Unix epoch: {error}"))?
+            .as_nanos()
+    ));
+    let runtime = Builder::new_multi_thread()
+        .worker_threads(4)
+        .thread_name("ledger-index-lookup")
+        .enable_all()
+        .build()
+        .map_err(|error| format!("cannot build index-lookup runtime: {error}"))?;
+    let result = runtime.block_on(run_case(
+        &config,
+        &preflight,
+        format!("index_lookup_{}", index_lookup_mode_name(mode)),
+        case_path,
+        BalanceMode::PerBatch,
+        integrated,
+        integrated,
+        0,
+        Some(lookup),
+    ))?;
+    if result.runtime_workers != 4
+        || result.requests != (config.users * config.requests_per_user) as u64
+        || result.final_sequence
+            != (config.users * SEED_TRANSACTIONS_PER_USER) as u64 + result.requests
+        || (integrated
+            && (result.final_watermark <= result.initial_watermark
+                || result.gc_prefix_seq > result.final_sequence
+                || result.projected_seq_near_client_end
+                    < (config.users * SEED_TRANSACTIONS_PER_USER) as u64
+                || result.projected_seq_near_client_end > result.latest_seq_near_client_end
+                || result.projected_seq_near_client_end > result.destination_seq_near_client_end
+                || result.destination_seq_near_client_end > result.final_sequence
+                || result.gc_prefix_near_client_end > result.projected_seq_near_client_end
+                || result.gc_prefix_near_client_end > result.latest_seq_near_client_end
+                || result.projection_backlog_records_near_client_end
+                    != result
+                        .latest_seq_near_client_end
+                        .saturating_sub(result.projected_seq_near_client_end)
+                || result.gc_backlog_records_near_client_end
+                    != result
+                        .latest_seq_near_client_end
+                        .saturating_sub(result.gc_prefix_near_client_end)
+                || result.watermark_updates == 0))
+        || (!integrated
+            && (result.initial_watermark != result.final_watermark
+                || result.gc_prefix_seq != 0
+                || result.projected_seq_near_client_end
+                    != (config.users * SEED_TRANSACTIONS_PER_USER) as u64
+                || result.destination_seq_near_client_end
+                    != (config.users * SEED_TRANSACTIONS_PER_USER) as u64))
+    {
+        return Err("foreground index-lookup result differs from the fixed profile".to_owned());
+    }
+    let measured_batch_requests = result
+        .index_lookup_batches
+        .iter()
+        .map(|batch| batch.transaction_count as u64)
+        .sum::<u64>();
+    if result.index_lookup_batches.is_empty() || measured_batch_requests != result.requests {
+        return Err(format!(
+            "index-lookup metrics cover {} batches and {} requests, expected {} requests",
+            result.index_lookup_batches.len(),
+            measured_batch_requests,
+            result.requests
+        ));
+    }
+    let metrics = sum_index_lookup_metrics(&result.index_lookup_batches);
+    if metrics.keys_looked_up != result.requests
+        || metrics.misses != result.requests
+        || metrics.hits != 0
+    {
+        return Err(format!(
+            "index lookups did not cover the fresh workload as misses: keys={} misses={} hits={} requests={}",
+            metrics.keys_looked_up, metrics.misses, metrics.hits, result.requests
+        ));
+    }
+    let expected_each_operation = result.requests / 2;
+    if result.credits != expected_each_operation
+        || result.debits != expected_each_operation
+        || result.fresh != result.requests
+        || result.historical_hits != 0
+        || result.historical_misses != 0
+        || (!integrated && result.watermark_updates != 0)
+        || result.projection_enabled != integrated
+        || result.gc_enabled != integrated
+    {
+        return Err(format!(
+            "index-lookup workload/profile mismatch: credits={} debits={} fresh={} history_hits={} history_misses={} projection={} gc={} watermark_updates={}",
+            result.credits,
+            result.debits,
+            result.fresh,
+            result.historical_hits,
+            result.historical_misses,
+            result.projection_enabled,
+            result.gc_enabled,
+            result.watermark_updates
+        ));
+    }
+    write_archive(
+        &config.output_root,
+        &config,
+        std::slice::from_ref(&result),
+        &setup_preflight,
+    )?;
+    write_index_lookup_trial_artifacts(&config, mode, &result, &setup_preflight)?;
+    print_case_summary(&result);
+    println!(
+        "INDEX_LOOKUP_TRIAL mode={} workers=4 requests={} batches={} native_calls={} keys={} hits={} misses={} latest_seq={} projected_seq={} destination_seq={} gc_prefix={}",
+        index_lookup_mode_name(mode),
+        result.requests,
+        result.index_lookup_batches.len(),
+        metrics.native_get_calls,
+        metrics.keys_looked_up,
+        metrics.hits,
+        metrics.misses,
+        result.final_sequence,
+        result.projected_seq_near_client_end,
+        result.destination_seq_near_client_end,
+        result.gc_prefix_seq,
+    );
+    Ok(())
+}
+
+fn index_lookup_mode_name(mode: IndexLookupMode) -> String {
+    match mode {
+        IndexLookupMode::PointGet => "point_get".to_owned(),
+        IndexLookupMode::WholeBatchMultiGet => "whole_batch_multiget".to_owned(),
+        IndexLookupMode::Chunked {
+            group_size,
+            max_in_flight,
+        } => format!("chunked_{group_size}_p{max_in_flight}"),
+    }
+}
+
+fn index_lookup_details(mode: Option<IndexLookupMode>) -> (String, String, String) {
+    match mode {
+        None => (
+            "legacy_interleaved_point_get".to_owned(),
+            "NA".to_owned(),
+            "NA".to_owned(),
+        ),
+        Some(IndexLookupMode::PointGet) => {
+            ("point_get".to_owned(), "NA".to_owned(), "NA".to_owned())
+        }
+        Some(IndexLookupMode::WholeBatchMultiGet) => (
+            "whole_batch_multiget".to_owned(),
+            "NA".to_owned(),
+            "1".to_owned(),
+        ),
+        Some(IndexLookupMode::Chunked {
+            group_size,
+            max_in_flight,
+        }) => (
+            "chunked".to_owned(),
+            group_size.to_string(),
+            max_in_flight.to_string(),
+        ),
+    }
+}
+
+#[derive(Clone, Copy, Debug, Default)]
+struct IndexLookupMetricTotals {
+    keys_looked_up: u64,
+    native_get_calls: u64,
+    misses: u64,
+    hits: u64,
+}
+
+fn sum_index_lookup_metrics(batches: &[IndexLookupBatchMetrics]) -> IndexLookupMetricTotals {
+    batches
+        .iter()
+        .fold(IndexLookupMetricTotals::default(), |totals, batch| {
+            IndexLookupMetricTotals {
+                keys_looked_up: totals.keys_looked_up.saturating_add(batch.keys_looked_up),
+                native_get_calls: totals.native_get_calls.saturating_add(batch.get_calls),
+                misses: totals.misses.saturating_add(batch.misses),
+                hits: totals.hits.saturating_add(batch.hits),
+            }
+        })
+}
+
+/// Run one persistence profile for the thread-scaling matrix while reusing the
+/// canonical account store, queue, workload, recovery checks, and archive.
+pub(crate) fn run_thread_scaling_trial(
+    args: &[String],
+    projection_enabled: bool,
+    gc_enabled: bool,
+) -> Result<(), String> {
+    let config = Config::parse_args(args)?;
+    let runtime = Builder::new_multi_thread()
+        .worker_threads(config.runtime_workers)
+        .thread_name("ledger-thread-scaling")
+        .enable_all()
+        .build()
+        .map_err(|error| format!("cannot build Tokio runtime: {error}"))?;
+    runtime.block_on(run_thread_scaling_trial_inner(
+        config,
+        projection_enabled,
+        gc_enabled,
+    ))
+}
+
+async fn run_thread_scaling_trial_inner(
+    config: Config,
+    projection_enabled: bool,
+    gc_enabled: bool,
+) -> Result<(), String> {
+    let total_disk = config.expected_disk_bytes()?;
+    let total_memory = config.expected_memory_bytes()?;
+    let mut preflight = config.preflight.clone();
+    preflight.min_available_mem_bytes = total_memory;
+    preflight.min_free_bytes = total_disk;
+    let before_setup = ledger_preflight::ensure_idle(&config.output_root, &preflight)
+        .map_err(|error| format!("strict pre-setup resource check failed: {error}"))?;
+    fs::create_dir_all(&config.output_root).map_err(|error| {
+        format!(
+            "cannot create output root {}: {error}",
+            config.output_root.display()
+        )
+    })?;
+    let name = if projection_enabled {
+        "integrated_pipeline"
+    } else {
+        "foreground_persistence"
+    };
+    let case_path = config.output_root.join(format!(
+        ".ledger-thread-scaling-{}-{}",
+        std::process::id(),
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_err(|error| format!("system clock is before Unix epoch: {error}"))?
+            .as_nanos()
+    ));
+    let result = run_case(
+        &config,
+        &preflight,
+        name.to_owned(),
+        case_path,
+        BalanceMode::PerBatch,
+        gc_enabled,
+        projection_enabled,
+        0,
+        None,
+    )
+    .await?;
+    print_case_summary(&result);
+    write_archive(&config.output_root, &config, &[result], &before_setup)?;
+    println!("ARCHIVE {}", config.output_root.display());
+    Ok(())
 }
 
 async fn run(config: Config) -> Result<(), String> {
@@ -960,7 +1977,9 @@ async fn run(config: Config) -> Result<(), String> {
             case_path,
             mode,
             gc_enabled,
+            true,
             expired_pct,
+            Some(config.index_lookup),
         )
         .await?;
         results.push(result);
@@ -1013,7 +2032,9 @@ async fn run_case(
     case_path: PathBuf,
     mode: BalanceMode,
     gc_enabled: bool,
+    projection_enabled: bool,
     expired_pct: u8,
+    index_lookup: Option<IndexLookupConfig>,
 ) -> Result<CaseResult, String> {
     let setup_preflight = ledger_preflight::ensure_idle(&case_path, preflight)
         .map_err(|error| format!("{name}: pre-setup resource check failed: {error}"))?;
@@ -1079,36 +2100,54 @@ async fn run_case(
     let (background_failure, background_rx) = watch::channel(None::<String>);
     let (shutdown, shutdown_rx) = watch::channel(false);
 
-    let (queue, worker) = ledger_time_boundary::spawn_commit_queue(
-        source.clone(),
-        committed_head,
-        config.queue_capacity,
-        config.batch_size,
-        config.batch_timeout,
-    )
-    .map_err(|error| format!("{name}: cannot start commit worker: {error}"))?;
-    let background_workers = if gc_enabled { 3 } else { 2 };
+    let index_lookup_batches = index_lookup.map(|_| Arc::new(Mutex::new(Vec::new())));
+    let (queue, worker) =
+        if let (Some(lookup), Some(samples)) = (index_lookup, index_lookup_batches.clone()) {
+            ledger_time_boundary::spawn_commit_queue_with_index_lookup(
+                source.clone(),
+                committed_head,
+                config.queue_capacity,
+                config.batch_size,
+                config.batch_timeout,
+                lookup,
+                samples,
+            )
+        } else {
+            ledger_time_boundary::spawn_commit_queue(
+                source.clone(),
+                committed_head,
+                config.queue_capacity,
+                config.batch_size,
+                config.batch_timeout,
+            )
+        }
+        .map_err(|error| format!("{name}: cannot start commit worker: {error}"))?;
+    let background_workers = usize::from(projection_enabled) * 2 + usize::from(gc_enabled);
     let start_barrier = Arc::new(Barrier::new(config.users + 1 + background_workers));
-    let projector = spawn_durable_projector(
-        source.clone(),
-        Arc::clone(&destination),
-        Arc::clone(&progress),
-        Arc::clone(&metrics_stage),
-        background_failure.clone(),
-        committed_rx,
-        shutdown_rx.clone(),
-        config.projection_batch_size,
-        Arc::clone(&start_barrier),
-    );
-    let watermark_task = spawn_watermark_manager(
-        Arc::clone(&manager),
-        source.clone(),
-        config.retention,
-        config.watermark_interval,
-        shutdown_rx.clone(),
-        background_failure.clone(),
-        Arc::clone(&start_barrier),
-    );
+    let projector = projection_enabled.then(|| {
+        spawn_durable_projector(
+            source.clone(),
+            Arc::clone(&destination),
+            Arc::clone(&progress),
+            Arc::clone(&metrics_stage),
+            background_failure.clone(),
+            committed_rx,
+            shutdown_rx.clone(),
+            config.projection_batch_size,
+            Arc::clone(&start_barrier),
+        )
+    });
+    let watermark_task = projection_enabled.then(|| {
+        spawn_watermark_manager(
+            Arc::clone(&manager),
+            source.clone(),
+            config.retention,
+            config.watermark_interval,
+            shutdown_rx.clone(),
+            background_failure.clone(),
+            Arc::clone(&start_barrier),
+        )
+    });
     let gc_task = if gc_enabled {
         Some(spawn_gc_worker(
             source.clone(),
@@ -1192,6 +2231,17 @@ async fn run_case(
     let projected_sequence_near_end = source.projected_seq();
     let destination_sequence_near_end = destination.progress();
     let account_metrics_at_client_end = source.metrics();
+    let index_lookup_batches_at_client_end = match index_lookup_batches {
+        Some(samples) => match samples.lock() {
+            Ok(samples) => samples.clone(),
+            Err(_) => {
+                client_failure
+                    .get_or_insert_with(|| format!("{name}: index-lookup metrics mutex poisoned"));
+                Vec::new()
+            }
+        },
+        None => Vec::new(),
+    };
     let gc_backlog_records_near_client_end =
         client_sequence_near_end.saturating_sub(gc_prefix_near_client_end);
     let io_snapshot_started = Instant::now();
@@ -1209,52 +2259,74 @@ async fn run_case(
     let measured_rocks = subtract_rocks(source.rocksdb_stats(), initial_rocks);
     let measured_db_bytes = read_db_bytes(trial.path());
     let measured_peak_rss = peak_rss_bytes();
-    let projection_settle = tokio::time::timeout(
-        Duration::from_secs(300),
-        progress.wait_for(source.latest_seq()),
-    )
-    .await;
-    let background_error_before_shutdown = background_rx.borrow().clone();
-    let projection_settled = matches!(projection_settle, Ok(Ok(())));
-    if !projection_settled {
-        watermark_task.abort();
-    }
-    shutdown.send_replace(true);
-    drop(queue);
-    let worker_result = worker.join().await;
-    let projector_result = join_background(name.as_str(), projector).await;
-    let watermark_result = join_background(name.as_str(), watermark_task).await;
-    let gc_result = match gc_task {
-        Some(task) => join_background(name.as_str(), task).await,
-        None => Ok(()),
-    };
-    if let Some(error) = client_failure {
-        let error =
-            shutdown_source_after_error(source, &name, format!("client workload failed: {error}"))
-                .await;
-        return Err(error);
-    }
-    let projection_error = match projection_settle {
-        Ok(Ok(())) => None,
-        Ok(Err(error)) => Some(format!("projector catch-up failed: {error}")),
-        Err(_) => Some("projector did not catch up within 300s".to_owned()),
-    };
-    if let Some(error) = projection_error {
+    let pre_catchup_failure = client_failure
+        .as_ref()
+        .map(|error| format!("client workload failed: {error}"))
+        .or_else(|| background_rx.borrow().clone());
+    if let Some(error) = pre_catchup_failure {
+        progress.fail(error.clone());
+        let teardown_errors = drain_pipeline_workers(
+            &name,
+            shutdown,
+            queue,
+            worker,
+            projector,
+            watermark_task,
+            gc_task,
+        )
+        .await;
+        let error = include_teardown_errors(error, teardown_errors);
         return Err(shutdown_source_after_error(source, &name, error).await);
     }
-    let watermark_teardown_error = if projection_settled {
-        watermark_result.err()
+
+    let projection_settle = if projection_enabled {
+        Some(
+            tokio::time::timeout(
+                Duration::from_secs(300),
+                progress.wait_for(source.latest_seq()),
+            )
+            .await,
+        )
     } else {
         None
     };
-    let teardown_error = worker_result
-        .err()
-        .map(|error| format!("commit worker failed: {error}"))
-        .or_else(|| projector_result.err())
-        .or(watermark_teardown_error)
-        .or_else(|| gc_result.err())
-        .or_else(|| background_error_before_shutdown.or_else(|| background_rx.borrow().clone()));
-    if let Some(error) = teardown_error {
+    let projection_error = match projection_settle {
+        None | Some(Ok(Ok(()))) => None,
+        Some(Ok(Err(error))) => Some(format!("projector catch-up failed: {error}")),
+        Some(Err(_)) => Some("projector did not catch up within 300s".to_owned()),
+    };
+    if let Some(error) = projection_error {
+        progress.fail(error.clone());
+        let teardown_errors = drain_pipeline_workers(
+            &name,
+            shutdown,
+            queue,
+            worker,
+            projector,
+            watermark_task,
+            gc_task,
+        )
+        .await;
+        let error = include_teardown_errors(error, teardown_errors);
+        return Err(shutdown_source_after_error(source, &name, error).await);
+    }
+
+    let teardown_errors = drain_pipeline_workers(
+        &name,
+        shutdown,
+        queue,
+        worker,
+        projector,
+        watermark_task,
+        gc_task,
+    )
+    .await;
+    let teardown_errors = include_watch_failure(teardown_errors, background_rx.borrow().clone());
+    if !teardown_errors.is_empty() {
+        let error = include_teardown_errors(
+            "pipeline worker shutdown failed".to_owned(),
+            teardown_errors,
+        );
         return Err(shutdown_source_after_error(source, &name, error).await);
     }
 
@@ -1298,6 +2370,21 @@ async fn run_case(
         .filter(|sample| sample.completed_at <= client_end)
         .collect::<Vec<_>>();
     let watermark_updates = watermark_samples.len();
+    if !projection_enabled
+        && (!projection_batches.is_empty()
+            || !watermark_samples.is_empty()
+            || watermark_updates != 0
+            || measured_account_metrics.projection_progress_sync_ns != 0
+            || projected_sequence_near_end != seed_sequence
+            || destination_sequence_near_end != seed_sequence)
+    {
+        return Err(shutdown_source_after_error(
+            source,
+            &name,
+            "foreground-only measurement recorded projector or watermark work".to_owned(),
+        )
+        .await);
+    }
     if !gc_enabled
         && (measured_account_metrics.gc_scan_ns != 0
             || measured_account_metrics.gc_delete_ns != 0
@@ -1325,18 +2412,30 @@ async fn run_case(
             .durable_projection_progress()
             .await
             .map_err(|error| format!("cannot read final durable projection progress: {error}"))?;
-        if durable_projected != final_sequence || destination.progress() != final_sequence {
+        let seed_sequence = config.users as u64 * SEED_TRANSACTIONS_PER_USER as u64;
+        if projection_enabled {
+            if durable_projected != final_sequence || destination.progress() != final_sequence {
+                return Err(format!(
+                    "projection did not settle: source={final_sequence}, durable={durable_projected}, destination={}",
+                    destination.progress()
+                ));
+            }
+            let final_candidate = ledger_time_boundary::unix_time_micros()
+                .saturating_sub(u64::try_from(config.retention.as_micros()).unwrap_or(u64::MAX));
+            manager
+                .advance_once_durable(final_candidate, &source)
+                .await
+                .map_err(|error| format!("final durable boundary advance failed: {error}"))?;
+        } else if durable_projected != seed_sequence
+            || source.projected_seq() != seed_sequence
+            || destination.progress() != seed_sequence
+        {
             return Err(format!(
-                "projection did not settle: source={final_sequence}, durable={durable_projected}, destination={}",
+                "foreground-only trial changed seeded projection progress: expected={seed_sequence}, durable={durable_projected}, source={}, destination={}",
+                source.projected_seq(),
                 destination.progress()
             ));
         }
-        let final_candidate = ledger_time_boundary::unix_time_micros()
-            .saturating_sub(u64::try_from(config.retention.as_micros()).unwrap_or(u64::MAX));
-        manager
-            .advance_once_durable(final_candidate, &source)
-            .await
-            .map_err(|error| format!("final durable boundary advance failed: {error}"))?;
         if gc_enabled {
             loop {
                 let outcome = source
@@ -1360,9 +2459,11 @@ async fn run_case(
             seed_time,
             expired_pct,
             gc_enabled,
+            projection_enabled,
             &combined,
             final_sequence,
             gc_prefix_seq,
+            seed_sequence,
         )
         .await?;
         Ok::<_, String>((
@@ -1419,7 +2520,13 @@ async fn run_case(
             .await
             .map_err(|error| format!("durable watermark restore failed: {error}"))?
             .ok_or_else(|| "durable watermark metadata is absent after restart".to_owned())?;
-        if restored_boundary.0 != final_watermark || restored_boundary.1 > durable_projected {
+        let boundary_valid = if projection_enabled {
+            restored_boundary.0 == final_watermark && restored_boundary.1 <= durable_projected
+        } else {
+            restored_boundary == (initial_watermark, seed_sequence)
+                && durable_projected == seed_sequence
+        };
+        if !boundary_valid {
             return Err(format!(
                 "restored boundary {:?} does not match published watermark {final_watermark} and durable progress {durable_projected}",
                 restored_boundary
@@ -1485,8 +2592,11 @@ async fn run_case(
     let result = CaseResult {
         name,
         users: config.users,
+        projection_enabled,
         gc_enabled,
         mode,
+        index_lookup_mode: index_lookup.map(IndexLookupConfig::mode),
+        runtime_workers: config.runtime_workers,
         requests: combined.requests,
         fresh: combined.fresh,
         credits: combined.credits,
@@ -1521,6 +2631,7 @@ async fn run_case(
         checkpoint_steps,
         watermark_samples,
         account_metrics: measured_account_metrics,
+        index_lookup_batches: index_lookup_batches_at_client_end,
         watermark_updates,
         initial_watermark,
         final_watermark,
@@ -2023,6 +3134,59 @@ async fn join_background(name: &str, task: JoinHandle<Result<(), String>>) -> Re
         .map_err(|error| format!("{name}: background task failed: {error}"))
 }
 
+async fn drain_pipeline_workers(
+    name: &str,
+    shutdown: watch::Sender<bool>,
+    queue: BatchQueue<
+        ledger_time_boundary::AdmittedTransaction,
+        ledger_time_boundary::GuardedReply,
+    >,
+    worker: BatchWorker,
+    projector: Option<JoinHandle<Result<(), String>>>,
+    watermark_task: Option<JoinHandle<Result<(), String>>>,
+    gc_task: Option<JoinHandle<Result<(), String>>>,
+) -> Vec<String> {
+    shutdown.send_replace(true);
+    drop(queue);
+    let mut errors = Vec::new();
+    if let Err(error) = worker.join().await {
+        errors.push(format!("{name}: commit worker failed: {error}"));
+    }
+    if let Some(task) = projector {
+        if let Err(error) = join_background(name, task).await {
+            errors.push(error);
+        }
+    }
+    if let Some(task) = watermark_task {
+        if let Err(error) = join_background(name, task).await {
+            errors.push(error);
+        }
+    }
+    if let Some(task) = gc_task {
+        if let Err(error) = join_background(name, task).await {
+            errors.push(error);
+        }
+    }
+    errors
+}
+
+fn include_watch_failure(mut errors: Vec<String>, failure: Option<String>) -> Vec<String> {
+    if let Some(failure) = failure {
+        if !errors.iter().any(|error| error.contains(&failure)) {
+            errors.push(failure);
+        }
+    }
+    errors
+}
+
+fn include_teardown_errors(mut primary: String, teardown_errors: Vec<String>) -> String {
+    if !teardown_errors.is_empty() {
+        primary.push_str("; teardown: ");
+        primary.push_str(&teardown_errors.join("; "));
+    }
+    primary
+}
+
 async fn shutdown_source_after_error(source: AccountStore, name: &str, error: String) -> String {
     match source.shutdown().await {
         Ok(()) => format!("{name}: {error}"),
@@ -2043,9 +3207,11 @@ async fn verify_case(
     seed_time: u64,
     expired_pct: u8,
     gc_enabled: bool,
+    projection_enabled: bool,
     clients: &ClientStats,
     final_sequence: u64,
     gc_prefix_seq: u64,
+    seed_sequence: u64,
 ) -> Result<(), String> {
     let requests = config.total_requests();
     let historical = requests
@@ -2087,8 +3253,10 @@ async fn verify_case(
         ));
     }
     if gc_prefix_seq > source.latest_seq()
-        || gc_prefix_seq > source.projected_seq()
-        || history.progress() < source.projected_seq()
+        || (projection_enabled && gc_prefix_seq > source.projected_seq())
+        || (projection_enabled && history.progress() < source.projected_seq())
+        || (!projection_enabled
+            && (source.projected_seq() != seed_sequence || history.progress() != seed_sequence))
     {
         return Err(format!(
             "GC/projection invariant failed: prefix={gc_prefix_seq}, latest={}, source projection={}, destination projection={}",
@@ -2104,6 +3272,12 @@ async fn verify_case(
     }
     if !gc_enabled && gc_prefix_seq != 0 {
         return Err("GC-off case advanced the source GC prefix".to_owned());
+    }
+    if !projection_enabled
+        && (source.durable_projection_progress().await? != seed_sequence
+            || final_sequence < seed_sequence)
+    {
+        return Err("foreground-only trial changed durable seeded projection progress".to_owned());
     }
     source
         .validate_integrity()
@@ -2207,13 +3381,16 @@ fn subtract_rocks(
 fn print_case_summary(result: &CaseResult) {
     let rps = result.requests as f64 / result.client_wall.as_secs_f64().max(f64::MIN_POSITIVE);
     println!(
-        "CASE name={} users={} requests={} fresh={} old_hit={} old_miss={} wall_s={:.3} settled_s={:.3} rps={:.1} cpu_s={:.3} cpu_cores={:.3} peak_rss_bytes={} db_bytes={} gc_prefix_near_client_end={} gc_backlog_records_near_client_end={} gc_prefix_after_settle={} final_seq={} watermark_updates={} recovery_s={:.6} integrity_s={:.6}",
+        "CASE name={} users={} requests={} fresh={} old_hit={} old_miss={} projection_enabled={} gc_enabled={} runtime_workers={} wall_s={:.3} settled_s={:.3} rps={:.1} cpu_s={:.3} cpu_cores={:.3} peak_rss_bytes={} db_bytes={} gc_prefix_near_client_end={} gc_backlog_records_near_client_end={} gc_prefix_after_settle={} final_seq={} watermark_updates={} recovery_s={:.6} integrity_s={:.6}",
         result.name,
         result.users,
         result.requests,
         result.fresh,
         result.historical_hits,
         result.historical_misses,
+        result.projection_enabled,
+        result.gc_enabled,
+        result.runtime_workers,
         result.client_wall.as_secs_f64(),
         result.settled_wall.as_secs_f64(),
         rps,
@@ -2311,6 +3488,7 @@ fn write_archive(
     let latency_path = archive.join("ledger_pipeline_stages.csv");
     let background_path = archive.join("ledger_pipeline_background.csv");
     let log_path = archive.join("ledger_pipeline_run.log");
+    let index_lookup_path = archive.join("ledger_pipeline_index_lookup.csv");
     let mut summary = BufWriter::new(
         File::create(&summary_path)
             .map_err(|error| format!("cannot create {}: {error}", summary_path.display()))?,
@@ -2327,14 +3505,38 @@ fn write_archive(
         File::create(&log_path)
             .map_err(|error| format!("cannot create {}: {error}", log_path.display()))?,
     );
+    let mut index_lookup = BufWriter::new(
+        File::create(&index_lookup_path)
+            .map_err(|error| format!("cannot create {}: {error}", index_lookup_path.display()))?,
+    );
 
     writeln!(
         summary,
-        "case,users,coroutines,requests,expired_pct,credit_requests,debit_requests,fresh_commits,fresh_credits,fresh_debits,historical_credits,historical_debits,historical_hits,historical_misses,gc_enabled,balance_mode,client_wall_s,settle_after_client_s,rps,cpu_s,cpu_core_equivalents,cpu_sample_offset_us,progress_sample_offset_us,io_sample_offset_us,storage_sample_offset_us,peak_rss_bytes,db_bytes,process_rchar_bytes,process_wchar_bytes,process_read_bytes,process_write_bytes,device,major_minor,device_read_bytes,device_write_bytes,device_busy_ms,wal_syncs,wal_bytes,writes_with_wal,flush_write_bytes,compact_read_bytes,compact_write_bytes,stall_us,latest_seq_near_client_end,projected_seq_near_client_end,destination_seq_near_client_end,projection_backlog_records_near_client_end,gc_prefix_near_client_end,gc_backlog_records_near_client_end,gc_prefix_after_settle,initial_watermark,final_watermark,final_sequence,watermark_updates,checkpoint_count,checkpoint_snapshots_enqueued,checkpoint_snapshot_ns,checkpoint_queue_wait_ns,checkpoint_chunk_sync_ns,checkpoint_manifest_sync_ns,checkpoint_duration_ns,checkpoint_latest_seq,checkpoint_lag_records_near_client_end,projection_progress_sync_ns,gc_scan_ns,gc_delete_ns,gc_write_ns,gc_records_scanned,gc_records_deleted,gc_deleted_bytes,recovery_s,integrity_s,setup_preflight_cpu_pct,setup_preflight_disk_pct,measure_preflight_cpu_pct,measure_preflight_disk_pct"
+        "case,users,coroutines,requests,expired_pct,credit_requests,debit_requests,fresh_commits,fresh_credits,fresh_debits,historical_credits,historical_debits,historical_hits,historical_misses,projection_enabled,gc_enabled,balance_mode,runtime_workers,client_wall_s,settle_after_client_s,rps,cpu_s,cpu_core_equivalents,cpu_sample_offset_us,progress_sample_offset_us,io_sample_offset_us,storage_sample_offset_us,peak_rss_bytes,db_bytes,process_rchar_bytes,process_wchar_bytes,process_read_bytes,process_write_bytes,device,major_minor,device_read_bytes,device_write_bytes,device_busy_ms,wal_syncs,wal_bytes,writes_with_wal,flush_write_bytes,compact_read_bytes,compact_write_bytes,stall_us,latest_seq_near_client_end,projected_seq_near_client_end,destination_seq_near_client_end,projection_backlog_records_near_client_end,gc_prefix_near_client_end,gc_backlog_records_near_client_end,gc_prefix_after_settle,initial_watermark,final_watermark,final_sequence,watermark_updates,checkpoint_count,checkpoint_snapshots_enqueued,checkpoint_snapshot_ns,checkpoint_queue_wait_ns,checkpoint_chunk_sync_ns,checkpoint_manifest_sync_ns,checkpoint_duration_ns,checkpoint_latest_seq,checkpoint_lag_records_near_client_end,projection_progress_sync_ns,gc_scan_ns,gc_delete_ns,gc_write_ns,gc_records_scanned,gc_records_deleted,gc_deleted_bytes,recovery_s,integrity_s,setup_preflight_cpu_pct,setup_preflight_disk_pct,measure_preflight_cpu_pct,measure_preflight_disk_pct"
     )
     .map_err(|error| format!("cannot write summary header: {error}"))?;
     writeln!(latency, "case,stage,unit,sample_count,p50,p95,p99")
         .map_err(|error| format!("cannot write stage header: {error}"))?;
+    write_csv_record(
+        &mut index_lookup,
+        [
+            "case",
+            "index_lookup_strategy",
+            "index_group_size",
+            "index_concurrency",
+            "runtime_workers",
+            "batch_count",
+            "lookup_requests",
+            "native_calls",
+            "hits",
+            "misses",
+            "max_in_flight_groups",
+            "max_running_query_jobs",
+        ]
+        .into_iter()
+        .map(str::to_owned),
+    )
+    .map_err(|error| format!("cannot write index-lookup metadata header: {error}"))?;
     writeln!(
         background,
         "case,event,elapsed_ns,sequence,records,read_ns,apply_ns,progress_sync_ns,checkpoint_chunk_sync_ns,checkpoint_manifest_sync_ns,total_ns,gc_scanned,gc_deleted,gc_bytes_deleted,gc_prefix_seq,gc_blocked_at_seq,gc_scan_ns,gc_delete_ns,gc_write_ns,watermark_target_sequence,watermark_value,watermark_fence_wait_ns,watermark_projection_wait_ns,watermark_persist_ns"
@@ -2343,12 +3545,12 @@ fn write_archive(
 
     writeln!(
         log,
-        "Tokio single-shard integrated credit/debit ledger pipeline benchmark\nusers={} coroutines={} requests_per_user={} requests_per_case={} cases={} seed_transactions_per_user={} seed_records={} queue_capacity={} batch_size={} batch_timeout_ms={} projection_batch_size={} gc_batch_size={} gc_interval_ms={} retention_ms={} watermark_interval_ms={} checkpoint_quantity={} sample_stride={} old_lookup_delay_ms={} runtime_workers={} transaction_at=unix_micros_generated_immediately_before_fresh_admission\nworkload=each 200-request block uses a deterministic multiplier-37 permutation with account-specific offset; slot parity selects Credit or Debit for exact 50/50 operation counts; every request amount is 1. At 0% history every request is fresh. At 5% history each user block has 10 historical requests (5 exact hits, 5 misses; 5 Credit, 5 Debit) and 190 fresh requests (95 Credit, 95 Debit). Hit keys replay the seeded amount-1 Credit and Debit records; miss keys are unique and absent. Per-case fresh commits are derived from the history rate; three seeds per user establish balance 100 and history targets outside the measured request count.\nmeasurement=wall and process CPU start immediately before client release and end at the latest coroutine's last route reply. Client latencies exclude post-reply count validation and sample aggregation. ProcessTime is sampled immediately after that reply; process and target-device I/O and RocksDB/DB-size snapshots follow after JoinSet collection and their offsets are recorded, so nonzero offsets include post-reply tail work. Final projection catch-up, watermark advance, GC sweep, integrity scan and close/reopen recovery are settlement stages outside client RPS and latency. Request latency uses deterministic hash sampling at stride {}; stage percentiles use nearest-rank samples and are non-additive. Projection/GC/checkpoint/watermark background events are included only when their completion is at or before client_end.\nGC=one safe contiguous ledger prefix; stop at the first record at or newer than durable W; require durable projection and balance coverage; bounded batches use a Tokio yield while prefix advances and sleep when blocked/no progress; watermark and retention are stress settings. Logical RocksDB deletes use synchronous WAL batches; no forced compaction.\nrecovery=source RocksDB is closed and reopened while the same in-memory mock destination is retained. A successful mock apply is treated as durable by contract; this does not assert process-crash durability for an external destination.\npreflight_setup=path:{} filesystem:{} device:{}({}) attempts:{} cpu_busy_pct:{:.3} disk_busy_pct:{:.3} available_mem_bytes:{} free_bytes:{}\n",
+        "Tokio single-shard integrated credit/debit ledger pipeline benchmark\nusers={} coroutines={} requests_per_user={} requests_per_case={} cases={} seed_transactions_per_user={} seed_records={} queue_capacity={} batch_size={} batch_timeout_ms={} projection_batch_size={} gc_batch_size={} gc_interval_ms={} retention_ms={} watermark_interval_ms={} checkpoint_quantity={} sample_stride={} old_lookup_delay_ms={} runtime_workers={} transaction_at=unix_micros_generated_immediately_before_fresh_admission\nworkload=each 200-request block uses a deterministic multiplier-37 permutation with account-specific offset; slot parity selects Credit or Debit for exact 50/50 operation counts; every request amount is 1. At 0% history every request is fresh. At 5% history each user block has 10 historical requests (5 exact hits, 5 misses; 5 Credit, 5 Debit) and 190 fresh requests (95 Credit, 95 Debit). Hit keys replay the seeded amount-1 Credit and Debit records; miss keys are unique and absent. Per-case fresh commits are derived from the history rate; three seeds per user establish balance 100 and history targets outside the measured request count.\nmeasurement=wall and process CPU start immediately before client release and end at the latest coroutine's last route reply. Client latencies exclude post-reply count validation and sample aggregation. ProcessTime is sampled immediately after that reply; process and target-device I/O and RocksDB/DB-size snapshots follow after JoinSet collection and their offsets are recorded, so nonzero offsets include post-reply tail work. Final projection catch-up, watermark advance, GC sweep, integrity scan and close/reopen recovery are settlement stages outside client RPS and latency. Request latency uses deterministic hash sampling at stride {}; stage percentiles use nearest-rank samples and are non-additive. Projection/GC/checkpoint/watermark background events are included only when their completion is at or before client_end.\ntrial_profile=projection_enabled_per_row; when false projector, watermark manager and GC are not spawned or measured, and seed projection/boundary metadata remain unchanged through reopen.\nGC=one safe contiguous ledger prefix; stop at the first record at or newer than durable W; require durable projection and balance coverage; bounded batches use a Tokio yield while prefix advances and sleep when blocked/no progress; watermark and retention are stress settings. Logical RocksDB deletes use synchronous WAL batches; no forced compaction.\nrecovery=source RocksDB is closed and reopened while the same in-memory mock destination is retained. A successful mock apply is treated as durable by contract; this does not assert process-crash durability for an external destination.\npreflight_setup=path:{} filesystem:{} device:{}({}) attempts:{} cpu_busy_pct:{:.3} disk_busy_pct:{:.3} available_mem_bytes:{} free_bytes:{}\n",
         config.users,
         config.users,
         config.requests_per_user,
         config.total_requests(),
-        RUN_CASES.len(),
+        results.len(),
         SEED_TRANSACTIONS_PER_USER,
         config.users * SEED_TRANSACTIONS_PER_USER,
         config.queue_capacity,
@@ -2362,7 +3564,7 @@ fn write_archive(
         config.checkpoint_quantity,
         config.sample_stride,
         config.old_lookup_delay.as_millis(),
-        WORKERS,
+        config.runtime_workers,
         config.sample_stride,
         setup_preflight.path.display(),
         setup_preflight.filesystem,
@@ -2397,8 +3599,10 @@ fn write_archive(
             historical_each_operation.to_string(),
             result.historical_hits.to_string(),
             result.historical_misses.to_string(),
+            result.projection_enabled.to_string(),
             result.gc_enabled.to_string(),
             mode_name(result.mode).to_owned(),
+            result.runtime_workers.to_string(),
             format!("{:.6}", result.client_wall.as_secs_f64()),
             format!("{:.6}", result.settled_wall.as_secs_f64()),
             format!("{rps:.3}"),
@@ -2473,6 +3677,40 @@ fn write_archive(
         ];
         writeln!(summary, "{}", row.join(","))
             .map_err(|error| format!("cannot write summary row: {error}"))?;
+
+        let (lookup_strategy, lookup_group_size, lookup_concurrency) =
+            index_lookup_details(result.index_lookup_mode);
+        let lookup_totals = sum_index_lookup_metrics(&result.index_lookup_batches);
+        let max_lookup_in_flight = result
+            .index_lookup_batches
+            .iter()
+            .map(|batch| batch.max_observed_in_flight_groups)
+            .max()
+            .unwrap_or(0);
+        let max_lookup_running = result
+            .index_lookup_batches
+            .iter()
+            .map(|batch| batch.max_observed_running_query_jobs)
+            .max()
+            .unwrap_or(0);
+        write_csv_record(
+            &mut index_lookup,
+            [
+                result.name.clone(),
+                lookup_strategy,
+                lookup_group_size,
+                lookup_concurrency,
+                result.runtime_workers.to_string(),
+                result.index_lookup_batches.len().to_string(),
+                lookup_totals.keys_looked_up.to_string(),
+                lookup_totals.native_get_calls.to_string(),
+                lookup_totals.hits.to_string(),
+                lookup_totals.misses.to_string(),
+                max_lookup_in_flight.to_string(),
+                max_lookup_running.to_string(),
+            ],
+        )
+        .map_err(|error| format!("cannot write index-lookup metadata row: {error}"))?;
 
         for (stage, values) in case_latency_summaries(result) {
             writeln!(
@@ -2593,7 +3831,13 @@ fn write_archive(
         .map_err(|error| format!("cannot write run log row: {error}"))?;
     }
 
-    for writer in [&mut summary, &mut latency, &mut background, &mut log] {
+    for writer in [
+        &mut summary,
+        &mut latency,
+        &mut background,
+        &mut log,
+        &mut index_lookup,
+    ] {
         writer
             .flush()
             .map_err(|error| format!("cannot flush completed run archive: {error}"))?;
