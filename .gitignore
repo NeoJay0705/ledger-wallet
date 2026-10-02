@@ -13,6 +13,30 @@ benches/__pycache__/
 !/benches/data/ledger_index_lookup/run-1790858604677796368/
 /benches/data/ledger_pipeline_index_lookup/*
 !/benches/data/ledger_pipeline_index_lookup/run-1790871680151272835/
+/benches/data/ledger_pipeline_sharding/*
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/
+/benches/data/ledger_pipeline_sharding/run-1790925219743034498/*
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/matrix_trials.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/matrix_shards.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/matrix_stages.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trial_manifest.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/run_manifest.txt
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/parent_run_status.txt
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/run_completion_audit.txt
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/source_hash_audit.txt
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/evidence_manifest.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/evidence_archive.md
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/
+/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/
+/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/*
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/summary.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/shards.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/stages.csv
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/metadata.txt
+!/benches/data/ledger_pipeline_sharding/run-1790925219743034498/trials/*/status.txt
 
 # Ignore per-run benchmark scratch directories.
 /benches/data/**/.ledger-*/
+
+/benches/data/**/owned-scratch/
