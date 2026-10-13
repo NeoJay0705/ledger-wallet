@@ -1,0 +1,83 @@
+{
+  "start_utc": "2026-10-12T13:49:41.434303+00:00",
+  "iotune_started_utc": "2026-10-12T13:49:41.434665+00:00",
+  "end_utc": "2026-10-12T13:53:00.184485+00:00",
+  "elapsed_seconds": 198.7501924186945,
+  "argv": [
+    "/usr/bin/iotune",
+    "--evaluation-directory",
+    "/var/lib/scylla",
+    "--properties-file",
+    "/evidence/raw/io_properties.yaml",
+    "--options-file",
+    "/evidence/raw/io.conf",
+    "--format",
+    "seastar",
+    "--duration",
+    "180",
+    "--cpuset",
+    "0,1",
+    "--smp",
+    "2",
+    "--memory",
+    "8G",
+    "--thread-affinity",
+    "1"
+  ],
+  "pid": 108,
+  "process_identity_at_start": {
+    "pid": 108,
+    "start_ticks": 894797750,
+    "exe_path": "/opt/scylladb/libexec/iotune",
+    "exe_device": 101,
+    "exe_inode": 11439227,
+    "exact_iotune_executable": true
+  },
+  "execution_identity": {
+    "argv0": "/usr/bin/iotune",
+    "wrapper_path": "/usr/bin/iotune",
+    "wrapper_sha256": "715c1d3a86e2e7b22b182e72d2ec31f2e25d615d30cd8a2efec273194d78ca91",
+    "wrapper_exec_line": "exec -a \"$0\" \"/opt/scylladb/libexec/iotune\" \"$@\"",
+    "direct_executable_path": "/opt/scylladb/libexec/iotune",
+    "direct_executable_sha256": "90fd52702792bdee3e483ce5ddbab64b9cff15b57b1e1f031d6a06b6d8baa0fd",
+    "expected_process_executable_device": 101,
+    "expected_process_executable_inode": 11439227,
+    "elf_interpreter_path": "/opt/scylladb/libreloc/ld.so",
+    "elf_interpreter_sha256": "f5de751db62c33aee3b10c901c89a846c7355fc8d71ed4126cbb364442cfc68e",
+    "environment_equivalence": {
+      "LD_PRELOAD": "required empty",
+      "GNUTLS_SYSTEM_PRIORITY_FILE": "/opt/scylladb/libreloc/gnutls.config",
+      "LD_LIBRARY_PATH": "/opt/scylladb/libreloc",
+      "UBSAN_OPTIONS": "suppressions=/opt/scylladb/libexec/ubsan-suppressions.supp",
+      "SCYLLA_P11_TRUST_PATHS": "/etc/pki/ca-trust/source:/usr/share/pki/ca-trust-source"
+    },
+    "launch_method": "Popen(argv0=/usr/bin/iotune, executable=/opt/scylladb/libexec/iotune, wrapper-equivalent env); /proc exe must match pinned ELF dev+inode"
+  },
+  "sample_interval_seconds": 0.25,
+  "maximum_allowed_sample_gap_seconds": 0.5,
+  "maximum_observed_sample_gap_seconds": 0.2529887743294239,
+  "allocated_blocks_limit_semantics": "sum unique (st_dev, st_ino) of unlinked regular fd targets on evaluation filesystem using st_blocks*512",
+  "soft_allocated_abort_bytes": 25769803776,
+  "hard_allocated_invalid_ceiling_bytes": 34359738368,
+  "maximum_observed_allocated_bytes": 4336918528,
+  "last_observed_allocated_bytes": 0,
+  "minimum_observed_filesystem_available_bytes": 662486646784,
+  "minimum_required_available_bytes": 68719476736,
+  "observed_sample_count": 795,
+  "maximum_observed_affinity": [
+    [
+      0
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "monitor_error": null,
+  "stop_reason": null,
+  "hard_ceiling_exceeded": false,
+  "iotune_returncode": 0,
+  "iotune_completed": true,
+  "monitor_status": "ok",
+  "note": "IoTune logical sparse file length can exceed allocated blocks. The guard counts allocated blocks through the exact iotune process /proc fd table, deduplicated by device and inode."
+}

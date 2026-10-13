@@ -1,0 +1,131 @@
+{
+  "summary_format": "scylla-wallet-selected-json-scalars-v1",
+  "source": {
+    "path": "target/scylla-wallet/runs/run-20261011T163641Z-5850a603/run-result.json",
+    "size_bytes": 3564279,
+    "sha256": "94864c4bfd2ad548cb8409b00d65c23330b25128b794d665f8f19e7d6fbb275f"
+  },
+  "source_json_top_level_keys": [
+    "actual_trial_count",
+    "blocked_error",
+    "created_utc",
+    "expected_case_count",
+    "formal_complete",
+    "formal_completion_rule",
+    "formal_status",
+    "missing_trial_orders",
+    "mode",
+    "preflight",
+    "run_id",
+    "trials",
+    "workload_class"
+  ],
+  "top_level": {
+    "actual_trial_count": 2,
+    "blocked_error": "trial trial-002-S1-C24-rep1 was interrupted",
+    "expected_case_count": 27,
+    "formal_complete": false,
+    "formal_status": "formal_partial",
+    "mode": "formal",
+    "run_id": "run-20261011T163641Z-5850a603",
+    "workload_class": "formal_candidate"
+  },
+  "result_records": {
+    "count": 2,
+    "records": [
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "0a8722ec1732453c99db6fd7a5bb2fe375841e0a8bfee86f6d4d4f587d823b3a",
+        "cli_exit_code": 1,
+        "client_end_event": {
+          "P": 4,
+          "S": 1,
+          "applied": 289466,
+          "attempted": 339466,
+          "elapsed_ns": 131594647722,
+          "errors": 50000,
+          "mode": "formal",
+          "replies_received": 339466,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 108862285731
+        },
+        "error": "RunnerError: CLI exited with status 1",
+        "mode": "formal",
+        "order": 1,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "failed",
+        "total_requests": 10000000,
+        "trial_id": "trial-001-S1-C12-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 1,
+          "accounts_verified": 0,
+          "elapsed_ns": 138352279407,
+          "failures": 50000,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": false
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "0a8722ec1732453c99db6fd7a5bb2fe375841e0a8bfee86f6d4d4f587d823b3a",
+        "cli_exit_code": -15,
+        "error": "KeyboardInterrupt: run interrupted by SIGINT",
+        "mode": "formal",
+        "order": 2,
+        "per_shard_pool": 8,
+        "requests_per_user": 200,
+        "required_metrics_valid": false,
+        "shards": 1,
+        "status": "interrupted",
+        "total_requests": 10000000,
+        "trial_id": "trial-002-S1-C24-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "workers": 24
+      }
+    ]
+  }
+}

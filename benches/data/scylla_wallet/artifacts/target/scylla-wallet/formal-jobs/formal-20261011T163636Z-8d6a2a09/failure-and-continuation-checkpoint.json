@@ -1,0 +1,79 @@
+{
+  "captured_utc": "2026-10-11T16:43:59.378275+00:00",
+  "trial_001": {
+    "cleanup_status": "clean",
+    "connection_pool": {
+      "C": 12,
+      "P": 4,
+      "S": 1,
+      "first_mismatch": null,
+      "formal_sample_required": true,
+      "last_sample_offset_ns": 108797158178,
+      "maximum_sampled_connections": 12,
+      "metric_source": "Scylla Rust driver Session::get_metrics().get_total_connections()",
+      "minimum_sampled_connections": 12,
+      "mismatch_samples": 0,
+      "pool_after_last_reply": 12,
+      "pool_ready_connections": 12,
+      "samples_during_measurement": 1077,
+      "sampling_period_ns": 100000000,
+      "target_total_data_connections": 12,
+      "valid": true
+    },
+    "driver_counter_delta": {
+      "connection_timeouts": 0,
+      "errors": 12,
+      "queries": 868434,
+      "request_timeouts": 0,
+      "retries": 0
+    },
+    "error": "RunnerError: CLI exited with status 1",
+    "request_counts": {
+      "accepted": 339466,
+      "applied": 289466,
+      "attempted": 339466,
+      "error_counts": {
+        "commit_outcome_unknown": 12,
+        "not_accepted": 49988
+      },
+      "errors": 50000,
+      "expected": 10000000,
+      "first_error": "request not accepted: trial has failed closed after a storage failure",
+      "operation_counts": {
+        "credit": 189411,
+        "debit": 150055
+      },
+      "outcome_counts": {
+        "applied": 289466,
+        "credit_overflow": 0,
+        "insufficient_funds": 0,
+        "invalid_amount": 0
+      },
+      "replies_received": 339466,
+      "unexpected_business_results": 0
+    },
+    "status": "failed",
+    "trial_id": "trial-001-S1-C12-rep1",
+    "validation": {
+      "aio_budget": true,
+      "connection_sockets_stable": true,
+      "connections_after_window": true,
+      "connections_before_gate": true,
+      "keyspace": true,
+      "launch_config": true,
+      "reactor_affinity": true,
+      "required_metrics": true,
+      "runtime_aio": true,
+      "runtime_commitlog": true,
+      "schema_agreement": true,
+      "server_version": true,
+      "source_build_correspondence": true
+    }
+  },
+  "trial_002": {
+    "measurement_start_unix_ns": 1791736935414327090,
+    "phase": "measuring",
+    "pool_ready_connections": 24,
+    "trial_id": "trial-002-S1-C24-rep1"
+  }
+}

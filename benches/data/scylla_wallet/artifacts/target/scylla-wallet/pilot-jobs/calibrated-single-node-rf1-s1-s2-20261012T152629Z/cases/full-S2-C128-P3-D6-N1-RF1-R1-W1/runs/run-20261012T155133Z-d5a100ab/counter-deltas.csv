@@ -1,0 +1,15 @@
+order,trial_id,node,shard,metric,status,start_value,start_sample_unix_ns,start_sampling_offset_ns,end_value,end_sample_unix_ns,end_sampling_offset_ns,window_sample_count,delta
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_commitlog_flush,observed,1281.0,1791820312903318837,-47160433,69443.0,1791820413978078315,-590581156,102,68162.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_commitlog_flush,observed,1300.0,1791820312903318837,-47160433,68455.0,1791820413978078315,-590581156,102,67155.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_commitlog_bytes_written,observed,5259264.0,1791820312903318837,-47160433,1831100416.0,1791820413978078315,-590581156,102,1825841152.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_commitlog_bytes_written,observed,5369856.0,1791820312903318837,-47160433,1846288384.0,1791820413978078315,-590581156,102,1840918528.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_commitlog_cycle,observed,1281.0,1791820312903318837,-47160433,69444.0,1791820413978078315,-590581156,102,68163.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_commitlog_cycle,observed,1300.0,1791820312903318837,-47160433,68455.0,1791820413978078315,-590581156,102,67155.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_commitlog_alloc,observed,2551.0,1791820312903318837,-47160433,2537402.0,1791820413978078315,-590581156,102,2534851.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_commitlog_alloc,observed,2583.0,1791820312903318837,-47160433,2565581.0,1791820413978078315,-590581156,102,2562998.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_commitlog_pending_flushes,observed,0.0,1791820312903318837,-47160433,1.0,1791820413978078315,-590581156,102,
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_commitlog_pending_flushes,observed,0.0,1791820312903318837,-47160433,0.0,1791820413978078315,-590581156,102,
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_network_bytes_sent,observed,1246036.0,1791820312903318837,-47160433,77883708.0,1791820413978078315,-590581156,102,76637672.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_network_bytes_sent,observed,183073.0,1791820312903318837,-47160433,40168444.0,1791820413978078315,-590581156,102,39985371.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,0,scylla_network_bytes_received,observed,101271.0,1791820312903318837,-47160433,86303976.0,1791820413978078315,-590581156,102,86202705.0
+1,trial-001-S2-C128-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1,nodea,1,scylla_network_bytes_received,observed,79042.0,1791820312903318837,-47160433,87227413.0,1791820413978078315,-590581156,102,87148371.0

@@ -1,0 +1,2431 @@
+{
+  "summary_format": "scylla-wallet-selected-json-scalars-v1",
+  "source": {
+    "path": "target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/run-result.json",
+    "size_bytes": 56409692,
+    "sha256": "83539e4d860396e1e05e9aa4ce2afd5049a28db944d798c39d409f87698baa90"
+  },
+  "source_json_top_level_keys": [
+    "actual_trial_count",
+    "blocked_error",
+    "created_utc",
+    "expected_case_count",
+    "formal_complete",
+    "formal_completion_rule",
+    "formal_status",
+    "missing_trial_orders",
+    "mode",
+    "preflight",
+    "run_id",
+    "trials",
+    "workload_class"
+  ],
+  "top_level": {
+    "actual_trial_count": 23,
+    "blocked_error": "trial trial-023-S4-C12-rep3 ended status=failed; error=RunnerError: CLI exited with status 1",
+    "expected_case_count": 27,
+    "formal_complete": false,
+    "formal_status": "formal_partial",
+    "mode": "formal",
+    "run_id": "run-20261011T173702Z-c88fb8e8",
+    "workload_class": "formal_candidate"
+  },
+  "result_records": {
+    "count": 23,
+    "records": [
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 44694503423,
+            "mean_ns": 11245432073.034931,
+            "min_ns": 7811072,
+            "p50_ns": 9252634623,
+            "p95_ns": 22884122623,
+            "p999_ns": 43251662847,
+            "p99_ns": 36272340991,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 4432.135323692143,
+            "successful_applied_rps": 4432.135323692143,
+            "wall_duration_ns": 2256248798755,
+            "wall_seconds": 2256.248798755
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2278776195257,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2256248798755
+        },
+        "mode": "formal",
+        "order": 1,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-001-S1-C12-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2297064931251,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 40634417151,
+            "mean_ns": 8307270905.462683,
+            "min_ns": 2492416,
+            "p50_ns": 6824132607,
+            "p95_ns": 14277410815,
+            "p999_ns": 38587596799,
+            "p99_ns": 26809991167,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 6004.250899202851,
+            "successful_applied_rps": 6004.250899202851,
+            "wall_duration_ns": 1665486697321,
+            "wall_seconds": 1665.486697321
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 8,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1679936142633,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1665486697321
+        },
+        "mode": "formal",
+        "order": 2,
+        "per_shard_pool": 8,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-002-S1-C24-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 8,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1697553921581,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 36842766335,
+            "mean_ns": 6049667131.127199,
+            "min_ns": 1078272,
+            "p50_ns": 4794089471,
+            "p95_ns": 10401873919,
+            "p999_ns": 36339449855,
+            "p99_ns": 24981274623,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 8239.632431594264,
+            "successful_applied_rps": 8239.632431594264,
+            "wall_duration_ns": 1213646371124,
+            "wall_seconds": 1213.646371124
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 16,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1224039412158,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1213646371124
+        },
+        "mode": "formal",
+        "order": 3,
+        "per_shard_pool": 16,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-003-S1-C48-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 16,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1241303792999,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 39460012031,
+            "mean_ns": 11389720716.497242,
+            "min_ns": 1000448,
+            "p50_ns": 9546235903,
+            "p95_ns": 27850178559,
+            "p999_ns": 38587596799,
+            "p99_ns": 29980884991,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 4378.727841315703,
+            "successful_applied_rps": 4378.727841315703,
+            "wall_duration_ns": 2283768336923,
+            "wall_seconds": 2283.768336923
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 2,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2307310251387,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2283768336923
+        },
+        "mode": "formal",
+        "order": 4,
+        "per_shard_pool": 2,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-004-S2-C12-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 2,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2319268708958,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 24360517631,
+            "mean_ns": 6747255541.176464,
+            "min_ns": 1083392,
+            "p50_ns": 5859442687,
+            "p95_ns": 10393485311,
+            "p999_ns": 24226299903,
+            "p99_ns": 23286775807,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 7387.1700283832515,
+            "successful_applied_rps": 7387.1700283832515,
+            "wall_duration_ns": 1353698366435,
+            "wall_seconds": 1353.698366435
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1369189091945,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1353698366435
+        },
+        "mode": "formal",
+        "order": 5,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-005-S2-C24-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1380022184854,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 24477958143,
+            "mean_ns": 4563090968.251178,
+            "min_ns": 967168,
+            "p50_ns": 3988783103,
+            "p95_ns": 6148849663,
+            "p999_ns": 24192745471,
+            "p99_ns": 23303553023,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 10904.116980139035,
+            "successful_applied_rps": 10904.116980139035,
+            "wall_duration_ns": 917084805511,
+            "wall_seconds": 917.084805511
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 8,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 927583010186,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 917084805511
+        },
+        "mode": "formal",
+        "order": 6,
+        "per_shard_pool": 8,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-006-S2-C48-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 8,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 937744993168,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 47949283327,
+            "mean_ns": 13492720043.604773,
+            "min_ns": 968192,
+            "p50_ns": 10888413183,
+            "p95_ns": 30786191359,
+            "p999_ns": 45600473087,
+            "p99_ns": 41943039999,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 3690.583129768995,
+            "successful_applied_rps": 3690.583129768995,
+            "wall_duration_ns": 2709598903040,
+            "wall_seconds": 2709.59890304
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 1,
+          "S": 4,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2734778049070,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2709598903040
+        },
+        "mode": "formal",
+        "order": 7,
+        "per_shard_pool": 1,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-007-S4-C12-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 1,
+          "S": 4,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2745137475443,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 41003515903,
+            "mean_ns": 8394222531.307999,
+            "min_ns": 940032,
+            "p50_ns": 6543114239,
+            "p95_ns": 25853689855,
+            "p999_ns": 39392903167,
+            "p99_ns": 31356616703,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 5933.784539927852,
+            "successful_applied_rps": 5933.784539927852,
+            "wall_duration_ns": 1685265100664,
+            "wall_seconds": 1685.265100664
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 2,
+          "S": 4,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1701868268303,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1685265100664
+        },
+        "mode": "formal",
+        "order": 8,
+        "per_shard_pool": 2,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-008-S4-C24-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 2,
+          "S": 4,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1710371544715,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 38453379071,
+            "mean_ns": 5435298915.051817,
+            "min_ns": 862208,
+            "p50_ns": 4265607167,
+            "p95_ns": 14218690559,
+            "p999_ns": 36809211903,
+            "p99_ns": 25652363263,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 9156.323261175607,
+            "successful_applied_rps": 9156.323261175607,
+            "wall_duration_ns": 1092141432184,
+            "wall_seconds": 1092.141432184
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 4,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1103296856532,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1092141432184
+        },
+        "mode": "formal",
+        "order": 9,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-009-S4-C48-rep1",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 4,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1111120023884,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 32346472447,
+            "mean_ns": 8467892880.209895,
+            "min_ns": 7372800,
+            "p50_ns": 6832521215,
+            "p95_ns": 17045651455,
+            "p999_ns": 31088181247,
+            "p99_ns": 26222788607,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 5891.519777348823,
+            "successful_applied_rps": 5891.519777348823,
+            "wall_duration_ns": 1697354906360,
+            "wall_seconds": 1697.35490636
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 8,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1711749884676,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1697354906360
+        },
+        "mode": "formal",
+        "order": 10,
+        "per_shard_pool": 8,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-010-S1-C24-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 8,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1729299716463,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 34728837119,
+            "mean_ns": 5884289453.5884,
+            "min_ns": 3438592,
+            "p50_ns": 4676648959,
+            "p95_ns": 10838081535,
+            "p999_ns": 34561064959,
+            "p99_ns": 24981274623,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 8476.188634386854,
+            "successful_applied_rps": 8476.188634386854,
+            "wall_duration_ns": 1179775537254,
+            "wall_seconds": 1179.775537254
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 16,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1190252580647,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1179775537254
+        },
+        "mode": "formal",
+        "order": 11,
+        "per_shard_pool": 16,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-011-S1-C48-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 16,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1207550622613,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 38822477823,
+            "mean_ns": 11407058442.7841,
+            "min_ns": 967168,
+            "p50_ns": 9579790335,
+            "p95_ns": 28236054527,
+            "p999_ns": 38654705663,
+            "p99_ns": 30802968575,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 4370.4299777231545,
+            "successful_applied_rps": 4370.4299777231545,
+            "wall_duration_ns": 2288104385832,
+            "wall_seconds": 2288.104385832
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 2,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2311466432525,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2288104385832
+        },
+        "mode": "formal",
+        "order": 12,
+        "per_shard_pool": 2,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-012-S2-C12-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 2,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2323472726548,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 28017950719,
+            "mean_ns": 6653988753.3833885,
+            "min_ns": 967168,
+            "p50_ns": 5700059135,
+            "p95_ns": 10401873919,
+            "p999_ns": 26457669631,
+            "p99_ns": 23639097343,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 7489.64140216753,
+            "successful_applied_rps": 7489.64140216753,
+            "wall_duration_ns": 1335177408775,
+            "wall_seconds": 1335.177408775
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1350576251548,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1335177408775
+        },
+        "mode": "formal",
+        "order": 13,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-013-S2-C24-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1360626061471,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 27816624127,
+            "mean_ns": 4722354620.0182905,
+            "min_ns": 931328,
+            "p50_ns": 4089446399,
+            "p95_ns": 6459228159,
+            "p999_ns": 26474446847,
+            "p99_ns": 24528289791,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 10540.91862423817,
+            "successful_applied_rps": 10540.91862423817,
+            "wall_duration_ns": 948683919920,
+            "wall_seconds": 948.68391992
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 8,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 959397875452,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 948683919920
+        },
+        "mode": "formal",
+        "order": 14,
+        "per_shard_pool": 8,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-014-S2-C48-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 8,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 969837606625,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 51069845503,
+            "mean_ns": 13253805181.20685,
+            "min_ns": 1117184,
+            "p50_ns": 10703863807,
+            "p95_ns": 30484201471,
+            "p999_ns": 50163875839,
+            "p99_ns": 43016781823,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 3759.277355709891,
+            "successful_applied_rps": 3759.277355709891,
+            "wall_duration_ns": 2660085716956,
+            "wall_seconds": 2660.085716956
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 1,
+          "S": 4,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2685359202771,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2660085716956
+        },
+        "mode": "formal",
+        "order": 15,
+        "per_shard_pool": 1,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-015-S4-C12-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 1,
+          "S": 4,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2697965385682,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 39124467711,
+            "mean_ns": 8600372455.712,
+            "min_ns": 948736,
+            "p50_ns": 6710886399,
+            "p95_ns": 25803358207,
+            "p999_ns": 38721814527,
+            "p99_ns": 31356616703,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 5787.7226994583825,
+            "successful_applied_rps": 5787.7226994583825,
+            "wall_duration_ns": 1727795286553,
+            "wall_seconds": 1727.795286553
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 2,
+          "S": 4,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1743774336759,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1727795286553
+        },
+        "mode": "formal",
+        "order": 16,
+        "per_shard_pool": 2,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-016-S4-C24-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 2,
+          "S": 4,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1752216407281,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 39124467711,
+            "mean_ns": 5411167377.09624,
+            "min_ns": 997888,
+            "p50_ns": 4299161599,
+            "p95_ns": 13992198143,
+            "p999_ns": 38453379071,
+            "p99_ns": 25199378431,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 9197.643095028196,
+            "successful_applied_rps": 9197.643095028196,
+            "wall_duration_ns": 1087235055403,
+            "wall_seconds": 1087.235055403
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 4,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1098392380988,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1087235055403
+        },
+        "mode": "formal",
+        "order": 17,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-017-S4-C48-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 4,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1105972003387,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 55499030527,
+            "mean_ns": 11326583424.008408,
+            "min_ns": 4595712,
+            "p50_ns": 9277800447,
+            "p95_ns": 20837302271,
+            "p999_ns": 53452210175,
+            "p99_ns": 31524388863,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 4384.831805287012,
+            "successful_applied_rps": 4384.831805287012,
+            "wall_duration_ns": 2280589186555,
+            "wall_seconds": 2280.589186555
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2302946022487,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2280589186555
+        },
+        "mode": "formal",
+        "order": 18,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-018-S1-C12-rep2",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2321699774237,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 36708548607,
+            "mean_ns": 6048006845.177361,
+            "min_ns": 2252800,
+            "p50_ns": 4810866687,
+            "p95_ns": 9646899199,
+            "p999_ns": 36373004287,
+            "p99_ns": 25065160703,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 8241.431341138852,
+            "successful_applied_rps": 8241.431341138852,
+            "wall_duration_ns": 1213381460825,
+            "wall_seconds": 1213.381460825
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 16,
+          "S": 1,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1223874421373,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1213381460825
+        },
+        "mode": "formal",
+        "order": 19,
+        "per_shard_pool": 16,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 1,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-019-S1-C48-rep3",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 16,
+          "S": 1,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1241061026899,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 46271561727,
+            "mean_ns": 11564688657.466715,
+            "min_ns": 1045504,
+            "p50_ns": 9630121983,
+            "p95_ns": 28487712767,
+            "p999_ns": 45399146495,
+            "p99_ns": 35265708031,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 4312.249646232233,
+            "successful_applied_rps": 4312.249646232233,
+            "wall_duration_ns": 2318975203288,
+            "wall_seconds": 2318.975203288
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 2,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 2342078941862,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 2318975203288
+        },
+        "mode": "formal",
+        "order": 20,
+        "per_shard_pool": 2,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-020-S2-C12-rep3",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 2,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 2354178762082,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 12
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 31960596479,
+            "mean_ns": 7193886648.3933115,
+            "min_ns": 1098752,
+            "p50_ns": 5851054079,
+            "p95_ns": 15720251391,
+            "p999_ns": 31725715455,
+            "p99_ns": 27380416511,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 6925.392585800484,
+            "successful_applied_rps": 6925.392585800484,
+            "wall_duration_ns": 1443961461550,
+            "wall_seconds": 1443.96146155
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 4,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 1458888300138,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1443961461550
+        },
+        "mode": "formal",
+        "order": 21,
+        "per_shard_pool": 4,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-021-S2-C24-rep3",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 4,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1468891674042,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 24
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 0,
+        "cli_result": {
+          "driver_counters": {
+            "valid": true
+          },
+          "end_to_end_latency": {
+            "count": 10000000,
+            "max_ns": 44895830015,
+            "mean_ns": 4876165893.925799,
+            "min_ns": 954880,
+            "p50_ns": 4085252095,
+            "p95_ns": 6459228159,
+            "p999_ns": 43788533759,
+            "p99_ns": 24092082175,
+            "unit": "nanoseconds"
+          },
+          "measurement": {
+            "accepted_requests": 10000000,
+            "attempted_count": 10000000,
+            "request_count": 10000000,
+            "rps": 10203.136918635686,
+            "successful_applied_rps": 10203.136918635686,
+            "wall_duration_ns": 980090738735,
+            "wall_seconds": 980.090738735
+          },
+          "mode": "formal",
+          "requests": {
+            "accepted": 10000000,
+            "applied": 10000000,
+            "attempted": 10000000,
+            "errors": 0,
+            "expected": 10000000,
+            "replies_received": 10000000
+          },
+          "status": "verified",
+          "valid": true,
+          "verification": {
+            "accounts_expected": 50000,
+            "accounts_verified": 50000,
+            "complete": true,
+            "failures": 0,
+            "ledger_rows_expected": 10000000,
+            "ledger_rows_seen": 10000000,
+            "valid": true
+          }
+        },
+        "client_end_event": {
+          "P": 8,
+          "S": 2,
+          "applied": 10000000,
+          "attempted": 10000000,
+          "elapsed_ns": 995050958673,
+          "errors": 0,
+          "mode": "formal",
+          "replies_received": 10000000,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 980090738735
+        },
+        "mode": "formal",
+        "order": 22,
+        "per_shard_pool": 8,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 2,
+        "status": "passed",
+        "total_requests": 10000000,
+        "trial_id": "trial-022-S2-C48-rep3",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "cli": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 8,
+          "S": 2,
+          "accounts_verified": 50000,
+          "elapsed_ns": 1005112129286,
+          "failures": 0,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": true
+        },
+        "workers": 48
+      },
+      {
+        "cleanup": {
+          "status": "clean"
+        },
+        "cleanup_status": "clean",
+        "cli_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+        "cli_exit_code": 1,
+        "client_end_event": {
+          "P": 1,
+          "S": 4,
+          "applied": 4227678,
+          "attempted": 4277669,
+          "elapsed_ns": 1239469595326,
+          "errors": 49991,
+          "mode": "formal",
+          "replies_received": 4277669,
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "window_duration_ns": 1214681931618
+        },
+        "error": "RunnerError: CLI exited with status 1",
+        "mode": "formal",
+        "order": 23,
+        "per_shard_pool": 1,
+        "requests_per_user": 200,
+        "required_metrics_valid": true,
+        "shards": 4,
+        "status": "failed",
+        "total_requests": 10000000,
+        "trial_id": "trial-023-S4-C12-rep3",
+        "users": 50000,
+        "validation": {
+          "aio_budget": true,
+          "connection_sockets_stable": true,
+          "connections_after_window": true,
+          "connections_before_gate": true,
+          "keyspace": true,
+          "launch_config": true,
+          "reactor_affinity": true,
+          "required_metrics": true,
+          "runtime_aio": true,
+          "runtime_commitlog": true,
+          "schema_agreement": true,
+          "server_version": true,
+          "source_build_correspondence": true
+        },
+        "verified_event": {
+          "P": 1,
+          "S": 4,
+          "accounts_verified": 0,
+          "elapsed_ns": 1246357668995,
+          "failures": 50000,
+          "mode": "formal",
+          "requests_per_user": 200,
+          "total_requests": 10000000,
+          "users": 50000,
+          "valid": false
+        },
+        "workers": 12
+      }
+    ]
+  }
+}

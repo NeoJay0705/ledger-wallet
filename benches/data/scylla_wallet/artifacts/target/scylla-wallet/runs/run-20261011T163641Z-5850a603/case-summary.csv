@@ -1,0 +1,3 @@
+shards,workers,per_shard_pool,repeats,rps_median,rps_min,rps_max,p50_ns_median,p50_ns_min,p50_ns_max,p95_ns_median,p95_ns_min,p95_ns_max,p99_ns_median,p99_ns_min,p99_ns_max,all_trials_valid
+1,12,4,1,,,,,,,,,,,,,False
+1,24,8,1,,,,,,,,,,,,,False

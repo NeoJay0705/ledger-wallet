@@ -1,0 +1,12 @@
+{
+  "captured_utc": "2026-10-11T17:14:13.000512+00:00",
+  "files": {
+    "condition.py": "a2132bd9774a17459a60c1666b21dfd0665fe0fdf949e3565f5ebbc09791c8a4",
+    "templates/launcher.py": "d882d9798238338daeed88709406438681311d2e24d1b3315df0561294059e6c",
+    "templates/supervisor.py": "164c984cca71bd01810257897f2bb57766514f338b8ff120eef0ec22413a2dc7",
+    "tests/test_condition.py": "1ca218c06793973de2d249601b5aad97e428be619f174bdace6fee1fd85361eb",
+    "tests/test_watcher.py": "15e053d0eb8a9794e62d87ff94df6e9381e697ccaf20269f4d624514bf4a849c",
+    "watcher-config.json": "82da57368ab2dc223f0dddf9a139700c9f9303c678a95df70d4cb4b6ebd16ad5",
+    "watcher.py": "4969ebcc0cb4cdbd31e39ec4498d08db303adb2f4099b01b0ac3e877fdb01fed"
+  }
+}

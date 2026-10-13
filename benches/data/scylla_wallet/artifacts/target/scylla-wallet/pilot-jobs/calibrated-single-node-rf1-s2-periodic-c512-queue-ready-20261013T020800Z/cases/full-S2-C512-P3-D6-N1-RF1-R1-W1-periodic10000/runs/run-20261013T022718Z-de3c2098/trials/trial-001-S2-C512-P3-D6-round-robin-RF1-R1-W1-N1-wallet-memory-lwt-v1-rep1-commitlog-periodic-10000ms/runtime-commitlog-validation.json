@@ -1,0 +1,127 @@
+{
+  "commitlog_sync": "periodic",
+  "commitlog_sync_period_in_ms": 10000,
+  "expected": {
+    "commitlog_segment_size_in_mb": "64",
+    "commitlog_sync": "periodic",
+    "commitlog_sync_batch_window_in_ms": "10000",
+    "commitlog_sync_period_in_ms": "10000",
+    "commitlog_total_space_in_mb": "1024",
+    "commitlog_use_o_dsync": "false"
+  },
+  "nodes": {
+    "nodea": {
+      "evidence": {
+        "commitlog_segment_size_in_mb": {
+          "api_value": 64,
+          "exit_code": 0,
+          "normalized": "64",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n---------------------------------------------------------\n {\"name\": \"commitlog_segment_size_in_mb\", \"value\": \"64\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "system_config_json_parse_status": null,
+          "system_config_json_parser_gap": false,
+          "system_config_json_value": "64",
+          "system_config_plain_probe": null,
+          "system_config_value": "64",
+          "value": 64
+        },
+        "commitlog_sync": {
+          "api_value": "periodic",
+          "exit_code": 0,
+          "normalized": "periodic",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-------------------------------------------------------\n {\"name\": \"commitlog_sync\", \"value\": \"\\\\\"periodic\\\\\"\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "system_config_json_parse_status": "parser_gap",
+          "system_config_json_parser_gap": true,
+          "system_config_json_value": null,
+          "system_config_plain_probe": {
+            "consistency_level": "ONE",
+            "errors": [],
+            "exit_code": 0,
+            "header": [
+              "name",
+              "value"
+            ],
+            "name": "commitlog_sync",
+            "normalized_value": "periodic",
+            "output": "Consistency level set to ONE.\n\n name           | value\n----------------+------------\n commitlog_sync | \"periodic\"\n\n(1 rows)\n",
+            "query": "CONSISTENCY ONE; SELECT name, value FROM system.config WHERE name = 'commitlog_sync'",
+            "raw_value": "\"periodic\"",
+            "rows": [
+              {
+                "name": "commitlog_sync",
+                "raw_value": "\"periodic\""
+              }
+            ],
+            "stderr": "",
+            "valid": true
+          },
+          "system_config_value": "periodic",
+          "value": "periodic"
+        },
+        "commitlog_sync_batch_window_in_ms": {
+          "api_value": 10000,
+          "exit_code": 0,
+          "normalized": "10000",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------------------\n {\"name\": \"commitlog_sync_batch_window_in_ms\", \"value\": \"10000\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "system_config_json_parse_status": null,
+          "system_config_json_parser_gap": false,
+          "system_config_json_value": "10000",
+          "system_config_plain_probe": null,
+          "system_config_value": "10000",
+          "value": 10000
+        },
+        "commitlog_sync_period_in_ms": {
+          "api_value": 10000,
+          "exit_code": 0,
+          "normalized": "10000",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------------\n {\"name\": \"commitlog_sync_period_in_ms\", \"value\": \"10000\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "system_config_json_parse_status": null,
+          "system_config_json_parser_gap": false,
+          "system_config_json_value": "10000",
+          "system_config_plain_probe": null,
+          "system_config_value": "10000",
+          "value": 10000
+        },
+        "commitlog_total_space_in_mb": {
+          "api_value": 1024,
+          "exit_code": 0,
+          "normalized": "1024",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------------\n {\"name\": \"commitlog_total_space_in_mb\", \"value\": \"1024\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "system_config_json_parse_status": null,
+          "system_config_json_parser_gap": false,
+          "system_config_json_value": "1024",
+          "system_config_plain_probe": null,
+          "system_config_value": "1024",
+          "value": 1024
+        },
+        "commitlog_use_o_dsync": {
+          "api_value": false,
+          "exit_code": 0,
+          "normalized": "false",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------\n {\"name\": \"commitlog_use_o_dsync\", \"value\": \"false\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "system_config_json_parse_status": null,
+          "system_config_json_parser_gap": false,
+          "system_config_json_value": "false",
+          "system_config_plain_probe": null,
+          "system_config_value": "false",
+          "value": false
+        }
+      },
+      "observed": {
+        "commitlog_segment_size_in_mb": 64,
+        "commitlog_sync": "periodic",
+        "commitlog_sync_batch_window_in_ms": 10000,
+        "commitlog_sync_period_in_ms": 10000,
+        "commitlog_total_space_in_mb": 1024,
+        "commitlog_use_o_dsync": false
+      }
+    }
+  },
+  "problems": [],
+  "valid": true
+}

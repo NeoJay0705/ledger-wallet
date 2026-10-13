@@ -1,0 +1,171 @@
+{
+  "attempted_container_labels": {
+    "ledger-wallet.nonce": "aacb7255142f4eb6839363d2b0bc9e0a",
+    "ledger-wallet.owner": "scylla-wallet-runner",
+    "ledger-wallet.run-id": "run-20261011T165431Z-40fc6259",
+    "ledger-wallet.trial-id": "trial-001-S1-C12-rep1"
+  },
+  "measurement_started_at_sampling": true,
+  "network_id": "8e4ba3411bb791f034766beb91ce1286f826d9f3d06dc0ccba1d2d012a7c7804",
+  "network_name": "lw-scylla-aacb725514-trial-001-S1-C12-rep1",
+  "nodes": {
+    "nodea": {
+      "container_id": "2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5",
+      "cpuset": "0",
+      "host_pid": 36491,
+      "host_process_cmd": "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --cpuset 0 --memory 8G --smp 1 --overprovisioned --listen-address 172.24.0.10 --rpc-address 172.24.0.10 --seed-provider-parameters seeds=172.24.0.10 --broadcast-address 172.24.0.10 --broadcast-rpc-address 172.24.0.10 --alternator-address 172.24.0.10 --cluster-name ledger-wallet-aacb7255-trial-001-S1-C12-rep1 --blocked-reactor-notify-ms 25 --thread-affinity 1 --prometheus-address 0.0.0.0 --prometheus-port 9180 --commitlog-sync batch --commitlog-use-o-dsync false --commitlog-total-space-in-mb 1024 --commitlog-segment-size-in-mb 64 --relabel-config-file /etc/scylla/ledger-wallet-metrics.yaml --max-networking-io-control-blocks 1024 --reserve-io-control-blocks 1024 --reactor-backend linux-aio",
+      "ip": "172.24.0.10",
+      "labels": {
+        "ledger-wallet.nonce": "aacb7255142f4eb6839363d2b0bc9e0a",
+        "ledger-wallet.owner": "scylla-wallet-runner",
+        "ledger-wallet.run-id": "run-20261011T165431Z-40fc6259",
+        "ledger-wallet.trial-id": "trial-001-S1-C12-rep1"
+      },
+      "name": "lw-scylla-aacb7255-trial-001-S1-nodea",
+      "node": "nodea",
+      "state": "running",
+      "timeouts": {
+        "read_request_timeout_in_ms": {
+          "argv": [
+            "docker",
+            "exec",
+            "2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5",
+            "curl",
+            "-sS",
+            "-w",
+            "\n__HTTP_STATUS__:%{http_code}\n",
+            "http://127.0.0.1:10000/v2/config/read_request_timeout_in_ms"
+          ],
+          "body": "5000",
+          "exit_code": 0,
+          "http_status": 200,
+          "stderr": ""
+        },
+        "write_request_timeout_in_ms": {
+          "argv": [
+            "docker",
+            "exec",
+            "2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5",
+            "curl",
+            "-sS",
+            "-w",
+            "\n__HTTP_STATUS__:%{http_code}\n",
+            "http://127.0.0.1:10000/v2/config/write_request_timeout_in_ms"
+          ],
+          "body": "2000",
+          "exit_code": 0,
+          "http_status": 200,
+          "stderr": ""
+        }
+      }
+    },
+    "nodeb": {
+      "container_id": "8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f",
+      "cpuset": "2",
+      "host_pid": 36943,
+      "host_process_cmd": "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --cpuset 2 --memory 8G --smp 1 --overprovisioned --listen-address 172.24.0.11 --rpc-address 172.24.0.11 --seed-provider-parameters seeds=172.24.0.10 --broadcast-address 172.24.0.11 --broadcast-rpc-address 172.24.0.11 --alternator-address 172.24.0.11 --cluster-name ledger-wallet-aacb7255-trial-001-S1-C12-rep1 --blocked-reactor-notify-ms 25 --thread-affinity 1 --prometheus-address 0.0.0.0 --prometheus-port 9180 --commitlog-sync batch --commitlog-use-o-dsync false --commitlog-total-space-in-mb 1024 --commitlog-segment-size-in-mb 64 --relabel-config-file /etc/scylla/ledger-wallet-metrics.yaml --max-networking-io-control-blocks 1024 --reserve-io-control-blocks 1024 --reactor-backend linux-aio",
+      "ip": "172.24.0.11",
+      "labels": {
+        "ledger-wallet.nonce": "aacb7255142f4eb6839363d2b0bc9e0a",
+        "ledger-wallet.owner": "scylla-wallet-runner",
+        "ledger-wallet.run-id": "run-20261011T165431Z-40fc6259",
+        "ledger-wallet.trial-id": "trial-001-S1-C12-rep1"
+      },
+      "name": "lw-scylla-aacb7255-trial-001-S1-nodeb",
+      "node": "nodeb",
+      "state": "running",
+      "timeouts": {
+        "read_request_timeout_in_ms": {
+          "argv": [
+            "docker",
+            "exec",
+            "8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f",
+            "curl",
+            "-sS",
+            "-w",
+            "\n__HTTP_STATUS__:%{http_code}\n",
+            "http://127.0.0.1:10000/v2/config/read_request_timeout_in_ms"
+          ],
+          "body": "5000",
+          "exit_code": 0,
+          "http_status": 200,
+          "stderr": ""
+        },
+        "write_request_timeout_in_ms": {
+          "argv": [
+            "docker",
+            "exec",
+            "8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f",
+            "curl",
+            "-sS",
+            "-w",
+            "\n__HTTP_STATUS__:%{http_code}\n",
+            "http://127.0.0.1:10000/v2/config/write_request_timeout_in_ms"
+          ],
+          "body": "2000",
+          "exit_code": 0,
+          "http_status": 200,
+          "stderr": ""
+        }
+      }
+    },
+    "nodec": {
+      "container_id": "56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21",
+      "cpuset": "4",
+      "host_pid": 36865,
+      "host_process_cmd": "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --cpuset 4 --memory 8G --smp 1 --overprovisioned --listen-address 172.24.0.12 --rpc-address 172.24.0.12 --seed-provider-parameters seeds=172.24.0.10 --broadcast-address 172.24.0.12 --broadcast-rpc-address 172.24.0.12 --alternator-address 172.24.0.12 --cluster-name ledger-wallet-aacb7255-trial-001-S1-C12-rep1 --blocked-reactor-notify-ms 25 --thread-affinity 1 --prometheus-address 0.0.0.0 --prometheus-port 9180 --commitlog-sync batch --commitlog-use-o-dsync false --commitlog-total-space-in-mb 1024 --commitlog-segment-size-in-mb 64 --relabel-config-file /etc/scylla/ledger-wallet-metrics.yaml --max-networking-io-control-blocks 1024 --reserve-io-control-blocks 1024 --reactor-backend linux-aio",
+      "ip": "172.24.0.12",
+      "labels": {
+        "ledger-wallet.nonce": "aacb7255142f4eb6839363d2b0bc9e0a",
+        "ledger-wallet.owner": "scylla-wallet-runner",
+        "ledger-wallet.run-id": "run-20261011T165431Z-40fc6259",
+        "ledger-wallet.trial-id": "trial-001-S1-C12-rep1"
+      },
+      "name": "lw-scylla-aacb7255-trial-001-S1-nodec",
+      "node": "nodec",
+      "state": "running",
+      "timeouts": {
+        "read_request_timeout_in_ms": {
+          "argv": [
+            "docker",
+            "exec",
+            "56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21",
+            "curl",
+            "-sS",
+            "-w",
+            "\n__HTTP_STATUS__:%{http_code}\n",
+            "http://127.0.0.1:10000/v2/config/read_request_timeout_in_ms"
+          ],
+          "body": "5000",
+          "exit_code": 0,
+          "http_status": 200,
+          "stderr": ""
+        },
+        "write_request_timeout_in_ms": {
+          "argv": [
+            "docker",
+            "exec",
+            "56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21",
+            "curl",
+            "-sS",
+            "-w",
+            "\n__HTTP_STATUS__:%{http_code}\n",
+            "http://127.0.0.1:10000/v2/config/write_request_timeout_in_ms"
+          ],
+          "body": "2000",
+          "exit_code": 0,
+          "http_status": 200,
+          "stderr": ""
+        }
+      }
+    }
+  },
+  "owner_nonce": "aacb7255142f4eb6839363d2b0bc9e0a",
+  "run_id": "run-20261011T165431Z-40fc6259",
+  "sampled_after_utc": "2026-10-11T16:56:10.630708+00:00",
+  "sampled_before_utc": "2026-10-11T16:56:10.535869+00:00",
+  "sampling_phase_after": "measuring",
+  "sampling_phase_before": "measuring",
+  "source": "read-only docker exec against exact nonce/run/trial-validated owned container IDs; HTTP GET to container loopback; no CQL",
+  "trial_id": "trial-001-S1-C12-rep1"
+}

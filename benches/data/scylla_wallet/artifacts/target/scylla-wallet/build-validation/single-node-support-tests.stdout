@@ -1,0 +1,73 @@
+
+running 12 tests
+test metrics::tests::disabled_metrics_do_not_collect_samples_or_counters ... ok
+test service::routing_tests::per_user_route_is_fixed_even_when_round_robin_counter_advances ... ok
+test service::routing_tests::round_robin_route_remains_the_legacy_default_behavior ... ok
+test store::lwt_response_tests::applied_false_decodes_named_existing_row_and_original_result ... ok
+test store::lwt_response_tests::applied_lwt_response_allows_nullable_unselected_result_fields ... ok
+test store::lwt_response_tests::applied_false_rejects_null_required_and_incorrectly_typed_columns ... ok
+test store::profile_tests::consistency_profiles_map_to_driver_levels_and_canonical_names ... ok
+test store::profile_tests::explicit_single_node_profiles_accept_s1_and_s2_pool_targets ... ok
+test store::profile_tests::legacy_three_node_configuration_remains_valid_and_legacy_single_node_rejects_rf3 ... ok
+test store::profile_tests::store_boundaries_reject_two_duplicate_invalid_and_overflow_configurations ... ok
+test store::profile_tests::replication_factor_is_applied_to_keyspace_ddl_and_bounds_read_write_cl ... ok
+test metrics::tests::enabled_samples_guards_and_reset_have_consistent_counts ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 20 tests
+test tests::connection_pool_samples_validate_against_d_independently_of_c ... ok
+test tests::defaults_match_the_formal_workload_and_bounded_queue_design ... ok
+test tests::driver_counter_validation_rejects_retries_resets_and_query_mismatch ... ok
+test tests::error_sample_merge_preserves_first_message_for_each_kind ... ok
+test tests::error_samples_keep_only_one_bounded_utf8_sample_per_kind ... ok
+test tests::help_short_circuits_required_arguments ... ok
+test tests::explicit_rf1_single_node_profiles_use_node_shards_times_pool_for_d ... ok
+test tests::explicit_pool_decouples_c_from_d_and_per_user_routing_accepts_s4_c50000_p4 ... ok
+test tests::metric_invariants_reject_bad_counts_and_peaks_above_configured_c ... ok
+test tests::numeric_rf_and_cl_options_map_to_canonical_metadata ... ok
+test tests::parser_rejects_duplicate_nodes_bad_single_node_cl_and_connection_overflow ... ok
+test tests::parser_rejects_unsupported_node_counts_and_single_node_rf3_defaults ... ok
+test tests::parses_optional_runner_handshake_gates ... ok
+test tests::per_user_route_rejects_a_worker_account_count_mismatch ... ok
+test tests::preload_order_uses_account_index_and_rejects_missing_duplicate_or_unknown_accounts ... ok
+test tests::client_panic_with_missing_terminal_signal_stops_heartbeat_promptly ... ok
+test tests::rejects_duplicate_nodes_invalid_keyspace_and_unverifiable_request_counts ... ok
+test tests::verification_rejects_decreasing_and_nonmatching_final_write_clocks ... ok
+test tests::unequal_read_and_write_cl_do_not_claim_a_single_legacy_consistency ... ok
+test tests::rf_and_cl_values_outside_the_profile_are_rejected_during_parse ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test commitlog_sync_path_smoke ... ignored, requires an owned three-node Scylla cluster; set SCYLLA_NODES and run with --ignored
+test durable_wallet_contract_against_three_node_scylla ... ignored, requires an owned three-node Scylla cluster; set SCYLLA_NODES and run with --ignored
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 14 tests
+test cache_disagreement_in_existing_lwt_response_freezes_without_advancing_cache ... ok
+test business_rejections_are_recorded_and_replayed_from_original_result ... ok
+test credit_overflow_is_recorded_as_a_business_rejection ... ok
+test cancelled_shutdown_can_be_retried_and_still_drains_accepted_work ... ok
+test caller_cancellation_does_not_cancel_commit_or_cache_publication ... ok
+test per_user_routing_and_global_admission_configuration_are_validated ... ok
+test replay_after_later_transaction_returns_original_without_cache_rollback ... ok
+test per_user_mode_obeys_the_global_admission_bound ... ok
+test same_txid_is_partition_scoped_across_accounts ... ok
+test per_user_mode_preserves_owner_serialization_and_cross_user_parallelism ... ok
+test unknown_commit_does_not_advance_cache_and_freezes_account_and_trial ... ok
+test shutdown_drains_accepted_work_and_closes_admission ... ok
+test distinct_accounts_can_wait_in_the_store_concurrently_within_worker_limit ... ok
+test same_account_callers_are_serialized_around_cache_and_conditional_insert ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

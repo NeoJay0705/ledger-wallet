@@ -1,0 +1,9 @@
+{
+  "attempt": 1,
+  "status": "watchdog_failed_before_calibration",
+  "reason": "wrapper PID was /usr/bin/bash at immediate identity check; watchdog correctly failed closed",
+  "iotune_sample_count": 0,
+  "iotune_tool_measurement_started": false,
+  "calibration_outputs_created": false,
+  "preserved_at": "attempt-01-watchdog-wrapper-identity-failure"
+}

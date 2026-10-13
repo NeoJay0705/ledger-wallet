@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running tests/scylla_integration.rs (benchmarks/scylla-wallet/target/debug/deps/scylla_integration-277268730abc2d7a)
+
+running 1 test
+test durable_wallet_contract_against_three_node_scylla ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.19s
+

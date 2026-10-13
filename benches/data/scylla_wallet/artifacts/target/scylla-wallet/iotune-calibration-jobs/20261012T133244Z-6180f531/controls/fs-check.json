@@ -1,0 +1,30 @@
+{
+  "start_utc": "2026-10-12T13:38:32.109522+00:00",
+  "end_utc": "2026-10-12T13:38:32.518782+00:00",
+  "elapsed_seconds": 0.4092530235648155,
+  "argv": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=10s",
+    "60s",
+    "docker",
+    "exec",
+    "lw-iotune-20261012T133244Z-6180f531",
+    "/usr/bin/iotune",
+    "--evaluation-directory",
+    "/var/lib/scylla",
+    "--fs-check",
+    "--cpuset",
+    "0,1",
+    "--smp",
+    "2",
+    "--memory",
+    "8G",
+    "--thread-affinity",
+    "1"
+  ],
+  "external_timeout_seconds": 60,
+  "returncode": 0,
+  "timeout_error": null,
+  "passed": true
+}

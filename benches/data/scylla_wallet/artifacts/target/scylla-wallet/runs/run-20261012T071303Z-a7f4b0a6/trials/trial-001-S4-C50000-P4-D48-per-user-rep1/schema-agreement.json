@@ -1,0 +1,14 @@
+{
+  "consistency": "ONE",
+  "raw_outputs": {
+    "nodea": "Consistency level set to ONE.\n\n [json]\n------------------------------------------------------------\n {\"schema_version\": \"73cdc984-c60c-11f1-8660-fb1c4647b690\"}\n\n(1 rows)\n",
+    "nodeb": "Consistency level set to ONE.\n\n [json]\n------------------------------------------------------------\n {\"schema_version\": \"73cdc984-c60c-11f1-8660-fb1c4647b690\"}\n\n(1 rows)\n",
+    "nodec": "Consistency level set to ONE.\n\n [json]\n------------------------------------------------------------\n {\"schema_version\": \"73cdc984-c60c-11f1-8660-fb1c4647b690\"}\n\n(1 rows)\n"
+  },
+  "schema_versions": {
+    "nodea": "73cdc984-c60c-11f1-8660-fb1c4647b690",
+    "nodeb": "73cdc984-c60c-11f1-8660-fb1c4647b690",
+    "nodec": "73cdc984-c60c-11f1-8660-fb1c4647b690"
+  },
+  "valid": true
+}

@@ -1,0 +1,9 @@
+{
+  "approval_recorded_utc": "2026-10-13T01:50:32.896362+00:00",
+  "approval_reference": "Root NEW_TASK authorizes the single frozen periodic S2/C512 run.",
+  "approved": true,
+  "approved_by": "root",
+  "freeze_manifest_sha256": "9fe77559c605e091306607428f1ef4f3a4cd1fa53a300c500a31db5507fa665f",
+  "job_id": "calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z",
+  "launch_config_sha256": "5f56e0ccc70e02d6af5139b7546f2a419fd22502756d1ff6e6234479b42af4a6"
+}

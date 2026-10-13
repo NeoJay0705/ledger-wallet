@@ -1,0 +1,67 @@
+{
+  "all_owned_resources_absent": true,
+  "checked_utc": "2026-10-12T08:35:50.801039+00:00",
+  "checks": [
+    {
+      "absent": true,
+      "argv": [
+        "docker",
+        "inspect",
+        "82d9331cee8b6399d98361f182aeb24b73285edb5594b8d255663d494c3cf3cc"
+      ],
+      "identity": "82d9331cee8b6399d98361f182aeb24b73285edb5594b8d255663d494c3cf3cc",
+      "kind": "container",
+      "returncode": 1,
+      "stderr": "error: no such object: 82d9331cee8b6399d98361f182aeb24b73285edb5594b8d255663d494c3cf3cc\n",
+      "stdout": "[]\n"
+    },
+    {
+      "absent": true,
+      "argv": [
+        "docker",
+        "inspect",
+        "7e2b0601ae9a40a22ef9c2f7781f7156e2620cb2955f84fa4b1043c8f8185285"
+      ],
+      "identity": "7e2b0601ae9a40a22ef9c2f7781f7156e2620cb2955f84fa4b1043c8f8185285",
+      "kind": "container",
+      "returncode": 1,
+      "stderr": "error: no such object: 7e2b0601ae9a40a22ef9c2f7781f7156e2620cb2955f84fa4b1043c8f8185285\n",
+      "stdout": "[]\n"
+    },
+    {
+      "absent": true,
+      "argv": [
+        "docker",
+        "inspect",
+        "d07cc35eebcd3c273a15a83d082d5bfd2becb6572654b612fa8e1b44c16013f8"
+      ],
+      "identity": "d07cc35eebcd3c273a15a83d082d5bfd2becb6572654b612fa8e1b44c16013f8",
+      "kind": "container",
+      "returncode": 1,
+      "stderr": "error: no such object: d07cc35eebcd3c273a15a83d082d5bfd2becb6572654b612fa8e1b44c16013f8\n",
+      "stdout": "[]\n"
+    },
+    {
+      "absent": true,
+      "argv": [
+        "docker",
+        "network",
+        "inspect",
+        "1c4333c5d90eeec2d381da134def56517945944c23a315b9111c582381a867b2"
+      ],
+      "identity": "1c4333c5d90eeec2d381da134def56517945944c23a315b9111c582381a867b2",
+      "kind": "network",
+      "returncode": 1,
+      "stderr": "Error response from daemon: network 1c4333c5d90eeec2d381da134def56517945944c23a315b9111c582381a867b2 not found\n",
+      "stdout": "[]\n"
+    },
+    {
+      "absent": true,
+      "exists": false,
+      "identity": "target/scylla-wallet/runs/run-20261012T083335Z-0355b97b/trials/trial-001-S4-C50000-P4-D48-per-user-RF1-R1-W1-rep1/owned-data",
+      "kind": "owned-data"
+    }
+  ],
+  "source_manifest": "target/scylla-wallet/runs/run-20261012T083335Z-0355b97b/trials/trial-001-S4-C50000-P4-D48-per-user-RF1-R1-W1-rep1/ownership-manifest.json",
+  "source_manifest_nonce": "7b244f44a62746a6bd5abff87f3a695a"
+}

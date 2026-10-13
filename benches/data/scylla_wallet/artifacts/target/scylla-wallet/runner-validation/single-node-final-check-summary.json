@@ -1,0 +1,73 @@
+{
+  "valid": true,
+  "python_unittest": {
+    "count": 105,
+    "result": "passed",
+    "stdout": "target/scylla-wallet/runner-validation/single-node-final-tests.stdout",
+    "stderr": "target/scylla-wallet/runner-validation/single-node-final-tests.stderr"
+  },
+  "py_compile": {
+    "result": "passed",
+    "stdout": "target/scylla-wallet/runner-validation/single-node-final-pycompile.stdout",
+    "stderr": "target/scylla-wallet/runner-validation/single-node-final-pycompile.stderr"
+  },
+  "node1_pilot_dry_run": {
+    "result": "passed",
+    "nodes": [
+      "nodea"
+    ],
+    "workload_class": "diagnostic_pilot",
+    "io_properties_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+    "cases": [
+      {
+        "S": 1,
+        "C": 128,
+        "P": 3,
+        "D": 3,
+        "data_connections_per_node": 3,
+        "cpus": {
+          "nodea": [
+            0
+          ]
+        }
+      },
+      {
+        "S": 2,
+        "C": 128,
+        "P": 3,
+        "D": 6,
+        "data_connections_per_node": 6,
+        "cpus": {
+          "nodea": [
+            0,
+            1
+          ]
+        }
+      }
+    ],
+    "no_docker_actions": true,
+    "stdout": "target/scylla-wallet/runner-validation/single-node-final-dryrun-n1.stdout",
+    "stderr": "target/scylla-wallet/runner-validation/single-node-final-dryrun-n1.stderr"
+  },
+  "default_three_node_formal_dry_run": {
+    "result": "passed",
+    "nodes": [
+      "nodea",
+      "nodeb",
+      "nodec"
+    ],
+    "workload_class": "formal_candidate",
+    "cases": 27,
+    "formal_complete": false,
+    "no_docker_actions": true,
+    "stdout": "target/scylla-wallet/runner-validation/single-node-final-dryrun-3node.stdout",
+    "stderr": "target/scylla-wallet/runner-validation/single-node-final-dryrun-3node.stderr"
+  },
+  "formal_with_io_file": {
+    "result": "rejected_before_docker",
+    "exit_code": 2,
+    "message": "custom I/O properties profile requires pilot mode",
+    "stderr": "target/scylla-wallet/runner-validation/single-node-final-formal-io-refused.stderr"
+  },
+  "live_execution": "not run; no Docker or benchmark started"
+}

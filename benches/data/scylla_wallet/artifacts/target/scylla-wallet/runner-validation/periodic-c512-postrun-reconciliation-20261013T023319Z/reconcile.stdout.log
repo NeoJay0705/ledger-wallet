@@ -1,0 +1,16 @@
+{
+  "job_id": "calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z",
+  "original_job_status": "case_failed",
+  "original_job_error": "ready_to_measure wallet profile validation is not valid",
+  "original_case_status": "failed",
+  "original_runner_exitcode": 0,
+  "copied_validator_sha256": "0692a35b0bce47ea5d99f519a9c793cc443f07dd10e5f8a4cd87127f3e7c98bb",
+  "wallet_requests_performed_by_reconciliation": 0,
+  "docker_queries_performed_by_reconciliation": 0,
+  "original_frozen_artifacts_unchanged": true,
+  "corrected_validation_valid": true,
+  "runner_validation_valid": true,
+  "runner_validation_problems": [],
+  "observer_validation_valid": true,
+  "observer_validation_errors": []
+}

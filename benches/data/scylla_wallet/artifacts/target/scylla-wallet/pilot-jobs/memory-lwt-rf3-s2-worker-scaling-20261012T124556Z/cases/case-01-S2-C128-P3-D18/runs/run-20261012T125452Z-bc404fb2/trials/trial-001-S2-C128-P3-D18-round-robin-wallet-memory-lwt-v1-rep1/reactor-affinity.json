@@ -1,0 +1,203 @@
+{
+  "nodea": {
+    "errors": [],
+    "expected_cpus": [
+      0,
+      1
+    ],
+    "reactor_cpu_coverage": [
+      0,
+      1
+    ],
+    "reactor_thread_count": 2,
+    "tasks": [
+      {
+        "comm": "scylla",
+        "cpus": [
+          0
+        ],
+        "cpus_allowed_list": "0",
+        "reactor_candidate": true,
+        "reactor_identity": "main-reactor-0",
+        "tid": 21277
+      },
+      {
+        "comm": "alien-rpc-dict",
+        "cpus": [
+          0,
+          1
+        ],
+        "cpus_allowed_list": "0-1",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21297
+      },
+      {
+        "comm": "reactor-1",
+        "cpus": [
+          1
+        ],
+        "cpus_allowed_list": "1",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 21298
+      },
+      {
+        "comm": "syscall-0",
+        "cpus": [
+          0
+        ],
+        "cpus_allowed_list": "0",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21299
+      },
+      {
+        "comm": "syscall-1",
+        "cpus": [
+          1
+        ],
+        "cpus_allowed_list": "1",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21300
+      }
+    ],
+    "thread_count": 5,
+    "valid": true
+  },
+  "nodeb": {
+    "errors": [],
+    "expected_cpus": [
+      2,
+      3
+    ],
+    "reactor_cpu_coverage": [
+      2,
+      3
+    ],
+    "reactor_thread_count": 2,
+    "tasks": [
+      {
+        "comm": "scylla",
+        "cpus": [
+          2
+        ],
+        "cpus_allowed_list": "2",
+        "reactor_candidate": true,
+        "reactor_identity": "main-reactor-0",
+        "tid": 21754
+      },
+      {
+        "comm": "alien-rpc-dict",
+        "cpus": [
+          2,
+          3
+        ],
+        "cpus_allowed_list": "2-3",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21780
+      },
+      {
+        "comm": "reactor-1",
+        "cpus": [
+          3
+        ],
+        "cpus_allowed_list": "3",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 21782
+      },
+      {
+        "comm": "syscall-0",
+        "cpus": [
+          2
+        ],
+        "cpus_allowed_list": "2",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21783
+      },
+      {
+        "comm": "syscall-1",
+        "cpus": [
+          3
+        ],
+        "cpus_allowed_list": "3",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21784
+      }
+    ],
+    "thread_count": 5,
+    "valid": true
+  },
+  "nodec": {
+    "errors": [],
+    "expected_cpus": [
+      4,
+      5
+    ],
+    "reactor_cpu_coverage": [
+      4,
+      5
+    ],
+    "reactor_thread_count": 2,
+    "tasks": [
+      {
+        "comm": "scylla",
+        "cpus": [
+          4
+        ],
+        "cpus_allowed_list": "4",
+        "reactor_candidate": true,
+        "reactor_identity": "main-reactor-0",
+        "tid": 21767
+      },
+      {
+        "comm": "alien-rpc-dict",
+        "cpus": [
+          4,
+          5
+        ],
+        "cpus_allowed_list": "4-5",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21787
+      },
+      {
+        "comm": "reactor-1",
+        "cpus": [
+          5
+        ],
+        "cpus_allowed_list": "5",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 21794
+      },
+      {
+        "comm": "syscall-0",
+        "cpus": [
+          4
+        ],
+        "cpus_allowed_list": "4",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21795
+      },
+      {
+        "comm": "syscall-1",
+        "cpus": [
+          5
+        ],
+        "cpus_allowed_list": "5",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 21796
+      }
+    ],
+    "thread_count": 5,
+    "valid": true
+  }
+}

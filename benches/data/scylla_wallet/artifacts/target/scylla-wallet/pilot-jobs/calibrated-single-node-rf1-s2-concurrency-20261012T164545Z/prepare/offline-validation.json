@@ -1,0 +1,58 @@
+{
+  "checked_utc": "2026-10-12T16:57:40.588403+00:00",
+  "checks": {
+    "auxiliary_paths_present": true,
+    "launcher_plan": {
+      "case_workers": [
+        256,
+        512
+      ],
+      "data_connections": [
+        6,
+        6
+      ],
+      "path": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/validation/plan.json",
+      "sha256": "6379db684e6fc95d9148bfed0a2f526ff845b7888586c2995c81e375b835ed5c",
+      "valid": true
+    },
+    "observer_profile_replay": {
+      "path": "target/scylla-wallet/runner-validation/memory-io-observer-profile-replay.json",
+      "sha256": "3c3762218c645c7f8fb40fcd5d3fb5bd1d01339ba1d417886bb1b7271ef064b7",
+      "valid": true
+    },
+    "observer_unit_tests": {
+      "evidence_path": "target/scylla-wallet/runner-validation/memory-io-observer-final-unittest.stdout",
+      "test_count": 17,
+      "valid": true
+    },
+    "supervisor_py_compile": {
+      "command": "taskset -c 6,7,14,15 python3 -m py_compile supervisor.py launcher.py prepare/test_supervisor.py",
+      "stderr": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/validation/pycompile.stderr",
+      "stdout": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/validation/pycompile.stdout",
+      "valid": true
+    },
+    "supervisor_unit_tests": {
+      "stderr": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/validation/supervisor-tests.stderr",
+      "stdout": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/validation/supervisor-tests.stdout",
+      "test_count": 8,
+      "valid": true
+    }
+  },
+  "job_id": "calibrated-single-node-rf1-s2-concurrency-20261012T164545Z",
+  "live_execution_started": false,
+  "schema_version": 1,
+  "sha256_snapshot": {
+    "benches/scylla_io_observer.py": "d0e8d9e544096034b6a0dc1f7307fe628fc94c88def47f248408d698adae5ef3",
+    "benches/scylla_wallet.py": "e69091188a9fc6890b655d958b0ddecebb5f34d107abd99d4ca305150e058ae2",
+    "docs/01-54.raw-requirement-scylladb-calibrated-s2-concurrency-benchmark.md": "9b2a87331b2e4650ddba53a35e4de834cf5946ce3f31c2635230e360ba5fb79e",
+    "docs/01-55.development-design-scylladb-calibrated-s2-concurrency-benchmark.md": "2a63496a8dc8af5375eabc890a0a22be32f1dc7a01d9dcc5099b9e26d591aecd",
+    "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+    "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/launch-config.json": "70b07b0b99c68b94a3823e124345a735238d03de05430ef44e60a1cc79919e73",
+    "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/launcher.py": "bb6003016dcb88a8759b2c937e00af8661680c1e0661e5651e9bcecb74e59585",
+    "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/test_supervisor.py": "1ae12a4a35450813240a405016b4d96f560ce2c48345ecc5573996ddd780ac57",
+    "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/supervisor.py": "8887b6576a3cb6a75133a0f1f4c2540c3c1e2bb27ab97bb2e221d5665dca9e5c",
+    "target/scylla-wallet/release/ledger-wallet-scylla-bench": "bf5afef5f75d3bee98c3510e5db386f62d382d5564302b01ff06278a432cdd87",
+    "tests/test_scylla_io_observer.py": "c698ea7e98cfb174112ffe3131ebebfd00a276081531900ad69aaf3d11cb2333"
+  },
+  "valid": true
+}

@@ -1,0 +1,341 @@
+{
+  "nodea": {
+    "errors": [],
+    "expected_cpus": [
+      0,
+      1,
+      8,
+      9
+    ],
+    "reactor_cpu_coverage": [
+      0,
+      1,
+      8,
+      9
+    ],
+    "reactor_thread_count": 4,
+    "tasks": [
+      {
+        "comm": "scylla",
+        "cpus": [
+          0
+        ],
+        "cpus_allowed_list": "0",
+        "reactor_candidate": true,
+        "reactor_identity": "main-reactor-0",
+        "tid": 48749
+      },
+      {
+        "comm": "alien-rpc-dict",
+        "cpus": [
+          0,
+          1,
+          8,
+          9
+        ],
+        "cpus_allowed_list": "0-1,8-9",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 48764
+      },
+      {
+        "comm": "reactor-1",
+        "cpus": [
+          8
+        ],
+        "cpus_allowed_list": "8",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 48765
+      },
+      {
+        "comm": "reactor-2",
+        "cpus": [
+          1
+        ],
+        "cpus_allowed_list": "1",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 48766
+      },
+      {
+        "comm": "reactor-3",
+        "cpus": [
+          9
+        ],
+        "cpus_allowed_list": "9",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 48767
+      },
+      {
+        "comm": "syscall-0",
+        "cpus": [
+          0
+        ],
+        "cpus_allowed_list": "0",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 48768
+      },
+      {
+        "comm": "syscall-2",
+        "cpus": [
+          1
+        ],
+        "cpus_allowed_list": "1",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 48769
+      },
+      {
+        "comm": "syscall-1",
+        "cpus": [
+          8
+        ],
+        "cpus_allowed_list": "8",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 48770
+      },
+      {
+        "comm": "syscall-3",
+        "cpus": [
+          9
+        ],
+        "cpus_allowed_list": "9",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 48771
+      }
+    ],
+    "thread_count": 9,
+    "valid": true
+  },
+  "nodeb": {
+    "errors": [],
+    "expected_cpus": [
+      2,
+      3,
+      10,
+      11
+    ],
+    "reactor_cpu_coverage": [
+      2,
+      3,
+      10,
+      11
+    ],
+    "reactor_thread_count": 4,
+    "tasks": [
+      {
+        "comm": "scylla",
+        "cpus": [
+          2
+        ],
+        "cpus_allowed_list": "2",
+        "reactor_candidate": true,
+        "reactor_identity": "main-reactor-0",
+        "tid": 49212
+      },
+      {
+        "comm": "alien-rpc-dict",
+        "cpus": [
+          2,
+          3,
+          10,
+          11
+        ],
+        "cpus_allowed_list": "2-3,10-11",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49241
+      },
+      {
+        "comm": "reactor-1",
+        "cpus": [
+          10
+        ],
+        "cpus_allowed_list": "10",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 49242
+      },
+      {
+        "comm": "reactor-2",
+        "cpus": [
+          3
+        ],
+        "cpus_allowed_list": "3",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 49243
+      },
+      {
+        "comm": "reactor-3",
+        "cpus": [
+          11
+        ],
+        "cpus_allowed_list": "11",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 49244
+      },
+      {
+        "comm": "syscall-0",
+        "cpus": [
+          2
+        ],
+        "cpus_allowed_list": "2",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49245
+      },
+      {
+        "comm": "syscall-1",
+        "cpus": [
+          10
+        ],
+        "cpus_allowed_list": "10",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49246
+      },
+      {
+        "comm": "syscall-3",
+        "cpus": [
+          11
+        ],
+        "cpus_allowed_list": "11",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49247
+      },
+      {
+        "comm": "syscall-2",
+        "cpus": [
+          3
+        ],
+        "cpus_allowed_list": "3",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49248
+      }
+    ],
+    "thread_count": 9,
+    "valid": true
+  },
+  "nodec": {
+    "errors": [],
+    "expected_cpus": [
+      4,
+      5,
+      12,
+      13
+    ],
+    "reactor_cpu_coverage": [
+      4,
+      5,
+      12,
+      13
+    ],
+    "reactor_thread_count": 4,
+    "tasks": [
+      {
+        "comm": "scylla",
+        "cpus": [
+          4
+        ],
+        "cpus_allowed_list": "4",
+        "reactor_candidate": true,
+        "reactor_identity": "main-reactor-0",
+        "tid": 49227
+      },
+      {
+        "comm": "alien-rpc-dict",
+        "cpus": [
+          4,
+          5,
+          12,
+          13
+        ],
+        "cpus_allowed_list": "4-5,12-13",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49250
+      },
+      {
+        "comm": "reactor-1",
+        "cpus": [
+          12
+        ],
+        "cpus_allowed_list": "12",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 49253
+      },
+      {
+        "comm": "reactor-2",
+        "cpus": [
+          5
+        ],
+        "cpus_allowed_list": "5",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 49254
+      },
+      {
+        "comm": "reactor-3",
+        "cpus": [
+          13
+        ],
+        "cpus_allowed_list": "13",
+        "reactor_candidate": true,
+        "reactor_identity": "named-reactor",
+        "tid": 49255
+      },
+      {
+        "comm": "syscall-0",
+        "cpus": [
+          4
+        ],
+        "cpus_allowed_list": "4",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49256
+      },
+      {
+        "comm": "syscall-1",
+        "cpus": [
+          12
+        ],
+        "cpus_allowed_list": "12",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49257
+      },
+      {
+        "comm": "syscall-2",
+        "cpus": [
+          5
+        ],
+        "cpus_allowed_list": "5",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49258
+      },
+      {
+        "comm": "syscall-3",
+        "cpus": [
+          13
+        ],
+        "cpus_allowed_list": "13",
+        "reactor_candidate": false,
+        "reactor_identity": null,
+        "tid": 49259
+      }
+    ],
+    "thread_count": 9,
+    "valid": true
+  }
+}
