@@ -1,0 +1,2762 @@
+{
+  "approved_plan": {
+    "contract_sha256": "07eccbb58d92c389be5325104e39f7e591f5423c8546a2edf4e3615614587cc7",
+    "source": {
+      "bytes": 18034,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/approved-plan.json",
+      "sha256": "727023b961eacd735c67a2a4fb400c512af2ecab5e99c32d32832a77015e40e6"
+    }
+  },
+  "automatic_retries": 0,
+  "campaign_status": "complete_valid",
+  "cases": [
+    {
+      "backend": "postgres",
+      "case_id": "pg-calibration-D16",
+      "case_kind": "calibration",
+      "connections": 16,
+      "database_counters": {
+        "backend_in_flight_peak": 16,
+        "measured_cql_request_count": null,
+        "measured_lwt_count": null,
+        "postgres_accounting": {
+          "accepted_requests": 1024000,
+          "account_updates": 1024000,
+          "driver_query_calls_per_request": 1,
+          "driver_query_delta": 1024000,
+          "duplicate_conflicts": 0,
+          "function_calls": 1024000,
+          "internal_write_operations": 2048000,
+          "ledger_insert_attempts": 1024000,
+          "measured_sql_transaction_count": 1024000,
+          "query_completion": "ReadyForQuery after implicit transaction completion",
+          "sql_transactions_per_request": 1
+        },
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "pg_account_updates": 1024000,
+          "pg_duplicate_conflicts": 0,
+          "pg_function_calls": 1024000,
+          "pg_ledger_insert_attempts": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 1,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "backend": "postgres",
+        "driver_query_delta": 1024000,
+        "internal_write_operations": 2048000,
+        "measured_select_requests": 0,
+        "measured_sql_transaction_count": 1024000
+      },
+      "repeat": 1,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 10866.031961031402,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16",
+      "source_inputs": [
+        {
+          "bytes": 774475,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/case-result.json",
+          "sha256": "05e9901e51f9652c52fb3c9bb2535cfcc9487300bd0c347d1c08ae41ce44b3b9"
+        },
+        {
+          "bytes": 17975,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/service/result.json",
+          "sha256": "02f4fa47f7022ba04c6c91da4e2412784174adb1b97e698678ef13b429e67387"
+        },
+        {
+          "bytes": 18921,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/service/events.jsonl",
+          "sha256": "ed8eb3abfc3b11c47f9efc83991e27bed0767e601ee1778dab9ae90a842b5685"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "passed",
+        "cli_exit_code": 0,
+        "events_valid": true,
+        "host_diskstats_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_postgres",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791895385670347461,
+      "window_seconds": 94.238633171,
+      "window_start_unix_ns": 1791895291431714290
+    },
+    {
+      "backend": "postgres",
+      "case_id": "pg-calibration-D32",
+      "case_kind": "calibration",
+      "connections": 32,
+      "database_counters": {
+        "backend_in_flight_peak": 32,
+        "measured_cql_request_count": null,
+        "measured_lwt_count": null,
+        "postgres_accounting": {
+          "accepted_requests": 1024000,
+          "account_updates": 1024000,
+          "driver_query_calls_per_request": 1,
+          "driver_query_delta": 1024000,
+          "duplicate_conflicts": 0,
+          "function_calls": 1024000,
+          "internal_write_operations": 2048000,
+          "ledger_insert_attempts": 1024000,
+          "measured_sql_transaction_count": 1024000,
+          "query_completion": "ReadyForQuery after implicit transaction completion",
+          "sql_transactions_per_request": 1
+        },
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "pg_account_updates": 1024000,
+          "pg_duplicate_conflicts": 0,
+          "pg_function_calls": 1024000,
+          "pg_ledger_insert_attempts": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 2,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "backend": "postgres",
+        "driver_query_delta": 1024000,
+        "internal_write_operations": 2048000,
+        "measured_select_requests": 0,
+        "measured_sql_transaction_count": 1024000
+      },
+      "repeat": 2,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 10915.372375641056,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32",
+      "source_inputs": [
+        {
+          "bytes": 784503,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/case-result.json",
+          "sha256": "471fcbc0948ee97a712d0e85efde55c81fa49080e4879c3e5289dc0899deea20"
+        },
+        {
+          "bytes": 22893,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/service/result.json",
+          "sha256": "36992ee63630747b638a480f1cd448fb53300cfa2d760c5a2207c1915643cfb4"
+        },
+        {
+          "bytes": 19772,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/service/events.jsonl",
+          "sha256": "8f3c39341a6f1d9c4557cd686eda7f1e408ffe5019a2b3e1263eca0ad559e3ba"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "passed",
+        "cli_exit_code": 0,
+        "events_valid": true,
+        "host_diskstats_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_postgres",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791895502013065838,
+      "window_seconds": 93.81264924,
+      "window_start_unix_ns": 1791895408200416598
+    },
+    {
+      "backend": "postgres",
+      "case_id": "pg-calibration-D64",
+      "case_kind": "calibration",
+      "connections": 64,
+      "database_counters": {
+        "backend_in_flight_peak": 64,
+        "measured_cql_request_count": null,
+        "measured_lwt_count": null,
+        "postgres_accounting": {
+          "accepted_requests": 1024000,
+          "account_updates": 1024000,
+          "driver_query_calls_per_request": 1,
+          "driver_query_delta": 1024000,
+          "duplicate_conflicts": 0,
+          "function_calls": 1024000,
+          "internal_write_operations": 2048000,
+          "ledger_insert_attempts": 1024000,
+          "measured_sql_transaction_count": 1024000,
+          "query_completion": "ReadyForQuery after implicit transaction completion",
+          "sql_transactions_per_request": 1
+        },
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "pg_account_updates": 1024000,
+          "pg_duplicate_conflicts": 0,
+          "pg_function_calls": 1024000,
+          "pg_ledger_insert_attempts": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 3,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "backend": "postgres",
+        "driver_query_delta": 1024000,
+        "internal_write_operations": 2048000,
+        "measured_select_requests": 0,
+        "measured_sql_transaction_count": 1024000
+      },
+      "repeat": 3,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 9811.28854034752,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64",
+      "source_inputs": [
+        {
+          "bytes": 803896,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/case-result.json",
+          "sha256": "cd59e5d85912a85095ffd7984b3fc4501e3cbca164b3f6648684a2a11bc6e30f"
+        },
+        {
+          "bytes": 32725,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/service/result.json",
+          "sha256": "827474ed51b842c8e706cbf746322a05d314084e3a6e4bb4ae765e808d89f0f9"
+        },
+        {
+          "bytes": 21426,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/service/events.jsonl",
+          "sha256": "e7f571ac5cede374db14e29d3cf5cd51bfca42cfa314e980e591d9d86927442f"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "passed",
+        "cli_exit_code": 0,
+        "events_valid": true,
+        "host_diskstats_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_postgres",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791895614929946192,
+      "window_seconds": 104.369573455,
+      "window_start_unix_ns": 1791895510560372737
+    },
+    {
+      "backend": "scylla",
+      "case_id": "scylla-rep1",
+      "case_kind": "formal",
+      "connections": null,
+      "database_counters": {
+        "backend_in_flight_peak": 512,
+        "measured_cql_request_count": 1024000,
+        "measured_lwt_count": 1024000,
+        "postgres_accounting": null,
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "cql_read_ledger": 0,
+          "cql_read_metadata": 0,
+          "cql_write_lwt": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "cql_write_lwt": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "cql_write_lwt": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 4,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "cql_requests_per_transaction": 1,
+        "cql_statement_count": 1,
+        "driver_query_delta": 1024000,
+        "measured_cql_request_count": 1024000,
+        "measured_ledger_select_requests": 0,
+        "measured_metadata_select_requests": 0,
+        "measured_select_requests": 0
+      },
+      "repeat": 1,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 15705.469128135614,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "seeding",
+          "preloading",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1",
+      "source_inputs": [
+        {
+          "bytes": 614436,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/runner-result.json",
+          "sha256": "f9bcf1398aa4d6d71fd36854bf8fff37a001e1f90e93310aadf5b9625ede371a"
+        },
+        {
+          "bytes": 11807,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/service/result.json",
+          "sha256": "8d808fbc5201631519beacfa7c98051e8deffd68754cb513821b2a9f7bd9160d"
+        },
+        {
+          "bytes": 14945,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/service/events.jsonl",
+          "sha256": "7311470789c4496857f276f5b50c4796e8232a5c4a62b7380f7d66aa917db671"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "clean",
+        "cli_exit_code": 0,
+        "counter_window_errors": [],
+        "events_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_scylla",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791895704201111314,
+      "window_seconds": 65.200217303,
+      "window_start_unix_ns": 1791895639000894011
+    },
+    {
+      "backend": "postgres",
+      "case_id": "postgres-rep1",
+      "case_kind": "formal",
+      "connections": 16,
+      "database_counters": {
+        "backend_in_flight_peak": 16,
+        "measured_cql_request_count": null,
+        "measured_lwt_count": null,
+        "postgres_accounting": {
+          "accepted_requests": 1024000,
+          "account_updates": 1024000,
+          "driver_query_calls_per_request": 1,
+          "driver_query_delta": 1024000,
+          "duplicate_conflicts": 0,
+          "function_calls": 1024000,
+          "internal_write_operations": 2048000,
+          "ledger_insert_attempts": 1024000,
+          "measured_sql_transaction_count": 1024000,
+          "query_completion": "ReadyForQuery after implicit transaction completion",
+          "sql_transactions_per_request": 1
+        },
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "pg_account_updates": 1024000,
+          "pg_duplicate_conflicts": 0,
+          "pg_function_calls": 1024000,
+          "pg_ledger_insert_attempts": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 5,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "backend": "postgres",
+        "driver_query_delta": 1024000,
+        "internal_write_operations": 2048000,
+        "measured_select_requests": 0,
+        "measured_sql_transaction_count": 1024000
+      },
+      "repeat": 1,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 10819.102158478086,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1",
+      "source_inputs": [
+        {
+          "bytes": 773035,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/case-result.json",
+          "sha256": "0e3f7f4877490920787efb572e3f9a3998b195d989f21b3825be854b14064a1c"
+        },
+        {
+          "bytes": 17962,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/service/result.json",
+          "sha256": "ee135dddf8f437ab6f58ff6e98322363fddb8203d7b415fa7a1739a09f0ba209"
+        },
+        {
+          "bytes": 18845,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/service/events.jsonl",
+          "sha256": "def2073ace33ff343a3d428ca7a349fef0fbf8df9fcf5c8f5fb40b3e8cf740aa"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "passed",
+        "cli_exit_code": 0,
+        "events_valid": true,
+        "host_diskstats_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_postgres",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791895825059772546,
+      "window_seconds": 94.647410201,
+      "window_start_unix_ns": 1791895730412362345
+    },
+    {
+      "backend": "postgres",
+      "case_id": "postgres-rep2",
+      "case_kind": "formal",
+      "connections": 16,
+      "database_counters": {
+        "backend_in_flight_peak": 16,
+        "measured_cql_request_count": null,
+        "measured_lwt_count": null,
+        "postgres_accounting": {
+          "accepted_requests": 1024000,
+          "account_updates": 1024000,
+          "driver_query_calls_per_request": 1,
+          "driver_query_delta": 1024000,
+          "duplicate_conflicts": 0,
+          "function_calls": 1024000,
+          "internal_write_operations": 2048000,
+          "ledger_insert_attempts": 1024000,
+          "measured_sql_transaction_count": 1024000,
+          "query_completion": "ReadyForQuery after implicit transaction completion",
+          "sql_transactions_per_request": 1
+        },
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "pg_account_updates": 1024000,
+          "pg_duplicate_conflicts": 0,
+          "pg_function_calls": 1024000,
+          "pg_ledger_insert_attempts": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 6,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "backend": "postgres",
+        "driver_query_delta": 1024000,
+        "internal_write_operations": 2048000,
+        "measured_select_requests": 0,
+        "measured_sql_transaction_count": 1024000
+      },
+      "repeat": 2,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 10830.584297865433,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2",
+      "source_inputs": [
+        {
+          "bytes": 775268,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/case-result.json",
+          "sha256": "1984570c3192e12106b14520ccb62ace79d1abcc4b3f526cdda7f8f02752f8e8"
+        },
+        {
+          "bytes": 17963,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/service/result.json",
+          "sha256": "8f878180d2033873fd1e43311cf795825ead8ddea06a9e29c33a723c9211b53d"
+        },
+        {
+          "bytes": 18859,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/service/events.jsonl",
+          "sha256": "f0fdb9257314eda1a1760a0e7115ba2bdeb3cff2d90f6cf020d7b9e158e7f267"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "passed",
+        "cli_exit_code": 0,
+        "events_valid": true,
+        "host_diskstats_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_postgres",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791895927786907502,
+      "window_seconds": 94.547068915,
+      "window_start_unix_ns": 1791895833239838587
+    },
+    {
+      "backend": "scylla",
+      "case_id": "scylla-rep2",
+      "case_kind": "formal",
+      "connections": null,
+      "database_counters": {
+        "backend_in_flight_peak": 512,
+        "measured_cql_request_count": 1024000,
+        "measured_lwt_count": 1024000,
+        "postgres_accounting": null,
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "cql_read_ledger": 0,
+          "cql_read_metadata": 0,
+          "cql_write_lwt": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "cql_write_lwt": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "cql_write_lwt": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 7,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "cql_requests_per_transaction": 1,
+        "cql_statement_count": 1,
+        "driver_query_delta": 1024000,
+        "measured_cql_request_count": 1024000,
+        "measured_ledger_select_requests": 0,
+        "measured_metadata_select_requests": 0,
+        "measured_select_requests": 0
+      },
+      "repeat": 2,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 15915.176417732799,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "seeding",
+          "preloading",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2",
+      "source_inputs": [
+        {
+          "bytes": 614040,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/runner-result.json",
+          "sha256": "225031d3d91e1af88dff829a44d20cb17b5533c1777f09833a1222b13a4977b9"
+        },
+        {
+          "bytes": 11805,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/service/result.json",
+          "sha256": "359a2d5730d5e8621a313652a0043bfc4d721059c525fad4af7ceb9da7e0da7e"
+        },
+        {
+          "bytes": 14945,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/service/events.jsonl",
+          "sha256": "d6eb6fe30567ebfaf10586007ba9cf3133db4db8abd7c9b3cb2171cbfe9babc8"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "clean",
+        "cli_exit_code": 0,
+        "counter_window_errors": [],
+        "events_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_scylla",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791896027509065016,
+      "window_seconds": 64.341102676,
+      "window_start_unix_ns": 1791895963167962340
+    },
+    {
+      "backend": "scylla",
+      "case_id": "scylla-rep3",
+      "case_kind": "formal",
+      "connections": null,
+      "database_counters": {
+        "backend_in_flight_peak": 512,
+        "measured_cql_request_count": 1024000,
+        "measured_lwt_count": 1024000,
+        "postgres_accounting": null,
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "cql_read_ledger": 0,
+          "cql_read_metadata": 0,
+          "cql_write_lwt": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "cql_write_lwt": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "cql_write_lwt": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 8,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "cql_requests_per_transaction": 1,
+        "cql_statement_count": 1,
+        "driver_query_delta": 1024000,
+        "measured_cql_request_count": 1024000,
+        "measured_ledger_select_requests": 0,
+        "measured_metadata_select_requests": 0,
+        "measured_select_requests": 0
+      },
+      "repeat": 3,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 15878.100818558682,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "seeding",
+          "preloading",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3",
+      "source_inputs": [
+        {
+          "bytes": 614153,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/runner-result.json",
+          "sha256": "2ac2a399d0de7d779f79c970c2e3d3adc121408ffd245c9c6e3334306a2a2394"
+        },
+        {
+          "bytes": 11804,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/service/result.json",
+          "sha256": "4b1cbb142167be731fab82859ebf4d9c7d902ce18fd03090b5464025d8c8c77b"
+        },
+        {
+          "bytes": 14945,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/service/events.jsonl",
+          "sha256": "0fe2e09fffc9368fed1e86419b14b613615e0018a0da26ee6f3358c72b0dd0de"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "clean",
+        "cli_exit_code": 0,
+        "counter_window_errors": [],
+        "events_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_scylla",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791896118532793619,
+      "window_seconds": 64.491340098,
+      "window_start_unix_ns": 1791896054041453521
+    },
+    {
+      "backend": "postgres",
+      "case_id": "postgres-rep3",
+      "case_kind": "formal",
+      "connections": 16,
+      "database_counters": {
+        "backend_in_flight_peak": 16,
+        "measured_cql_request_count": null,
+        "measured_lwt_count": null,
+        "postgres_accounting": {
+          "accepted_requests": 1024000,
+          "account_updates": 1024000,
+          "driver_query_calls_per_request": 1,
+          "driver_query_delta": 1024000,
+          "duplicate_conflicts": 0,
+          "function_calls": 1024000,
+          "internal_write_operations": 2048000,
+          "ledger_insert_attempts": 1024000,
+          "measured_sql_transaction_count": 1024000,
+          "query_completion": "ReadyForQuery after implicit transaction completion",
+          "sql_transactions_per_request": 1
+        },
+        "stage_metrics": {
+          "accepted_requests": 1024000,
+          "pg_account_updates": 1024000,
+          "pg_duplicate_conflicts": 0,
+          "pg_function_calls": 1024000,
+          "pg_ledger_insert_attempts": 1024000
+        }
+      },
+      "driver_counters": {
+        "connection_timeouts": 0,
+        "errors": 0,
+        "queries": 1024000,
+        "request_timeouts": 0,
+        "retries": 0,
+        "valid": true
+      },
+      "latencies_ms": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "latencies_ns": {
+        "account_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "admission_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "compute": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_queue_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "db_write": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "end_to_end": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "pool_wait": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "reply": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        },
+        "sql_transaction": {
+          "count": 1024000,
+          "max": null,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "p999": null
+        }
+      },
+      "order": 9,
+      "query_accounting": {
+        "accepted_requests": 1024000,
+        "account_state_source": "memory",
+        "backend": "postgres",
+        "driver_query_delta": 1024000,
+        "internal_write_operations": 2048000,
+        "measured_select_requests": 0,
+        "measured_sql_transaction_count": 1024000
+      },
+      "repeat": 3,
+      "requests": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "errors": 0,
+        "expected": 1024000,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "rps": 10873.842152934474,
+      "service_events": {
+        "event_count": 13,
+        "phase_counts": {
+          "awaiting_runner_audit": 1,
+          "client_end": 1,
+          "drained": 1,
+          "measuring": 1,
+          "preloading": 2,
+          "ready_to_measure": 1,
+          "runner_audit_released": 1,
+          "seeding": 2,
+          "startup": 1,
+          "verified": 1,
+          "verifying": 1
+        },
+        "phases_present": true,
+        "required_phases": [
+          "startup",
+          "seeding",
+          "preloading",
+          "ready_to_measure",
+          "measuring",
+          "client_end",
+          "drained",
+          "verifying",
+          "verified",
+          "awaiting_runner_audit",
+          "runner_audit_released"
+        ]
+      },
+      "source_base": "runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3",
+      "source_inputs": [
+        {
+          "bytes": 772819,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/case-result.json",
+          "sha256": "5247d72886bd2827cbcc4cbc69c265035861341813a1b492422266458b00dd17"
+        },
+        {
+          "bytes": 17963,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/service/result.json",
+          "sha256": "4f060ebe8301a5fb31c557257dc225c5dbab35716b20b236b7d056aeff55840d"
+        },
+        {
+          "bytes": 18845,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/service/events.jsonl",
+          "sha256": "f6c4c1112c32de1a45159afe578c00e0a559990b7ef7b8f68bb8d836a1f9fb1c"
+        }
+      ],
+      "validation": {
+        "case_status": "passed",
+        "cleanup_complete": true,
+        "cleanup_errors": [],
+        "cleanup_status": "passed",
+        "cli_exit_code": 0,
+        "events_valid": true,
+        "host_diskstats_valid": true,
+        "metrics_valid": true,
+        "monitor_window_valid": true,
+        "ready_valid": true,
+        "result_valid": true,
+        "service_status": "verified",
+        "service_valid": true
+      },
+      "verification": {
+        "account_state_source": "memory_cache_vs_postgres",
+        "accounts_expected": 1024,
+        "accounts_verified": 1024,
+        "complete": true,
+        "failures": 0,
+        "ledger_rows_expected": 1024000,
+        "ledger_rows_seen": 1024000,
+        "memory_cache_accounts_compared": 1024,
+        "valid": true
+      },
+      "window_end_unix_ns": 1791896239110500111,
+      "window_seconds": 94.170945798,
+      "window_start_unix_ns": 1791896144939554313
+    }
+  ],
+  "completed_case_count": 9,
+  "derivation": "normalized from original campaign, runner/case result, service result and event files; full sources remain in raw archive",
+  "planned_case_count": 9,
+  "run_id": "run-20261013T124123Z-3216cf07f3",
+  "run_manifest": {
+    "approved_contract_sha256": "07eccbb58d92c389be5325104e39f7e591f5423c8546a2edf4e3615614587cc7",
+    "approved_plan_sha256": "727023b961eacd735c67a2a4fb400c512af2ecab5e99c32d32832a77015e40e6",
+    "binary_sha256": "02ddf0f843ab8a7a15d2f20cc3ed35f6d7661fcbd1d4e4141250672fcba7e555",
+    "source": {
+      "bytes": 4623,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/run-manifest.json",
+      "sha256": "5a81d0fb2a028e75991d5e512d260894775381b5442a1b0861597fc569e08053"
+    },
+    "status": "complete_valid"
+  },
+  "schema_version": 1,
+  "source_inputs": [
+    {
+      "bytes": 18034,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/approved-plan.json",
+      "sha256": "727023b961eacd735c67a2a4fb400c512af2ecab5e99c32d32832a77015e40e6"
+    },
+    {
+      "bytes": 5287920,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/campaign.json",
+      "sha256": "243bd6d4494841732594e401369cbc59d3947bd65d75118cd20211fd9d608c02"
+    },
+    {
+      "bytes": 774475,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/case-result.json",
+      "sha256": "05e9901e51f9652c52fb3c9bb2535cfcc9487300bd0c347d1c08ae41ce44b3b9"
+    },
+    {
+      "bytes": 18921,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/service/events.jsonl",
+      "sha256": "ed8eb3abfc3b11c47f9efc83991e27bed0767e601ee1778dab9ae90a842b5685"
+    },
+    {
+      "bytes": 17975,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/service/result.json",
+      "sha256": "02f4fa47f7022ba04c6c91da4e2412784174adb1b97e698678ef13b429e67387"
+    },
+    {
+      "bytes": 784503,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/case-result.json",
+      "sha256": "471fcbc0948ee97a712d0e85efde55c81fa49080e4879c3e5289dc0899deea20"
+    },
+    {
+      "bytes": 19772,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/service/events.jsonl",
+      "sha256": "8f3c39341a6f1d9c4557cd686eda7f1e408ffe5019a2b3e1263eca0ad559e3ba"
+    },
+    {
+      "bytes": 22893,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/service/result.json",
+      "sha256": "36992ee63630747b638a480f1cd448fb53300cfa2d760c5a2207c1915643cfb4"
+    },
+    {
+      "bytes": 803896,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/case-result.json",
+      "sha256": "cd59e5d85912a85095ffd7984b3fc4501e3cbca164b3f6648684a2a11bc6e30f"
+    },
+    {
+      "bytes": 21426,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/service/events.jsonl",
+      "sha256": "e7f571ac5cede374db14e29d3cf5cd51bfca42cfa314e980e591d9d86927442f"
+    },
+    {
+      "bytes": 32725,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/service/result.json",
+      "sha256": "827474ed51b842c8e706cbf746322a05d314084e3a6e4bb4ae765e808d89f0f9"
+    },
+    {
+      "bytes": 773035,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/case-result.json",
+      "sha256": "0e3f7f4877490920787efb572e3f9a3998b195d989f21b3825be854b14064a1c"
+    },
+    {
+      "bytes": 18845,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/service/events.jsonl",
+      "sha256": "def2073ace33ff343a3d428ca7a349fef0fbf8df9fcf5c8f5fb40b3e8cf740aa"
+    },
+    {
+      "bytes": 17962,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/service/result.json",
+      "sha256": "ee135dddf8f437ab6f58ff6e98322363fddb8203d7b415fa7a1739a09f0ba209"
+    },
+    {
+      "bytes": 775268,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/case-result.json",
+      "sha256": "1984570c3192e12106b14520ccb62ace79d1abcc4b3f526cdda7f8f02752f8e8"
+    },
+    {
+      "bytes": 18859,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/service/events.jsonl",
+      "sha256": "f0fdb9257314eda1a1760a0e7115ba2bdeb3cff2d90f6cf020d7b9e158e7f267"
+    },
+    {
+      "bytes": 17963,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/service/result.json",
+      "sha256": "8f878180d2033873fd1e43311cf795825ead8ddea06a9e29c33a723c9211b53d"
+    },
+    {
+      "bytes": 772819,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/case-result.json",
+      "sha256": "5247d72886bd2827cbcc4cbc69c265035861341813a1b492422266458b00dd17"
+    },
+    {
+      "bytes": 18845,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/service/events.jsonl",
+      "sha256": "f6c4c1112c32de1a45159afe578c00e0a559990b7ef7b8f68bb8d836a1f9fb1c"
+    },
+    {
+      "bytes": 17963,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/service/result.json",
+      "sha256": "4f060ebe8301a5fb31c557257dc225c5dbab35716b20b236b7d056aeff55840d"
+    },
+    {
+      "bytes": 4623,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/run-manifest.json",
+      "sha256": "5a81d0fb2a028e75991d5e512d260894775381b5442a1b0861597fc569e08053"
+    },
+    {
+      "bytes": 614436,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/runner-result.json",
+      "sha256": "f9bcf1398aa4d6d71fd36854bf8fff37a001e1f90e93310aadf5b9625ede371a"
+    },
+    {
+      "bytes": 14945,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/service/events.jsonl",
+      "sha256": "7311470789c4496857f276f5b50c4796e8232a5c4a62b7380f7d66aa917db671"
+    },
+    {
+      "bytes": 11807,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/service/result.json",
+      "sha256": "8d808fbc5201631519beacfa7c98051e8deffd68754cb513821b2a9f7bd9160d"
+    },
+    {
+      "bytes": 614040,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/runner-result.json",
+      "sha256": "225031d3d91e1af88dff829a44d20cb17b5533c1777f09833a1222b13a4977b9"
+    },
+    {
+      "bytes": 14945,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/service/events.jsonl",
+      "sha256": "d6eb6fe30567ebfaf10586007ba9cf3133db4db8abd7c9b3cb2171cbfe9babc8"
+    },
+    {
+      "bytes": 11805,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/service/result.json",
+      "sha256": "359a2d5730d5e8621a313652a0043bfc4d721059c525fad4af7ceb9da7e0da7e"
+    },
+    {
+      "bytes": 614153,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/runner-result.json",
+      "sha256": "2ac2a399d0de7d779f79c970c2e3d3adc121408ffd245c9c6e3334306a2a2394"
+    },
+    {
+      "bytes": 14945,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/service/events.jsonl",
+      "sha256": "0fe2e09fffc9368fed1e86419b14b613615e0018a0da26ee6f3358c72b0dd0de"
+    },
+    {
+      "bytes": 11804,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/service/result.json",
+      "sha256": "4b1cbb142167be731fab82859ebf4d9c7d902ce18fd03090b5464025d8c8c77b"
+    }
+  ]
+}

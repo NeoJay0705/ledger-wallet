@@ -1,0 +1,1590 @@
+{
+  "case_resources": [
+    {
+      "backend": "postgres",
+      "case_id": "pg-calibration-D16",
+      "case_kind": "calibration",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 0,
+          "rios": 0,
+          "wbytes": 2044252160,
+          "wios": 271515
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+        "source_sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420",
+        "write_bytes": 2044252160
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 94618398385,
+        "bracket_duration_seconds": 94.618398385,
+        "counter_delta_usec": 148600213,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 78.52606656654095,
+        "end_sample_offset_from_window_ns": 99816192,
+        "end_sample_unix_ns": 1791895385770163653,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "PostgreSQL cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+        "source_sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420",
+        "start_sample_offset_from_window_ns": -279949022,
+        "start_sample_unix_ns": 1791895291151765268
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 870318080,
+        "maximum_memory_current_mib": 830.0,
+        "maximum_memory_peak_counter_bytes": 877191168,
+        "maximum_memory_sample_unix_ns": 1791895385160236156,
+        "maximum_swap_current_bytes": 0,
+        "oom_events_at_after_boundary": 0,
+        "oom_kill_events_at_after_boundary": 0,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+        "source_sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420"
+      },
+      "durability_counters": {
+        "kind": "PostgreSQL WAL statistics",
+        "note": "Asynchronously published PostgreSQL WAL/io counters; not equivalent to Scylla commitlog counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+        "source_sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420",
+        "wal_bytes": 389814194,
+        "wal_fsync_time_ms": 86006.26400000001,
+        "wal_fsyncs": 135753
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 60519,
+            "ios_in_progress": 0,
+            "read_ms": 6,
+            "reads_completed": 3,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 24,
+            "sectors_written": 4105512,
+            "weighted_io_ms": 64545,
+            "write_ms": 64539,
+            "writes_completed": 274327,
+            "writes_merged": 2277
+          },
+          "device_busy_percent": 63.04043528834673,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 2102022144,
+          "write_iops": 2857.564317213816,
+          "write_mib_per_second": 20.88165102668646
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791895386466198883,
+          "sample_interval_seconds": 96.000288899,
+          "start_sample_unix_ns": 1791895290465909984
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 51846,
+            "flush_requests": 136185,
+            "io_ms": 60431,
+            "ios_in_progress": 0,
+            "read_ms": 7,
+            "reads_completed": 3,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 24,
+            "sectors_written": 4105512,
+            "weighted_io_ms": 116391,
+            "write_ms": 64539,
+            "writes_completed": 274327,
+            "writes_merged": 2277
+          },
+          "device_busy_percent": 62.948768897537654,
+          "flush_requests": 136185,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 2102022144,
+          "write_iops": 2857.564317213816,
+          "write_mib_per_second": 20.88165102668646
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 94.238633171,
+        "end_unix_ns": 1791895385670347461,
+        "start_unix_ns": 1791895291431714290
+      },
+      "post_window_checkpoint": {
+        "cgroup_write_bytes": 133820416,
+        "cgroup_write_ios": 706,
+        "elapsed_seconds": 5.143249537,
+        "finish_unix_ns": 1791895392406353114,
+        "returncode": 0,
+        "scope": "after the CLI's last-reply measurement boundary; excluded from RPS",
+        "source": {
+          "bytes": 774475,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/case-result.json",
+          "sha256": "05e9901e51f9652c52fb3c9bb2535cfcc9487300bd0c347d1c08ae41ce44b3b9"
+        },
+        "start_unix_ns": 1791895387263103577
+      },
+      "postgres_pss": {
+        "maximum_pss_kb": 263539,
+        "maximum_pss_mib": 257.3623046875,
+        "maximum_sample_unix_ns": 1791895385160236156,
+        "rss_sum_not_used": true,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+        "source_sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420"
+      },
+      "source_inputs": [
+        {
+          "bytes": 3966088,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+          "sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420"
+        },
+        {
+          "bytes": 140487,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/disk-observer/samples.jsonl",
+          "sha256": "f8e896f7f73669e16177d9e223e33a11228751880f299079d38ab8bb1ba36c13"
+        },
+        {
+          "bytes": 774475,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/case-result.json",
+          "sha256": "05e9901e51f9652c52fb3c9bb2535cfcc9487300bd0c347d1c08ae41ce44b3b9"
+        }
+      ]
+    },
+    {
+      "backend": "postgres",
+      "case_id": "pg-calibration-D32",
+      "case_kind": "calibration",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 0,
+          "rios": 0,
+          "wbytes": 1555509248,
+          "wios": 154731
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+        "source_sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4",
+        "write_bytes": 1555509248
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 95133540549,
+        "bracket_duration_seconds": 95.133540549,
+        "counter_delta_usec": 171133514,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 89.9438373745036,
+        "end_sample_offset_from_window_ns": 1001338899,
+        "end_sample_unix_ns": 1791895503014404737,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "PostgreSQL cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+        "source_sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4",
+        "start_sample_offset_from_window_ns": -319552410,
+        "start_sample_unix_ns": 1791895407880864188
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 915177472,
+        "maximum_memory_current_mib": 872.78125,
+        "maximum_memory_peak_counter_bytes": 918712320,
+        "maximum_memory_sample_unix_ns": 1791895501890669366,
+        "maximum_swap_current_bytes": 0,
+        "oom_events_at_after_boundary": 0,
+        "oom_kill_events_at_after_boundary": 0,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+        "source_sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4"
+      },
+      "durability_counters": {
+        "kind": "PostgreSQL WAL statistics",
+        "note": "Asynchronously published PostgreSQL WAL/io counters; not equivalent to Scylla commitlog counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+        "source_sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4",
+        "wal_bytes": 386251277,
+        "wal_fsync_time_ms": 86403.162,
+        "wal_fsyncs": 77492
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 34673,
+            "ios_in_progress": 0,
+            "read_ms": 0,
+            "reads_completed": 0,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 0,
+            "sectors_written": 3131224,
+            "weighted_io_ms": 39205,
+            "write_ms": 39205,
+            "writes_completed": 156261,
+            "writes_merged": 1998
+          },
+          "device_busy_percent": 36.4978689443744,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 1603186688,
+          "write_iops": 1644.8514691883856,
+          "write_mib_per_second": 16.09386198198501
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791895502751270471,
+          "sample_interval_seconds": 95.000067135,
+          "start_sample_unix_ns": 1791895407751203336
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 29147,
+            "flush_requests": 77464,
+            "io_ms": 34627,
+            "ios_in_progress": 0,
+            "read_ms": 0,
+            "reads_completed": 0,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 0,
+            "sectors_written": 3131224,
+            "weighted_io_ms": 68351,
+            "write_ms": 39205,
+            "writes_completed": 156261,
+            "writes_merged": 1998
+          },
+          "device_busy_percent": 36.449447925961195,
+          "flush_requests": 77464,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 1603186688,
+          "write_iops": 1644.8514691883856,
+          "write_mib_per_second": 16.09386198198501
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 93.81264924,
+        "end_unix_ns": 1791895502013065838,
+        "start_unix_ns": 1791895408200416598
+      },
+      "post_window_checkpoint": {
+        "cgroup_write_bytes": 133935104,
+        "cgroup_write_ios": 731,
+        "elapsed_seconds": 0.955041656,
+        "finish_unix_ns": 1791895505137586348,
+        "returncode": 0,
+        "scope": "after the CLI's last-reply measurement boundary; excluded from RPS",
+        "source": {
+          "bytes": 784503,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/case-result.json",
+          "sha256": "471fcbc0948ee97a712d0e85efde55c81fa49080e4879c3e5289dc0899deea20"
+        },
+        "start_unix_ns": 1791895504182544692
+      },
+      "postgres_pss": {
+        "maximum_pss_kb": 301446,
+        "maximum_pss_mib": 294.380859375,
+        "maximum_sample_unix_ns": 1791895501890669366,
+        "rss_sum_not_used": true,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+        "source_sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4"
+      },
+      "source_inputs": [
+        {
+          "bytes": 3841689,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+          "sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4"
+        },
+        {
+          "bytes": 139121,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/disk-observer/samples.jsonl",
+          "sha256": "87b42e356f6b7d20429b4a65fb8a522fc64668e9ec3c8beba36bba659cba2391"
+        },
+        {
+          "bytes": 784503,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/case-result.json",
+          "sha256": "471fcbc0948ee97a712d0e85efde55c81fa49080e4879c3e5289dc0899deea20"
+        }
+      ]
+    },
+    {
+      "backend": "postgres",
+      "case_id": "pg-calibration-D64",
+      "case_kind": "calibration",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 0,
+          "rios": 0,
+          "wbytes": 1290670080,
+          "wios": 92555
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+        "source_sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7",
+        "write_bytes": 1290670080
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 105638319542,
+        "bracket_duration_seconds": 105.638319542,
+        "counter_delta_usec": 203213818,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 96.18376119624169,
+        "end_sample_offset_from_window_ns": 869898951,
+        "end_sample_unix_ns": 1791895615799845143,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "PostgreSQL cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+        "source_sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7",
+        "start_sample_offset_from_window_ns": -398847136,
+        "start_sample_unix_ns": 1791895510161525601
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 995835904,
+        "maximum_memory_current_mib": 949.703125,
+        "maximum_memory_peak_counter_bytes": 1001140224,
+        "maximum_memory_sample_unix_ns": 1791895614135728394,
+        "maximum_swap_current_bytes": 0,
+        "oom_events_at_after_boundary": 0,
+        "oom_kill_events_at_after_boundary": 0,
+        "sample_count_in_measurement_window": 89,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+        "source_sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7"
+      },
+      "durability_counters": {
+        "kind": "PostgreSQL WAL statistics",
+        "note": "Asynchronously published PostgreSQL WAL/io counters; not equivalent to Scylla commitlog counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+        "source_sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7",
+        "wal_bytes": 384183315,
+        "wal_fsync_time_ms": 97764.32900000001,
+        "wal_fsyncs": 46507
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 22163,
+            "ios_in_progress": 0,
+            "read_ms": 12,
+            "reads_completed": 2,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 16,
+            "sectors_written": 2620536,
+            "weighted_io_ms": 26385,
+            "write_ms": 26373,
+            "writes_completed": 94082,
+            "writes_merged": 2217
+          },
+          "device_busy_percent": 21.107610371989136,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 1341714432,
+          "write_iops": 896.0186793383034,
+          "write_mib_per_second": 12.186267312640588
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791895615474341453,
+          "sample_interval_seconds": 105.000043157,
+          "start_sample_unix_ns": 1791895510474298296
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 18189,
+            "flush_requests": 46377,
+            "io_ms": 22113,
+            "ios_in_progress": 0,
+            "read_ms": 11,
+            "reads_completed": 2,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 16,
+            "sectors_written": 2620536,
+            "weighted_io_ms": 44574,
+            "write_ms": 26374,
+            "writes_completed": 94082,
+            "writes_merged": 2217
+          },
+          "device_busy_percent": 21.059991343942418,
+          "flush_requests": 46377,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 1341714432,
+          "write_iops": 896.0186793383034,
+          "write_mib_per_second": 12.186267312640588
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 104.369573455,
+        "end_unix_ns": 1791895614929946192,
+        "start_unix_ns": 1791895510560372737
+      },
+      "post_window_checkpoint": {
+        "cgroup_write_bytes": 135012352,
+        "cgroup_write_ios": 820,
+        "elapsed_seconds": 0.984240862,
+        "finish_unix_ns": 1791895619117321006,
+        "returncode": 0,
+        "scope": "after the CLI's last-reply measurement boundary; excluded from RPS",
+        "source": {
+          "bytes": 803896,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/case-result.json",
+          "sha256": "cd59e5d85912a85095ffd7984b3fc4501e3cbca164b3f6648684a2a11bc6e30f"
+        },
+        "start_unix_ns": 1791895618133080144
+      },
+      "postgres_pss": {
+        "maximum_pss_kb": 367806,
+        "maximum_pss_mib": 359.185546875,
+        "maximum_sample_unix_ns": 1791895614135728394,
+        "rss_sum_not_used": true,
+        "sample_count_in_measurement_window": 89,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+        "source_sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7"
+      },
+      "source_inputs": [
+        {
+          "bytes": 3713926,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+          "sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7"
+        },
+        {
+          "bytes": 151294,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/disk-observer/samples.jsonl",
+          "sha256": "b3d6e44d459e0384c8ab5fe9b2288c2df3eb2e49ecd3471face7c157caddeb32"
+        },
+        {
+          "bytes": 803896,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/case-result.json",
+          "sha256": "cd59e5d85912a85095ffd7984b3fc4501e3cbca164b3f6648684a2a11bc6e30f"
+        }
+      ]
+    },
+    {
+      "backend": "scylla",
+      "case_id": "scylla-rep1",
+      "case_kind": "formal",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 60493824,
+          "rios": 1187,
+          "wbytes": 3487571968,
+          "wios": 71288
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/proc/samples.jsonl",
+        "source_sha256": "3a2451eb95a90d40ec76863d6258bf0da5ca6942e73d29d8587419a991f6eb82",
+        "write_bytes": 3487571968
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 65221789105,
+        "bracket_duration_seconds": 65.221789105,
+        "counter_delta_usec": 121905249,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 93.45438899548262,
+        "end_sample_offset_from_window_ns": 18745139,
+        "end_sample_unix_ns": 1791895704219856453,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "Scylla cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/proc/samples.jsonl",
+        "source_sha256": "3a2451eb95a90d40ec76863d6258bf0da5ca6942e73d29d8587419a991f6eb82",
+        "start_sample_offset_from_window_ns": -2826663,
+        "start_sample_unix_ns": 1791895638998067348
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 3058282496,
+        "maximum_memory_current_mib": 2916.60546875,
+        "maximum_memory_peak_counter_bytes": 3058282496,
+        "maximum_memory_sample_unix_ns": 1791895704005653539,
+        "maximum_swap_current_bytes": null,
+        "oom_events_at_after_boundary": null,
+        "oom_kill_events_at_after_boundary": null,
+        "sample_count_in_measurement_window": 65,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/proc/samples.jsonl",
+        "source_sha256": "3a2451eb95a90d40ec76863d6258bf0da5ca6942e73d29d8587419a991f6eb82"
+      },
+      "durability_counters": {
+        "commitlog_bytes_written": 3387420672.0,
+        "commitlog_flush_count": 39156.0,
+        "kind": "Scylla commitlog metric deltas",
+        "note": "Scylla commitlog counters are not request counts and are not equivalent to PostgreSQL WAL/fsync counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/runner-result.json",
+        "source_sha256": "f9bcf1398aa4d6d71fd36854bf8fff37a001e1f90e93310aadf5b9625ede371a"
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 29783,
+            "ios_in_progress": 0,
+            "read_ms": 975,
+            "reads_completed": 1157,
+            "reads_merged": 32,
+            "sectors_discarded": 0,
+            "sectors_read": 118432,
+            "sectors_written": 7543184,
+            "weighted_io_ms": 43125,
+            "write_ms": 42150,
+            "writes_completed": 123345,
+            "writes_merged": 61788
+          },
+          "device_busy_percent": 45.12570063054199,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 3862110208,
+          "write_iops": 1868.861278002284,
+          "write_mib_per_second": 55.80591916049108
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791895704315733723,
+          "sample_interval_seconds": 66.000083287,
+          "start_sample_unix_ns": 1791895638315650436
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 19413,
+            "flush_requests": 49634,
+            "io_ms": 23869,
+            "ios_in_progress": 0,
+            "read_ms": 974,
+            "reads_completed": 1157,
+            "reads_merged": 32,
+            "sectors_discarded": 0,
+            "sectors_read": 118432,
+            "sectors_written": 7543184,
+            "weighted_io_ms": 62539,
+            "write_ms": 42150,
+            "writes_completed": 123345,
+            "writes_merged": 61788
+          },
+          "device_busy_percent": 36.16510587752767,
+          "flush_requests": 49634,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 3862110208,
+          "write_iops": 1868.861278002284,
+          "write_mib_per_second": 55.80591916049108
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 65.200217303,
+        "end_unix_ns": 1791895704201111314,
+        "start_unix_ns": 1791895639000894011
+      },
+      "post_window_checkpoint": null,
+      "postgres_pss": null,
+      "source_inputs": [
+        {
+          "bytes": 578764,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/proc/samples.jsonl",
+          "sha256": "3a2451eb95a90d40ec76863d6258bf0da5ca6942e73d29d8587419a991f6eb82"
+        },
+        {
+          "bytes": 140485,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/scylla-host-observers/scylla-rep1/samples.jsonl",
+          "sha256": "be5855ae04944c1598f858798090209bfd0f8c12d7fef9a1ec8d720e84541c14"
+        },
+        {
+          "bytes": 614436,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/runner-result.json",
+          "sha256": "f9bcf1398aa4d6d71fd36854bf8fff37a001e1f90e93310aadf5b9625ede371a"
+        }
+      ]
+    },
+    {
+      "backend": "postgres",
+      "case_id": "postgres-rep1",
+      "case_kind": "formal",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 0,
+          "rios": 0,
+          "wbytes": 2039705600,
+          "wios": 272069
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+        "source_sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034",
+        "write_bytes": 2039705600
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 95008459896,
+        "bracket_duration_seconds": 95.008459896,
+        "counter_delta_usec": 149023241,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 78.42630075423111,
+        "end_sample_offset_from_window_ns": 68971144,
+        "end_sample_unix_ns": 1791895825128743690,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "PostgreSQL cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+        "source_sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034",
+        "start_sample_offset_from_window_ns": -292078551,
+        "start_sample_unix_ns": 1791895730120283794
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 868589568,
+        "maximum_memory_current_mib": 828.3515625,
+        "maximum_memory_peak_counter_bytes": 875724800,
+        "maximum_memory_sample_unix_ns": 1791895824128659587,
+        "maximum_swap_current_bytes": 0,
+        "oom_events_at_after_boundary": 0,
+        "oom_kill_events_at_after_boundary": 0,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+        "source_sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034"
+      },
+      "durability_counters": {
+        "kind": "PostgreSQL WAL statistics",
+        "note": "Asynchronously published PostgreSQL WAL/io counters; not equivalent to Scylla commitlog counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+        "source_sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034",
+        "wal_bytes": 381891095,
+        "wal_fsync_time_ms": 86154.24300000002,
+        "wal_fsyncs": 135473
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 60535,
+            "ios_in_progress": 0,
+            "read_ms": 0,
+            "reads_completed": 0,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 0,
+            "sectors_written": 4109616,
+            "weighted_io_ms": 64862,
+            "write_ms": 64862,
+            "writes_completed": 274970,
+            "writes_merged": 2393
+          },
+          "device_busy_percent": 63.05712585072896,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 2104123392,
+          "write_iops": 2864.2633014247854,
+          "write_mib_per_second": 20.902532925019592
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791895825426801403,
+          "sample_interval_seconds": 96.000252443,
+          "start_sample_unix_ns": 1791895729426548960
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 51936,
+            "flush_requests": 136483,
+            "io_ms": 60462,
+            "ios_in_progress": 0,
+            "read_ms": 0,
+            "reads_completed": 0,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 0,
+            "sectors_written": 4109616,
+            "weighted_io_ms": 116799,
+            "write_ms": 64863,
+            "writes_completed": 274970,
+            "writes_merged": 2393
+          },
+          "device_busy_percent": 62.98108438402203,
+          "flush_requests": 136483,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 2104123392,
+          "write_iops": 2864.2633014247854,
+          "write_mib_per_second": 20.902532925019592
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 94.647410201,
+        "end_unix_ns": 1791895825059772546,
+        "start_unix_ns": 1791895730412362345
+      },
+      "post_window_checkpoint": {
+        "cgroup_write_bytes": 133451776,
+        "cgroup_write_ios": 696,
+        "elapsed_seconds": 0.934654308,
+        "finish_unix_ns": 1791895827917869433,
+        "returncode": 0,
+        "scope": "after the CLI's last-reply measurement boundary; excluded from RPS",
+        "source": {
+          "bytes": 773035,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/case-result.json",
+          "sha256": "0e3f7f4877490920787efb572e3f9a3998b195d989f21b3825be854b14064a1c"
+        },
+        "start_unix_ns": 1791895826983215125
+      },
+      "postgres_pss": {
+        "maximum_pss_kb": 262750,
+        "maximum_pss_mib": 256.591796875,
+        "maximum_sample_unix_ns": 1791895824128659587,
+        "rss_sum_not_used": true,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+        "source_sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034"
+      },
+      "source_inputs": [
+        {
+          "bytes": 3841336,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+          "sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034"
+        },
+        {
+          "bytes": 136390,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/disk-observer/samples.jsonl",
+          "sha256": "1e2a3f7dee00af8eef6bf9ceaa919809e7017935d1415ffe35fbae2672091bbc"
+        },
+        {
+          "bytes": 773035,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/case-result.json",
+          "sha256": "0e3f7f4877490920787efb572e3f9a3998b195d989f21b3825be854b14064a1c"
+        }
+      ]
+    },
+    {
+      "backend": "postgres",
+      "case_id": "postgres-rep2",
+      "case_kind": "formal",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 0,
+          "rios": 0,
+          "wbytes": 2034888704,
+          "wios": 271591
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+        "source_sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27",
+        "write_bytes": 2034888704
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 95008410037,
+        "bracket_duration_seconds": 95.008410037,
+        "counter_delta_usec": 148774823,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 78.29560716891338,
+        "end_sample_offset_from_window_ns": 171809586,
+        "end_sample_unix_ns": 1791895927958717088,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "PostgreSQL cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+        "source_sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27",
+        "start_sample_offset_from_window_ns": -289531536,
+        "start_sample_unix_ns": 1791895832950307051
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 868978688,
+        "maximum_memory_current_mib": 828.72265625,
+        "maximum_memory_peak_counter_bytes": 875991040,
+        "maximum_memory_sample_unix_ns": 1791895926958628177,
+        "maximum_swap_current_bytes": 0,
+        "oom_events_at_after_boundary": 0,
+        "oom_kill_events_at_after_boundary": 0,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+        "source_sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27"
+      },
+      "durability_counters": {
+        "kind": "PostgreSQL WAL statistics",
+        "note": "Asynchronously published PostgreSQL WAL/io counters; not equivalent to Scylla commitlog counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+        "source_sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27",
+        "wal_bytes": 391329372,
+        "wal_fsync_time_ms": 86084.661,
+        "wal_fsyncs": 135449
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 60672,
+            "ios_in_progress": 0,
+            "read_ms": 0,
+            "reads_completed": 0,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 0,
+            "sectors_written": 4086192,
+            "weighted_io_ms": 64195,
+            "write_ms": 64195,
+            "writes_completed": 273888,
+            "writes_merged": 2353
+          },
+          "device_busy_percent": 63.19983728411893,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 2092130304,
+          "write_iops": 2852.9926546137867,
+          "write_mib_per_second": 20.78339375617985
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791895928266217978,
+          "sample_interval_seconds": 96.000247164,
+          "start_sample_unix_ns": 1791895832265970814
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 51843,
+            "flush_requests": 136238,
+            "io_ms": 60605,
+            "ios_in_progress": 0,
+            "read_ms": 0,
+            "reads_completed": 0,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 0,
+            "sectors_written": 4086192,
+            "weighted_io_ms": 116038,
+            "write_ms": 64195,
+            "writes_completed": 273888,
+            "writes_merged": 2353
+          },
+          "device_busy_percent": 63.130045797139175,
+          "flush_requests": 136238,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 2092130304,
+          "write_iops": 2852.9926546137867,
+          "write_mib_per_second": 20.78339375617985
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 94.547068915,
+        "end_unix_ns": 1791895927786907502,
+        "start_unix_ns": 1791895833239838587
+      },
+      "post_window_checkpoint": {
+        "cgroup_write_bytes": 133459968,
+        "cgroup_write_ios": 700,
+        "elapsed_seconds": 5.625555419,
+        "finish_unix_ns": 1791895935294114970,
+        "returncode": 0,
+        "scope": "after the CLI's last-reply measurement boundary; excluded from RPS",
+        "source": {
+          "bytes": 775268,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/case-result.json",
+          "sha256": "1984570c3192e12106b14520ccb62ace79d1abcc4b3f526cdda7f8f02752f8e8"
+        },
+        "start_unix_ns": 1791895929668559551
+      },
+      "postgres_pss": {
+        "maximum_pss_kb": 262759,
+        "maximum_pss_mib": 256.6005859375,
+        "maximum_sample_unix_ns": 1791895926958628177,
+        "rss_sum_not_used": true,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+        "source_sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27"
+      },
+      "source_inputs": [
+        {
+          "bytes": 4037387,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+          "sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27"
+        },
+        {
+          "bytes": 143005,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/disk-observer/samples.jsonl",
+          "sha256": "0cec3344a4e5213befb976a88a5d8fd5ad15893d2c9114542acb89a12a3fb162"
+        },
+        {
+          "bytes": 775268,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/case-result.json",
+          "sha256": "1984570c3192e12106b14520ccb62ace79d1abcc4b3f526cdda7f8f02752f8e8"
+        }
+      ]
+    },
+    {
+      "backend": "scylla",
+      "case_id": "scylla-rep2",
+      "case_kind": "formal",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 64655360,
+          "rios": 1199,
+          "wbytes": 3491577856,
+          "wios": 71517
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/proc/samples.jsonl",
+        "source_sha256": "00730f2129a3b8a1420217c4972d236977afdb52cd4081dae569872ab2725b48",
+        "write_bytes": 3491577856
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 64414547248,
+        "bracket_duration_seconds": 64.414547248,
+        "counter_delta_usec": 119800153,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 92.99153538932904,
+        "end_sample_offset_from_window_ns": 65478449,
+        "end_sample_unix_ns": 1791896027574543465,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "Scylla cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/proc/samples.jsonl",
+        "source_sha256": "00730f2129a3b8a1420217c4972d236977afdb52cd4081dae569872ab2725b48",
+        "start_sample_offset_from_window_ns": -7966123,
+        "start_sample_unix_ns": 1791895963159996217
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 3041157120,
+        "maximum_memory_current_mib": 2900.2734375,
+        "maximum_memory_peak_counter_bytes": 3041157120,
+        "maximum_memory_sample_unix_ns": 1791896027165786440,
+        "maximum_swap_current_bytes": null,
+        "oom_events_at_after_boundary": null,
+        "oom_kill_events_at_after_boundary": null,
+        "sample_count_in_measurement_window": 64,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/proc/samples.jsonl",
+        "source_sha256": "00730f2129a3b8a1420217c4972d236977afdb52cd4081dae569872ab2725b48"
+      },
+      "durability_counters": {
+        "commitlog_bytes_written": 3386032128.0,
+        "commitlog_flush_count": 39071.0,
+        "kind": "Scylla commitlog metric deltas",
+        "note": "Scylla commitlog counters are not request counts and are not equivalent to PostgreSQL WAL/fsync counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/runner-result.json",
+        "source_sha256": "225031d3d91e1af88dff829a44d20cb17b5533c1777f09833a1222b13a4977b9"
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 30410,
+            "ios_in_progress": 0,
+            "read_ms": 1081,
+            "reads_completed": 1161,
+            "reads_merged": 38,
+            "sectors_discarded": 0,
+            "sectors_read": 126280,
+            "sectors_written": 7512976,
+            "weighted_io_ms": 42751,
+            "write_ms": 41670,
+            "writes_completed": 122402,
+            "writes_merged": 55662
+          },
+          "device_busy_percent": 46.78473797646372,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 3846643712,
+          "write_iops": 1883.1126267001355,
+          "write_mib_per_second": 56.437768078362076
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791896028135783607,
+          "sample_interval_seconds": 64.999829678,
+          "start_sample_unix_ns": 1791895963135953929
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 19323,
+            "flush_requests": 49346,
+            "io_ms": 24623,
+            "ios_in_progress": 0,
+            "read_ms": 1081,
+            "reads_completed": 1161,
+            "reads_merged": 38,
+            "sectors_discarded": 0,
+            "sectors_read": 126280,
+            "sectors_written": 7512976,
+            "weighted_io_ms": 62074,
+            "write_ms": 41671,
+            "writes_completed": 122402,
+            "writes_merged": 55662
+          },
+          "device_busy_percent": 37.88163772425078,
+          "flush_requests": 49346,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 3846643712,
+          "write_iops": 1883.1126267001355,
+          "write_mib_per_second": 56.437768078362076
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 64.341102676,
+        "end_unix_ns": 1791896027509065016,
+        "start_unix_ns": 1791895963167962340
+      },
+      "post_window_checkpoint": null,
+      "postgres_pss": null,
+      "source_inputs": [
+        {
+          "bytes": 570301,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/proc/samples.jsonl",
+          "sha256": "00730f2129a3b8a1420217c4972d236977afdb52cd4081dae569872ab2725b48"
+        },
+        {
+          "bytes": 128206,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/scylla-host-observers/scylla-rep2/samples.jsonl",
+          "sha256": "57746dcc45ccdb0e764944fa86e2bfd337aa6f922c51f09fa214722393a1279b"
+        },
+        {
+          "bytes": 614040,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/runner-result.json",
+          "sha256": "225031d3d91e1af88dff829a44d20cb17b5533c1777f09833a1222b13a4977b9"
+        }
+      ]
+    },
+    {
+      "backend": "scylla",
+      "case_id": "scylla-rep3",
+      "case_kind": "formal",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 60268544,
+          "rios": 1166,
+          "wbytes": 3485941760,
+          "wios": 71237
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/proc/samples.jsonl",
+        "source_sha256": "59fc9841bd93c16ddc708a5cced656e61174df0ccdde17762de6bf50aebb33cb",
+        "write_bytes": 3485941760
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 64611611845,
+        "bracket_duration_seconds": 64.611611845,
+        "counter_delta_usec": 120579110,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 93.31071192687718,
+        "end_sample_offset_from_window_ns": 97605875,
+        "end_sample_unix_ns": 1791896118630399494,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "Scylla cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/proc/samples.jsonl",
+        "source_sha256": "59fc9841bd93c16ddc708a5cced656e61174df0ccdde17762de6bf50aebb33cb",
+        "start_sample_offset_from_window_ns": -22665872,
+        "start_sample_unix_ns": 1791896054018787649
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 3015163904,
+        "maximum_memory_current_mib": 2875.484375,
+        "maximum_memory_peak_counter_bytes": 3015163904,
+        "maximum_memory_sample_unix_ns": 1791896118024987781,
+        "maximum_swap_current_bytes": null,
+        "oom_events_at_after_boundary": null,
+        "oom_kill_events_at_after_boundary": null,
+        "sample_count_in_measurement_window": 64,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/proc/samples.jsonl",
+        "source_sha256": "59fc9841bd93c16ddc708a5cced656e61174df0ccdde17762de6bf50aebb33cb"
+      },
+      "durability_counters": {
+        "commitlog_bytes_written": 3373613056.0,
+        "commitlog_flush_count": 38556.0,
+        "kind": "Scylla commitlog metric deltas",
+        "note": "Scylla commitlog counters are not request counts and are not equivalent to PostgreSQL WAL/fsync counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/runner-result.json",
+        "source_sha256": "2ac2a399d0de7d779f79c970c2e3d3adc121408ffd245c9c6e3334306a2a2394"
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 29853,
+            "ios_in_progress": 0,
+            "read_ms": 909,
+            "reads_completed": 1132,
+            "reads_merged": 34,
+            "sectors_discarded": 0,
+            "sectors_read": 117712,
+            "sectors_written": 7542216,
+            "weighted_io_ms": 42695,
+            "write_ms": 41786,
+            "writes_completed": 123110,
+            "writes_merged": 61752
+          },
+          "device_busy_percent": 45.927695239999,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 3861614592,
+          "write_iops": 1894.000120924623,
+          "write_mib_per_second": 56.65727525196449
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791896118542320523,
+          "sample_interval_seconds": 64.99999585,
+          "start_sample_unix_ns": 1791896053542324673
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 19330,
+            "flush_requests": 49443,
+            "io_ms": 24052,
+            "ios_in_progress": 0,
+            "read_ms": 908,
+            "reads_completed": 1132,
+            "reads_merged": 34,
+            "sectors_discarded": 0,
+            "sectors_read": 117712,
+            "sectors_written": 7542216,
+            "weighted_io_ms": 62025,
+            "write_ms": 41786,
+            "writes_completed": 123110,
+            "writes_merged": 61752
+          },
+          "device_busy_percent": 37.003079285581215,
+          "flush_requests": 49443,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 3861614592,
+          "write_iops": 1894.000120924623,
+          "write_mib_per_second": 56.65727525196449
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 64.491340098,
+        "end_unix_ns": 1791896118532793619,
+        "start_unix_ns": 1791896054041453521
+      },
+      "post_window_checkpoint": null,
+      "postgres_pss": null,
+      "source_inputs": [
+        {
+          "bytes": 570391,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/proc/samples.jsonl",
+          "sha256": "59fc9841bd93c16ddc708a5cced656e61174df0ccdde17762de6bf50aebb33cb"
+        },
+        {
+          "bytes": 141850,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/scylla-host-observers/scylla-rep3/samples.jsonl",
+          "sha256": "f637744096933592641d91dad329bffb8b40e87c8a78ec4bed6b2db7852194a9"
+        },
+        {
+          "bytes": 614153,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/runner-result.json",
+          "sha256": "2ac2a399d0de7d779f79c970c2e3d3adc121408ffd245c9c6e3334306a2a2394"
+        }
+      ]
+    },
+    {
+      "backend": "postgres",
+      "case_id": "postgres-rep3",
+      "case_kind": "formal",
+      "cgroup_io_window": {
+        "counters": {
+          "dbytes": 0,
+          "dios": 0,
+          "rbytes": 49152,
+          "rios": 2,
+          "wbytes": 2047397888,
+          "wios": 271266
+        },
+        "device": "8:16",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+        "source_sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2",
+        "write_bytes": 2047397888
+      },
+      "database_cpu": {
+        "bracket_duration_ns": 94614067935,
+        "bracket_duration_seconds": 94.614067935,
+        "counter_delta_usec": 147957075,
+        "cpu_count_denominator": 2,
+        "cpu_percent": 78.18978627028632,
+        "end_sample_offset_from_window_ns": 153194256,
+        "end_sample_unix_ns": 1791896239263694367,
+        "formula": "usage_usec delta / bracket elapsed usec / 2 database CPUs * 100",
+        "scope": "PostgreSQL cgroup v2 cpu.stat",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+        "source_sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2",
+        "start_sample_offset_from_window_ns": -289927881,
+        "start_sample_unix_ns": 1791896144649626432
+      },
+      "database_memory": {
+        "maximum_memory_current_bytes": 869036032,
+        "maximum_memory_current_mib": 828.77734375,
+        "maximum_memory_peak_counter_bytes": 876441600,
+        "maximum_memory_sample_unix_ns": 1791896238657762773,
+        "maximum_swap_current_bytes": 0,
+        "oom_events_at_after_boundary": 0,
+        "oom_kill_events_at_after_boundary": 0,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+        "source_sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2"
+      },
+      "durability_counters": {
+        "kind": "PostgreSQL WAL statistics",
+        "note": "Asynchronously published PostgreSQL WAL/io counters; not equivalent to Scylla commitlog counters.",
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+        "source_sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2",
+        "wal_bytes": 394033043,
+        "wal_fsync_time_ms": 86156.79299999999,
+        "wal_fsyncs": 135818
+      },
+      "host_diskstats": {
+        "additive_rule": "whole device 8:16 and partition 8:18 are alternate views; never add counters",
+        "data_device_partition": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 60557,
+            "ios_in_progress": 0,
+            "read_ms": 17,
+            "reads_completed": 3,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 104,
+            "sectors_written": 4087992,
+            "weighted_io_ms": 63880,
+            "write_ms": 63862,
+            "writes_completed": 273253,
+            "writes_merged": 2170
+          },
+          "device_busy_percent": 63.08002639739553,
+          "flush_requests": 0,
+          "major_minor": "8:18",
+          "name": "sdb2",
+          "write_bytes": 2093051904,
+          "write_iops": 2846.377207121806,
+          "write_mib_per_second": 20.792542569037952
+        },
+        "formula": "counter deltas / sample interval; sectors use 512 bytes; MiB uses 1024^2",
+        "source_window": {
+          "end_sample_unix_ns": 1791896239967412168,
+          "sample_interval_seconds": 96.000276884,
+          "start_sample_unix_ns": 1791896143967135284
+        },
+        "whole_device": {
+          "counter_deltas": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 51803,
+            "flush_requests": 136063,
+            "io_ms": 60491,
+            "ios_in_progress": 0,
+            "read_ms": 17,
+            "reads_completed": 3,
+            "reads_merged": 0,
+            "sectors_discarded": 0,
+            "sectors_read": 104,
+            "sectors_written": 4087992,
+            "weighted_io_ms": 115683,
+            "write_ms": 63862,
+            "writes_completed": 273253,
+            "writes_merged": 2170
+          },
+          "device_busy_percent": 63.01127659568427,
+          "flush_requests": 136063,
+          "major_minor": "8:16",
+          "name": "sdb",
+          "write_bytes": 2093051904,
+          "write_iops": 2846.377207121806,
+          "write_mib_per_second": 20.792542569037952
+        }
+      },
+      "measurement_window": {
+        "duration_seconds": 94.170945798,
+        "end_unix_ns": 1791896239110500111,
+        "start_unix_ns": 1791896144939554313
+      },
+      "post_window_checkpoint": {
+        "cgroup_write_bytes": 133173248,
+        "cgroup_write_ios": 697,
+        "elapsed_seconds": 0.938897783,
+        "finish_unix_ns": 1791896241635960144,
+        "returncode": 0,
+        "scope": "after the CLI's last-reply measurement boundary; excluded from RPS",
+        "source": {
+          "bytes": 772819,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/case-result.json",
+          "sha256": "5247d72886bd2827cbcc4cbc69c265035861341813a1b492422266458b00dd17"
+        },
+        "start_unix_ns": 1791896240697062361
+      },
+      "postgres_pss": {
+        "maximum_pss_kb": 262848,
+        "maximum_pss_mib": 256.6875,
+        "maximum_sample_unix_ns": 1791896238657762773,
+        "rss_sum_not_used": true,
+        "sample_count_in_measurement_window": 94,
+        "source": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+        "source_sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2"
+      },
+      "source_inputs": [
+        {
+          "bytes": 3770845,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+          "sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2"
+        },
+        {
+          "bytes": 135026,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/disk-observer/samples.jsonl",
+          "sha256": "45a253e8fa74f1e7a38724f808d719e18927f55d4bcfed65ccacd4107904cec5"
+        },
+        {
+          "bytes": 772819,
+          "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/case-result.json",
+          "sha256": "5247d72886bd2827cbcc4cbc69c265035861341813a1b492422266458b00dd17"
+        }
+      ]
+    }
+  ],
+  "derivation": "rebuilt from original PostgreSQL monitor samples, Scylla proc samples, host disk observer samples and case/runner result files",
+  "formulas": {
+    "cgroup_io": "8:16 io.stat boundary counter delta; wbytes is container write bytes",
+    "database_cpu": "cgroup usage_usec delta between nearest sample at/before window start and nearest sample at/after window end, divided by bracket duration and two assigned database CPUs, multiplied by 100",
+    "database_memory": "maximum cgroup memory.current at samples inside measured window; MiB = bytes / 1024^2",
+    "host_diskstats": "nearest host samples bracketing request window; rates use host-sample interval and diskstats sectors * 512; MiB = bytes / 1024^2",
+    "post_window_checkpoint": "PostgreSQL checkpoint and cgroup write bytes are after the measured request window, outside RPS and in-window resource metrics",
+    "postgres_pss": "maximum summed PostgreSQL process PSS in-window; MiB = KB / 1024; backend RSS is not summed",
+    "postgres_swap_oom": "maximum sampled memory.swap.current and ending memory.events counters",
+    "wal_vs_commitlog": "PostgreSQL WAL/fsync and Scylla commitlog counters have different semantics and are not compared one-to-one or treated as request counts",
+    "whole_vs_partition": "whole device 8:16 and data partition 8:18 are alternate views; never add their counters",
+    "window": "request window uses exact client start/end Unix-ns timestamps; samples carry their offset and inside/before/after relation"
+  },
+  "run_id": "run-20261013T124123Z-3216cf07f3",
+  "schema_version": 1,
+  "source_inputs": [
+    {
+      "bytes": 18034,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/approved-plan.json",
+      "sha256": "727023b961eacd735c67a2a4fb400c512af2ecab5e99c32d32832a77015e40e6"
+    },
+    {
+      "bytes": 5287920,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/campaign.json",
+      "sha256": "243bd6d4494841732594e401369cbc59d3947bd65d75118cd20211fd9d608c02"
+    },
+    {
+      "bytes": 774475,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/case-result.json",
+      "sha256": "05e9901e51f9652c52fb3c9bb2535cfcc9487300bd0c347d1c08ae41ce44b3b9"
+    },
+    {
+      "bytes": 140487,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/disk-observer/samples.jsonl",
+      "sha256": "f8e896f7f73669e16177d9e223e33a11228751880f299079d38ab8bb1ba36c13"
+    },
+    {
+      "bytes": 3966088,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D16/postgres-monitor/samples.jsonl",
+      "sha256": "72d0839b07c62869d522b577503972131f69bb65d131d4814c8dfa14fa2fd420"
+    },
+    {
+      "bytes": 784503,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/case-result.json",
+      "sha256": "471fcbc0948ee97a712d0e85efde55c81fa49080e4879c3e5289dc0899deea20"
+    },
+    {
+      "bytes": 139121,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/disk-observer/samples.jsonl",
+      "sha256": "87b42e356f6b7d20429b4a65fb8a522fc64668e9ec3c8beba36bba659cba2391"
+    },
+    {
+      "bytes": 3841689,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D32/postgres-monitor/samples.jsonl",
+      "sha256": "b23c9ea5fa66f8dbda4bfbe8ce5fa1b453a8e24d3bbe1ca0623c10d984b878e4"
+    },
+    {
+      "bytes": 803896,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/case-result.json",
+      "sha256": "cd59e5d85912a85095ffd7984b3fc4501e3cbca164b3f6648684a2a11bc6e30f"
+    },
+    {
+      "bytes": 151294,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/disk-observer/samples.jsonl",
+      "sha256": "b3d6e44d459e0384c8ab5fe9b2288c2df3eb2e49ecd3471face7c157caddeb32"
+    },
+    {
+      "bytes": 3713926,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/pg-calibration-D64/postgres-monitor/samples.jsonl",
+      "sha256": "f14d69639b54897586fed9a95a4b730efb8913637c292d3624e782e80a9441f7"
+    },
+    {
+      "bytes": 773035,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/case-result.json",
+      "sha256": "0e3f7f4877490920787efb572e3f9a3998b195d989f21b3825be854b14064a1c"
+    },
+    {
+      "bytes": 136390,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/disk-observer/samples.jsonl",
+      "sha256": "1e2a3f7dee00af8eef6bf9ceaa919809e7017935d1415ffe35fbae2672091bbc"
+    },
+    {
+      "bytes": 3841336,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep1/postgres-monitor/samples.jsonl",
+      "sha256": "b4bb171855a3743b5bd239e50b9fea22b16d77c1e032a6884335acba402d2034"
+    },
+    {
+      "bytes": 775268,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/case-result.json",
+      "sha256": "1984570c3192e12106b14520ccb62ace79d1abcc4b3f526cdda7f8f02752f8e8"
+    },
+    {
+      "bytes": 143005,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/disk-observer/samples.jsonl",
+      "sha256": "0cec3344a4e5213befb976a88a5d8fd5ad15893d2c9114542acb89a12a3fb162"
+    },
+    {
+      "bytes": 4037387,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep2/postgres-monitor/samples.jsonl",
+      "sha256": "fe398e063622543a837b9c2de24e30c5da9bc8dd0a61b7337dc79b3503942d27"
+    },
+    {
+      "bytes": 772819,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/case-result.json",
+      "sha256": "5247d72886bd2827cbcc4cbc69c265035861341813a1b492422266458b00dd17"
+    },
+    {
+      "bytes": 135026,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/disk-observer/samples.jsonl",
+      "sha256": "45a253e8fa74f1e7a38724f808d719e18927f55d4bcfed65ccacd4107904cec5"
+    },
+    {
+      "bytes": 3770845,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/postgres-cases/postgres-rep3/postgres-monitor/samples.jsonl",
+      "sha256": "16e087bf6646f06ab7b57141251b527a19b7b07f4eb7ec8bdf62d6b95566eea2"
+    },
+    {
+      "bytes": 4623,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/run-manifest.json",
+      "sha256": "5a81d0fb2a028e75991d5e512d260894775381b5442a1b0861597fc569e08053"
+    },
+    {
+      "bytes": 140485,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/scylla-host-observers/scylla-rep1/samples.jsonl",
+      "sha256": "be5855ae04944c1598f858798090209bfd0f8c12d7fef9a1ec8d720e84541c14"
+    },
+    {
+      "bytes": 128206,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/scylla-host-observers/scylla-rep2/samples.jsonl",
+      "sha256": "57746dcc45ccdb0e764944fa86e2bfd337aa6f922c51f09fa214722393a1279b"
+    },
+    {
+      "bytes": 141850,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/scylla-host-observers/scylla-rep3/samples.jsonl",
+      "sha256": "f637744096933592641d91dad329bffb8b40e87c8a78ec4bed6b2db7852194a9"
+    },
+    {
+      "bytes": 578764,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/proc/samples.jsonl",
+      "sha256": "3a2451eb95a90d40ec76863d6258bf0da5ca6942e73d29d8587419a991f6eb82"
+    },
+    {
+      "bytes": 614436,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-004-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/runner-result.json",
+      "sha256": "f9bcf1398aa4d6d71fd36854bf8fff37a001e1f90e93310aadf5b9625ede371a"
+    },
+    {
+      "bytes": 570301,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/proc/samples.jsonl",
+      "sha256": "00730f2129a3b8a1420217c4972d236977afdb52cd4081dae569872ab2725b48"
+    },
+    {
+      "bytes": 614040,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-007-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep2/runner-result.json",
+      "sha256": "225031d3d91e1af88dff829a44d20cb17b5533c1777f09833a1222b13a4977b9"
+    },
+    {
+      "bytes": 570391,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/proc/samples.jsonl",
+      "sha256": "59fc9841bd93c16ddc708a5cced656e61174df0ccdde17762de6bf50aebb33cb"
+    },
+    {
+      "bytes": 614153,
+      "path": "wallet-db-compare/runs/run-20261013T124123Z-3216cf07f3/trials/trial-008-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep3/runner-result.json",
+      "sha256": "2ac2a399d0de7d779f79c970c2e3d3adc121408ffd245c9c6e3334306a2a2394"
+    }
+  ]
+}

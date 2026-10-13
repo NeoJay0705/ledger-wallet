@@ -1,0 +1,6 @@
+# Preserve byte-exact benchmark evidence and fixed-hash inputs.
+/benches/data/scylla_wallet/** -text
+/benches/data/wallet_db_compare/** -text
+/benchmarks/scylla-wallet/profiles/equal-resource-20261013/io_caps.json -text
+/benchmarks/scylla-wallet/profiles/equal-resource-20261013/io_properties.yaml -text
+/tests/fixtures/*.json -text
