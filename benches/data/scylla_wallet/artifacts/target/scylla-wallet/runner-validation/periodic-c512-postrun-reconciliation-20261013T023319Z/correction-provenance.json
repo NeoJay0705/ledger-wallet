@@ -1,0 +1,12 @@
+{
+  "corrected_supervisor_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/corrected-supervisor.py",
+  "corrected_supervisor_sha256": "0692a35b0bce47ea5d99f519a9c793cc443f07dd10e5f8a4cd87127f3e7c98bb",
+  "correction": "Replace the check for ready_profile_validation.valid with runner.validate_ready_event_profile on the captured ready_event and exact S2/C512/P3/D6/N1/RF1/ONE/ONE/round-robin TrialCase; require exact equality with the recorded profile. No other supervisor logic changed.",
+  "frozen_control_sha256": "3c75f16c627212726e1b4338d3a876fcee7c36c2d80e7c8bbd091a57729898fc",
+  "job_id": "calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z",
+  "launch_config_sha256": "801b6aead964afa42e25aa4f204ba3a3001292361bdb79ea761bea6811e6a26e",
+  "live_or_docker_actions": false,
+  "original_job_mutated": false,
+  "original_supervisor_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/supervisor.py",
+  "original_supervisor_sha256": "32b1711127585f51c51a1c175f011208d086093d963caaf727754f7d7771ceaf"
+}

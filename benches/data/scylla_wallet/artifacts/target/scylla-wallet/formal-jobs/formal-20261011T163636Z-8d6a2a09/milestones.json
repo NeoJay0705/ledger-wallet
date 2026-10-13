@@ -1,0 +1,182 @@
+{
+  "captured_utc": "2026-10-11T16:37:43.826921+00:00",
+  "first_measurement_checkpoint": {
+    "captured_utc": "2026-10-11T16:38:08.973695+00:00",
+    "phases": [
+      {
+        "measurement_start_unix_ns": null,
+        "phase": "startup",
+        "pool_ready_connections": null,
+        "requests_per_user": 200,
+        "session_id": null,
+        "status": null,
+        "timestamp_unix_ns": 1791736639343449761,
+        "total_requests": 10000000,
+        "users": 50000
+      },
+      {
+        "measurement_start_unix_ns": null,
+        "phase": "seeding",
+        "pool_ready_connections": null,
+        "requests_per_user": 200,
+        "session_id": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+        "status": "started",
+        "timestamp_unix_ns": 1791736639705357182,
+        "total_requests": 10000000,
+        "users": 50000
+      },
+      {
+        "measurement_start_unix_ns": null,
+        "phase": "seeding",
+        "pool_ready_connections": null,
+        "requests_per_user": 200,
+        "session_id": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+        "status": "complete",
+        "timestamp_unix_ns": 1791736656628037669,
+        "total_requests": 10000000,
+        "users": 50000
+      },
+      {
+        "measurement_start_unix_ns": null,
+        "phase": "ready_to_measure",
+        "pool_ready_connections": 12,
+        "requests_per_user": 200,
+        "session_id": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+        "status": null,
+        "timestamp_unix_ns": 1791736656684372330,
+        "total_requests": 10000000,
+        "users": 50000
+      },
+      {
+        "measurement_start_unix_ns": 1791736662031416903,
+        "phase": "measuring",
+        "pool_ready_connections": null,
+        "requests_per_user": 200,
+        "session_id": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+        "status": null,
+        "timestamp_unix_ns": 1791736662031424938,
+        "total_requests": 10000000,
+        "users": 50000
+      }
+    ],
+    "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+    "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603/trials/trial-001-S1-C12-rep1",
+    "validations": {
+      "pool_ready_connections": 12,
+      "reactor_affinity": {
+        "nodea": true,
+        "nodeb": true,
+        "nodec": true
+      },
+      "runtime_aio_valid": true,
+      "runtime_commitlog_valid": true
+    }
+  },
+  "milestones": [
+    {
+      "consecutive_passing_samples": 3,
+      "name": "strict_preflight_passed",
+      "required_disk_bytes": 82042421248,
+      "samples": [
+        {
+          "aio_available": 262144,
+          "aio_max_nr": 262144,
+          "aio_nr": 0,
+          "backing_device": "sdb2",
+          "device_busy_pct": 0.0,
+          "disk_available_bytes": 673059028992,
+          "host_cpu_busy_pct": 1.2461059190031152,
+          "memory_available_bytes": 46050279424
+        },
+        {
+          "aio_available": 262144,
+          "aio_max_nr": 262144,
+          "aio_nr": 0,
+          "backing_device": "sdb2",
+          "device_busy_pct": 0.0,
+          "disk_available_bytes": 673059028992,
+          "host_cpu_busy_pct": 1.567398119122257,
+          "memory_available_bytes": 46055690240
+        },
+        {
+          "aio_available": 262144,
+          "aio_max_nr": 262144,
+          "aio_nr": 0,
+          "backing_device": "sdb2",
+          "device_busy_pct": 0.0,
+          "disk_available_bytes": 673059012608,
+          "host_cpu_busy_pct": 3.125,
+          "memory_available_bytes": 46036713472
+        }
+      ],
+      "valid": true
+    },
+    {
+      "cluster_nodes": [
+        {
+          "container_id": "4db1232872b3964f69c86bd599ebcf22533de012ece854284fe270b0452f48b0",
+          "cpuset": "0",
+          "host_pid": 61691,
+          "host_process_cmd": "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --cpuset 0 --memory 8G --smp 1 --overprovisioned --listen-address 172.24.0.10 --rpc-address 172.24.0.10 --seed-provider-parameters seeds=172.24.0.10 --broadcast-address 172.24.0.10 --broadcast-rpc-address 172.24.0.10 --alternator-address 172.24.0.10 --cluster-name ledger-wallet-efa30f4e-trial-001-S1-C12-rep1 --blocked-reactor-notify-ms 25 --thread-affinity 1 --prometheus-address 0.0.0.0 --prometheus-port 9180 --commitlog-sync batch --commitlog-use-o-dsync false --commitlog-total-space-in-mb 1024 --commitlog-segment-size-in-mb 64 --relabel-config-file /etc/scylla/ledger-wallet-metrics.yaml --max-networking-io-control-blocks 1024 --reserve-io-control-blocks 1024 --reactor-backend linux-aio",
+          "ip": "172.24.0.10",
+          "name": "lw-scylla-efa30f4e-trial-001-S1-nodea",
+          "node": "nodea",
+          "state": "running"
+        },
+        {
+          "container_id": "b53e309e4afe81229d1497784bdd8112393fd1bc905df8768f7ca3b9a35415f3",
+          "cpuset": "2",
+          "host_pid": 62140,
+          "host_process_cmd": "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --cpuset 2 --memory 8G --smp 1 --overprovisioned --listen-address 172.24.0.11 --rpc-address 172.24.0.11 --seed-provider-parameters seeds=172.24.0.10 --broadcast-address 172.24.0.11 --broadcast-rpc-address 172.24.0.11 --alternator-address 172.24.0.11 --cluster-name ledger-wallet-efa30f4e-trial-001-S1-C12-rep1 --blocked-reactor-notify-ms 25 --thread-affinity 1 --prometheus-address 0.0.0.0 --prometheus-port 9180 --commitlog-sync batch --commitlog-use-o-dsync false --commitlog-total-space-in-mb 1024 --commitlog-segment-size-in-mb 64 --relabel-config-file /etc/scylla/ledger-wallet-metrics.yaml --max-networking-io-control-blocks 1024 --reserve-io-control-blocks 1024 --reactor-backend linux-aio",
+          "ip": "172.24.0.11",
+          "name": "lw-scylla-efa30f4e-trial-001-S1-nodeb",
+          "node": "nodeb",
+          "state": "running"
+        },
+        {
+          "container_id": "c1ef6e18ed6d99068b22c7ddf157e136f3deca5234d4ab951e01c4b26d69cea0",
+          "cpuset": "4",
+          "host_pid": 62078,
+          "host_process_cmd": "/usr/bin/scylla --log-to-syslog 0 --log-to-stdout 1 --network-stack posix --developer-mode=1 --cpuset 4 --memory 8G --smp 1 --overprovisioned --listen-address 172.24.0.12 --rpc-address 172.24.0.12 --seed-provider-parameters seeds=172.24.0.10 --broadcast-address 172.24.0.12 --broadcast-rpc-address 172.24.0.12 --alternator-address 172.24.0.12 --cluster-name ledger-wallet-efa30f4e-trial-001-S1-C12-rep1 --blocked-reactor-notify-ms 25 --thread-affinity 1 --prometheus-address 0.0.0.0 --prometheus-port 9180 --commitlog-sync batch --commitlog-use-o-dsync false --commitlog-total-space-in-mb 1024 --commitlog-segment-size-in-mb 64 --relabel-config-file /etc/scylla/ledger-wallet-metrics.yaml --max-networking-io-control-blocks 1024 --reserve-io-control-blocks 1024 --reactor-backend linux-aio",
+          "ip": "172.24.0.12",
+          "name": "lw-scylla-efa30f4e-trial-001-S1-nodec",
+          "node": "nodec",
+          "state": "running"
+        }
+      ],
+      "last_event": {
+        "C": 12,
+        "P": 4,
+        "S": 1,
+        "cql_batch_contract": {
+          "byte_cap": 1024,
+          "estimated_encoded_bytes": 226,
+          "statement_count": 2
+        },
+        "data_connection_target": 12,
+        "elapsed_ns": 22687995224,
+        "finish_gate": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603/trials/trial-001-S1-C12-rep1/finish.gate",
+        "histogram_range_ns": 600000000000,
+        "histogram_significant_figures": 3,
+        "histogram_stripes": 16,
+        "keyspace": "wallet_bench_74f2b6193097",
+        "measurement_start_unix_ns": 1791736662031416903,
+        "mode": "formal",
+        "nodes": [
+          "172.24.0.10:9042",
+          "172.24.0.11:9042",
+          "172.24.0.12:9042"
+        ],
+        "phase": "measuring",
+        "requests_per_user": 200,
+        "session_id": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+        "start_gate_open": true,
+        "timestamp_unix_ns": 1791736662031424938,
+        "total_requests": 10000000,
+        "users": 50000,
+        "window_starts_before_event_flush": true
+      },
+      "name": "first_trial_cli_phase"
+    }
+  ]
+}

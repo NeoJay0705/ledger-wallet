@@ -1,0 +1,122 @@
+{
+  "cleanup_utc": "2026-10-12T13:55:04.262459+00:00",
+  "job_canonical_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531",
+  "container": {
+    "id": "5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284",
+    "name": "lw-iotune-20261012T133244Z-6180f531",
+    "owner_label": "ledger-wallet.owner=scylla-iotune-calibration",
+    "nonce_label": "ledger-wallet.nonce=20261012T133244Z-6180f531",
+    "image_digest_label": "ledger-wallet.image-digest=sha256:333b9ab3a3214c7f98af100711c51df7f58964e8227e6d26050e889ebb216df1",
+    "stopped_inspect_path": "controls/container-stopped-inspect.json",
+    "removed": true,
+    "stop_command": {
+      "argv": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284"
+      ],
+      "returncode": 0,
+      "stdout": "Flag --time has been deprecated, use --timeout instead\n5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284\n",
+      "stderr": ""
+    },
+    "remove_command": {
+      "argv": [
+        "docker",
+        "rm",
+        "5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284"
+      ],
+      "returncode": 0,
+      "stdout": "5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284\n",
+      "stderr": ""
+    },
+    "inspect_after_remove_by_id": {
+      "argv": [
+        "docker",
+        "inspect",
+        "5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284"
+      ],
+      "returncode": 1,
+      "stdout": "[]\n",
+      "stderr": "error: no such object: 5617371be08329b3073f8740681ad5ba7a294d82acef534cc0ef13dfff1e9284\n"
+    },
+    "inspect_after_remove_by_name": {
+      "argv": [
+        "docker",
+        "inspect",
+        "lw-iotune-20261012T133244Z-6180f531"
+      ],
+      "returncode": 1,
+      "stdout": "[]\n",
+      "stderr": "error: no such object: lw-iotune-20261012T133244Z-6180f531\n"
+    }
+  },
+  "network": {
+    "created": false,
+    "nonce_owned_networks_remaining": []
+  },
+  "owned_data": {
+    "canonical_path_before_delete": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/owned-data",
+    "removed": true,
+    "remaining": false,
+    "predelete_inventory": "controls/owned-data-before-delete.json"
+  },
+  "post_cleanup_queries": {
+    "nonce_containers": {
+      "argv": [
+        "docker",
+        "ps",
+        "-a",
+        "--no-trunc",
+        "--filter",
+        "label=ledger-wallet.nonce=20261012T133244Z-6180f531",
+        "--format",
+        "{{.ID}} {{.Names}}"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "exact_name": {
+      "argv": [
+        "docker",
+        "ps",
+        "-a",
+        "--no-trunc",
+        "--filter",
+        "name=^lw-iotune-20261012T133244Z-6180f531$",
+        "--format",
+        "{{.ID}} {{.Names}}"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "nonce_networks": {
+      "argv": [
+        "docker",
+        "network",
+        "ls",
+        "-q",
+        "--filter",
+        "label=ledger-wallet.nonce=20261012T133244Z-6180f531"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "disk_free": {
+      "argv": [
+        "df",
+        "-B1",
+        "--output=source,fstype,avail",
+        "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531"
+      ],
+      "returncode": 0,
+      "stdout": "Filesystem     Type        Avail\n/dev/sdb2      ext4 666742562816\n",
+      "stderr": ""
+    }
+  },
+  "errors": []
+}

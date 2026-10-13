@@ -1,0 +1,51 @@
+{
+  "checked_utc": "2026-10-11T17:13:14.811402+00:00",
+  "cluster_json": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603/trials/trial-001-S1-C12-rep1/cluster.json",
+  "docker_inspect": {
+    "failures": [],
+    "inspected": [
+      {
+        "id": "4db1232872b3964f69c86bd599ebcf22533de012ece854284fe270b0452f48b0",
+        "kind": "container",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "error: no such object: 4db1232872b3964f69c86bd599ebcf22533de012ece854284fe270b0452f48b0\n",
+        "stdout": "[]\n"
+      },
+      {
+        "id": "b53e309e4afe81229d1497784bdd8112393fd1bc905df8768f7ca3b9a35415f3",
+        "kind": "container",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "error: no such object: b53e309e4afe81229d1497784bdd8112393fd1bc905df8768f7ca3b9a35415f3\n",
+        "stdout": "[]\n"
+      },
+      {
+        "id": "c1ef6e18ed6d99068b22c7ddf157e136f3deca5234d4ab951e01c4b26d69cea0",
+        "kind": "container",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "error: no such object: c1ef6e18ed6d99068b22c7ddf157e136f3deca5234d4ab951e01c4b26d69cea0\n",
+        "stdout": "[]\n"
+      },
+      {
+        "id": "edd89b78830c9b34c80cc3370d41fed5757594695a3fd79875ab6c8dbad27742",
+        "kind": "network",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "Error response from daemon: network edd89b78830c9b34c80cc3370d41fed5757594695a3fd79875ab6c8dbad27742 not found\n",
+        "stdout": "[]\n"
+      }
+    ],
+    "valid": true
+  },
+  "resources": {
+    "container_ids": [
+      "4db1232872b3964f69c86bd599ebcf22533de012ece854284fe270b0452f48b0",
+      "b53e309e4afe81229d1497784bdd8112393fd1bc905df8768f7ca3b9a35415f3",
+      "c1ef6e18ed6d99068b22c7ddf157e136f3deca5234d4ab951e01c4b26d69cea0"
+    ],
+    "network_id": "edd89b78830c9b34c80cc3370d41fed5757594695a3fd79875ab6c8dbad27742"
+  },
+  "source_run_id": "run-20261011T163641Z-5850a603"
+}

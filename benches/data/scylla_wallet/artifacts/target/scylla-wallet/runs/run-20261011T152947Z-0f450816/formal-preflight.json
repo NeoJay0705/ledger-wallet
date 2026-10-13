@@ -1,0 +1,23 @@
+{
+  "consecutive_passing_samples": 0,
+  "error": "available disk 41649401856 is below estimated required capacity 82042421248 including reserve",
+  "required_disk_bytes": 82042421248,
+  "samples": [
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T152947Z-0f450816",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 41649401856,
+      "elapsed_seconds": 0.43,
+      "host_cpu_busy_pct": 0.6289308176100629,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T152947Z-0f450816",
+      "memory_available_bytes": 46010699776,
+      "required_disk_bytes": 82042421248
+    }
+  ],
+  "valid": false,
+  "waited_seconds": 0.43
+}

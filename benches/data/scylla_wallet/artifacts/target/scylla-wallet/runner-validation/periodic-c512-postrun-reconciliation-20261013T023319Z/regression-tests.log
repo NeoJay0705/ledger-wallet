@@ -1,0 +1,16 @@
+test_captured_real_profile_passes_without_valid_field (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_captured_real_profile_passes_without_valid_field) ... ok
+test_missing_ready_event_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_missing_ready_event_fails) ... ok
+test_missing_recorded_profile_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_missing_recorded_profile_fails) ... ok
+test_recorded_profile_extra_field_fails_exact_comparison (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_recorded_profile_extra_field_fails_exact_comparison) ... ok
+test_recorded_profile_mismatch_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_recorded_profile_mismatch_fails) ... ok
+test_wrong_data_connection_target_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_wrong_data_connection_target_fails) ... ok
+test_wrong_per_shard_pool_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_wrong_per_shard_pool_fails) ... ok
+test_wrong_pool_ready_count_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_wrong_pool_ready_count_fails) ... ok
+test_wrong_read_consistency_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_wrong_read_consistency_fails) ... ok
+test_wrong_worker_count_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_wrong_worker_count_fails) ... ok
+test_wrong_write_consistency_fails (target.scylla-wallet.runner-validation.periodic-c512-postrun-reconciliation-20261013T023319Z.test_reconciliation.CorrectedReadyProfileTests.test_wrong_write_consistency_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.080s
+
+OK

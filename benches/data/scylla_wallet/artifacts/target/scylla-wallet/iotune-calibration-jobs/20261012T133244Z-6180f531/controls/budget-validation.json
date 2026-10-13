@@ -1,0 +1,1 @@
+{"extra_keys": [], "properties": {"mountpoint": "/var/lib/scylla", "read_bandwidth": 403631184, "read_iops": 24497, "write_bandwidth": 152226096, "write_iops": 23500}, "status": "parsed"}

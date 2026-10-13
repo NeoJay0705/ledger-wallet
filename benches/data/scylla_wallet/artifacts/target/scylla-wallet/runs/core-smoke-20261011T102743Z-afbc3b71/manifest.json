@@ -1,0 +1,15 @@
+{
+  "nonce": "core-smoke-20261011T102743Z-afbc3b71",
+  "run_root": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71",
+  "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/trial-s1-smoke",
+  "owner_label_key": "ledger-wallet-scylla-owner",
+  "owner_label_value": "core-smoke-20261011T102743Z-afbc3b71",
+  "owned_data": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/owned-data",
+  "containers": [
+    "lwscylla-core-smoke-20261011T102743Z-afbc3b71-a",
+    "lwscylla-core-smoke-20261011T102743Z-afbc3b71-b",
+    "lwscylla-core-smoke-20261011T102743Z-afbc3b71-c"
+  ],
+  "network": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-net",
+  "image": "scylladb/scylla@sha256:333b9ab3a3214c7f98af100711c51df7f58964e8227e6d26050e889ebb216df1"
+}

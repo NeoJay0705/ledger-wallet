@@ -1,0 +1,395 @@
+{
+  "config": {
+    "C": 128,
+    "P": 3,
+    "S": 1,
+    "account_state_source": "memory",
+    "account_states_preloaded": 1024,
+    "cql_requests_per_transaction": 1,
+    "cql_statement_count": 1,
+    "data_connection_target": 9,
+    "finish_gate": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-01-S1-C128-P3-D9/runs/run-20261012T120843Z-9ad9db72/trials/trial-001-S1-C128-P3-D9-round-robin-wallet-memory-lwt-v1-rep1/finish.gate",
+    "global_admission_capacity": 50000,
+    "keyspace": "wallet_bench_7457fc0d1af1",
+    "ledger_key": [
+      "account_id",
+      "kind",
+      "tx_id"
+    ],
+    "measured_cql_request_count": 1024000,
+    "measured_cql_requests_per_transaction": 1,
+    "measured_select_requests": 0,
+    "nodes": [
+      "172.24.0.10:9042",
+      "172.24.0.11:9042",
+      "172.24.0.12:9042"
+    ],
+    "per_shard_pool_overridden": true,
+    "per_worker_queue_capacity": 50000,
+    "queue_capacity": 50000,
+    "read_cl": "THREE",
+    "replication_factor": 3,
+    "requested_per_shard_pool": 3,
+    "requests_per_user": 1000,
+    "runtime_worker_threads": 4,
+    "serial_cl": "LOCAL_SERIAL",
+    "setup_concurrency": 9,
+    "start_gate": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-01-S1-C128-P3-D9/runs/run-20261012T120843Z-9ad9db72/trials/trial-001-S1-C128-P3-D9-round-robin-wallet-memory-lwt-v1-rep1/start.gate",
+    "state_preload_concurrency": 9,
+    "total_requests_expected": 1024000,
+    "users": 1024,
+    "wallet_profile": "wallet-memory-lwt-v1",
+    "worker_routing": "round-robin",
+    "write_cl": "THREE",
+    "write_clock": "logical per-account monotonic sequence; not a CQL timestamp"
+  },
+  "connection_pool": {
+    "C": 128,
+    "P": 3,
+    "S": 1,
+    "first_mismatch": null,
+    "formal_sample_required": false,
+    "last_sample_offset_ns": 185913855631,
+    "maximum_sampled_connections": 9,
+    "metric_source": "Scylla Rust driver Session::get_metrics().get_total_connections()",
+    "minimum_sampled_connections": 9,
+    "mismatch_samples": 0,
+    "per_shard_pool_overridden": true,
+    "pool_after_last_reply": 9,
+    "pool_ready_connections": 9,
+    "requested_per_shard_pool": 3,
+    "samples_during_measurement": 1840,
+    "sampling_period_ns": 100000000,
+    "setup_concurrency": 9,
+    "target_total_data_connections": 9,
+    "valid": true,
+    "worker_routing": "round-robin"
+  },
+  "driver_counters": {
+    "delta": {
+      "connection_timeouts": 0,
+      "errors": 0,
+      "queries": 1024000,
+      "request_timeouts": 0,
+      "retries": 0
+    },
+    "end": {
+      "connection_timeouts": 0,
+      "errors": 0,
+      "queries": 1026051,
+      "request_timeouts": 0,
+      "retries": 0
+    },
+    "end_sample_offset_from_window_end_ns": 4538,
+    "expected_query_count": 1024000,
+    "start": {
+      "connection_timeouts": 0,
+      "errors": 0,
+      "queries": 2051,
+      "request_timeouts": 0,
+      "retries": 0
+    },
+    "start_sample_offset_ns": -1132,
+    "valid": true,
+    "validation_failures": [],
+    "window_end_definition": "last client reply received"
+  },
+  "durability_precondition": {
+    "cli_verified": false,
+    "fsync_acknowledgement_replica_count": 3,
+    "note": "The CLI does not inspect effective ScyllaDB node settings. The runner must attach its verified commitlog and consistency report before citing this result as a formal durability result.",
+    "replication_factor": 3,
+    "required_commitlog_sync": "batch fsync before write-consistency acknowledgement; wallet request is one conditional INSERT with LOCAL_SERIAL",
+    "required_consistency": "THREE",
+    "required_read_consistency": "THREE",
+    "required_write_consistency": "THREE",
+    "runner_verification_reference": null
+  },
+  "end_to_end_latency": {
+    "count": 1024000,
+    "estimated_memory_bytes": 5734400,
+    "max_ns": 10141827071,
+    "mean_ns": 184297347.8720005,
+    "min_ns": 7913472,
+    "overflow_count": 0,
+    "p50_ns": 163577855,
+    "p95_ns": 309854207,
+    "p999_ns": 5309988863,
+    "p99_ns": 468189183,
+    "range_max_ns": 600000000000,
+    "significant_figures": 3,
+    "stripes": 16,
+    "unit": "nanoseconds"
+  },
+  "errors": [],
+  "heartbeat": {
+    "lag_histogram": {
+      "count": 149984,
+      "max_ns": 3518463,
+      "mean_ns": 630448.3986091836,
+      "min_ns": 712,
+      "overflow_count": 0,
+      "p50_ns": 601599,
+      "p95_ns": 1183743,
+      "p999_ns": 1975295,
+      "p99_ns": 1660927,
+      "range_max_ns": 600000000000,
+      "significant_figures": 3,
+      "unit": "nanoseconds"
+    },
+    "last_sample_offset_ns": 185997232478,
+    "maximum_lag_ns": 3516911,
+    "missed_ticks": 31183,
+    "period_ns": 1000000,
+    "tick_count": 149984
+  },
+  "histogram_memory": {
+    "end_to_end_stripes": 16,
+    "estimated_bytes_per_histogram": 358400,
+    "estimated_total_bytes": 8243200,
+    "range_max_ns": 600000000000,
+    "raw_latency_sample_stride": 64,
+    "significant_figures": 3,
+    "stage_histogram_count": 7
+  },
+  "latency_samples": {
+    "file": "latency_samples.csv",
+    "rows": 16000,
+    "stride": 64
+  },
+  "limitations": [
+    "Service and load generator run in one process. Process CPU includes both.",
+    "The finite closed-loop workload does not measure steady-state saturation capacity.",
+    "The CLI does not verify effective commitlog configuration; durability evidence belongs to the runner report.",
+    "Duplicate requests return the original acknowledged ledger result without mutating wallet rows again; the conditional LWT may still persist Paxos protocol state."
+  ],
+  "measured_cql_request_count": 1024000,
+  "measured_select_requests": 0,
+  "measurement": {
+    "accepted_requests": 1024000,
+    "attempted_count": 1024000,
+    "client_count": 1024,
+    "end_offset_ns": 185997232478,
+    "end_unix_ns": 1791807156966784460,
+    "measurement_start_to_measuring_event_flush_ns": 56466,
+    "request_count": 1024000,
+    "rps": 5505.45826062826,
+    "service_and_load_share_process": true,
+    "start_gate": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-01-S1-C128-P3-D9/runs/run-20261012T120843Z-9ad9db72/trials/trial-001-S1-C128-P3-D9-round-robin-wallet-memory-lwt-v1-rep1/start.gate",
+    "start_offset_ns": 0,
+    "start_unix_ns": 1791806970969551982,
+    "started": true,
+    "successful_applied_rps": 5505.45826062826,
+    "utc_sample_offset_after_window_start_ns": 161,
+    "utc_sample_unix_ns": 1791806970969552143,
+    "wall_duration_ns": 185997232478,
+    "wall_seconds": 185.997232478
+  },
+  "mode": "pilot",
+  "process_cpu": {
+    "cpu_end_sample_offset_from_window_end_ns": 2134,
+    "cpu_end_sample_offset_ns": 185997234612,
+    "cpu_start_sample_offset_ns": -1162,
+    "cpu_used_ns": 46099578712,
+    "end_process_cpu_ns": 46211293817,
+    "end_reply_offset_ns": 185997232478,
+    "error": null,
+    "scope": "whole process; service, clients, heartbeat and monitor share this process",
+    "start_process_cpu_ns": 111715105
+  },
+  "process_io": {
+    "delta": {
+      "cancelled_write_bytes": 0,
+      "rchar": 106,
+      "read_bytes": 0,
+      "syscr": 5,
+      "syscw": 279024,
+      "wchar": 2233503,
+      "write_bytes": 4096
+    },
+    "end": {
+      "cancelled_write_bytes": 0,
+      "rchar": 16524,
+      "read_bytes": 0,
+      "syscr": 37,
+      "syscw": 280035,
+      "wchar": 2249061,
+      "write_bytes": 12288
+    },
+    "end_sample_offset_ns": 42449,
+    "sample_span_ns": 45274,
+    "source": "/proc/self/io",
+    "start": {
+      "cancelled_write_bytes": 0,
+      "rchar": 16418,
+      "read_bytes": 0,
+      "syscr": 32,
+      "syscw": 1011,
+      "wchar": 15558,
+      "write_bytes": 8192
+    },
+    "start_sample_offset_ns": -2825
+  },
+  "query_accounting": {
+    "accepted_requests": 1024000,
+    "account_state_source": "memory",
+    "cql_requests_per_transaction": 1,
+    "cql_statement_count": 1,
+    "driver_query_delta": 1024000,
+    "measured_cql_request_count": 1024000,
+    "measured_ledger_select_requests": 0,
+    "measured_metadata_select_requests": 0,
+    "measured_select_requests": 0
+  },
+  "requests": {
+    "accepted": 1024000,
+    "applied": 1024000,
+    "attempted": 1024000,
+    "error_counts": {},
+    "error_samples": {},
+    "errors": 0,
+    "expected": 1024000,
+    "first_error": null,
+    "operation_counts": {
+      "credit": 512000,
+      "debit": 512000
+    },
+    "outcome_counts": {
+      "applied": 1024000,
+      "credit_overflow": 0,
+      "insufficient_funds": 0,
+      "invalid_amount": 0
+    },
+    "query_accounting": {
+      "accepted_requests": 1024000,
+      "account_state_source": "memory",
+      "cql_requests_per_transaction": 1,
+      "cql_statement_count": 1,
+      "driver_query_delta": 1024000,
+      "measured_cql_request_count": 1024000,
+      "measured_ledger_select_requests": 0,
+      "measured_metadata_select_requests": 0,
+      "measured_select_requests": 0
+    },
+    "replies_received": 1024000,
+    "unexpected_business_results": 0
+  },
+  "schema_version": 1,
+  "session_id": "b6dbb8ad-d88a-4c63-b981-1c2f9e044e7f",
+  "stage_metrics": {
+    "counters": {
+      "accepted_requests": 1024000,
+      "cql_read_ledger": 0,
+      "cql_read_metadata": 0,
+      "cql_write_lwt": 1024000
+    },
+    "cql_in_flight_current": 0,
+    "cql_in_flight_peak": 128,
+    "enabled": false,
+    "stages": {
+      "account_wait": {
+        "count": 1024000,
+        "max_ns": 143078,
+        "mean_ns": 142,
+        "min_ns": 40,
+        "overflow_count": 0,
+        "p50_ns": 120,
+        "p95_ns": 240,
+        "p999_ns": 561,
+        "p99_ns": 380
+      },
+      "admission_wait": {
+        "count": 1024000,
+        "max_ns": 1052702,
+        "mean_ns": 126,
+        "min_ns": 40,
+        "overflow_count": 0,
+        "p50_ns": 120,
+        "p95_ns": 191,
+        "p999_ns": 511,
+        "p99_ns": 311
+      },
+      "compute": {
+        "count": 1024000,
+        "max_ns": 150251,
+        "mean_ns": 42,
+        "min_ns": 20,
+        "overflow_count": 0,
+        "p50_ns": 40,
+        "p95_ns": 60,
+        "p999_ns": 121,
+        "p99_ns": 61
+      },
+      "cql_write_lwt": {
+        "count": 1024000,
+        "max_ns": 1076798582,
+        "mean_ns": 23180727,
+        "min_ns": 7905619,
+        "overflow_count": 0,
+        "p50_ns": 19382271,
+        "p95_ns": 28393471,
+        "p999_ns": 526123007,
+        "p99_ns": 38993919
+      },
+      "db_queue_wait": {
+        "count": 1024000,
+        "max_ns": 9632869983,
+        "mean_ns": 161095893,
+        "min_ns": 250,
+        "overflow_count": 0,
+        "p50_ns": 142737407,
+        "p95_ns": 287834111,
+        "p999_ns": 4894752767,
+        "p99_ns": 438566911
+      },
+      "db_write": {
+        "count": 1024000,
+        "max_ns": 1076804042,
+        "mean_ns": 23187173,
+        "min_ns": 7911981,
+        "overflow_count": 0,
+        "p50_ns": 19382271,
+        "p95_ns": 28393471,
+        "p999_ns": 526123007,
+        "p99_ns": 38993919
+      },
+      "reply": {
+        "count": 1024000,
+        "max_ns": 2625418,
+        "mean_ns": 12578,
+        "min_ns": 451,
+        "overflow_count": 0,
+        "p50_ns": 9719,
+        "p95_ns": 30111,
+        "p999_ns": 136319,
+        "p99_ns": 58783
+      }
+    },
+    "workers_busy_current": 0,
+    "workers_busy_peak": 128,
+    "workers_idle_current": 128,
+    "workers_idle_peak": 128,
+    "workers_total": 128
+  },
+  "state_preload": {
+    "account_state_source": "db",
+    "account_states_preloaded": 1024,
+    "accounts_expected": 1024,
+    "complete": true,
+    "state_preload_concurrency": 9
+  },
+  "status": "verified",
+  "valid": true,
+  "verification": {
+    "account_state_source": "memory_cache_vs_scylla",
+    "accounts_expected": 1024,
+    "accounts_verified": 1024,
+    "complete": true,
+    "failures": 0,
+    "first_failures": [],
+    "ledger_rows_expected": 1024000,
+    "ledger_rows_seen": 1024000,
+    "memory_cache_accounts_compared": 1024,
+    "valid": true
+  }
+}

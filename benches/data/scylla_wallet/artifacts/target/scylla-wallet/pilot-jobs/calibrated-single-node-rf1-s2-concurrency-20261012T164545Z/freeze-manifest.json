@@ -1,0 +1,115 @@
+{
+  "auxiliary_source_sha256": {
+    "benches/scylla_io_observer.py": "d0e8d9e544096034b6a0dc1f7307fe628fc94c88def47f248408d698adae5ef3",
+    "docs/01-54.raw-requirement-scylladb-calibrated-s2-concurrency-benchmark.md": "9b2a87331b2e4650ddba53a35e4de834cf5946ce3f31c2635230e360ba5fb79e",
+    "docs/01-55.development-design-scylladb-calibrated-s2-concurrency-benchmark.md": "2a63496a8dc8af5375eabc890a0a22be32f1dc7a01d9dcc5099b9e26d591aecd",
+    "tests/test_scylla_io_observer.py": "c698ea7e98cfb174112ffe3131ebebfd00a276081531900ad69aaf3d11cb2333"
+  },
+  "binary_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/release/ledger-wallet-scylla-bench",
+  "binary_sha256": "bf5afef5f75d3bee98c3510e5db386f62d382d5564302b01ff06278a432cdd87",
+  "conditional_c512": {
+    "after_slug": "full-S2-C256-P3-D6-N1-RF1-R1-W1",
+    "baseline": {
+      "cql_write_lwt_p99_ns": 29147135,
+      "end_to_end_p99_ns": 369885183,
+      "rps": 10076.937000589221,
+      "run_id": "run-20261012T155133Z-d5a100ab"
+    },
+    "if_thresholds_not_met": "completed_with_C512_skipped",
+    "next_slug": "full-S2-C512-P3-D6-N1-RF1-R1-W1",
+    "thresholds": {
+      "cql_write_lwt_p99_ns_max": 58294270,
+      "end_to_end_p99_ns_max": 739770366,
+      "io_analysis_valid": true,
+      "response_rps_min": 11084.630700648144
+    },
+    "workload_or_cleanup_or_observer_failure": "stop_without_retry"
+  },
+  "control_validation": {
+    "path": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/prepare/offline-validation.json",
+    "result": "passed",
+    "sha256": "5b6feb7e5d48fd29fca35ff239df3ae683aace4d4d8cc2c19f03eb019a7ef1ee"
+  },
+  "frozen": true,
+  "frozen_utc": "2026-10-12T16:57:46.191822+00:00",
+  "io_observer_script": "benches/scylla_io_observer.py",
+  "io_properties": {
+    "budget_formula": "floor(raw * 3 / 4), integer raw*3//4, no division by node count",
+    "budget_validation_path": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/controls/budget-validation.json",
+    "budget_validation_sha256": "a135527db27ca61712316a27ae3f2736b11982f31b93709b087882743e4d9325",
+    "calibration_summary_path": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/controls/calibration-summary.json",
+    "calibration_summary_sha256": "f295046da18a994d0b87e2507ec8c47d8c2e7950a516c495ef373f9e7894cd91",
+    "caveat": "iotune sequential-write deviation was 107% and random-write deviation 11%; this is not a steady-state device guarantee or a timeout fix",
+    "mountpoint": "/var/lib/scylla",
+    "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+    "raw_properties_path": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/raw/io_properties.yaml",
+    "read_only_bind_mount": true,
+    "sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf"
+  },
+  "io_properties_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+  "job_control_sha256": {
+    "launch-config.json": "70b07b0b99c68b94a3823e124345a735238d03de05430ef44e60a1cc79919e73",
+    "launcher.py": "bb6003016dcb88a8759b2c937e00af8661680c1e0661e5651e9bcecb74e59585",
+    "prepare/test_supervisor.py": "1ae12a4a35450813240a405016b4d96f560ce2c48345ecc5573996ddd780ac57",
+    "supervisor.py": "8887b6576a3cb6a75133a0f1f4c2540c3c1e2bb27ab97bb2e221d5665dca9e5c"
+  },
+  "job_id": "calibrated-single-node-rf1-s2-concurrency-20261012T164545Z",
+  "launch_config_sha256": "70b07b0b99c68b94a3823e124345a735238d03de05430ef44e60a1cc79919e73",
+  "launch_requires_separate_root_approval": true,
+  "live_execution_started": false,
+  "runner_final_tests": {
+    "dry_runs": "passed",
+    "py_compile": "passed",
+    "python_tests": 105,
+    "source_sha256": "a405e5f6ccf394b2a504b7fe15a915e54d97eab2d175d094760a8ea39a8657a9",
+    "summary_path": "target/scylla-wallet/runner-validation/single-node-final-check-summary.json",
+    "summary_sha256": "96ea89ef54065e626546a37fd015b927cffaa53d85223048579022665ebf280a"
+  },
+  "runner_sha256": "e69091188a9fc6890b655d958b0ddecebb5f34d107abd99d4ca305150e058ae2",
+  "rust_build": {
+    "binary_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/release/ledger-wallet-scylla-bench",
+    "binary_sha256": "bf5afef5f75d3bee98c3510e5db386f62d382d5564302b01ff06278a432cdd87",
+    "format_check": "passed",
+    "ignored_live_tests": 2,
+    "integration_test_no_run": "passed",
+    "release_artifacts_path": "target/scylla-wallet/build-validation/single-node-support-release-artifacts.jsonl",
+    "release_artifacts_sha256": "3e24797262f5d2b9ad285229db7c8aa1b0df8a9e26857950951b0e31bf2bb992",
+    "source_manifest_path": "target/scylla-wallet/build-validation/single-node-support-source-manifest.json",
+    "source_manifest_sha256": "c76582d6421d654f64e9f8c2a345f9bf81ba106753ec0b0501362d7378a8528e",
+    "tests": 46
+  },
+  "schema_version": 1,
+  "scope": "single-node RF1/ONE/ONE S2 C256 case with strict I/O observation and conditional C512; no 27-case formal claim",
+  "source_metadata_at_freeze": {
+    "git_head": "860099dc2b5c98e73795932acb11132a5c84951e",
+    "git_status_porcelain": "M .gitignore\n M Cargo.lock\n M Cargo.toml\n M README.md\n M benches/support/ledger_account_store.rs\n D benches/support/ledger_index_lookup_fault_tests.rs\n M benches/support/request_batch_queue.rs\n M src/main.rs\n?? benches/ledger_core_pipeline.rs\n?? benches/scylla_io_observer.py\n?? benches/scylla_wallet.py\n?? benchmarks/\n?? docs/01-30.development-design-ledger-formal-core.md\n?? docs/01-31.raw-requirement-scylladb-wallet-benchmark.md\n?? docs/01-32.development-design-scylladb-wallet-benchmark.md\n?? docs/01-33.development-validation-scylladb-wallet-benchmark.md\n?? docs/01-34.development-formal-execution-scylladb-wallet-benchmark.md\n?? docs/01-35.development-analysis-scylladb-wallet-benchmark.md\n?? docs/01-36.raw-requirement-scylladb-per-user-worker-benchmark.md\n?? docs/01-37.development-design-scylladb-per-user-worker-benchmark.md\n?? docs/01-38.development-analysis-scylladb-per-user-worker-benchmark.md\n?? docs/01-39.raw-requirement-scylladb-rf1-cl1-benchmark.md\n?? docs/01-40.development-design-scylladb-rf1-cl1-benchmark.md\n?? docs/01-41.development-analysis-scylladb-rf1-cl1-benchmark.md\n?? docs/01-42.raw-requirement-scylladb-memory-lwt-benchmark.md\n?? docs/01-43.development-design-scylladb-memory-lwt-benchmark.md\n?? docs/01-44.development-validation-scylladb-memory-lwt-benchmark.md\n?? docs/01-45.raw-requirement-scylladb-memory-lwt-rf3-s1-concurrency-benchmark.md\n?? docs/01-46.development-design-scylladb-memory-lwt-rf3-s1-concurrency-benchmark.md\n?? docs/01-47.development-analysis-scylladb-memory-lwt-rf3-s1-concurrency-benchmark.md\n?? docs/01-48.raw-requirement-scylladb-memory-lwt-rf3-s2-concurrency-benchmark.md\n?? docs/01-49.development-design-scylladb-memory-lwt-rf3-s2-concurrency-benchmark.md\n?? docs/01-50.development-analysis-scylladb-memory-lwt-rf3-s2-concurrency-benchmark.md\n?? docs/01-51.raw-requirement-scylladb-calibrated-single-node-shard-benchmark.md\n?? docs/01-52.development-design-scylladb-calibrated-single-node-shard-benchmark.md\n?? docs/01-53.development-analysis-scylladb-calibrated-single-node-shard-benchmark.md\n?? docs/01-54.raw-requirement-scylladb-calibrated-s2-concurrency-benchmark.md\n?? docs/01-55.development-design-scylladb-calibrated-s2-concurrency-benchmark.md\n?? docs/01-56.development-analysis-scylladb-calibrated-s2-concurrency-benchmark.md\n?? docs/02-01.raw-requirement-resume-project-evidence.md\n?? docs/02-02.development-design-resume-project-evidence.md\n?? src/admission.rs\n?? src/batch_queue.rs\n?? src/config.rs\n?? src/error.rs\n?? src/history.rs\n?? src/lib.rs\n?? src/metrics.rs\n?? src/pipeline.rs\n?? src/storage/\n?? tests/__pycache__/\n?? tests/formal_crash_recovery.rs\n?? tests/formal_history_failure.rs\n?? tests/formal_history_metrics.rs\n?? tests/formal_pipeline.rs\n?? tests/formal_storage.rs\n?? tests/test_scylla_io_observer.py\n?? tests/test_scylla_wallet_runner.py",
+    "git_worktree_dirty": "true"
+  },
+  "source_sha256": {
+    "Cargo.lock": "3c39049b5c1c9c71ef69b7b3894de3d7dd91c8d65db955531b7064ef296dfb03",
+    "Cargo.toml": "7bbf6368b97cf9826b4989612b96884ae63868daf29358142c322f9b2bbc94d8",
+    "benches/scylla_wallet.py": "e69091188a9fc6890b655d958b0ddecebb5f34d107abd99d4ca305150e058ae2",
+    "benchmarks/scylla-wallet/Cargo.lock": "c9a999101291096220a58a8d82e988c27e72ea8290ef6362590c2506730b08eb",
+    "benchmarks/scylla-wallet/Cargo.toml": "f2614560c417727fa0b911d2358f0e7fc0e30480c30fce3c1aea6795f4ab1c1e",
+    "benchmarks/scylla-wallet/README.md": "dc51a6c675b623d92c41a5743fe16c65ab474f2de8e88e08f364cbf5687f8c7f",
+    "benchmarks/scylla-wallet/src/lib.rs": "c12f3d1af7e7125648504e034e7eeb8bb13ac80925194917c6e636a074f72a49",
+    "benchmarks/scylla-wallet/src/main.rs": "967bd543aa823d5c50da7b123576d3a33a12f736cf4f21f0405c9ca260139a23",
+    "benchmarks/scylla-wallet/src/metrics.rs": "b404ad9228ee98c5017ca4e285cd9248f32e8aa5bb4170eaaf4dc74d41d11985",
+    "benchmarks/scylla-wallet/src/service.rs": "7e605caa2a93e780ab957ce6078dfaa6d1c08cb2e93623d003d4673cc2fd5dcd",
+    "benchmarks/scylla-wallet/src/store.rs": "9e7fc123f30309257981dea00d68e4a47eb027af6c974a3d53235d55e0ffc884",
+    "benchmarks/scylla-wallet/tests/scylla_integration.rs": "ea87a2d97199b2df50615ea197e3dffa385731bb343d74654bf0d72a3fd0c5f3",
+    "benchmarks/scylla-wallet/tests/service.rs": "7a4b631775ee63f6703c0ca881f7f7d0b5e3100b08f5e77a5e2e8ed05a858be3",
+    "docs/01-31.raw-requirement-scylladb-wallet-benchmark.md": "fa50d99e9dab6c776d34fe046f3b4e9c5e32d291f09e4fc785eb2d1665b37eaf",
+    "docs/01-32.development-design-scylladb-wallet-benchmark.md": "1e9d219add2a1d29e461e833e5389cfecd2a84a83cab19251152412158dd62cc",
+    "docs/01-36.raw-requirement-scylladb-per-user-worker-benchmark.md": "203d6419fe8629783dfe0a754a0d60d68db045e187a6d6291193db92c2e6f299",
+    "docs/01-37.development-design-scylladb-per-user-worker-benchmark.md": "49d62578297e2c01aa67d9d3ef7b134367f27ec3446d8984dccbf19760c1ee9f",
+    "docs/01-39.raw-requirement-scylladb-rf1-cl1-benchmark.md": "4dcbef163156e2fc339d81414a167c6c05335e886e227025024a6cc8c49c171e",
+    "docs/01-40.development-design-scylladb-rf1-cl1-benchmark.md": "96000d0d5e21bb2da506537c46711835492526f90fadc1d75042d9f7e0fb5f7a",
+    "docs/01-42.raw-requirement-scylladb-memory-lwt-benchmark.md": "dbcf72369419f3a346e884260b1bd11bd0399d10cd93bae7bec9b6640cec1370",
+    "docs/01-43.development-design-scylladb-memory-lwt-benchmark.md": "ed69662a4a49be9babb321b4e7599937cefd7e01c8404f05d7875e5b84528b03",
+    "docs/01-44.development-validation-scylladb-memory-lwt-benchmark.md": "1766a60025a398448eec492c90d192ae6ba2c79c5d1150209d5aa81947e43b2c",
+    "docs/01-51.raw-requirement-scylladb-calibrated-single-node-shard-benchmark.md": "51f4b618cbfe8ee8ceccecb116f64ecfe93603e9530ab0ee4b52a95be77437ed",
+    "docs/01-52.development-design-scylladb-calibrated-single-node-shard-benchmark.md": "04e2da1d307b0a771959dfbef0d90b3eb3218308e0579c9049ee934b11d6cc5e",
+    "tests/test_scylla_wallet_runner.py": "a405e5f6ccf394b2a504b7fe15a915e54d97eab2d175d094760a8ea39a8657a9"
+  }
+}

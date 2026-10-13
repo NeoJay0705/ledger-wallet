@@ -1,0 +1,609 @@
+{
+  "actual_data_connections": 12,
+  "captured_utc": "2026-10-11T16:37:41+00:00",
+  "control_connections": 0,
+  "nodes": {
+    "nodea": {
+      "actual_data": 4,
+      "control_connections": 0,
+      "data_rows": [
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      ],
+      "expected_data": 4,
+      "unclassified_connections": 0
+    },
+    "nodeb": {
+      "actual_data": 4,
+      "control_connections": 0,
+      "data_rows": [
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      ],
+      "expected_data": 4,
+      "unclassified_connections": 0
+    },
+    "nodec": {
+      "actual_data": 4,
+      "control_connections": 0,
+      "data_rows": [
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        },
+        {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      ],
+      "expected_data": 4,
+      "unclassified_connections": 0
+    }
+  },
+  "phase": "before_gate",
+  "problems": [],
+  "raw_client_rows": {
+    "nodea": [
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "COMPRESSION": "lz4",
+          "CQL_VERSION": "3.3.1",
+          "DRIVER_NAME": "ScyllaDB Python Driver",
+          "DRIVER_VERSION": "3.29.7",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "COMPRESSION": "lz4",
+            "CQL_VERSION": "3.3.1",
+            "DRIVER_NAME": "ScyllaDB Python Driver",
+            "DRIVER_VERSION": "3.29.7",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "COMPRESSION": "lz4",
+          "CQL_VERSION": "3.3.1",
+          "DRIVER_NAME": "ScyllaDB Python Driver",
+          "DRIVER_VERSION": "3.29.7",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "COMPRESSION": "lz4",
+            "CQL_VERSION": "3.3.1",
+            "DRIVER_NAME": "ScyllaDB Python Driver",
+            "DRIVER_VERSION": "3.29.7",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      }
+    ],
+    "nodeb": [
+      {
+        "client_options": {
+          "COMPRESSION": "lz4",
+          "CQL_VERSION": "3.3.1",
+          "DRIVER_NAME": "ScyllaDB Python Driver",
+          "DRIVER_VERSION": "3.29.7",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "COMPRESSION": "lz4",
+            "CQL_VERSION": "3.3.1",
+            "DRIVER_NAME": "ScyllaDB Python Driver",
+            "DRIVER_VERSION": "3.29.7",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "COMPRESSION": "lz4",
+          "CQL_VERSION": "3.3.1",
+          "DRIVER_NAME": "ScyllaDB Python Driver",
+          "DRIVER_VERSION": "3.29.7",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "COMPRESSION": "lz4",
+            "CQL_VERSION": "3.3.1",
+            "DRIVER_NAME": "ScyllaDB Python Driver",
+            "DRIVER_VERSION": "3.29.7",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      }
+    ],
+    "nodec": [
+      {
+        "client_options": {
+          "COMPRESSION": "lz4",
+          "CQL_VERSION": "3.3.1",
+          "DRIVER_NAME": "ScyllaDB Python Driver",
+          "DRIVER_VERSION": "3.29.7",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "COMPRESSION": "lz4",
+            "CQL_VERSION": "3.3.1",
+            "DRIVER_NAME": "ScyllaDB Python Driver",
+            "DRIVER_VERSION": "3.29.7",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "COMPRESSION": "lz4",
+          "CQL_VERSION": "3.3.1",
+          "DRIVER_NAME": "ScyllaDB Python Driver",
+          "DRIVER_VERSION": "3.29.7",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "COMPRESSION": "lz4",
+            "CQL_VERSION": "3.3.1",
+            "DRIVER_NAME": "ScyllaDB Python Driver",
+            "DRIVER_VERSION": "3.29.7",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      },
+      {
+        "client_options": {
+          "CQL_VERSION": "4.0.0",
+          "DRIVER_NAME": "ScyllaDB Rust Driver",
+          "DRIVER_VERSION": "2.0.0",
+          "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+          "SCYLLA_RATE_LIMIT_ERROR": "",
+          "SCYLLA_USE_METADATA_ID": "",
+          "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+          "TABLETS_ROUTING_V1": ""
+        },
+        "row": {
+          "client_options": {
+            "CQL_VERSION": "4.0.0",
+            "DRIVER_NAME": "ScyllaDB Rust Driver",
+            "DRIVER_VERSION": "2.0.0",
+            "SCYLLA_LWT_ADD_METADATA_MARK": "LWT_OPTIMIZATION_META_BIT_MASK=2147483648",
+            "SCYLLA_RATE_LIMIT_ERROR": "",
+            "SCYLLA_USE_METADATA_ID": "",
+            "SESSION_ID": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+            "TABLETS_ROUTING_V1": ""
+          }
+        }
+      }
+    ]
+  },
+  "session_id": "8e9e8287-b3d2-44e1-8ab4-f07b01c3e1c9",
+  "target_data_connections": 12,
+  "valid": true,
+  "workers": 12
+}

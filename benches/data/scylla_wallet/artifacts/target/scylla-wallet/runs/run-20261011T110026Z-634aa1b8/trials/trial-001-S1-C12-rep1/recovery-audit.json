@@ -1,0 +1,93 @@
+{
+  "captured_utc": "2026-10-11T11:06:22.984787+00:00",
+  "preflight": {
+    "captured_utc": "2026-10-11T11:06:20.552081+00:00",
+    "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8",
+    "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1",
+    "owned_root": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/owned-data",
+    "nonce": "f6a80682e584424fbaea9553d0f1cf19",
+    "trial_id": "trial-001-S1-C12-rep1",
+    "run_id": "run-20261011T110026Z-634aa1b8",
+    "saved_network_id": "d5a108dd1409d331fdf18bc72f0e8dd9537db4c5680c1254282514308dc1018b",
+    "network_name": "lw-scylla-f6a80682e5-trial-001-S1-C12-rep1",
+    "network_owner_labels": {
+      "ledger-wallet.nonce": "f6a80682e584424fbaea9553d0f1cf19",
+      "ledger-wallet.owner": "scylla-wallet-runner",
+      "ledger-wallet.run-id": "run-20261011T110026Z-634aa1b8",
+      "ledger-wallet.trial-id": "trial-001-S1-C12-rep1"
+    },
+    "network_attached_container_ids": [],
+    "container_preflight": [
+      {
+        "name": "lw-scylla-f6a80682-trial-001-S1-nodea",
+        "container_id": "f3a54f3e58cb5b8612d439fab8dda1a51da720708c933163465461df014ff97a",
+        "node": "nodea",
+        "state": "exited",
+        "running": false,
+        "owner_labels_match": true,
+        "mount_source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/owned-data/nodea",
+        "network_id": "d5a108dd1409d331fdf18bc72f0e8dd9537db4c5680c1254282514308dc1018b",
+        "network_ip": ""
+      }
+    ],
+    "preserved_prior_failure_artifacts": {
+      "cleanup.json": {
+        "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/cleanup.json",
+        "copy": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/recovery-before/cleanup.json",
+        "sha256": "9f5dd102f8f1eb55369ebea297e0f7eda309d3e6ce88b42fc450f643923cf16a"
+      },
+      "ownership-manifest.json": {
+        "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/ownership-manifest.json",
+        "copy": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/recovery-before/ownership-manifest.json",
+        "sha256": "847701e3ea26400d70edb793d4d761d9ba530994a9e531b12270c9a069b9a821"
+      },
+      "runner-result.json": {
+        "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/runner-result.json",
+        "copy": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/recovery-before/runner-result.json",
+        "sha256": "4c13ffabc226830634d8dbc411dc312e0967a698488f8ee96a27cd7b148f4cb8"
+      }
+    },
+    "preflight_validated": true
+  },
+  "stop_and_cleanup": {
+    "status": "clean",
+    "containers_stopped": true,
+    "containers_removed": [
+      "nodea"
+    ],
+    "network_removed": true,
+    "data_removed": [
+      "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/owned-data/nodea",
+      "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/owned-data/nodeb",
+      "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/owned-data/nodec"
+    ],
+    "retained_data": [],
+    "errors": []
+  },
+  "container_ids_absent": true,
+  "remaining_owned_containers": [],
+  "no_nonce_labeled_containers": true,
+  "remaining_nonce_labeled_containers": [],
+  "no_nonce_labeled_networks": true,
+  "remaining_nonce_labeled_networks": [],
+  "owned_root_absent": true,
+  "run_dir_preserved": true,
+  "preserved_prior_failure_artifacts": {
+    "cleanup.json": {
+      "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/cleanup.json",
+      "copy": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/recovery-before/cleanup.json",
+      "sha256": "9f5dd102f8f1eb55369ebea297e0f7eda309d3e6ce88b42fc450f643923cf16a"
+    },
+    "ownership-manifest.json": {
+      "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/ownership-manifest.json",
+      "copy": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/recovery-before/ownership-manifest.json",
+      "sha256": "847701e3ea26400d70edb793d4d761d9ba530994a9e531b12270c9a069b9a821"
+    },
+    "runner-result.json": {
+      "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/runner-result.json",
+      "copy": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T110026Z-634aa1b8/trials/trial-001-S1-C12-rep1/recovery-before/runner-result.json",
+      "sha256": "4c13ffabc226830634d8dbc411dc312e0967a698488f8ee96a27cd7b148f4cb8"
+    }
+  },
+  "cleanup_clean": true
+}

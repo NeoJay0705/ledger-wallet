@@ -1,0 +1,50 @@
+{
+  "consecutive_passing_samples": 3,
+  "required_disk_bytes": 68719476736,
+  "samples": [
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 666636226560,
+      "elapsed_seconds": 0.431,
+      "host_cpu_busy_pct": 2.5078369905956115,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs",
+      "memory_available_bytes": 45866110976,
+      "required_disk_bytes": 68719476736
+    },
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 666636214272,
+      "elapsed_seconds": 1.86,
+      "host_cpu_busy_pct": 0.9375,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs",
+      "memory_available_bytes": 45867069440,
+      "required_disk_bytes": 68719476736
+    },
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 666636197888,
+      "elapsed_seconds": 3.289,
+      "host_cpu_busy_pct": 3.4375,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs",
+      "memory_available_bytes": 45864849408,
+      "required_disk_bytes": 68719476736
+    }
+  ],
+  "valid": true,
+  "waited_seconds": 3.289
+}

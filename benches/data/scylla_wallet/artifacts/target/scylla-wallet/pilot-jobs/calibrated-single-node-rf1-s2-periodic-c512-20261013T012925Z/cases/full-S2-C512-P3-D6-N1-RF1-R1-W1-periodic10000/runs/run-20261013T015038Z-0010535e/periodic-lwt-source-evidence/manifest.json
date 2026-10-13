@@ -1,0 +1,427 @@
+{
+  "captured_utc": "2026-10-13T01:50:47+00:00",
+  "files": {
+    "db/commitlog/commitlog.cc": {
+      "bytes": 153785,
+      "evidence": {
+        "batch_cycle_doc": {
+          "fragment": "For batch mode we force a write",
+          "line_numbers": [
+            1231
+          ],
+          "matched": true
+        },
+        "forced_writer_uses_sync_path_in_periodic_mode": {
+          "fragment": "_segment_manager->cfg.mode == sync_mode::BATCH || writer.sync",
+          "line_numbers": [
+            1315,
+            1407
+          ],
+          "matched": true
+        },
+        "sync_calls_cycle": {
+          "fragment": "return cycle(true)",
+          "line_numbers": [
+            954
+          ],
+          "matched": true
+        },
+        "sync_path_waits_for_batch_cycle": {
+          "fragment": "co_await s->batch_cycle(timeout)",
+          "line_numbers": [
+            1552,
+            1731,
+            1815
+          ],
+          "matched": true
+        }
+      },
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/commitlog/commitlog.cc",
+      "sha256": "8e5bde0fa0228db89f1a342b3a242154a0edea2301fa2726ff9716e13c2736d6",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/commitlog/commitlog.cc"
+    },
+    "db/config.cc": {
+      "bytes": 165053,
+      "evidence": {
+        "period_default_10000": {
+          "fragment": "\"commitlog_sync_period_in_ms\", value_status::Used, 10000",
+          "line_numbers": [
+            836
+          ],
+          "matched": true
+        },
+        "periodic_mode_ack_semantics": {
+          "fragment": "Periodic syncs are acknowledged immediately.",
+          "line_numbers": [
+            823
+          ],
+          "matched": true
+        }
+      },
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/config.cc",
+      "sha256": "194cea8734ec311c5163ea2a5a34d71072ee63251469ce2247b5f89a83f90e2f",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/config.cc"
+    },
+    "db/system_keyspace.cc": {
+      "bytes": 167552,
+      "evidence": {
+        "paxos_table_sync_property": {
+          "fragment": "builder.set_wait_for_sync_to_commitlog(true)",
+          "line_numbers": [
+            83
+          ],
+          "matched": true
+        },
+        "property_is_for_paxos_table": {
+          "fragment": "system_keyspace::PAXOS",
+          "line_numbers": [
+            80
+          ],
+          "matched": true
+        }
+      },
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/system_keyspace.cc",
+      "sha256": "e5ce0e5beee75b6b1c078234aab4171d127f173d080ed9fc768cfbee80f9bd09",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/system_keyspace.cc"
+    },
+    "replica/database.cc": {
+      "bytes": 181084,
+      "evidence": {
+        "schema_property_enables_force_sync": {
+          "fragment": "sync = sync || db::commitlog::force_sync(s->wait_for_sync_to_commitlog())",
+          "line_numbers": [
+            2292
+          ],
+          "matched": true
+        },
+        "writer_receives_sync": {
+          "fragment": "commitlog_entry_writer cew(s, m, sync)",
+          "line_numbers": [
+            2322
+          ],
+          "matched": true
+        },
+        "writer_submitted_to_commitlog": {
+          "fragment": "cf.commitlog()->add_entry(uuid, cew, timeout)",
+          "line_numbers": [
+            2323
+          ],
+          "matched": true
+        }
+      },
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/replica/database.cc",
+      "sha256": "fd94c1bb730ff18237260c3286aa0efd45fff985cfb9176ed9851a035c17787f",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/replica/database.cc"
+    },
+    "service/paxos/paxos_state.cc": {
+      "bytes": 34067,
+      "evidence": {
+        "accept_proposal_write": {
+          "fragment": "save_paxos_proposal(*schema",
+          "line_numbers": [
+            239
+          ],
+          "matched": true
+        },
+        "learn_forces_sync": {
+          "fragment": "db::commitlog::force_sync::yes",
+          "line_numbers": [
+            297
+          ],
+          "matched": true
+        },
+        "non_tablet_paxos_schema": {
+          "fragment": "co_return db::system_keyspace::paxos()",
+          "line_numbers": [
+            546
+          ],
+          "matched": true
+        },
+        "non_tablet_profile_uses_system_paxos": {
+          "fragment": "if (!s.table().uses_tablets())",
+          "line_numbers": [
+            545
+          ],
+          "matched": true
+        },
+        "prepare_promise_write": {
+          "fragment": "save_paxos_promise(*schema",
+          "line_numbers": [
+            157
+          ],
+          "matched": true
+        }
+      },
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/paxos/paxos_state.cc",
+      "sha256": "ce604cec3fb307cd1f9702bd736542c3dd06a4d79157c133268d15480d117edf",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/paxos/paxos_state.cc"
+    },
+    "service/storage_proxy.cc": {
+      "bytes": 405049,
+      "evidence": {
+        "accept_path": {
+          "fragment": "paxos::paxos_state::accept(",
+          "line_numbers": [
+            1035,
+            2427
+          ],
+          "matched": true
+        },
+        "learn_path": {
+          "fragment": "paxos::paxos_state::learn(",
+          "line_numbers": [
+            732,
+            1549
+          ],
+          "matched": true
+        },
+        "prepare_path": {
+          "fragment": "paxos::paxos_state::prepare(",
+          "line_numbers": [
+            997,
+            2262
+          ],
+          "matched": true
+        }
+      },
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/storage_proxy.cc",
+      "sha256": "01e21de8e8958ff4541a95317b9391147340d0de399642aede3fc99c57992034",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/storage_proxy.cc"
+    }
+  },
+  "interpretation": {
+    "lwt_force_sync_path": "Pinned Scylla code marks system.paxos for commitlog sync, routes prepare/accept/learn through that path, and learn requests force_sync::yes for the committed mutation. The commitlog writer routes writer.sync through batch_cycle/sync even when periodic mode is configured; this does not establish one physical fsync per transaction or exclude coalescing. This benchmark disables tablets, so the evidence applies to the system.paxos route and does not claim behavior for tablet-backed LWT paths.",
+    "official_documentation": "The pinned 2026.1 manual states that all LWT writes use synchronous commitlog mode and reach the device before LWT completion, in all commitlog_sync modes.",
+    "periodic_ordinary_writes": "Pinned config documentation says periodic syncs are acknowledged immediately; this runner does not interpret ordinary periodic writes as synchronous acknowledgements."
+  },
+  "official_lwt_documentation": {
+    "bytes": 85362,
+    "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/official-lwt-differences.html",
+    "sha256": "d771a417ac9a6e2b29f610eaa9f3790d01defe0025995b93f2cc9607f5965ac0",
+    "url": "https://docs.scylladb.com/manual/branch-2026.1/kb/lwt-differences.html"
+  },
+  "source_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+  "source_commit_url": "https://github.com/scylladb/scylladb/commit/0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+  "valid": true,
+  "validation": {
+    "errors": [],
+    "expected_source_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+    "files": {
+      "db/commitlog/commitlog.cc": {
+        "bytes": 153785,
+        "evidence": {
+          "batch_cycle_doc": {
+            "fragment": "For batch mode we force a write",
+            "line_numbers": [
+              1231
+            ],
+            "matched": true
+          },
+          "forced_writer_uses_sync_path_in_periodic_mode": {
+            "fragment": "_segment_manager->cfg.mode == sync_mode::BATCH || writer.sync",
+            "line_numbers": [
+              1315,
+              1407
+            ],
+            "matched": true
+          },
+          "sync_calls_cycle": {
+            "fragment": "return cycle(true)",
+            "line_numbers": [
+              954
+            ],
+            "matched": true
+          },
+          "sync_path_waits_for_batch_cycle": {
+            "fragment": "co_await s->batch_cycle(timeout)",
+            "line_numbers": [
+              1552,
+              1731,
+              1815
+            ],
+            "matched": true
+          }
+        },
+        "expected_sha256": "8e5bde0fa0228db89f1a342b3a242154a0edea2301fa2726ff9716e13c2736d6",
+        "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/commitlog/commitlog.cc",
+        "sha256": "8e5bde0fa0228db89f1a342b3a242154a0edea2301fa2726ff9716e13c2736d6",
+        "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/commitlog/commitlog.cc",
+        "valid": true
+      },
+      "db/config.cc": {
+        "bytes": 165053,
+        "evidence": {
+          "period_default_10000": {
+            "fragment": "\"commitlog_sync_period_in_ms\", value_status::Used, 10000",
+            "line_numbers": [
+              836
+            ],
+            "matched": true
+          },
+          "periodic_mode_ack_semantics": {
+            "fragment": "Periodic syncs are acknowledged immediately.",
+            "line_numbers": [
+              823
+            ],
+            "matched": true
+          }
+        },
+        "expected_sha256": "194cea8734ec311c5163ea2a5a34d71072ee63251469ce2247b5f89a83f90e2f",
+        "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/config.cc",
+        "sha256": "194cea8734ec311c5163ea2a5a34d71072ee63251469ce2247b5f89a83f90e2f",
+        "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/config.cc",
+        "valid": true
+      },
+      "db/system_keyspace.cc": {
+        "bytes": 167552,
+        "evidence": {
+          "paxos_table_sync_property": {
+            "fragment": "builder.set_wait_for_sync_to_commitlog(true)",
+            "line_numbers": [
+              83
+            ],
+            "matched": true
+          },
+          "property_is_for_paxos_table": {
+            "fragment": "system_keyspace::PAXOS",
+            "line_numbers": [
+              80
+            ],
+            "matched": true
+          }
+        },
+        "expected_sha256": "e5ce0e5beee75b6b1c078234aab4171d127f173d080ed9fc768cfbee80f9bd09",
+        "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/system_keyspace.cc",
+        "sha256": "e5ce0e5beee75b6b1c078234aab4171d127f173d080ed9fc768cfbee80f9bd09",
+        "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/db/system_keyspace.cc",
+        "valid": true
+      },
+      "replica/database.cc": {
+        "bytes": 181084,
+        "evidence": {
+          "schema_property_enables_force_sync": {
+            "fragment": "sync = sync || db::commitlog::force_sync(s->wait_for_sync_to_commitlog())",
+            "line_numbers": [
+              2292
+            ],
+            "matched": true
+          },
+          "writer_receives_sync": {
+            "fragment": "commitlog_entry_writer cew(s, m, sync)",
+            "line_numbers": [
+              2322
+            ],
+            "matched": true
+          },
+          "writer_submitted_to_commitlog": {
+            "fragment": "cf.commitlog()->add_entry(uuid, cew, timeout)",
+            "line_numbers": [
+              2323
+            ],
+            "matched": true
+          }
+        },
+        "expected_sha256": "fd94c1bb730ff18237260c3286aa0efd45fff985cfb9176ed9851a035c17787f",
+        "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/replica/database.cc",
+        "sha256": "fd94c1bb730ff18237260c3286aa0efd45fff985cfb9176ed9851a035c17787f",
+        "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/replica/database.cc",
+        "valid": true
+      },
+      "service/paxos/paxos_state.cc": {
+        "bytes": 34067,
+        "evidence": {
+          "accept_proposal_write": {
+            "fragment": "save_paxos_proposal(*schema",
+            "line_numbers": [
+              239
+            ],
+            "matched": true
+          },
+          "learn_forces_sync": {
+            "fragment": "db::commitlog::force_sync::yes",
+            "line_numbers": [
+              297
+            ],
+            "matched": true
+          },
+          "non_tablet_paxos_schema": {
+            "fragment": "co_return db::system_keyspace::paxos()",
+            "line_numbers": [
+              546
+            ],
+            "matched": true
+          },
+          "non_tablet_profile_uses_system_paxos": {
+            "fragment": "if (!s.table().uses_tablets())",
+            "line_numbers": [
+              545
+            ],
+            "matched": true
+          },
+          "prepare_promise_write": {
+            "fragment": "save_paxos_promise(*schema",
+            "line_numbers": [
+              157
+            ],
+            "matched": true
+          }
+        },
+        "expected_sha256": "ce604cec3fb307cd1f9702bd736542c3dd06a4d79157c133268d15480d117edf",
+        "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/paxos/paxos_state.cc",
+        "sha256": "ce604cec3fb307cd1f9702bd736542c3dd06a4d79157c133268d15480d117edf",
+        "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/paxos/paxos_state.cc",
+        "valid": true
+      },
+      "service/storage_proxy.cc": {
+        "bytes": 405049,
+        "evidence": {
+          "accept_path": {
+            "fragment": "paxos::paxos_state::accept(",
+            "line_numbers": [
+              1035,
+              2427
+            ],
+            "matched": true
+          },
+          "learn_path": {
+            "fragment": "paxos::paxos_state::learn(",
+            "line_numbers": [
+              732,
+              1549
+            ],
+            "matched": true
+          },
+          "prepare_path": {
+            "fragment": "paxos::paxos_state::prepare(",
+            "line_numbers": [
+              997,
+              2262
+            ],
+            "matched": true
+          }
+        },
+        "expected_sha256": "01e21de8e8958ff4541a95317b9391147340d0de399642aede3fc99c57992034",
+        "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/periodic-lwt-source-evidence/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/storage_proxy.cc",
+        "sha256": "01e21de8e8958ff4541a95317b9391147340d0de399642aede3fc99c57992034",
+        "url": "https://raw.githubusercontent.com/scylladb/scylladb/0dbea6201d676548993bc5889d8f4a34dd6ef54c/service/storage_proxy.cc",
+        "valid": true
+      }
+    },
+    "interpretation": {
+      "lwt_force_sync_path": "Pinned Scylla code marks system.paxos for commitlog sync, routes prepare/accept/learn through that path, and learn requests force_sync::yes for the committed mutation. The commitlog writer routes writer.sync through batch_cycle/sync even when periodic mode is configured; this does not establish one physical fsync per transaction or exclude coalescing. This benchmark disables tablets, so the evidence applies to the system.paxos route and does not claim behavior for tablet-backed LWT paths.",
+      "official_documentation": "The pinned 2026.1 manual states that all LWT writes use synchronous commitlog mode and reach the device before LWT completion, in all commitlog_sync modes.",
+      "periodic_ordinary_writes": "Pinned config documentation says periodic syncs are acknowledged immediately; this runner does not interpret ordinary periodic writes as synchronous acknowledgements."
+    },
+    "official_lwt_documentation": {
+      "required_phrases": [
+        "has hit the device",
+        "This is done in all commitlog_sync modes."
+      ],
+      "sha256": "d771a417ac9a6e2b29f610eaa9f3790d01defe0025995b93f2cc9607f5965ac0",
+      "url": "https://docs.scylladb.com/manual/branch-2026.1/kb/lwt-differences.html",
+      "valid": true
+    },
+    "source_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+    "valid": true
+  }
+}

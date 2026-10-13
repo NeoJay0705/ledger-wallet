@@ -1,0 +1,551 @@
+{
+  "config_surface_note": "Effective device mapping is checked from Scylla Prometheus queue labels; the runner does not infer loaded properties from warning absence.",
+  "expected_nodes": [
+    "nodea"
+  ],
+  "node_count": 1,
+  "nodes": {
+    "nodea": {
+      "argv_error": null,
+      "container_file_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+      "container_sha256_exit_code": 0,
+      "container_sha256_stderr": "",
+      "container_sha256_stdout": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf  /etc/scylla/ledger-wallet-io-properties.yaml\n",
+      "device_stats": {
+        "container_device_matches_host_bind_source": true,
+        "container_paths_share_device": true,
+        "exit_code": 0,
+        "expected_paths": [
+          "/var/lib/scylla",
+          "/var/lib/scylla/data",
+          "/var/lib/scylla/commitlog"
+        ],
+        "host_owned_root_device_id": 2066,
+        "missing_paths": [],
+        "observed_device_ids": {
+          "/var/lib/scylla": 2066,
+          "/var/lib/scylla/commitlog": 2066,
+          "/var/lib/scylla/data": 2066
+        },
+        "stderr": "",
+        "valid": true
+      },
+      "errors": [],
+      "io_queue_mountpoints": {
+        "metric_name": "scylla_io_queue_activations",
+        "raw_probe_file": {
+          "bytes_uncompressed": 234185,
+          "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/cases/full-S1-C128-P3-D3-N1-RF1-R1-W1/runs/run-20261012T154832Z-95a534cd/trials/trial-001-S1-C128-P3-D3-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/io-properties-runtime/nodea.prom.gz",
+          "sha256_uncompressed": "26a5579d9253a7bd0de036c96bd8b4b821066c2020b87356b39e132d8e89caac"
+        },
+        "series": [
+          {
+            "exposition_timestamp": null,
+            "labels": {
+              "class": "commitlog",
+              "iogroup": "0",
+              "mountpoint": "/var/lib/scylla",
+              "shard": "0",
+              "stream": "rw"
+            },
+            "name": "scylla_io_queue_activations",
+            "value": 11.0
+          },
+          {
+            "exposition_timestamp": null,
+            "labels": {
+              "class": "main",
+              "iogroup": "0",
+              "mountpoint": "",
+              "shard": "0",
+              "stream": "rw"
+            },
+            "name": "scylla_io_queue_activations",
+            "value": 7.0
+          },
+          {
+            "exposition_timestamp": null,
+            "labels": {
+              "class": "main",
+              "iogroup": "0",
+              "mountpoint": "/var/lib/scylla",
+              "shard": "0",
+              "stream": "rw"
+            },
+            "name": "scylla_io_queue_activations",
+            "value": 357.0
+          }
+        ],
+        "valid": true,
+        "validation": {
+          "activation_evidence_by_class_shard": {
+            "commitlog/shard-0": [
+              {
+                "labels": {
+                  "class": "commitlog",
+                  "iogroup": "0",
+                  "mountpoint": "/var/lib/scylla",
+                  "shard": "0",
+                  "stream": "rw"
+                },
+                "mountpoint": "/var/lib/scylla",
+                "value": 11.0
+              }
+            ],
+            "main/shard-0": [
+              {
+                "labels": {
+                  "class": "main",
+                  "iogroup": "0",
+                  "mountpoint": "",
+                  "shard": "0",
+                  "stream": "rw"
+                },
+                "mountpoint": "",
+                "value": 7.0
+              },
+              {
+                "labels": {
+                  "class": "main",
+                  "iogroup": "0",
+                  "mountpoint": "/var/lib/scylla",
+                  "shard": "0",
+                  "stream": "rw"
+                },
+                "mountpoint": "/var/lib/scylla",
+                "value": 357.0
+              }
+            ]
+          },
+          "expected_mountpoint": "/var/lib/scylla",
+          "expected_shards": [
+            0
+          ],
+          "metric_name": "scylla_io_queue_activations",
+          "mismatches": [],
+          "missing_series": [],
+          "mountpoints_by_class_shard": {
+            "commitlog/shard-0": [
+              "/var/lib/scylla"
+            ],
+            "main/shard-0": [
+              "",
+              "/var/lib/scylla"
+            ]
+          },
+          "observed_pairs": [
+            [
+              "commitlog",
+              "0"
+            ],
+            [
+              "main",
+              "0"
+            ]
+          ],
+          "series_count": 3,
+          "unexpected_series": [],
+          "valid": true
+        }
+      },
+      "prometheus_probe_error": null,
+      "scylla_argv": [
+        "/usr/bin/scylla",
+        "--log-to-syslog",
+        "0",
+        "--log-to-stdout",
+        "1",
+        "--network-stack",
+        "posix",
+        "--developer-mode=1",
+        "--cpuset",
+        "0",
+        "--memory",
+        "8G",
+        "--smp",
+        "1",
+        "--overprovisioned",
+        "--listen-address",
+        "172.24.0.10",
+        "--rpc-address",
+        "172.24.0.10",
+        "--seed-provider-parameters",
+        "seeds=172.24.0.10",
+        "--broadcast-address",
+        "172.24.0.10",
+        "--broadcast-rpc-address",
+        "172.24.0.10",
+        "--alternator-address",
+        "172.24.0.10",
+        "--cluster-name",
+        "ledger-wallet-23268ea6-trial-001-S1-C128-P3-D3-",
+        "--blocked-reactor-notify-ms",
+        "25",
+        "--thread-affinity",
+        "1",
+        "--prometheus-address",
+        "0.0.0.0",
+        "--prometheus-port",
+        "9180",
+        "--commitlog-sync",
+        "batch",
+        "--commitlog-use-o-dsync",
+        "false",
+        "--commitlog-total-space-in-mb",
+        "1024",
+        "--commitlog-segment-size-in-mb",
+        "64",
+        "--relabel-config-file",
+        "/etc/scylla/ledger-wallet-metrics.yaml",
+        "--max-networking-io-control-blocks",
+        "1024",
+        "--reserve-io-control-blocks",
+        "1024",
+        "--reactor-backend",
+        "linux-aio",
+        "--io-properties-file",
+        "/etc/scylla/ledger-wallet-io-properties.yaml"
+      ],
+      "scylla_host_pid": 62783,
+      "startup_log_files": {
+        "stderr": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/cases/full-S1-C128-P3-D3-N1-RF1-R1-W1/runs/run-20261012T154832Z-95a534cd/trials/trial-001-S1-C128-P3-D3-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/logs/runtime-aio/nodea.stderr.log",
+        "stdout": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/cases/full-S1-C128-P3-D3-N1-RF1-R1-W1/runs/run-20261012T154832Z-95a534cd/trials/trial-001-S1-C128-P3-D3-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/logs/runtime-aio/nodea.stdout.log"
+      },
+      "valid": true
+    }
+  },
+  "problems": [],
+  "profile": {
+    "config_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/cases/full-S1-C128-P3-D3-N1-RF1-R1-W1/runs/run-20261012T154832Z-95a534cd/trials/trial-001-S1-C128-P3-D3-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/io-properties.yaml",
+    "container_path": "/etc/scylla/ledger-wallet-io-properties.yaml",
+    "copied_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+    "enabled": true,
+    "load_evidence": null,
+    "provenance": {
+      "captured_utc": "2026-10-12T15:48:32+00:00",
+      "device": 2066,
+      "inode": 52838627,
+      "kind": "user-supplied local file snapshot",
+      "mtime_ns": 1791813238823299135,
+      "requested_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+      "resolved_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+      "size_bytes": 143
+    },
+    "read_only_container_mount": true,
+    "requested_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+    "resolved_source_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+    "source_evidence": {
+      "commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "disk_params_behavior": "YAMLLoadFile reads the configured file, stats mountpoints, and maps queue devices; runtime io_queue_activations labels expose per-shard device mapping, including empty-mountpoint fallback queues",
+      "disk_params_source_locations": "src/core/disk_params.cc:98 YAMLLoadFile/st_dev; generate_config:181 mountpoint labels",
+      "disk_params_source_sha256": "03e52b910cbb7694740fd2388f87dd14c748ebf7ee4dd8c24b1a93ef2d1b30de",
+      "disk_params_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/disk_params.cc",
+      "expected_container_mountpoint": "/var/lib/scylla",
+      "reactor_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc",
+      "registered_option_location": "src/core/reactor.cc:3683",
+      "repository": "scylladb/scylla-seastar",
+      "runtime_metric": "scylla_io_queue_activations",
+      "runtime_metric_classes": [
+        "main",
+        "commitlog"
+      ]
+    },
+    "source_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+    "source_size_bytes": 143
+  },
+  "queue_mountpoint_validation": {
+    "expected_nodes": [
+      "nodea"
+    ],
+    "nodes": {
+      "nodea": {
+        "activation_evidence_by_class_shard": {
+          "commitlog/shard-0": [
+            {
+              "labels": {
+                "class": "commitlog",
+                "iogroup": "0",
+                "mountpoint": "/var/lib/scylla",
+                "shard": "0",
+                "stream": "rw"
+              },
+              "mountpoint": "/var/lib/scylla",
+              "value": 11.0
+            }
+          ],
+          "main/shard-0": [
+            {
+              "labels": {
+                "class": "main",
+                "iogroup": "0",
+                "mountpoint": "",
+                "shard": "0",
+                "stream": "rw"
+              },
+              "mountpoint": "",
+              "value": 7.0
+            },
+            {
+              "labels": {
+                "class": "main",
+                "iogroup": "0",
+                "mountpoint": "/var/lib/scylla",
+                "shard": "0",
+                "stream": "rw"
+              },
+              "mountpoint": "/var/lib/scylla",
+              "value": 357.0
+            }
+          ]
+        },
+        "expected_mountpoint": "/var/lib/scylla",
+        "expected_shards": [
+          0
+        ],
+        "metric_name": "scylla_io_queue_activations",
+        "mismatches": [],
+        "missing_series": [],
+        "mountpoints_by_class_shard": {
+          "commitlog/shard-0": [
+            "/var/lib/scylla"
+          ],
+          "main/shard-0": [
+            "",
+            "/var/lib/scylla"
+          ]
+        },
+        "observed_pairs": [
+          [
+            "commitlog",
+            "0"
+          ],
+          [
+            "main",
+            "0"
+          ]
+        ],
+        "series_count": 3,
+        "unexpected_series": [],
+        "valid": true
+      }
+    },
+    "problems": [],
+    "shards": 1,
+    "source_evidence": {
+      "commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "disk_params_behavior": "YAMLLoadFile reads the configured file, stats mountpoints, and maps queue devices; runtime io_queue_activations labels expose per-shard device mapping, including empty-mountpoint fallback queues",
+      "disk_params_source_locations": "src/core/disk_params.cc:98 YAMLLoadFile/st_dev; generate_config:181 mountpoint labels",
+      "disk_params_source_sha256": "03e52b910cbb7694740fd2388f87dd14c748ebf7ee4dd8c24b1a93ef2d1b30de",
+      "disk_params_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/disk_params.cc",
+      "expected_container_mountpoint": "/var/lib/scylla",
+      "reactor_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc",
+      "registered_option_location": "src/core/reactor.cc:3683",
+      "repository": "scylladb/scylla-seastar",
+      "runtime_metric": "scylla_io_queue_activations",
+      "runtime_metric_classes": [
+        "main",
+        "commitlog"
+      ]
+    },
+    "valid": true
+  },
+  "runtime_validation": {
+    "effective_load_claim": "file hash, read-only mount, live Scylla argv, matching data/commitlog st_dev, and per-shard main/commitlog io_queue_activations labels include the data mountpoint; empty-mountpoint fallback and other mountpoint queues are retained separately. This verifies the data-device mapping, not calibration quality or whether other device I/O is controlled",
+    "enabled": true,
+    "expected_nodes": [
+      "nodea"
+    ],
+    "nodes": {
+      "nodea": {
+        "content_hash_valid": true,
+        "device_stats": {
+          "container_device_matches_host_bind_source": true,
+          "container_paths_share_device": true,
+          "exit_code": 0,
+          "expected_paths": [
+            "/var/lib/scylla",
+            "/var/lib/scylla/data",
+            "/var/lib/scylla/commitlog"
+          ],
+          "host_owned_root_device_id": 2066,
+          "missing_paths": [],
+          "observed_device_ids": {
+            "/var/lib/scylla": 2066,
+            "/var/lib/scylla/commitlog": 2066,
+            "/var/lib/scylla/data": 2066
+          },
+          "stderr": "",
+          "valid": true
+        },
+        "device_stats_valid": true,
+        "effective_load_evidence_valid": true,
+        "expected_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+        "io_queue_mountpoints": {
+          "metric_name": "scylla_io_queue_activations",
+          "raw_probe_file": {
+            "bytes_uncompressed": 234185,
+            "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/cases/full-S1-C128-P3-D3-N1-RF1-R1-W1/runs/run-20261012T154832Z-95a534cd/trials/trial-001-S1-C128-P3-D3-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1/io-properties-runtime/nodea.prom.gz",
+            "sha256_uncompressed": "26a5579d9253a7bd0de036c96bd8b4b821066c2020b87356b39e132d8e89caac"
+          },
+          "series": [
+            {
+              "exposition_timestamp": null,
+              "labels": {
+                "class": "commitlog",
+                "iogroup": "0",
+                "mountpoint": "/var/lib/scylla",
+                "shard": "0",
+                "stream": "rw"
+              },
+              "name": "scylla_io_queue_activations",
+              "value": 11.0
+            },
+            {
+              "exposition_timestamp": null,
+              "labels": {
+                "class": "main",
+                "iogroup": "0",
+                "mountpoint": "",
+                "shard": "0",
+                "stream": "rw"
+              },
+              "name": "scylla_io_queue_activations",
+              "value": 7.0
+            },
+            {
+              "exposition_timestamp": null,
+              "labels": {
+                "class": "main",
+                "iogroup": "0",
+                "mountpoint": "/var/lib/scylla",
+                "shard": "0",
+                "stream": "rw"
+              },
+              "name": "scylla_io_queue_activations",
+              "value": 357.0
+            }
+          ],
+          "valid": true,
+          "validation": {
+            "activation_evidence_by_class_shard": {
+              "commitlog/shard-0": [
+                {
+                  "labels": {
+                    "class": "commitlog",
+                    "iogroup": "0",
+                    "mountpoint": "/var/lib/scylla",
+                    "shard": "0",
+                    "stream": "rw"
+                  },
+                  "mountpoint": "/var/lib/scylla",
+                  "value": 11.0
+                }
+              ],
+              "main/shard-0": [
+                {
+                  "labels": {
+                    "class": "main",
+                    "iogroup": "0",
+                    "mountpoint": "",
+                    "shard": "0",
+                    "stream": "rw"
+                  },
+                  "mountpoint": "",
+                  "value": 7.0
+                },
+                {
+                  "labels": {
+                    "class": "main",
+                    "iogroup": "0",
+                    "mountpoint": "/var/lib/scylla",
+                    "shard": "0",
+                    "stream": "rw"
+                  },
+                  "mountpoint": "/var/lib/scylla",
+                  "value": 357.0
+                }
+              ]
+            },
+            "expected_mountpoint": "/var/lib/scylla",
+            "expected_shards": [
+              0
+            ],
+            "metric_name": "scylla_io_queue_activations",
+            "mismatches": [],
+            "missing_series": [],
+            "mountpoints_by_class_shard": {
+              "commitlog/shard-0": [
+                "/var/lib/scylla"
+              ],
+              "main/shard-0": [
+                "",
+                "/var/lib/scylla"
+              ]
+            },
+            "observed_pairs": [
+              [
+                "commitlog",
+                "0"
+              ],
+              [
+                "main",
+                "0"
+              ]
+            ],
+            "series_count": 3,
+            "unexpected_series": [],
+            "valid": true
+          }
+        },
+        "launch_flag": "/etc/scylla/ledger-wallet-io-properties.yaml",
+        "launch_flag_valid": true,
+        "missing_properties_warning": false,
+        "mount_count": 1,
+        "observed_container_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+        "queue_mountpoints_valid": true,
+        "readonly_mount_valid": true,
+        "running_scylla_flag": "/etc/scylla/ledger-wallet-io-properties.yaml",
+        "running_scylla_flag_valid": true,
+        "startup_acceptance_valid": true,
+        "startup_log_nonempty": true
+      }
+    },
+    "problems": [],
+    "shards": 1,
+    "source_evidence": {
+      "commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "disk_params_behavior": "YAMLLoadFile reads the configured file, stats mountpoints, and maps queue devices; runtime io_queue_activations labels expose per-shard device mapping, including empty-mountpoint fallback queues",
+      "disk_params_source_locations": "src/core/disk_params.cc:98 YAMLLoadFile/st_dev; generate_config:181 mountpoint labels",
+      "disk_params_source_sha256": "03e52b910cbb7694740fd2388f87dd14c748ebf7ee4dd8c24b1a93ef2d1b30de",
+      "disk_params_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/disk_params.cc",
+      "expected_container_mountpoint": "/var/lib/scylla",
+      "reactor_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc",
+      "registered_option_location": "src/core/reactor.cc:3683",
+      "repository": "scylladb/scylla-seastar",
+      "runtime_metric": "scylla_io_queue_activations",
+      "runtime_metric_classes": [
+        "main",
+        "commitlog"
+      ]
+    },
+    "valid": true
+  },
+  "source_evidence": {
+    "commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+    "disk_params_behavior": "YAMLLoadFile reads the configured file, stats mountpoints, and maps queue devices; runtime io_queue_activations labels expose per-shard device mapping, including empty-mountpoint fallback queues",
+    "disk_params_source_locations": "src/core/disk_params.cc:98 YAMLLoadFile/st_dev; generate_config:181 mountpoint labels",
+    "disk_params_source_sha256": "03e52b910cbb7694740fd2388f87dd14c748ebf7ee4dd8c24b1a93ef2d1b30de",
+    "disk_params_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/disk_params.cc",
+    "expected_container_mountpoint": "/var/lib/scylla",
+    "reactor_source_url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc",
+    "registered_option_location": "src/core/reactor.cc:3683",
+    "repository": "scylladb/scylla-seastar",
+    "runtime_metric": "scylla_io_queue_activations",
+    "runtime_metric_classes": [
+      "main",
+      "commitlog"
+    ]
+  },
+  "status": "effective_properties_verified",
+  "valid": true
+}

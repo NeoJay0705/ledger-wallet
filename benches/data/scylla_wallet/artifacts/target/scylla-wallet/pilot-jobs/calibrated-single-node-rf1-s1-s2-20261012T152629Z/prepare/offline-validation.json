@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "control_tests": {
+      "argv": [
+        "taskset",
+        "-c",
+        "6,7,14,15",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "failed": 0,
+      "passed": 6,
+      "stderr": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare/control-unittest.stderr",
+      "stderr_sha256": "cd4096ffd7627490431b58aa77b2c415376dcbce38154ed4b4fcc8a492004191",
+      "stdout": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare/control-unittest.stdout",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "nonexecuting_plan": {
+      "argv": [
+        "taskset",
+        "-c",
+        "6,7,14,15",
+        "python3",
+        "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/launcher.py",
+        "--plan"
+      ],
+      "case_slugs": [
+        "smoke-S1-C128-P3-D3-N1-RF1-R1-W1",
+        "full-S1-C128-P3-D3-N1-RF1-R1-W1",
+        "full-S2-C128-P3-D6-N1-RF1-R1-W1"
+      ],
+      "exit_code": 0,
+      "formal_complete": false,
+      "launch_approved": false,
+      "live_execution_started": false,
+      "path": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare/plan.json",
+      "sha256": "54c439c4bfb5d16fcef45c69fa087a129759c147cc8736745f0a34e6788dcf42"
+    },
+    "py_compile": {
+      "argv": [
+        "taskset",
+        "-c",
+        "6,7,14,15",
+        "python3",
+        "-m",
+        "py_compile",
+        "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/supervisor.py",
+        "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/launcher.py",
+        "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare/test_supervisor.py"
+      ],
+      "exit_code": 0,
+      "stderr": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare/py-compile.stderr",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s1-s2-20261012T152629Z/prepare/py-compile.stdout",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "job_id": "calibrated-single-node-rf1-s1-s2-20261012T152629Z",
+  "live_execution_started": false,
+  "schema_version": 1,
+  "valid": true
+}

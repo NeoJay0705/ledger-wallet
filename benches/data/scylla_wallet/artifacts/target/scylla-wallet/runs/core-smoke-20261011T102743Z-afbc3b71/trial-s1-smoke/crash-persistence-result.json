@@ -1,0 +1,80 @@
+{
+  "nonce": "core-smoke-20261011T102743Z-afbc3b71",
+  "keyspace": "wallet_bench_trace_18dd73c5dc33b52b_0",
+  "consistency": "THREE",
+  "before_sha256": "f915aa35c6b178bbd57adf1a38d24b058994aecf1ee628710538affe5be9a9c9",
+  "after_sha256": "f915aa35c6b178bbd57adf1a38d24b058994aecf1ee628710538affe5be9a9c9",
+  "snapshot_bytes": 814,
+  "snapshot_equal": true,
+  "rows": {
+    "static_metadata": 1,
+    "ledger": 2
+  },
+  "state": {
+    "balance": 107,
+    "version": 2
+  },
+  "node_status": [
+    [
+      "UN",
+      "172.24.0.2",
+      "609.26",
+      "KB",
+      "256",
+      "?",
+      "0ab17c7f-9665-47f6-9f2f-099d351ae675",
+      "rack1"
+    ],
+    [
+      "UN",
+      "172.24.0.3",
+      "?",
+      "256",
+      "?",
+      "8499aab9-3732-47da-a921-c96608144c87",
+      "rack1"
+    ],
+    [
+      "UN",
+      "172.24.0.4",
+      "?",
+      "256",
+      "?",
+      "643f7869-30dd-43c0-8e7d-aa1e1b56f4ef",
+      "rack1"
+    ]
+  ],
+  "actions": [
+    {
+      "action": "kill",
+      "node": "a",
+      "stdout": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-a"
+    },
+    {
+      "action": "kill",
+      "node": "b",
+      "stdout": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-b"
+    },
+    {
+      "action": "kill",
+      "node": "c",
+      "stdout": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-c"
+    },
+    {
+      "action": "start",
+      "node": "a",
+      "stdout": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-a"
+    },
+    {
+      "action": "start",
+      "node": "b",
+      "stdout": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-b"
+    },
+    {
+      "action": "start",
+      "node": "c",
+      "stdout": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-c"
+    }
+  ],
+  "claim": "process-crash restart smoke only; no power-loss claim"
+}

@@ -1,0 +1,151 @@
+{
+  "expected": {
+    "commitlog_segment_size_in_mb": "64",
+    "commitlog_sync": "batch",
+    "commitlog_sync_batch_window_in_ms": "10000",
+    "commitlog_total_space_in_mb": "1024",
+    "commitlog_use_o_dsync": "false"
+  },
+  "nodes": {
+    "nodea": {
+      "evidence": {
+        "commitlog_segment_size_in_mb": {
+          "exit_code": 0,
+          "normalized": "64",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n---------------------------------------------------------\n {\"name\": \"commitlog_segment_size_in_mb\", \"value\": \"64\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 64
+        },
+        "commitlog_sync": {
+          "exit_code": 0,
+          "normalized": "batch",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------\n {\"name\": \"commitlog_sync\", \"value\": \"\\\\\"batch\\\\\"\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": "batch"
+        },
+        "commitlog_sync_batch_window_in_ms": {
+          "exit_code": 0,
+          "normalized": "10000",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------------------\n {\"name\": \"commitlog_sync_batch_window_in_ms\", \"value\": \"10000\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 10000
+        },
+        "commitlog_total_space_in_mb": {
+          "exit_code": 0,
+          "normalized": "1024",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------------\n {\"name\": \"commitlog_total_space_in_mb\", \"value\": \"1024\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 1024
+        },
+        "commitlog_use_o_dsync": {
+          "exit_code": 0,
+          "normalized": "false",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------\n {\"name\": \"commitlog_use_o_dsync\", \"value\": \"false\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": false
+        }
+      },
+      "observed": {
+        "commitlog_segment_size_in_mb": 64,
+        "commitlog_sync": "batch",
+        "commitlog_sync_batch_window_in_ms": 10000,
+        "commitlog_total_space_in_mb": 1024,
+        "commitlog_use_o_dsync": false
+      }
+    },
+    "nodeb": {
+      "evidence": {
+        "commitlog_segment_size_in_mb": {
+          "exit_code": 0,
+          "normalized": "64",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n---------------------------------------------------------\n {\"name\": \"commitlog_segment_size_in_mb\", \"value\": \"64\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 64
+        },
+        "commitlog_sync": {
+          "exit_code": 0,
+          "normalized": "batch",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------\n {\"name\": \"commitlog_sync\", \"value\": \"\\\\\"batch\\\\\"\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": "batch"
+        },
+        "commitlog_sync_batch_window_in_ms": {
+          "exit_code": 0,
+          "normalized": "10000",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------------------\n {\"name\": \"commitlog_sync_batch_window_in_ms\", \"value\": \"10000\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 10000
+        },
+        "commitlog_total_space_in_mb": {
+          "exit_code": 0,
+          "normalized": "1024",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------------\n {\"name\": \"commitlog_total_space_in_mb\", \"value\": \"1024\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 1024
+        },
+        "commitlog_use_o_dsync": {
+          "exit_code": 0,
+          "normalized": "false",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------\n {\"name\": \"commitlog_use_o_dsync\", \"value\": \"false\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": false
+        }
+      },
+      "observed": {
+        "commitlog_segment_size_in_mb": 64,
+        "commitlog_sync": "batch",
+        "commitlog_sync_batch_window_in_ms": 10000,
+        "commitlog_total_space_in_mb": 1024,
+        "commitlog_use_o_dsync": false
+      }
+    },
+    "nodec": {
+      "evidence": {
+        "commitlog_segment_size_in_mb": {
+          "exit_code": 0,
+          "normalized": "64",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n---------------------------------------------------------\n {\"name\": \"commitlog_segment_size_in_mb\", \"value\": \"64\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 64
+        },
+        "commitlog_sync": {
+          "exit_code": 0,
+          "normalized": "batch",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------\n {\"name\": \"commitlog_sync\", \"value\": \"\\\\\"batch\\\\\"\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": "batch"
+        },
+        "commitlog_sync_batch_window_in_ms": {
+          "exit_code": 0,
+          "normalized": "10000",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------------------\n {\"name\": \"commitlog_sync_batch_window_in_ms\", \"value\": \"10000\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 10000
+        },
+        "commitlog_total_space_in_mb": {
+          "exit_code": 0,
+          "normalized": "1024",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n----------------------------------------------------------\n {\"name\": \"commitlog_total_space_in_mb\", \"value\": \"1024\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": 1024
+        },
+        "commitlog_use_o_dsync": {
+          "exit_code": 0,
+          "normalized": "false",
+          "raw_output": "Consistency level set to ONE.\n\n [json]\n-----------------------------------------------------\n {\"name\": \"commitlog_use_o_dsync\", \"value\": \"false\"}\n\n(1 rows)\n",
+          "source": "api10000:/v2/config",
+          "value": false
+        }
+      },
+      "observed": {
+        "commitlog_segment_size_in_mb": 64,
+        "commitlog_sync": "batch",
+        "commitlog_sync_batch_window_in_ms": 10000,
+        "commitlog_total_space_in_mb": 1024,
+        "commitlog_use_o_dsync": false
+      }
+    }
+  },
+  "problems": [],
+  "valid": true
+}

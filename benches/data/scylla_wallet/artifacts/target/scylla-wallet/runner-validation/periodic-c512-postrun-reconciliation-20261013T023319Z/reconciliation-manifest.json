@@ -1,0 +1,61 @@
+{
+  "artifacts": {
+    "corrected-supervisor.py": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/corrected-supervisor.py",
+      "sha256": "0692a35b0bce47ea5d99f519a9c793cc443f07dd10e5f8a4cd87127f3e7c98bb"
+    },
+    "corrected-validation.json": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/corrected-validation.json",
+      "sha256": "a22a1680eea6f84f153140e694846b50a5e756efd16392c739d74e60070e558c"
+    },
+    "correction-provenance.json": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/correction-provenance.json",
+      "sha256": "9829b01c17c68c6398e61055386e5c167bc8d42f1f21f552f5b73fbc57f70c5f"
+    },
+    "py-compile.stderr.log": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/py-compile.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reconcile.py": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/reconcile.py",
+      "sha256": "d924769cb23b026212654686ec9fbdad9f436018e778c79ea5bba5176fc64ee1"
+    },
+    "regression-tests.log": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/regression-tests.log",
+      "sha256": "abb931e2676017e478b9098696a46f1b994fd9969635cc84c7341349ecd13833"
+    },
+    "replayed-owned-resource-audit.json": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/replayed-owned-resource-audit.json",
+      "sha256": "33f0b3f2f65bdb39c2cc3ab7fd8443662af43f43793637b1f9af1a44e00031a8"
+    },
+    "supervisor-correction.diff": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/supervisor-correction.diff",
+      "sha256": "8b2e40f0ee3da985f62c03141bd93769dc61e133bd467a4a070d7fbe0b194802"
+    },
+    "test_reconciliation.py": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/test_reconciliation.py",
+      "sha256": "ea0b4ded0115edbfd51faf9d01a936ca77ebdfd4b998d55f581ee9f8eccbe433"
+    }
+  },
+  "captured_utc": "2026-10-13T02:37:18.066331+00:00",
+  "corrected_validation_valid": true,
+  "docker_queries_performed": 0,
+  "freeze_manifest_sha256": "3c75f16c627212726e1b4338d3a876fcee7c36c2d80e7c8bbd091a57729898fc",
+  "frozen_supervisor_sha256": "32b1711127585f51c51a1c175f011208d086093d963caaf727754f7d7771ceaf",
+  "job_id": "calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z",
+  "launch_config_sha256": "801b6aead964afa42e25aa4f204ba3a3001292361bdb79ea761bea6811e6a26e",
+  "observer_validation_errors": [],
+  "observer_validation_valid": true,
+  "original_frozen_artifacts_unchanged": true,
+  "original_job_error": "ready_to_measure wallet profile validation is not valid",
+  "original_job_status": "case_failed",
+  "py_compile": "passed",
+  "runner_validation_problems": [],
+  "runner_validation_valid": true,
+  "saved_owned_audit_sha256": "33f0b3f2f65bdb39c2cc3ab7fd8443662af43f43793637b1f9af1a44e00031a8",
+  "saved_owned_audit_valid": true,
+  "schema_version": 1,
+  "test_command": "taskset -c 6,7,14,15 python3 -m unittest -v target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/test_reconciliation.py",
+  "test_result": "11 passed",
+  "wallet_requests_performed": 0
+}

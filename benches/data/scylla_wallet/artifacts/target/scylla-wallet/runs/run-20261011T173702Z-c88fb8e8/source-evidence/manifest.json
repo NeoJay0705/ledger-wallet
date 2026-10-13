@@ -1,0 +1,105 @@
+{
+  "aio_profile_source_evidence": {
+    "scylla_release_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+    "scylla_release_ref": "scylla-2026.1.14",
+    "scylladb_main": {
+      "behavior": "release default max_networking_io_control_blocks=50000; runner overrides it explicitly",
+      "location": "main.cc:716",
+      "sha256": "e33d5b2e1a42a0e9334ad51f06f2c52d321ebe889cdb6a0a1229a325039ae728",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/main.cc"
+    },
+    "seastar_submodule": {
+      "commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "reactor_header": {
+        "behavior": "max_aio_per_queue=128 and max_aio=1024; preemption budget is 2",
+        "location": "include/seastar/core/reactor.hh:230-232",
+        "sha256": "22c9238983d26daeec8ff8d12e8d09ca520309af913ec851e6066d236efffee2",
+        "url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/include/seastar/core/reactor.hh"
+      },
+      "reactor_source": {
+        "behavior": "adjust_max_networking_aio_io_control_blocks may lower networking IOCBs against available AIO budget",
+        "location": "src/core/reactor.cc:4200,4423",
+        "sha256": "a544b859a44781c301cd0e9e0b628fcc490c20fb5d567ccf491a440b5ebb9b57",
+        "url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc"
+      },
+      "repository": "https://github.com/scylladb/scylla-seastar"
+    }
+  },
+  "captured_utc": "2026-10-11T17:37:09+00:00",
+  "driver_source_commit": "5a8b9bd03ef04f8d8531a4b30557d5ee3f59376d",
+  "expected_scylla_source_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+  "files": {
+    "scylla-2026.1.14/db/commitlog/commitlog.cc": {
+      "bytes": 153785,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-2026.1.14/db/commitlog/commitlog.cc",
+      "sha256": "8e5bde0fa0228db89f1a342b3a242154a0edea2301fa2726ff9716e13c2736d6",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/db/commitlog/commitlog.cc"
+    },
+    "scylla-2026.1.14/db/commitlog/commitlog.hh": {
+      "bytes": 16167,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-2026.1.14/db/commitlog/commitlog.hh",
+      "sha256": "b935d23374880689d6d1981f1318fa1ebdd183e8a31fbda2188507fe75bd8ad1",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/db/commitlog/commitlog.hh"
+    },
+    "scylla-2026.1.14/db/config.cc": {
+      "bytes": 165053,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-2026.1.14/db/config.cc",
+      "sha256": "194cea8734ec311c5163ea2a5a34d71072ee63251469ce2247b5f89a83f90e2f",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/db/config.cc"
+    },
+    "scylla-2026.1.14/db/config.hh": {
+      "bytes": 30911,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-2026.1.14/db/config.hh",
+      "sha256": "811d86268d30fdd93a1554c4436479db53c50fff4ea18dc58d37972f2de7fa8f",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/db/config.hh"
+    },
+    "scylla-2026.1.14/main.cc": {
+      "bytes": 147611,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-2026.1.14/main.cc",
+      "sha256": "e33d5b2e1a42a0e9334ad51f06f2c52d321ebe889cdb6a0a1229a325039ae728",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/main.cc"
+    },
+    "scylla-2026.1.14/service/storage_proxy.cc": {
+      "bytes": 405049,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-2026.1.14/service/storage_proxy.cc",
+      "sha256": "01e21de8e8958ff4541a95317b9391147340d0de399642aede3fc99c57992034",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/service/storage_proxy.cc"
+    },
+    "scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/include/seastar/core/reactor.hh": {
+      "bytes": 31826,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/include/seastar/core/reactor.hh",
+      "sha256": "22c9238983d26daeec8ff8d12e8d09ca520309af913ec851e6066d236efffee2",
+      "submodule_commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/include/seastar/core/reactor.hh"
+    },
+    "scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/metrics.cc": {
+      "bytes": 23020,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/metrics.cc",
+      "sha256": "41fa65e506ff588df5360e0ec60767cb4c6e215933db0b48fcfb39dcdf728a98",
+      "submodule_commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/metrics.cc"
+    },
+    "scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc": {
+      "bytes": 200080,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc",
+      "sha256": "a544b859a44781c301cd0e9e0b628fcc490c20fb5d567ccf491a440b5ebb9b57",
+      "submodule_commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+      "url": "https://raw.githubusercontent.com/scylladb/scylla-seastar/bf882627c3f813c8cfb88cb595ceed34d6462300/src/core/reactor.cc"
+    },
+    "v1.9.0/scylla/src/network/connection.rs": {
+      "bytes": 157643,
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/source-evidence/v1.9.0/scylla/src/network/connection.rs",
+      "sha256": "dd185b37f57bd7e6bfdeb2d41af48283e070e65ee9e4bae91843949dd2ddfdf8",
+      "url": "https://raw.githubusercontent.com/scylladb/scylla-rust-driver/v1.9.0/scylla/src/network/connection.rs"
+    }
+  },
+  "metrics_relabel_parser": {
+    "expression": "const YAML::Node& relabel_configs = yaml[\"relabel_configs\"];",
+    "line": 1991,
+    "parsed_yaml_key": "relabel_configs",
+    "source": "scylla-2026.1.14/db/config.cc"
+  },
+  "scylla_seastar_submodule_commit": "bf882627c3f813c8cfb88cb595ceed34d6462300",
+  "scylla_source_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+  "scylla_tag_commit_matches_expected": true
+}

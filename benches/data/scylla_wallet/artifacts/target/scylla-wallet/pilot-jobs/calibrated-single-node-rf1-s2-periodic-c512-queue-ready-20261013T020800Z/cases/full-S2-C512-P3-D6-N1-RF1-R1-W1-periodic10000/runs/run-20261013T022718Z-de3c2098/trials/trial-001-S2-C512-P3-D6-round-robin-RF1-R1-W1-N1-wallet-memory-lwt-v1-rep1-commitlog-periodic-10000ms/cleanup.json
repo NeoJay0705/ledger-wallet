@@ -1,0 +1,16 @@
+{
+  "containers_removed": [
+    "nodea"
+  ],
+  "containers_stopped": true,
+  "data_removed": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/owned-data/nodea"
+  ],
+  "errors": [],
+  "network_removed": true,
+  "post_stop_inspection_files": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/cleanup-post-stop/nodea.inspect.json"
+  ],
+  "retained_data": [],
+  "status": "clean"
+}

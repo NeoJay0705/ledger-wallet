@@ -1,0 +1,75 @@
+{
+  "captured_utc": "2026-10-11T16:49:26.031502+00:00",
+  "latest_trial": {
+    "error": "KeyboardInterrupt: run interrupted by SIGINT",
+    "evidence_files": [
+      "trial-config.json",
+      "cluster.json",
+      "aio-budget.json"
+    ],
+    "last_service_event": {
+      "C": 24,
+      "P": 8,
+      "S": 1,
+      "cql_batch_contract": {
+        "byte_cap": 1024,
+        "estimated_encoded_bytes": 226,
+        "statement_count": 2
+      },
+      "data_connection_target": 24,
+      "elapsed_ns": 14478497853,
+      "finish_gate": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603/trials/trial-002-S1-C24-rep1/finish.gate",
+      "histogram_range_ns": 600000000000,
+      "histogram_significant_figures": 3,
+      "histogram_stripes": 16,
+      "keyspace": "wallet_bench_4f9eac927843",
+      "measurement_start_unix_ns": 1791736935414327090,
+      "mode": "formal",
+      "nodes": [
+        "172.24.0.10:9042",
+        "172.24.0.11:9042",
+        "172.24.0.12:9042"
+      ],
+      "phase": "measuring",
+      "requests_per_user": 200,
+      "session_id": "cd77b054-5a85-430b-bc19-57c602adcc9f",
+      "start_gate_open": true,
+      "timestamp_unix_ns": 1791736935414335766,
+      "total_requests": 10000000,
+      "users": 50000,
+      "window_starts_before_event_flush": true
+    },
+    "started_utc": "2026-10-11T16:41:31+00:00",
+    "status": "interrupted",
+    "trial_id": "trial-002-S1-C24-rep1",
+    "validation": {
+      "aio_budget": true,
+      "connections_before_gate": true,
+      "keyspace": true,
+      "launch_config": true,
+      "reactor_affinity": true,
+      "runtime_aio": true,
+      "runtime_commitlog": true,
+      "schema_agreement": true,
+      "server_version": true,
+      "source_build_correspondence": true
+    }
+  },
+  "latest_trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603/trials/trial-002-S1-C24-rep1",
+  "preflight": {
+    "backing_device": null,
+    "cpu_samples": null,
+    "device_samples": null,
+    "disk_available_bytes": null,
+    "memory_samples": null,
+    "passed": null,
+    "required_disk_bytes": 82042421248,
+    "status": null
+  },
+  "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+  "runner_pid": 61254,
+  "runner_returncode": null,
+  "source_hashes_match": true,
+  "supervisor_pid": 61253,
+  "trial_dirs_seen": 2
+}

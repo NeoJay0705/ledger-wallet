@@ -1,0 +1,2 @@
+shards_S,workers_C,per_shard_pool_P,data_connections_D,replication_factor,read_cl,write_cl,worker_routing,per_shard_pool_overridden,expected_connections_per_node,repeats,rps_median,rps_min,rps_max,p50_ns_median,p50_ns_min,p50_ns_max,p95_ns_median,p95_ns_min,p95_ns_max,p99_ns_median,p99_ns_min,p99_ns_max,all_trials_valid
+4,50000,4,48,1,ONE,ONE,per-user,True,16,1,,,,,,,,,,,,,False

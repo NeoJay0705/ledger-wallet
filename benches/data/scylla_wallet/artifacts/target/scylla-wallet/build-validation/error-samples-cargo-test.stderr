@@ -1,0 +1,7 @@
+   Compiling ledger-wallet-scylla-bench v0.1.0 (/home/neojhou/repos/ledger-wallet/benchmarks/scylla-wallet)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.20s
+     Running unittests src/lib.rs (target/scylla-wallet/debug/deps/ledger_wallet_scylla_bench-74ccc46990249f10)
+     Running unittests src/main.rs (target/scylla-wallet/debug/deps/ledger_wallet_scylla_bench-4f4d491b02f75cba)
+     Running tests/scylla_integration.rs (target/scylla-wallet/debug/deps/scylla_integration-277268730abc2d7a)
+     Running tests/service.rs (target/scylla-wallet/debug/deps/service-41e0c05db4d6d591)
+   Doc-tests ledger_wallet_scylla_bench

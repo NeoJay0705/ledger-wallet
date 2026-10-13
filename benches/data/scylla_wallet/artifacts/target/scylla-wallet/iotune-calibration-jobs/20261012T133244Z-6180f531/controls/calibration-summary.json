@@ -1,0 +1,155 @@
+{
+  "job_id": "20261012T133244Z-6180f531",
+  "attempt": "attempt-02-guarded-calibration",
+  "calibration_status": "completed",
+  "image": "scylladb/scylla@sha256:333b9ab3a3214c7f98af100711c51df7f58964e8227e6d26050e889ebb216df1",
+  "image_version": "2026.1.14-0.20260924.0dbea6201d67",
+  "filesystem": {
+    "device": "/dev/sdb2",
+    "type": "ext4",
+    "mountpoint": "/",
+    "model": "CT1000BX500SSD1"
+  },
+  "tool_start_utc": "2026-10-12T13:49:41.434665+00:00",
+  "tool_end_utc": "2026-10-12T13:53:00.184485+00:00",
+  "tool_elapsed_seconds": 198.7501924186945,
+  "tool_argv": [
+    "/usr/bin/iotune",
+    "--evaluation-directory",
+    "/var/lib/scylla",
+    "--properties-file",
+    "/evidence/raw/io_properties.yaml",
+    "--options-file",
+    "/evidence/raw/io.conf",
+    "--format",
+    "seastar",
+    "--duration",
+    "180",
+    "--cpuset",
+    "0,1",
+    "--smp",
+    "2",
+    "--memory",
+    "8G",
+    "--thread-affinity",
+    "1"
+  ],
+  "tool_exit_code": 0,
+  "guard": {
+    "status": "ok",
+    "sample_count": 795,
+    "sample_interval_seconds": 0.25,
+    "maximum_sample_gap_seconds": 0.2529887743294239,
+    "maximum_gap_allowed_seconds": 0.5,
+    "allocated_blocks_peak_bytes": 4336918528,
+    "allocated_blocks_soft_abort_bytes": 25769803776,
+    "allocated_blocks_hard_ceiling_bytes": 34359738368,
+    "minimum_available_bytes": 662486646784,
+    "minimum_available_required_bytes": 68719476736,
+    "identity": {
+      "argv0": "/usr/bin/iotune",
+      "wrapper_path": "/usr/bin/iotune",
+      "wrapper_sha256": "715c1d3a86e2e7b22b182e72d2ec31f2e25d615d30cd8a2efec273194d78ca91",
+      "wrapper_exec_line": "exec -a \"$0\" \"/opt/scylladb/libexec/iotune\" \"$@\"",
+      "direct_executable_path": "/opt/scylladb/libexec/iotune",
+      "direct_executable_sha256": "90fd52702792bdee3e483ce5ddbab64b9cff15b57b1e1f031d6a06b6d8baa0fd",
+      "expected_process_executable_device": 101,
+      "expected_process_executable_inode": 11439227,
+      "elf_interpreter_path": "/opt/scylladb/libreloc/ld.so",
+      "elf_interpreter_sha256": "f5de751db62c33aee3b10c901c89a846c7355fc8d71ed4126cbb364442cfc68e",
+      "environment_equivalence": {
+        "LD_PRELOAD": "required empty",
+        "GNUTLS_SYSTEM_PRIORITY_FILE": "/opt/scylladb/libreloc/gnutls.config",
+        "LD_LIBRARY_PATH": "/opt/scylladb/libreloc",
+        "UBSAN_OPTIONS": "suppressions=/opt/scylladb/libexec/ubsan-suppressions.supp",
+        "SCYLLA_P11_TRUST_PATHS": "/etc/pki/ca-trust/source:/usr/share/pki/ca-trust-source"
+      },
+      "launch_method": "Popen(argv0=/usr/bin/iotune, executable=/opt/scylladb/libexec/iotune, wrapper-equivalent env); /proc exe must match pinned ELF dev+inode"
+    }
+  },
+  "raw_properties": {
+    "read_iops": 32663,
+    "read_bandwidth": 538174912,
+    "write_iops": 31334,
+    "write_bandwidth": 202968128
+  },
+  "node_budget_properties": {
+    "read_iops": 24497,
+    "read_bandwidth": 403631184,
+    "write_iops": 23500,
+    "write_bandwidth": 152226096
+  },
+  "node_budget_formula": "floor(raw * 3 / 4), integer arithmetic value*3//4; no divide by 3; one property file per node; mountpoint=/var/lib/scylla",
+  "warnings": [
+    "Sequential write bandwidth reported deviation 107%; preserve this as tool warning.",
+    "Scheduler was mq-deadline rather than recommended noop.",
+    "nomerges was 0 rather than recommended 2.",
+    "write_cache was write back; iotune warns some disks may implement this mode poorly.",
+    "mbind and perf_event restrictions were logged by the container; perf_event fell back to posix timer."
+  ],
+  "artifacts": [
+    {
+      "path": "raw/io_properties.yaml",
+      "bytes": 143,
+      "sha256": "f2d27c27af7b8c73b436c7d5f1ad7063b944294ae7c8794cc6e2fe07e53d67a3"
+    },
+    {
+      "path": "raw/io.conf",
+      "bytes": 52,
+      "sha256": "359f439c9d5d75fc7b6f022ea0bb08c1d6c46ce0ecb382ddbd4ea2063e918845"
+    },
+    {
+      "path": "budget/io_properties.yaml",
+      "bytes": 143,
+      "sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf"
+    },
+    {
+      "path": "budget/io.conf",
+      "bytes": 55,
+      "sha256": "29be9be4718055d4a7e19d802d34996f233ccff5bed09cf0d10c29a0e1a1520e"
+    },
+    {
+      "path": "controls/watchdog-result.json",
+      "bytes": 3109,
+      "sha256": "3a8fe48c177b065468146b7e06e1f96ec193c94f7467696775f3b33c9d790d71"
+    },
+    {
+      "path": "controls/watchdog-samples.json",
+      "bytes": 1208945,
+      "sha256": "494623c19fee939909847cf7915a8ae0f73135ed5989d0c1c73c0291a7511cd0"
+    },
+    {
+      "path": "controls/watchdog-heartbeat.jsonl",
+      "bytes": 933376,
+      "sha256": "40f4d5a6de3191c7240c8a4adc648cb24729b42cceeb6be113268e16f3b2a98a"
+    },
+    {
+      "path": "logs/iotune.stdout.log",
+      "bytes": 392,
+      "sha256": "298779f27f3f5a4fcabca3eab9475111acbc84f340ffee0771d69709098e3cfa"
+    },
+    {
+      "path": "logs/iotune.stderr.log",
+      "bytes": 2158,
+      "sha256": "43fa6ca5853d642eeb28fb1d6c5e3d98b43731612818759663a459b795494706"
+    },
+    {
+      "path": "controls/tool-source-manifest.json",
+      "bytes": 1993,
+      "sha256": "55dba70cc252c534d3f1a3c800bccd3b0f24aaf41e2c6e09a3b88ae1b83218f6"
+    }
+  ],
+  "attempt_01": "attempt-01-watchdog-wrapper-identity-failure/",
+  "attempt_02_evidence": "attempt-02-guarded-calibration/",
+  "budget_validation": {
+    "extra_keys": [],
+    "properties": {
+      "mountpoint": "/var/lib/scylla",
+      "read_bandwidth": 403631184,
+      "read_iops": 24497,
+      "write_bandwidth": 152226096,
+      "write_iops": 23500
+    },
+    "status": "parsed"
+  }
+}

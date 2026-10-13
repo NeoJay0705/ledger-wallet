@@ -1,0 +1,34 @@
+{
+  "after_affinity": [
+    6,
+    7,
+    14,
+    15
+  ],
+  "applied_utc": "2026-10-11T16:40:02.959714+00:00",
+  "before_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "cmdline": "/usr/bin/python3 /home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/formal-20261011T163636Z-8d6a2a09/supervisor.py",
+  "first_measurement_start_unix_ns": 1791736662031416903,
+  "pid": 61253,
+  "proc_start_ticks": 887159758,
+  "reason": "place detached progress supervisor on SERVICE_CPUS {6,7,14,15}; it is auxiliary monitoring and not a benchmark service/client",
+  "rss_after": "19156 kB",
+  "rss_before": "19156 kB"
+}

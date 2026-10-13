@@ -1,0 +1,13 @@
+WARNING: unable to mbind shard memory; performance may suffer: Operation not permitted
+INFO  2026-10-12 13:49:41,554 seastar - Reactor backend: linux-aio
+WARN  2026-10-12 13:49:41,555 seastar - Creation of perf_event based stall detector failed: falling back to posix timer: std::system_error (error system:1, perf_event_open() failed: Operation not permitted)
+INFO  2026-10-12 13:49:41,555 [shard 0:main] io - IO queue was unable to find a suitable maximum request length, the search was cut-off early at: 16MB
+INFO  2026-10-12 13:49:41,555 [shard 0:main] io - IO queue was unable to find a suitable maximum request length, the search was cut-off early at: 16MB
+WARNING: unable to mbind shard memory; performance may suffer: Operation not permitted
+WARN  2026-10-12 13:49:41,559 seastar - Creation of perf_event based stall detector failed: falling back to posix timer: std::system_error (error system:1, perf_event_open() failed: Operation not permitted)
+INFO  2026-10-12 13:49:41,631 [shard 0:main] iotune - /var/lib/scylla passed sanity checks
+WARN  2026-10-12 13:49:41,632 [shard 0:main] iotune - Scheduler for /sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/queue/scheduler set to mq-deadline. It is recommend to set it to noop before evaluation so as not to skew the results.
+WARN  2026-10-12 13:49:41,632 [shard 0:main] iotune - nomerges for /sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/queue/nomerges set to 0. It is recommend to set it to 2 before evaluation so that merges are disabled. Results can be skewed otherwise.
+WARN  2026-10-12 13:49:41,632 [shard 0:main] iotune - write_cache for /sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/queue/write_cache is set to write back. Some disks have poor implementation of this mode, pay attention to the measurements accuracy.
+INFO  2026-10-12 13:49:41,632 [shard 0:main] iotune - Disk parameters: max_iodepth=64 disks_per_array=1 minimum_io_size=512
+INFO  2026-10-12 13:49:41,632 [shard 0:main] iotune - Filesystem parameters: read alignment 4096, write alignment 4096

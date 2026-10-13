@@ -1,0 +1,8 @@
+Warming up the disk for sequential write job...
+Starting Evaluation. This may take a while...
+Measuring sequential write bandwidth: 193 MiB/s (deviation 107%)
+Measuring sequential read bandwidth: 513 MiB/s
+Measuring random write IOPS: 31334 IOPS (deviation 11%)
+Measuring random read IOPS: 32663 IOPS
+Writing result to /evidence/raw/io_properties.yaml
+Writing result to /evidence/raw/io.conf

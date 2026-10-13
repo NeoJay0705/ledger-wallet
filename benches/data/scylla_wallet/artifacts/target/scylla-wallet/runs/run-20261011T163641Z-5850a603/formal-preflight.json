@@ -1,0 +1,50 @@
+{
+  "consecutive_passing_samples": 3,
+  "required_disk_bytes": 82042421248,
+  "samples": [
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 673059028992,
+      "elapsed_seconds": 0.431,
+      "host_cpu_busy_pct": 1.2461059190031152,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+      "memory_available_bytes": 46050279424,
+      "required_disk_bytes": 82042421248
+    },
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 673059028992,
+      "elapsed_seconds": 1.862,
+      "host_cpu_busy_pct": 1.567398119122257,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+      "memory_available_bytes": 46055690240,
+      "required_disk_bytes": 82042421248
+    },
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 673059012608,
+      "elapsed_seconds": 3.292,
+      "host_cpu_busy_pct": 3.125,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+      "memory_available_bytes": 46036713472,
+      "required_disk_bytes": 82042421248
+    }
+  ],
+  "valid": true,
+  "waited_seconds": 3.292
+}

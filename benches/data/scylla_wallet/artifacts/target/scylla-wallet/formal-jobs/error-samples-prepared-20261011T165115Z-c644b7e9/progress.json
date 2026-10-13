@@ -1,0 +1,65 @@
+{
+  "binary_hash_match": true,
+  "captured_utc": "2026-10-11T17:36:57.201269+00:00",
+  "latest_trial": {
+    "cleanup_status": "pending",
+    "cli_exit_code": 0,
+    "last_service_event": {
+      "measurement_start_unix_ns": null,
+      "phase": "runner_audit_released",
+      "pool_ready_connections": null,
+      "requests_per_user": 200,
+      "session_id": "8ca95c1e-1f7b-4bf7-801f-b5fbb0d4b286",
+      "status": null,
+      "timestamp_unix_ns": 1791740153910488904,
+      "total_requests": 10000000,
+      "users": 50000
+    },
+    "status": "passed",
+    "trial_id": "trial-001-S1-C12-rep1"
+  },
+  "latest_trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T165431Z-40fc6259/trials/trial-001-S1-C12-rep1",
+  "preflight": {
+    "consecutive_passing_samples": 3,
+    "required_disk_bytes": 82042421248,
+    "samples": [
+      {
+        "aio_available": 262144,
+        "aio_max_nr": 262144,
+        "aio_nr": 0,
+        "backing_device": "sdb2",
+        "device_busy_pct": 0.0,
+        "disk_available_bytes": 673145122816,
+        "host_cpu_busy_pct": 0.9375,
+        "memory_available_bytes": 46027419648
+      },
+      {
+        "aio_available": 262144,
+        "aio_max_nr": 262144,
+        "aio_nr": 0,
+        "backing_device": "sdb2",
+        "device_busy_pct": 0.0,
+        "disk_available_bytes": 673145126912,
+        "host_cpu_busy_pct": 0.625,
+        "memory_available_bytes": 46024282112
+      },
+      {
+        "aio_available": 262144,
+        "aio_max_nr": 262144,
+        "aio_nr": 0,
+        "backing_device": "sdb2",
+        "device_busy_pct": 0.0,
+        "disk_available_bytes": 673145016320,
+        "host_cpu_busy_pct": 5.956112852664577,
+        "memory_available_bytes": 46012026880
+      }
+    ],
+    "valid": true
+  },
+  "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T165431Z-40fc6259",
+  "runner_pid": 36080,
+  "runner_returncode": null,
+  "source_hashes_match": true,
+  "supervisor_pid": 36079,
+  "trial_dirs_seen": 1
+}

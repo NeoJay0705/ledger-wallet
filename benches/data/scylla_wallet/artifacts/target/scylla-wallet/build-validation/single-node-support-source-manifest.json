@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-12T15:25:48Z",
+  "crate": "ledger-wallet-scylla-bench",
+  "manifest_path": "benchmarks/scylla-wallet/Cargo.toml",
+  "commands": {
+    "format": "taskset -c 6,7,14,15 env CARGO_TARGET_DIR=target/scylla-wallet cargo fmt --manifest-path benchmarks/scylla-wallet/Cargo.toml -- --check",
+    "tests": "taskset -c 6,7,14,15 env CARGO_TARGET_DIR=target/scylla-wallet cargo test --locked --offline --manifest-path benchmarks/scylla-wallet/Cargo.toml",
+    "release": "taskset -c 6,7,14,15 env CARGO_TARGET_DIR=target/scylla-wallet cargo build --locked --offline --release --manifest-path benchmarks/scylla-wallet/Cargo.toml --message-format=json-render-diagnostics",
+    "integration_no_run": "taskset -c 6,7,14,15 env CARGO_TARGET_DIR=target/scylla-wallet cargo test --locked --offline --manifest-path benchmarks/scylla-wallet/Cargo.toml --test scylla_integration --no-run --message-format=json-render-diagnostics"
+  },
+  "cpu_affinity": "6,7,14,15",
+  "toolchain": {
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)"
+  },
+  "source_sha256": {
+    "benchmarks/scylla-wallet/src/lib.rs": "c12f3d1af7e7125648504e034e7eeb8bb13ac80925194917c6e636a074f72a49",
+    "benchmarks/scylla-wallet/src/main.rs": "967bd543aa823d5c50da7b123576d3a33a12f736cf4f21f0405c9ca260139a23",
+    "benchmarks/scylla-wallet/src/metrics.rs": "b404ad9228ee98c5017ca4e285cd9248f32e8aa5bb4170eaaf4dc74d41d11985",
+    "benchmarks/scylla-wallet/src/service.rs": "7e605caa2a93e780ab957ce6078dfaa6d1c08cb2e93623d003d4673cc2fd5dcd",
+    "benchmarks/scylla-wallet/src/store.rs": "9e7fc123f30309257981dea00d68e4a47eb027af6c974a3d53235d55e0ffc884",
+    "benchmarks/scylla-wallet/tests/scylla_integration.rs": "ea87a2d97199b2df50615ea197e3dffa385731bb343d74654bf0d72a3fd0c5f3",
+    "benchmarks/scylla-wallet/tests/service.rs": "7a4b631775ee63f6703c0ca881f7f7d0b5e3100b08f5e77a5e2e8ed05a858be3",
+    "benchmarks/scylla-wallet/Cargo.toml": "f2614560c417727fa0b911d2358f0e7fc0e30480c30fce3c1aea6795f4ab1c1e",
+    "benchmarks/scylla-wallet/Cargo.lock": "c9a999101291096220a58a8d82e988c27e72ea8290ef6362590c2506730b08eb"
+  },
+  "release_binary": {
+    "path": "target/scylla-wallet/release/ledger-wallet-scylla-bench",
+    "sha256": "bf5afef5f75d3bee98c3510e5db386f62d382d5564302b01ff06278a432cdd87",
+    "cargo_artifact_executable": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/release/ledger-wallet-scylla-bench",
+    "artifact_jsonl": "target/scylla-wallet/build-validation/single-node-support-release-artifacts.jsonl"
+  },
+  "integration_test_no_run": {
+    "executable": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/debug/deps/scylla_integration-277268730abc2d7a",
+    "artifact_jsonl": "target/scylla-wallet/build-validation/single-node-support-integration-no-run-artifacts.jsonl",
+    "executed": false
+  },
+  "validation_logs": {
+    "fmt_stdout": "target/scylla-wallet/build-validation/single-node-support-fmt.stdout",
+    "fmt_stderr": "target/scylla-wallet/build-validation/single-node-support-fmt.stderr",
+    "tests_stdout": "target/scylla-wallet/build-validation/single-node-support-tests.stdout",
+    "tests_stderr": "target/scylla-wallet/build-validation/single-node-support-tests.stderr",
+    "release_stderr": "target/scylla-wallet/build-validation/single-node-support-release.stderr",
+    "integration_no_run_stderr": "target/scylla-wallet/build-validation/single-node-support-integration-no-run.stderr",
+    "affinity": "target/scylla-wallet/build-validation/single-node-support-affinity.txt"
+  }
+}

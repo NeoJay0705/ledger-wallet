@@ -1,0 +1,120 @@
+{
+  "job_id": "calibrated-single-node-rf1-s1-s2-20261012T152629Z",
+  "launch_approved": false,
+  "mode": "pilot",
+  "formal_complete": false,
+  "profile": {
+    "wallet_profile": "wallet-memory-lwt-v1",
+    "account_state_source": "memory",
+    "serial_cl": "LOCAL_SERIAL",
+    "node_count": 1,
+    "node_names": ["nodea"],
+    "replication_factor": 1,
+    "read_cl": "ONE",
+    "write_cl": "ONE",
+    "commitlog_sync": "batch",
+    "commitlog_use_o_dsync": false,
+    "worker_routing": "round-robin",
+    "per_worker_queue_capacity": 50000,
+    "global_admission_capacity": 50000,
+    "connection_contract": "D=node_count*S*P; C is the independent DB worker/in-flight upper bound",
+    "per_shard_pool": 3,
+    "workers_C": 128,
+    "per_node_data_connections": {
+      "S1": 3,
+      "S2": 6
+    },
+    "node_cpu_assignments": {
+      "S1": {"nodea": [0]},
+      "S2": {"nodea": [0, 1]}
+    },
+    "service_monitor_cpus": [6, 7, 14, 15],
+    "node_memory_gib": 8,
+    "node_container_memory_limit_gib": 10,
+    "io_properties": {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+      "sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+      "mountpoint": "/var/lib/scylla",
+      "read_only": true,
+      "budget_formula": "floor(raw * 3 / 4), integer value*3//4 per node; no divide by node count",
+      "calibration_job": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531",
+      "limitation": "Initial local-device budget only; iotune sequential-write deviation was 107%, random-write deviation 11%; do not interpret as steady-state SSD capacity or timeout remediation."
+    }
+  },
+  "cases": [
+    {
+      "phase": "smoke",
+      "slug": "smoke-S1-C128-P3-D3-N1-RF1-R1-W1",
+      "shards": 1,
+      "workers": 128,
+      "per_shard_pool": 3,
+      "node_count": 1,
+      "data_connections": 3,
+      "users": 32,
+      "requests_per_user": 1000,
+      "repeats": 1,
+      "purpose": "Short strict correctness and instrumentation check; exclude from performance comparison."
+    },
+    {
+      "phase": "full",
+      "slug": "full-S1-C128-P3-D3-N1-RF1-R1-W1",
+      "shards": 1,
+      "workers": 128,
+      "per_shard_pool": 3,
+      "node_count": 1,
+      "data_connections": 3,
+      "users": 1024,
+      "requests_per_user": 1000,
+      "repeats": 1,
+      "purpose": "Custom full-workload S1 single-node case; diagnostic only."
+    },
+    {
+      "phase": "full",
+      "slug": "full-S2-C128-P3-D6-N1-RF1-R1-W1",
+      "shards": 2,
+      "workers": 128,
+      "per_shard_pool": 3,
+      "node_count": 1,
+      "data_connections": 6,
+      "users": 1024,
+      "requests_per_user": 1000,
+      "repeats": 1,
+      "purpose": "Custom full-workload S2 single-node case; diagnostic only."
+    }
+  ],
+  "external_preflight": {
+    "function": "benches/scylla_wallet.py:strict_formal_preflight",
+    "before_each_case": true,
+    "wait_seconds": 60,
+    "disk_required_bytes": "max(64 GiB, estimate_disk_bytes(users, requests_per_user, replication_factor=1, node_count=1).required_with_reserve_bytes)",
+    "must_pass_samples": 3,
+    "gates": "host CPU <=10%; target device busy <=5%; available memory >=32 GiB; available filesystem bytes >= required; AIO budget available",
+    "fail_fast": true
+  },
+  "execution": {
+    "one_shot": true,
+    "case_order": ["smoke-S1-C128-P3-D3-N1-RF1-R1-W1", "full-S1-C128-P3-D3-N1-RF1-R1-W1", "full-S2-C128-P3-D6-N1-RF1-R1-W1"],
+    "retries": 0,
+    "stop_on_first_invalid_or_unclean_case": true,
+    "no_live_launch_until_root_review": true,
+    "no_database_or_benchmark_started_at_prepare": true
+  },
+  "binary": {
+    "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/release/ledger-wallet-scylla-bench",
+    "sha256": "bf5afef5f75d3bee98c3510e5db386f62d382d5564302b01ff06278a432cdd87",
+    "manifest": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/build-validation/single-node-support-source-manifest.json"
+  },
+  "runner": {
+    "path": "/home/neojhou/repos/ledger-wallet/benches/scylla_wallet.py",
+    "source_hash_freeze": "captured in freeze-manifest.json after final runner/build and control validation",
+    "node_count_cli": 1,
+    "io_properties_cli": "--io-properties-file <budget properties>",
+    "output_root": "one isolated output root per case under this job"
+  },
+  "calibration_results": {
+    "raw_properties": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/raw/io_properties.yaml",
+    "budget_properties": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+    "summary": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/controls/calibration-summary.json",
+    "cleanup": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/controls/cleanup.json"
+  }
+}

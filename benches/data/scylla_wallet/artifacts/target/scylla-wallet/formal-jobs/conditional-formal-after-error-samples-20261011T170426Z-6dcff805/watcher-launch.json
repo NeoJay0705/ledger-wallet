@@ -1,0 +1,59 @@
+{
+  "affinity_cpus": [
+    6,
+    7,
+    14,
+    15
+  ],
+  "affinity_error": null,
+  "argv": [
+    "taskset",
+    "-c",
+    "6,7,14,15",
+    "python3",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/conditional-formal-after-error-samples-20261011T170426Z-6dcff805/watcher.py"
+  ],
+  "conditional_launch_exists_at_check": false,
+  "cwd": "/home/neojhou/repos/ledger-wallet",
+  "files_sha256": {
+    "condition.py": "a2132bd9774a17459a60c1666b21dfd0665fe0fdf949e3565f5ebbc09791c8a4",
+    "templates/launcher.py": "d882d9798238338daeed88709406438681311d2e24d1b3315df0561294059e6c",
+    "templates/supervisor.py": "164c984cca71bd01810257897f2bb57766514f338b8ff120eef0ec22413a2dc7",
+    "tests/test_condition.py": "1ca218c06793973de2d249601b5aad97e428be619f174bdace6fee1fd85361eb",
+    "tests/test_watcher.py": "15e053d0eb8a9794e62d87ff94df6e9381e697ccaf20269f4d624514bf4a849c",
+    "watcher-config.json": "82da57368ab2dc223f0dddf9a139700c9f9303c678a95df70d4cb4b6ebd16ad5",
+    "watcher.py": "4969ebcc0cb4cdbd31e39ec4498d08db303adb2f4099b01b0ac3e877fdb01fed"
+  },
+  "formal_child_dirs_at_check": [],
+  "input_result_exists_at_check": false,
+  "launched_utc": "2026-10-11T17:14:13.101860+00:00",
+  "pid": 37608,
+  "proc_start_ticks": 887384907,
+  "start_new_session": true,
+  "status_after_start": {
+    "affinity": {
+      "after": [
+        6,
+        7,
+        14,
+        15
+      ],
+      "before": [
+        6,
+        7,
+        14,
+        15
+      ]
+    },
+    "deadline_seconds": 86400,
+    "input_result_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/error-samples-prepared-20261011T165115Z-c644b7e9/result.json",
+    "phase": "waiting_for_diagnostic_result",
+    "poll_seconds": 3,
+    "started_utc": "2026-10-11T17:14:13.057039+00:00",
+    "updated_utc": "2026-10-11T17:14:13.057045+00:00"
+  },
+  "stderr_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/conditional-formal-after-error-samples-20261011T170426Z-6dcff805/watcher.stderr.log",
+  "stdin": "DEVNULL",
+  "stdout_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/conditional-formal-after-error-samples-20261011T170426Z-6dcff805/watcher.stdout.log",
+  "watcher_returncode_at_check": null
+}

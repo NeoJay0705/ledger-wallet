@@ -1,0 +1,50 @@
+{
+  "consecutive_passing_samples": 3,
+  "required_disk_bytes": 26893877248,
+  "samples": [
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s2-worker-scaling-20261012T124556Z/cases/case-01-S2-C128-P3-D18/runs",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 666947936256,
+      "elapsed_seconds": 0.431,
+      "host_cpu_busy_pct": 1.25,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s2-worker-scaling-20261012T124556Z/cases/case-01-S2-C128-P3-D18/runs",
+      "memory_available_bytes": 45904838656,
+      "required_disk_bytes": 26893877248
+    },
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s2-worker-scaling-20261012T124556Z/cases/case-01-S2-C128-P3-D18/runs",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 666947932160,
+      "elapsed_seconds": 1.86,
+      "host_cpu_busy_pct": 1.25,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s2-worker-scaling-20261012T124556Z/cases/case-01-S2-C128-P3-D18/runs",
+      "memory_available_bytes": 45898563584,
+      "required_disk_bytes": 26893877248
+    },
+    {
+      "aio_available": 262144,
+      "aio_max_nr": 262144,
+      "aio_nr": 0,
+      "backing_device": "sdb2",
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s2-worker-scaling-20261012T124556Z/cases/case-01-S2-C128-P3-D18/runs",
+      "device_busy_pct": 0.0,
+      "disk_available_bytes": 666947932160,
+      "elapsed_seconds": 3.29,
+      "host_cpu_busy_pct": 1.25,
+      "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s2-worker-scaling-20261012T124556Z/cases/case-01-S2-C128-P3-D18/runs",
+      "memory_available_bytes": 45903937536,
+      "required_disk_bytes": 26893877248
+    }
+  ],
+  "valid": true,
+  "waited_seconds": 3.29
+}

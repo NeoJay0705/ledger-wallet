@@ -1,0 +1,83 @@
+{
+  "nonce": "core-smoke-20261011T102743Z-afbc3b71",
+  "started_utc": "2026-10-11T10:54:40.340397+00:00",
+  "marker_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/OWNED_BY_LEDGER_WALLET_SCYLLA.json",
+  "owned_data_path_from_marker": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/owned-data",
+  "owned_data_canonical_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/owned-data",
+  "container_names": [
+    "lwscylla-core-smoke-20261011T102743Z-afbc3b71-a",
+    "lwscylla-core-smoke-20261011T102743Z-afbc3b71-b",
+    "lwscylla-core-smoke-20261011T102743Z-afbc3b71-c"
+  ],
+  "network_name": "lwscylla-core-smoke-20261011T102743Z-afbc3b71-net",
+  "checks": {
+    "marker_and_canonical_path": true,
+    "containers_absent_after_removal": {
+      "lwscylla-core-smoke-20261011T102743Z-afbc3b71-a": {
+        "absent": true,
+        "returncode": 1,
+        "stderr": "Error response from daemon: No such container: lwscylla-core-smoke-20261011T102743Z-afbc3b71-a"
+      },
+      "lwscylla-core-smoke-20261011T102743Z-afbc3b71-b": {
+        "absent": true,
+        "returncode": 1,
+        "stderr": "Error response from daemon: No such container: lwscylla-core-smoke-20261011T102743Z-afbc3b71-b"
+      },
+      "lwscylla-core-smoke-20261011T102743Z-afbc3b71-c": {
+        "absent": true,
+        "returncode": 1,
+        "stderr": "Error response from daemon: No such container: lwscylla-core-smoke-20261011T102743Z-afbc3b71-c"
+      }
+    },
+    "no_nonce_labeled_containers_remain": true,
+    "network_absent_after_removal": {
+      "absent": true,
+      "returncode": 1,
+      "stderr": "Error response from daemon: network lwscylla-core-smoke-20261011T102743Z-afbc3b71-net not found"
+    },
+    "no_nonce_labeled_networks_remain": true,
+    "stopped_container_owner_mount_audit": true,
+    "network_owner_empty_audit": true,
+    "cli_keyspace_absent_cl_one_all_nodes": true,
+    "cli_keyspace_name": "wallet_bench_cli_lifecycle_20261011_c12",
+    "evidence_to_preserve_exists": true
+  },
+  "cleanup": {
+    "containers_removed": [
+      "lwscylla-core-smoke-20261011T102743Z-afbc3b71-a",
+      "lwscylla-core-smoke-20261011T102743Z-afbc3b71-b",
+      "lwscylla-core-smoke-20261011T102743Z-afbc3b71-c"
+    ],
+    "network_removed": true,
+    "owned_data_removed": true,
+    "owned_data_helper": {
+      "name": "lwscylla-cleanup-core-smoke-20261011T102743Z-afbc3b71",
+      "image": "scylladb/scylla@sha256:333b9ab3a3214c7f98af100711c51df7f58964e8227e6d26050e889ebb216df1",
+      "owner_label": "core-smoke-20261011T102743Z-afbc3b71",
+      "network": "none",
+      "bind_source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/owned-data",
+      "command": "rm -rf -- /owned/nodea /owned/nodeb /owned/nodec",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "temporary_helper_removed": {
+      "absent": true,
+      "returncode": 1,
+      "stderr": "Error response from daemon: No such container: lwscylla-cleanup-core-smoke-20261011T102743Z-afbc3b71"
+    }
+  },
+  "preflight_passed": true,
+  "owned_data_exists_after": false,
+  "run_root_preserved": true,
+  "marker_preserved": true,
+  "preserved_evidence_files": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/trial-s1-smoke/crash-persistence-result.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/trial-s1-smoke/crash-persistence-validation.log",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/trial-s1-smoke/cleanup-preflight-audit.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/trial-s1-smoke/cleanup-stopped-audit.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/cli-c12-smoke/result.json"
+  ],
+  "completed_utc": "2026-10-11T10:54:40.788832+00:00",
+  "cleanup_complete": true
+}

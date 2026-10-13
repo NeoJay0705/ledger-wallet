@@ -1,0 +1,41 @@
+{
+  "binary_sha256": "c05b4ccb8782a0469efc3c6f5e4385502af0f988010e5357e55394412ae2cb34",
+  "binary_snapshot": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/input-snapshot/binary/ledger-wallet-scylla-bench",
+  "job_control_root": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/input-snapshot/job-control",
+  "job_control_sha256": {
+    "launch-config.json": "7cf087f8c2b7d61851c3514c6c9e0b4b1ad9fb66f67ab774d2d4ab631b0ca338",
+    "launcher.py": "5aa314fc25b54df31e6f87f7a405d9788e3cf5ca8c3cc37a2c1f3d89fc9eab26",
+    "prepare/test_supervisor.py": "95367c5f66053fea5cfeadbab207441d8545abc3dadb271feb736d727bd5414d",
+    "supervisor.py": "c28bafadb55d3e255337ae1cae636018c44eb8900ade720fb20dd79b857691a2"
+  },
+  "prepared_utc": "2026-10-12T12:07:47.166447+00:00",
+  "source_root": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/input-snapshot/source",
+  "source_sha256": {
+    "Cargo.lock": "3c39049b5c1c9c71ef69b7b3894de3d7dd91c8d65db955531b7064ef296dfb03",
+    "Cargo.toml": "7bbf6368b97cf9826b4989612b96884ae63868daf29358142c322f9b2bbc94d8",
+    "benches/scylla_wallet.py": "6f80a7185a88e02ec2e845589cf5fd035e03e64c7c11f78fcf625771bfb6bdf6",
+    "benchmarks/scylla-wallet/Cargo.lock": "c9a999101291096220a58a8d82e988c27e72ea8290ef6362590c2506730b08eb",
+    "benchmarks/scylla-wallet/Cargo.toml": "f2614560c417727fa0b911d2358f0e7fc0e30480c30fce3c1aea6795f4ab1c1e",
+    "benchmarks/scylla-wallet/README.md": "dc51a6c675b623d92c41a5743fe16c65ab474f2de8e88e08f364cbf5687f8c7f",
+    "benchmarks/scylla-wallet/src/lib.rs": "c12f3d1af7e7125648504e034e7eeb8bb13ac80925194917c6e636a074f72a49",
+    "benchmarks/scylla-wallet/src/main.rs": "0414545c80758f23bba5c9d966428010b1da8d495736d6910478f842602ca97f",
+    "benchmarks/scylla-wallet/src/metrics.rs": "b404ad9228ee98c5017ca4e285cd9248f32e8aa5bb4170eaaf4dc74d41d11985",
+    "benchmarks/scylla-wallet/src/service.rs": "7e605caa2a93e780ab957ce6078dfaa6d1c08cb2e93623d003d4673cc2fd5dcd",
+    "benchmarks/scylla-wallet/src/store.rs": "b7aa53358f56f3477c58d158b15f4b9baea60e20bd37d979da8852a3290a36b9",
+    "benchmarks/scylla-wallet/tests/scylla_integration.rs": "ea87a2d97199b2df50615ea197e3dffa385731bb343d74654bf0d72a3fd0c5f3",
+    "benchmarks/scylla-wallet/tests/service.rs": "7a4b631775ee63f6703c0ca881f7f7d0b5e3100b08f5e77a5e2e8ed05a858be3",
+    "docs/01-31.raw-requirement-scylladb-wallet-benchmark.md": "fa50d99e9dab6c776d34fe046f3b4e9c5e32d291f09e4fc785eb2d1665b37eaf",
+    "docs/01-32.development-design-scylladb-wallet-benchmark.md": "1e9d219add2a1d29e461e833e5389cfecd2a84a83cab19251152412158dd62cc",
+    "docs/01-36.raw-requirement-scylladb-per-user-worker-benchmark.md": "203d6419fe8629783dfe0a754a0d60d68db045e187a6d6291193db92c2e6f299",
+    "docs/01-37.development-design-scylladb-per-user-worker-benchmark.md": "49d62578297e2c01aa67d9d3ef7b134367f27ec3446d8984dccbf19760c1ee9f",
+    "docs/01-39.raw-requirement-scylladb-rf1-cl1-benchmark.md": "4dcbef163156e2fc339d81414a167c6c05335e886e227025024a6cc8c49c171e",
+    "docs/01-40.development-design-scylladb-rf1-cl1-benchmark.md": "96000d0d5e21bb2da506537c46711835492526f90fadc1d75042d9f7e0fb5f7a",
+    "docs/01-42.raw-requirement-scylladb-memory-lwt-benchmark.md": "dbcf72369419f3a346e884260b1bd11bd0399d10cd93bae7bec9b6640cec1370",
+    "docs/01-43.development-design-scylladb-memory-lwt-benchmark.md": "ed69662a4a49be9babb321b4e7599937cefd7e01c8404f05d7875e5b84528b03",
+    "docs/01-44.development-validation-scylladb-memory-lwt-benchmark.md": "1766a60025a398448eec492c90d192ae6ba2c79c5d1150209d5aa81947e43b2c",
+    "docs/01-45.raw-requirement-scylladb-memory-lwt-rf3-s1-concurrency-benchmark.md": "a963e063059a2d71455956fbe9ba634a846c97506ab0b644859580e0131f5a3a",
+    "docs/01-46.development-design-scylladb-memory-lwt-rf3-s1-concurrency-benchmark.md": "5f4a23943c7b0ccf6ad29421bdc824824f1e8133107291618247edaca673e00b",
+    "docs/01-47.development-analysis-scylladb-memory-lwt-rf3-s1-concurrency-benchmark.md": "e50ad480fa2a062acfd38f11e88ac0d900981aec2d489800857b5ae06741d78b",
+    "tests/test_scylla_wallet_runner.py": "dfd48688a1b8aad1de9926cd5fe87f364b71a6bd6f51759b969109c816be78e1"
+  }
+}

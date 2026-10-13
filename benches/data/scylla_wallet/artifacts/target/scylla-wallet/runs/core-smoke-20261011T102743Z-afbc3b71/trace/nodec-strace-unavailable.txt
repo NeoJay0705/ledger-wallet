@@ -1,0 +1,18 @@
+{
+  "pid": 52127,
+  "cmd": [
+    "strace",
+    "-ff",
+    "-ttt",
+    "-yy",
+    "-e",
+    "trace=fsync,fdatasync,io_submit,io_uring_enter",
+    "-p",
+    "52127",
+    "-o",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/core-smoke-20261011T102743Z-afbc3b71/trace/nodec-strace"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "strace: attach: ptrace(PTRACE_SEIZE, 52127): Operation not permitted\n"
+}

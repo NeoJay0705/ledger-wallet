@@ -1,0 +1,11 @@
+{
+  "approval_basis": "Root read-only review completed and authorized the frozen one-shot job in the active task message.",
+  "approved": true,
+  "approved_by": "root",
+  "approved_utc": "2026-10-12T16:58:39.378359+00:00",
+  "freeze_manifest_sha256": "9229bd424953feafcd7d9563523a4a9f922440962aafd750755154bcaddea48d",
+  "job_id": "calibrated-single-node-rf1-s2-concurrency-20261012T164545Z",
+  "launch_config_sha256": "70b07b0b99c68b94a3823e124345a735238d03de05430ef44e60a1cc79919e73",
+  "schema_version": 1,
+  "scope": "Run C256 first; run C512 only if the frozen correctness, metrics, cleanup and conditional I/O/performance gates pass. No retries or profile changes."
+}

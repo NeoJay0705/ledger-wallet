@@ -1,0 +1,60 @@
+{
+  "interpretation": {
+    "durable_writes": true,
+    "initial_tablets": "absent",
+    "keyspace_row_count": 1,
+    "replication_class": "org.apache.cassandra.locator.NetworkTopologyStrategy",
+    "replication_factor_expected": 1,
+    "replication_factors": {
+      "datacenter1": "1"
+    },
+    "tablets_disabled": true,
+    "tablets_interpretation": "disabled: no scylla_keyspaces row; optional initial_tablets is absent",
+    "tablets_metadata_row_count": 0
+  },
+  "keyspace": "wallet_bench_9d2b56e71822",
+  "problems": [],
+  "queries": {
+    "keyspace_options": {
+      "consistency": "ONE",
+      "query": "SELECT JSON durable_writes, replication FROM system_schema.keyspaces WHERE keyspace_name = 'wallet_bench_9d2b56e71822'",
+      "raw_output": "Consistency level set to ONE.\n\n [json]\n--------------------------------------------------------------------------------------------------------------------------------\n {\"durable_writes\": true, \"replication\": {\"class\": \"org.apache.cassandra.locator.NetworkTopologyStrategy\", \"datacenter1\": \"1\"}}\n\n(1 rows)\n",
+      "return_code": 0,
+      "rows": [
+        {
+          "durable_writes": true,
+          "replication": {
+            "class": "org.apache.cassandra.locator.NetworkTopologyStrategy",
+            "datacenter1": "1"
+          }
+        }
+      ],
+      "stderr": "",
+      "zero_rows_footer": false
+    },
+    "tablet_metadata": {
+      "consistency": "ONE",
+      "query": "SELECT JSON initial_tablets FROM system_schema.scylla_keyspaces WHERE keyspace_name = 'wallet_bench_9d2b56e71822'",
+      "raw_output": "Consistency level set to ONE.\n\n [json]\n--------\n\n\n(0 rows)\n",
+      "return_code": 0,
+      "rows": [],
+      "stderr": "",
+      "zero_rows_footer": true
+    }
+  },
+  "source_evidence": {
+    "get_initial_tablets": {
+      "behavior": "tablets.enabled=false returns nullopt; default-enabled NTS can carry initial_tablets=0",
+      "sha256": "b27ea7c75761c6acef9a4fa013e6de7e01c04b01c3f445dbe33edc5183297047",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/cql3/statements/ks_prop_defs.cc"
+    },
+    "persist_scylla_keyspaces": {
+      "behavior": "initial_tablets is written only when the optional value is present",
+      "sha256": "dd6761f88d40906a84dcfd888f5fb75c71cbcc2eabedb470b4694e68baa239e0",
+      "url": "https://raw.githubusercontent.com/scylladb/scylladb/scylla-2026.1.14/db/schema_tables.cc"
+    },
+    "release_commit": "0dbea6201d676548993bc5889d8f4a34dd6ef54c",
+    "release_ref": "scylla-2026.1.14"
+  },
+  "valid": true
+}

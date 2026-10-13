@@ -1,0 +1,48 @@
+{
+  "summary_format": "scylla-wallet-selected-json-scalars-v1",
+  "source": {
+    "path": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/result.json",
+    "size_bytes": 52652,
+    "sha256": "3fdf1bdd8870b7e7e9509ba1f42b986b0e367afb99a2b6d081dd57e084d18c85"
+  },
+  "source_json_top_level_keys": [
+    "actual_case_count",
+    "binary_hash_match_at_end",
+    "cases",
+    "ended_utc",
+    "error",
+    "expected_case_count",
+    "failed_case",
+    "formal_complete",
+    "io_properties_hash_match_at_end",
+    "job_id",
+    "launch_approved",
+    "mode",
+    "no_retry",
+    "source_hashes_match_at_end",
+    "status",
+    "terminal_resource_audit",
+    "workload_class"
+  ],
+  "top_level": {
+    "error": "ready_to_measure wallet profile validation is not valid",
+    "expected_case_count": 1,
+    "formal_complete": false,
+    "mode": "pilot",
+    "status": "case_failed",
+    "workload_class": "diagnostic_only"
+  },
+  "result_records": {
+    "count": 1,
+    "records": [
+      {
+        "status": "failed",
+        "validation": {
+          "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098",
+          "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms",
+          "valid": false
+        }
+      }
+    ]
+  }
+}

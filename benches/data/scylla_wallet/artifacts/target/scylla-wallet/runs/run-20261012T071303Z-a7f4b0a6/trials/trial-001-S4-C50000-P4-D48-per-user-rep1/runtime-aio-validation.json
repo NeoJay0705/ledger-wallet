@@ -1,0 +1,96 @@
+{
+  "collected_utc": "2026-10-12T07:13:38+00:00",
+  "collection_errors": [],
+  "container_log_command": "docker logs <exact owned container id>",
+  "logs_directory": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio",
+  "nodes": {
+    "nodea": {
+      "combined_sha256": "cec2bd5de43a81a82806bf68fd290cfd532079d192a16b226b3056bb42c594d5",
+      "container_id": "a2d3225b7b83c570d1c29b48ebfe94b25ec7350adfbd77a302c698d16df38908",
+      "docker_logs_exit_code": 0,
+      "fetch_error": null,
+      "stderr_bytes": 440816,
+      "stderr_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio/nodea.stderr.log",
+      "stderr_sha256": "66d100fe2e5622d67234a614f7cd0862b1624cd8c88b0c1105c0dde81bd02db8",
+      "stdout_bytes": 4599,
+      "stdout_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio/nodea.stdout.log",
+      "stdout_sha256": "5e9f57a159fd41b8c1c0a379ce40a2e74f0538121556b5dd234c12eb59bc6ed8",
+      "valid": true
+    },
+    "nodeb": {
+      "combined_sha256": "b01034d711aba38f08366d27ba6f51cfdfc0942a85a42b45d2422d167181eaf8",
+      "container_id": "c4a87dec5e19fdd846003af54d309867a84bcf5faca827026358d812868b27c2",
+      "docker_logs_exit_code": 0,
+      "fetch_error": null,
+      "stderr_bytes": 196199,
+      "stderr_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio/nodeb.stderr.log",
+      "stderr_sha256": "d3f541d6aad908bd86b1a16f045d348d138c20217a2e6a89837f049a7fe24354",
+      "stdout_bytes": 4605,
+      "stdout_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio/nodeb.stdout.log",
+      "stdout_sha256": "c8e435450429b2c487eae0c871f9e05170d3e075bf1dc547667ead8ec63f4efe",
+      "valid": true
+    },
+    "nodec": {
+      "combined_sha256": "21470069e9da949b762f31b1604585a56aaecaf9c02ee7798238f6c608b221bb",
+      "container_id": "4c0d8c15be06f053a25e37fcd4c42e1ddcb844b8a12203d00304eeedce01fd72",
+      "docker_logs_exit_code": 0,
+      "fetch_error": null,
+      "stderr_bytes": 282210,
+      "stderr_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio/nodec.stderr.log",
+      "stderr_sha256": "313ebe9301ce921b6b774eac9bbe8a11b04eadd85907e8da8bbb5c2a0fc571da",
+      "stdout_bytes": 4605,
+      "stdout_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261012T071303Z-a7f4b0a6/trials/trial-001-S4-C50000-P4-D48-per-user-rep1/logs/runtime-aio/nodec.stdout.log",
+      "stdout_sha256": "619e1e4b4324b251589d0b05cf20deec82015472581de8ee8bcd282b42fb4b47",
+      "valid": true
+    }
+  },
+  "problems": [],
+  "startup_validation": {
+    "expected_nodes": [
+      "nodea",
+      "nodeb",
+      "nodec"
+    ],
+    "nodes": {
+      "nodea": {
+        "backend_valid": true,
+        "failure_markers": [],
+        "log_present": true,
+        "problems": [],
+        "reactor_backend_markers": [
+          "linux-aio"
+        ],
+        "valid": true
+      },
+      "nodeb": {
+        "backend_valid": true,
+        "failure_markers": [],
+        "log_present": true,
+        "problems": [],
+        "reactor_backend_markers": [
+          "linux-aio"
+        ],
+        "valid": true
+      },
+      "nodec": {
+        "backend_valid": true,
+        "failure_markers": [],
+        "log_present": true,
+        "problems": [],
+        "reactor_backend_markers": [
+          "linux-aio"
+        ],
+        "valid": true
+      }
+    },
+    "observed_nodes": [
+      "nodea",
+      "nodeb",
+      "nodec"
+    ],
+    "problems": [],
+    "tool_fallback_note": "io_uring-to-epoll tool fallback notices are not reactor backend markers; the actual Reactor backend marker must be linux-aio",
+    "valid": true
+  },
+  "valid": true
+}

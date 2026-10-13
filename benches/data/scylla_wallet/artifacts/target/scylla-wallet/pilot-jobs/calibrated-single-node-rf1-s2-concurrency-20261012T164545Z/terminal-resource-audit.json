@@ -1,0 +1,46 @@
+{
+  "captured_utc": "2026-10-12T17:02:27.257439+00:00",
+  "errors": [],
+  "queries": {
+    "containers": {
+      "argv": [
+        "docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "label=ledger-wallet.owner=scylla-wallet-runner"
+      ],
+      "exit_code": 0,
+      "ids": [],
+      "stderr": ""
+    },
+    "networks": {
+      "argv": [
+        "docker",
+        "network",
+        "ls",
+        "-q",
+        "--filter",
+        "label=ledger-wallet.owner=scylla-wallet-runner"
+      ],
+      "exit_code": 0,
+      "ids": [],
+      "stderr": ""
+    }
+  },
+  "saved_case_audits": [
+    {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/owned-resource-audit.json",
+      "run_id": "run-20261012T165846Z-643e5bd1",
+      "trial_id": "trial-001-S2-C256-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1",
+      "valid": true
+    },
+    {
+      "path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1/owned-resource-audit.json",
+      "run_id": "run-20261012T170053Z-bc6ab9e6",
+      "trial_id": "trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1",
+      "valid": true
+    }
+  ],
+  "valid": true
+}

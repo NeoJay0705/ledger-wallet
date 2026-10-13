@@ -1,0 +1,47 @@
+{
+  "collected_utc": "2026-10-13T02:05:20+00:00",
+  "collection_errors": [],
+  "container_log_command": "docker logs <exact owned container id>",
+  "logs_directory": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-setup-fix-20261013T015444Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T020501Z-9ef70a76/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/logs/runtime-aio",
+  "nodes": {
+    "nodea": {
+      "combined_sha256": "37f438d784a62dd0089d4462313af34edf0e75a23823f483a74726a72a3ce113",
+      "container_id": "47176d3ee3f3c09c4911f9afa6204f2440e50b13159a0d51878cc6a996e3c890",
+      "docker_logs_exit_code": 0,
+      "fetch_error": null,
+      "stderr_bytes": 108764,
+      "stderr_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-setup-fix-20261013T015444Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T020501Z-9ef70a76/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/logs/runtime-aio/nodea.stderr.log",
+      "stderr_sha256": "0310f1da903caa33dfa2d08da54d496ef323b3e2583cf498e539396a5fa799f5",
+      "stdout_bytes": 4810,
+      "stdout_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-setup-fix-20261013T015444Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T020501Z-9ef70a76/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/logs/runtime-aio/nodea.stdout.log",
+      "stdout_sha256": "b8947e2bc2e0b61e7f480a3313d5ccd065cced652b4b72ae081a433dae62e8d6",
+      "valid": true
+    }
+  },
+  "problems": [],
+  "startup_validation": {
+    "expected_nodes": [
+      "nodea"
+    ],
+    "nodes": {
+      "nodea": {
+        "backend_valid": true,
+        "failure_markers": [],
+        "log_present": true,
+        "missing_io_properties_warning": false,
+        "problems": [],
+        "reactor_backend_markers": [
+          "linux-aio"
+        ],
+        "valid": true
+      }
+    },
+    "observed_nodes": [
+      "nodea"
+    ],
+    "problems": [],
+    "tool_fallback_note": "io_uring-to-epoll tool fallback notices are not reactor backend markers; the actual Reactor backend marker must be linux-aio",
+    "valid": true
+  },
+  "valid": true
+}

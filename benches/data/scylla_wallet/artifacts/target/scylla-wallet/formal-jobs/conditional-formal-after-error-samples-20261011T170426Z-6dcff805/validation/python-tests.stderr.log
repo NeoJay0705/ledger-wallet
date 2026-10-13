@@ -1,0 +1,16 @@
+test_dirty_source_or_binary_hash_refuses (test_condition.GateTests.test_dirty_source_or_binary_hash_refuses) ... ok
+test_exact_docker_not_found_with_empty_inspect_array_is_absent (test_condition.GateTests.test_exact_docker_not_found_with_empty_inspect_array_is_absent) ... ok
+test_final_formal_summary_requires_all_27_clean_valid_trials (test_condition.GateTests.test_final_formal_summary_requires_all_27_clean_valid_trials) ... ok
+test_missing_and_failed_validation_refuse (test_condition.GateTests.test_missing_and_failed_validation_refuse) ... ok
+test_unknown_or_nonzero_errors_refuse (test_condition.GateTests.test_unknown_or_nonzero_errors_refuse) ... ok
+test_valid_custom_formal_case_accepts_expected_runner_exit_one (test_condition.GateTests.test_valid_custom_formal_case_accepts_expected_runner_exit_one) ... ok
+test_wrong_case_count_refuses (test_condition.GateTests.test_wrong_case_count_refuses) ... ok
+test_wrong_not_found_id_and_daemon_error_do_not_prove_absence (test_condition.GateTests.test_wrong_not_found_id_and_daemon_error_do_not_prove_absence) ... ok
+test_formal_completion_requires_end_hashes_and_27_valid_clean_trials (test_watcher.WatcherTests.test_formal_completion_requires_end_hashes_and_27_valid_clean_trials) ... ok
+test_one_shot_marker_reentry_refuses_without_launch_or_status_overwrite (test_watcher.WatcherTests.test_one_shot_marker_reentry_refuses_without_launch_or_status_overwrite) ... refusing: one-shot watcher marker already exists; automatic re-entry is disabled
+ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.053s
+
+OK

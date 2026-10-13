@@ -1,0 +1,22 @@
+{
+  "containers_removed": [
+    "nodea",
+    "nodeb",
+    "nodec"
+  ],
+  "containers_stopped": true,
+  "data_removed": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/trials/trial-023-S4-C12-rep3/owned-data/nodea",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/trials/trial-023-S4-C12-rep3/owned-data/nodeb",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/trials/trial-023-S4-C12-rep3/owned-data/nodec"
+  ],
+  "errors": [],
+  "network_removed": true,
+  "post_stop_inspection_files": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/trials/trial-023-S4-C12-rep3/cleanup-post-stop/nodea.inspect.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/trials/trial-023-S4-C12-rep3/cleanup-post-stop/nodeb.inspect.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8/trials/trial-023-S4-C12-rep3/cleanup-post-stop/nodec.inspect.json"
+  ],
+  "retained_data": [],
+  "status": "clean"
+}

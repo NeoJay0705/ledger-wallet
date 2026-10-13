@@ -1,0 +1,54 @@
+{
+  "summary_format": "scylla-wallet-selected-json-scalars-v1",
+  "source": {
+    "path": "target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/result.json",
+    "size_bytes": 75597,
+    "sha256": "b3e971676d605590f6b4499fd0206ec7b86b7e1d7f91493d0423e59318b507f1"
+  },
+  "source_json_top_level_keys": [
+    "actual_case_count",
+    "binary_hash_match_at_end",
+    "cases",
+    "conditional_c512_gate",
+    "ended_utc",
+    "expected_case_count",
+    "formal_complete",
+    "io_properties_hash_match_at_end",
+    "job_id",
+    "launch_approved",
+    "mode",
+    "no_retry",
+    "source_hashes_match_at_end",
+    "status",
+    "terminal_resource_audit",
+    "workload_class"
+  ],
+  "top_level": {
+    "expected_case_count": 2,
+    "formal_complete": false,
+    "mode": "pilot",
+    "status": "all_cases_passed",
+    "workload_class": "diagnostic_only"
+  },
+  "result_records": {
+    "count": 2,
+    "records": [
+      {
+        "status": "passed",
+        "validation": {
+          "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs/run-20261012T165846Z-643e5bd1",
+          "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C256-P3-D6-N1-RF1-R1-W1/runs/run-20261012T165846Z-643e5bd1/trials/trial-001-S2-C256-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1",
+          "valid": true
+        }
+      },
+      {
+        "status": "passed",
+        "validation": {
+          "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1/runs/run-20261012T170053Z-bc6ab9e6",
+          "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-concurrency-20261012T164545Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1/runs/run-20261012T170053Z-bc6ab9e6/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1",
+          "valid": true
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+usage: scylla_wallet.py [-h] [--mode {smoke,pilot,formal}] [--shards SHARDS]
+                        [--workers WORKERS] [--per-shard-pool PER_SHARD_POOL]
+                        [--worker-routing {round-robin,per-user}]
+                        [--replication-factor REPLICATION_FACTOR]
+                        [--read-cl READ_CL] [--write-cl WRITE_CL]
+                        [--repeats REPEATS] [--users USERS]
+                        [--requests-per-user REQUESTS_PER_USER]
+                        [--node-count {1,3}]
+                        [--io-properties-file IO_PROPERTIES_FILE]
+                        [--output-root OUTPUT_ROOT] [--skip-build]
+                        [--binary BINARY] [--startup-timeout STARTUP_TIMEOUT]
+                        [--preflight-wait PREFLIGHT_WAIT] [--dry-run]
+scylla_wallet.py: error: --io-properties-file selects a calibrated custom I/O profile; use pilot mode, not formal mode

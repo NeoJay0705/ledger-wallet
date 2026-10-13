@@ -1,0 +1,130 @@
+{
+  "completion_gate_failures": [
+    "formal supervisor exitcode is not zero",
+    "formal run-result does not validate all 27 clean trials"
+  ],
+  "diagnostic_validation": {
+    "evidence": {
+      "current_binary_sha256": "d59e0fd5bffb08cfa6f65b967dc7bf27d2dbb121f38cd4100e1ddbc6883ae929",
+      "current_source_sha256": {
+        "Cargo.lock": "3c39049b5c1c9c71ef69b7b3894de3d7dd91c8d65db955531b7064ef296dfb03",
+        "Cargo.toml": "7bbf6368b97cf9826b4989612b96884ae63868daf29358142c322f9b2bbc94d8",
+        "benches/scylla_wallet.py": "9b5530668b58cf276dd3634e43b7c9380b0df10ff0cc482418201fa44aefe093",
+        "benchmarks/scylla-wallet/Cargo.lock": "c9a999101291096220a58a8d82e988c27e72ea8290ef6362590c2506730b08eb",
+        "benchmarks/scylla-wallet/Cargo.toml": "f2614560c417727fa0b911d2358f0e7fc0e30480c30fce3c1aea6795f4ab1c1e",
+        "benchmarks/scylla-wallet/README.md": "d0e2f8b578f28775bba41f6b02e53c675f9ec029f2fd879603f38dc57c7373b8",
+        "benchmarks/scylla-wallet/src/lib.rs": "4e589ecc6a3a832bbf6a74d60cebdf0c69e9adc90d518b097e6576e96fe9be9e",
+        "benchmarks/scylla-wallet/src/main.rs": "4147d7635083f4a98d5320f01800ff1f0ec686d361b2e853b1ee72b45e3c75ea",
+        "benchmarks/scylla-wallet/src/metrics.rs": "3689228aef2b0daf2c4cfb6e83ed4086d0251534cc951c1dd6f2b4a534a7b073",
+        "benchmarks/scylla-wallet/src/service.rs": "fe779a112bbf9a3a2138793dfde9238f320284deab7cb911a8f9735b75b49298",
+        "benchmarks/scylla-wallet/src/store.rs": "21b7f960f2b15f38c317ec475015c305ef49ad16f86d10c1e425976d66a3a6ec",
+        "benchmarks/scylla-wallet/tests/scylla_integration.rs": "a8bc3a9688e34e2c5f38552efb3d773d87dea614adcba899d070258b9bee3a81",
+        "benchmarks/scylla-wallet/tests/service.rs": "3d5da296ff8cbcacb471e7b0858ab11e399cd9f3a38889f852fc00422c6ee57d",
+        "docs/01-31.raw-requirement-scylladb-wallet-benchmark.md": "fa50d99e9dab6c776d34fe046f3b4e9c5e32d291f09e4fc785eb2d1665b37eaf",
+        "docs/01-32.development-design-scylladb-wallet-benchmark.md": "1e9d219add2a1d29e461e833e5389cfecd2a84a83cab19251152412158dd62cc",
+        "tests/test_scylla_wallet_runner.py": "9fdca15b0f7b3779756d55447b81bf60ef76873c3e46c04412620b82783f7a35"
+      },
+      "diagnostic_exitcode": 1,
+      "diagnostic_job_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/error-samples-prepared-20261011T165115Z-c644b7e9",
+      "resource_ids": {
+        "container_ids": [
+          "2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5",
+          "8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f",
+          "56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21"
+        ],
+        "network_id": "8e4ba3411bb791f034766beb91ce1286f826d9f3d06dc0ccba1d2d012a7c7804"
+      },
+      "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T165431Z-40fc6259"
+    },
+    "failures": [],
+    "resources": {
+      "container_ids": [
+        "2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5",
+        "8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f",
+        "56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21"
+      ],
+      "network_id": "8e4ba3411bb791f034766beb91ce1286f826d9f3d06dc0ccba1d2d012a7c7804"
+    },
+    "valid": true
+  },
+  "docker_absence_check": {
+    "failures": [],
+    "inspected": [
+      {
+        "id": "2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5",
+        "kind": "container",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "error: no such object: 2bcef7b4291a0434b472f3dc1b0f5cdbdfad4da0fdd59bff97f0abb23e7213b5\n",
+        "stdout": "[]\n"
+      },
+      {
+        "id": "8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f",
+        "kind": "container",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "error: no such object: 8695d186ef39071b54ade75f5a33d2cd0c9706e806c30392d6b2f7b983bfa28f\n",
+        "stdout": "[]\n"
+      },
+      {
+        "id": "56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21",
+        "kind": "container",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "error: no such object: 56de453047a88ba5c0bfbe015769835a81f46219c06d60a323d2f4fa04373c21\n",
+        "stdout": "[]\n"
+      },
+      {
+        "id": "8e4ba3411bb791f034766beb91ce1286f826d9f3d06dc0ccba1d2d012a7c7804",
+        "kind": "network",
+        "returncode": 1,
+        "state": "not_found",
+        "stderr": "Error response from daemon: network 8e4ba3411bb791f034766beb91ce1286f826d9f3d06dc0ccba1d2d012a7c7804 not found\n",
+        "stdout": "[]\n"
+      }
+    ],
+    "valid": true
+  },
+  "expected_trials": 27,
+  "formal_complete": false,
+  "formal_exitcode": 1,
+  "formal_job_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/formal-conditional-20261011T173701Z-99b604d1",
+  "formal_result": {
+    "binary_hash_match_at_end": true,
+    "ended_utc": "2026-10-12T05:05:07.469699+00:00",
+    "exitcode": 1,
+    "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8",
+    "run_summary": {
+      "actual_trial_count": 23,
+      "blocked_error": "trial trial-023-S4-C12-rep3 ended status=failed; error=RunnerError: CLI exited with status 1",
+      "expected_case_count": 27,
+      "formal_complete": false,
+      "formal_status": "formal_partial",
+      "missing_trial_orders": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "mode": "formal"
+    },
+    "runner_pid": 40640,
+    "runner_start_ticks": 887521803,
+    "source_hashes_match_at_end": true,
+    "started_utc": "2026-10-11T17:37:01.970303+00:00",
+    "supervisor_pid": 40639,
+    "supervisor_start_ticks": 887521800
+  },
+  "formal_summary_failures": [
+    "formal run did not finish with all expected trials passed, metrics-valid, and clean"
+  ],
+  "launch_utc": "2026-10-11T17:37:01.891292+00:00",
+  "launcher_pid": 40638,
+  "launcher_returncode": 0,
+  "phase": "formal_finished_incomplete",
+  "result_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/conditional-formal-after-error-samples-20261011T170426Z-6dcff805/result.json",
+  "runner_formal_complete": false,
+  "terminal": true,
+  "updated_utc": "2026-10-12T05:05:09.138418+00:00",
+  "valid_clean_trials": 22
+}

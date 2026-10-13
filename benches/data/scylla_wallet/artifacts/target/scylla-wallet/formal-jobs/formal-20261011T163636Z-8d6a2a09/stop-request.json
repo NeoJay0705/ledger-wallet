@@ -1,0 +1,13 @@
+{
+  "cmdline": "python3 benches/scylla_wallet.py --mode formal --skip-build",
+  "current_phase": "measuring",
+  "current_trial": "trial-002-S1-C24-rep1",
+  "delivered_utc": "2026-10-11T16:47:45.437602+00:00",
+  "pid": 61254,
+  "proc_start_ticks": 887159762,
+  "reason": "root instruction to stop the matrix after trial-001 correctness failure",
+  "requested_utc": "2026-10-11T16:47:45.437439+00:00",
+  "runner_finally_cleanup_expected": true,
+  "signal": "SIGINT",
+  "signal_delivered": true
+}

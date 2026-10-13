@@ -1,0 +1,26 @@
+{
+  "binary_hash_match_at_end": true,
+  "ended_utc": "2026-10-12T05:05:07.469699+00:00",
+  "exitcode": 1,
+  "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T173702Z-c88fb8e8",
+  "run_summary": {
+    "actual_trial_count": 23,
+    "blocked_error": "trial trial-023-S4-C12-rep3 ended status=failed; error=RunnerError: CLI exited with status 1",
+    "expected_case_count": 27,
+    "formal_complete": false,
+    "formal_status": "formal_partial",
+    "missing_trial_orders": [
+      24,
+      25,
+      26,
+      27
+    ],
+    "mode": "formal"
+  },
+  "runner_pid": 40640,
+  "runner_start_ticks": 887521803,
+  "source_hashes_match_at_end": true,
+  "started_utc": "2026-10-11T17:37:01.970303+00:00",
+  "supervisor_pid": 40639,
+  "supervisor_start_ticks": 887521800
+}

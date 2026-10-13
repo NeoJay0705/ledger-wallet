@@ -1,0 +1,20 @@
+{
+  "file_count": 4061,
+  "total_source_bytes": 5407757600,
+  "archive_bytes": 4367723502,
+  "archive": "scylla-wallet-evidence.tar.gz",
+  "archive_sha256": "0d4f5a0aa109ea4add3fdcbb7fa7c061fe0845bf258e820cf50677e03297aa4b",
+  "manifest": "original-files.csv",
+  "manifest_sha256": "92f36e42f0c069667845e5ed848278a9d2a020063689ca60394bb434a1a8c3b4",
+  "source_root": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet",
+  "archive_root": "scylla-wallet",
+  "excluded_components": [
+    "build",
+    "debug",
+    "incremental",
+    "release"
+  ],
+  "excluded_root_files": [
+    ".rustc_info.json"
+  ]
+}

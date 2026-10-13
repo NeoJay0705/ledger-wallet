@@ -1,0 +1,7 @@
+{
+  "blocked_error": "trial trial-002-S1-C24-rep1 was interrupted",
+  "formal_complete": false,
+  "formal_status": "formal_partial",
+  "run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T163641Z-5850a603",
+  "trial_count": 2
+}

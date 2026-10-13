@@ -1,0 +1,409 @@
+{
+  "actual_case_count": 1,
+  "binary_hash_match_at_end": true,
+  "cases": [
+    {
+      "case": {
+        "data_connections": 6,
+        "node_count": 1,
+        "per_shard_pool": 3,
+        "phase": "full",
+        "purpose": "Single full-load periodic commitlog diagnostic; sync mode changes, while LWT remains the same conditional insert.",
+        "repeats": 1,
+        "requests_per_user": 1000,
+        "shards": 2,
+        "slug": "full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000",
+        "users": 1024,
+        "workers": 512
+      },
+      "completed_utc": "2026-10-13T01:51:02.934549+00:00",
+      "external_preflight": {
+        "consecutive_passing_samples": 3,
+        "required_disk_bytes": 68719476736,
+        "samples": [
+          {
+            "aio_available": 262144,
+            "aio_max_nr": 262144,
+            "aio_nr": 0,
+            "backing_device": "sdb2",
+            "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+            "device_busy_pct": 0.0,
+            "disk_available_bytes": 666254082048,
+            "elapsed_seconds": 0.43,
+            "host_cpu_busy_pct": 0.6230529595015576,
+            "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+            "memory_available_bytes": 45904719872,
+            "required_disk_bytes": 68719476736
+          },
+          {
+            "aio_available": 262144,
+            "aio_max_nr": 262144,
+            "aio_nr": 0,
+            "backing_device": "sdb2",
+            "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+            "device_busy_pct": 0.0,
+            "disk_available_bytes": 666254082048,
+            "elapsed_seconds": 1.86,
+            "host_cpu_busy_pct": 0.9345794392523364,
+            "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+            "memory_available_bytes": 45900800000,
+            "required_disk_bytes": 68719476736
+          },
+          {
+            "aio_available": 262144,
+            "aio_max_nr": 262144,
+            "aio_nr": 0,
+            "backing_device": "sdb2",
+            "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+            "device_busy_pct": 0.0,
+            "disk_available_bytes": 666253996032,
+            "elapsed_seconds": 3.289,
+            "host_cpu_busy_pct": 1.5625,
+            "measured_data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+            "memory_available_bytes": 45907910656,
+            "required_disk_bytes": 68719476736
+          }
+        ],
+        "valid": true,
+        "waited_seconds": 3.289
+      },
+      "fresh_run_dirs": [
+        "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e"
+      ],
+      "index": 1,
+      "preflight_exception": null,
+      "required_disk_bytes": 68719476736,
+      "runner_argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "6,7,14,15",
+        "/usr/bin/python3",
+        "/home/neojhou/repos/ledger-wallet/benches/scylla_wallet.py",
+        "--mode",
+        "pilot",
+        "--node-count",
+        "1",
+        "--replication-factor",
+        "1",
+        "--read-cl",
+        "1",
+        "--write-cl",
+        "1",
+        "--shards",
+        "2",
+        "--workers",
+        "512",
+        "--per-shard-pool",
+        "3",
+        "--worker-routing",
+        "round-robin",
+        "--commitlog-sync",
+        "periodic",
+        "--commitlog-sync-period-in-ms",
+        "10000",
+        "--users",
+        "1024",
+        "--requests-per-user",
+        "1000",
+        "--repeats",
+        "1",
+        "--io-properties-file",
+        "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+        "--binary",
+        "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/release/ledger-wallet-scylla-bench",
+        "--skip-build",
+        "--output-root",
+        "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs"
+      ],
+      "runner_exitcode": 1,
+      "runner_run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e",
+      "status": "failed",
+      "stderr": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runner.stderr.log",
+      "stdout": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runner.stdout.log",
+      "validation": {
+        "io_observer_validation": {
+          "analysis": {
+            "errors": [
+              "runner evidence did not identify a trial for I/O analysis"
+            ],
+            "valid": false
+          },
+          "collector": {
+            "collector_result": {
+              "device_identity": {
+                "data_device": {
+                  "major": 8,
+                  "major_minor": "8:18",
+                  "minor": 18,
+                  "name": "sdb2",
+                  "partition_number": 2,
+                  "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb2"
+                },
+                "host_st_dev": 2066,
+                "whole_device": {
+                  "major": 8,
+                  "major_minor": "8:16",
+                  "minor": 16,
+                  "name": "sdb",
+                  "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb"
+                }
+              },
+              "device_profile_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/device-profile.json",
+              "device_profile_sha256": "25b0674fc482d9850e0beede02ff0817b456be08bb9a1a6c7fe371b21e7d894b",
+              "errors": [],
+              "max_gap_seconds": 1.000238998,
+              "max_gap_valid": true,
+              "observer_affinity": {
+                "actual_cpus": [
+                  6,
+                  7,
+                  14,
+                  15
+                ],
+                "requested_cpus": [
+                  6,
+                  7,
+                  14,
+                  15
+                ],
+                "valid": true
+              },
+              "observer_pid": 37419,
+              "sample_count": 25,
+              "sample_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/samples.jsonl",
+              "sample_interval_seconds": 1.0,
+              "started_time_monotonic_ns": 8991234849636892,
+              "started_time_unix_ns": 1791856238780267290,
+              "started_utc": "2026-10-13T01:50:38.780261+00:00",
+              "stop_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/stop",
+              "stop_observed": true,
+              "stop_reason": "stop_file",
+              "stopped_utc": "2026-10-13T01:51:02.880993+00:00",
+              "valid": true
+            },
+            "collector_result_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/collector-result.json",
+            "device_profile": {
+              "calibrated_identity_validation": {
+                "expected": {
+                  "data_device": {
+                    "major_minor": "8:18",
+                    "name": "sdb2"
+                  },
+                  "whole_device": {
+                    "major_minor": "8:16",
+                    "name": "sdb"
+                  }
+                },
+                "observed": {
+                  "data_device": {
+                    "major_minor": "8:18",
+                    "name": "sdb2"
+                  },
+                  "whole_device": {
+                    "major_minor": "8:16",
+                    "name": "sdb"
+                  }
+                },
+                "valid": true
+              },
+              "captured_utc": "2026-10-13T01:50:38.778893+00:00",
+              "data_device": {
+                "major": 8,
+                "major_minor": "8:18",
+                "minor": 18,
+                "name": "sdb2",
+                "partition_number": 2,
+                "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb2"
+              },
+              "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+              "host_st_dev": 2066,
+              "multi_or_composite_device_rejected": true,
+              "observer_affinity": {
+                "actual_cpus": [
+                  6,
+                  7,
+                  14,
+                  15
+                ],
+                "requested_cpus": [
+                  6,
+                  7,
+                  14,
+                  15
+                ],
+                "valid": true
+              },
+              "physical_disk_count": 1,
+              "schema_version": 1,
+              "whole_and_data_are_same_device": false,
+              "whole_device": {
+                "major": 8,
+                "major_minor": "8:16",
+                "minor": 16,
+                "name": "sdb",
+                "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb"
+              }
+            },
+            "device_profile_sha256": "25b0674fc482d9850e0beede02ff0817b456be08bb9a1a6c7fe371b21e7d894b",
+            "errors": [],
+            "exit_code": 0,
+            "observer_pid": 37419,
+            "premature_exit": false,
+            "ready": {
+              "created_utc": "2026-10-13T01:50:38.780605+00:00",
+              "device_profile_sha256": "25b0674fc482d9850e0beede02ff0817b456be08bb9a1a6c7fe371b21e7d894b",
+              "first_sample": {
+                "data_device_major_minor": "8:18",
+                "diskstats": {
+                  "data_device": {
+                    "fields": {
+                      "discard_ms": 582743,
+                      "discards_completed": 1611699,
+                      "discards_merged": 0,
+                      "flush_ms": 0,
+                      "flush_requests": 0,
+                      "io_ms": 2508246410,
+                      "ios_in_progress": 0,
+                      "read_ms": 2905796164,
+                      "reads_completed": 15313066690,
+                      "reads_merged": 43467121,
+                      "sectors_discarded": 4158112760,
+                      "sectors_read": 291307284546,
+                      "sectors_written": 32851215744,
+                      "weighted_io_ms": 3668924975,
+                      "write_ms": 762546068,
+                      "writes_completed": 887203884,
+                      "writes_merged": 568426964
+                    },
+                    "major": 8,
+                    "major_minor": "8:18",
+                    "minor": 18,
+                    "name": "sdb2"
+                  },
+                  "whole_device": {
+                    "fields": {
+                      "discard_ms": 583757,
+                      "discards_completed": 1611714,
+                      "discards_merged": 0,
+                      "flush_ms": 137135906,
+                      "flush_requests": 239402489,
+                      "io_ms": 2173878522,
+                      "ios_in_progress": 0,
+                      "read_ms": 2905799423,
+                      "reads_completed": 15313075248,
+                      "reads_merged": 43482552,
+                      "sectors_discarded": 4190882960,
+                      "sectors_read": 291307633118,
+                      "sectors_written": 32851215754,
+                      "weighted_io_ms": 3806065156,
+                      "write_ms": 762546068,
+                      "writes_completed": 887203887,
+                      "writes_merged": 568426964
+                    },
+                    "major": 8,
+                    "major_minor": "8:16",
+                    "minor": 16,
+                    "name": "sdb"
+                  }
+                },
+                "host_st_dev": 2066,
+                "observer_pid": 37419,
+                "sample_index": 0,
+                "sampled_utc": "2026-10-13T01:50:38.780542+00:00",
+                "time_monotonic_ns": 8991234849915787,
+                "time_unix_ns": 1791856238780546646,
+                "whole_device_major_minor": "8:16"
+              },
+              "observer_affinity": {
+                "actual_cpus": [
+                  6,
+                  7,
+                  14,
+                  15
+                ],
+                "requested_cpus": [
+                  6,
+                  7,
+                  14,
+                  15
+                ],
+                "valid": true
+              },
+              "profile_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/device-profile.json",
+              "ready": true,
+              "sample_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/samples.jsonl"
+            },
+            "ready_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/ready.json",
+            "valid": true,
+            "validated_utc": "2026-10-13T01:51:02.928843+00:00"
+          },
+          "errors": [
+            "runner evidence did not identify a trial for I/O analysis",
+            "I/O observer analysis profile_validation.valid is not true",
+            "I/O observer analysis disk_identity_validation.valid is not true",
+            "I/O observer analysis scylla_queue_metrics.valid is not true",
+            "I/O observer analysis diskstats is missing",
+            "I/O observer analysis measurement window is missing"
+          ],
+          "valid": false
+        },
+        "problems": [
+          "runner result evidence is missing or invalid: [Errno 2] No such file or directory: '/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/service/result.json'",
+          "runner evidence did not identify a trial for I/O analysis",
+          "I/O observer analysis profile_validation.valid is not true",
+          "I/O observer analysis disk_identity_validation.valid is not true",
+          "I/O observer analysis scylla_queue_metrics.valid is not true",
+          "I/O observer analysis diskstats is missing",
+          "I/O observer analysis measurement window is missing"
+        ],
+        "valid": false
+      }
+    }
+  ],
+  "ended_utc": "2026-10-13T01:51:02.983474+00:00",
+  "error": "runner result evidence is missing or invalid: [Errno 2] No such file or directory: '/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T015038Z-0010535e/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/service/result.json'; runner evidence did not identify a trial for I/O analysis; I/O observer analysis profile_validation.valid is not true; I/O observer analysis disk_identity_validation.valid is not true; I/O observer analysis scylla_queue_metrics.valid is not true; I/O observer analysis diskstats is missing; I/O observer analysis measurement window is missing",
+  "expected_case_count": 1,
+  "failed_case": "full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000",
+  "formal_complete": false,
+  "io_properties_hash_match_at_end": true,
+  "job_id": "calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z",
+  "launch_approved": true,
+  "mode": "pilot",
+  "no_retry": true,
+  "source_hashes_match_at_end": true,
+  "status": "case_failed",
+  "terminal_resource_audit": {
+    "captured_utc": "2026-10-13T01:51:02.982022+00:00",
+    "errors": [],
+    "queries": {
+      "containers": {
+        "argv": [
+          "docker",
+          "ps",
+          "-aq",
+          "--filter",
+          "label=ledger-wallet.owner=scylla-wallet-runner"
+        ],
+        "exit_code": 0,
+        "ids": [],
+        "stderr": ""
+      },
+      "networks": {
+        "argv": [
+          "docker",
+          "network",
+          "ls",
+          "-q",
+          "--filter",
+          "label=ledger-wallet.owner=scylla-wallet-runner"
+        ],
+        "exit_code": 0,
+        "ids": [],
+        "stderr": ""
+      }
+    },
+    "saved_case_audits": [],
+    "valid": true
+  },
+  "workload_class": "diagnostic_only"
+}

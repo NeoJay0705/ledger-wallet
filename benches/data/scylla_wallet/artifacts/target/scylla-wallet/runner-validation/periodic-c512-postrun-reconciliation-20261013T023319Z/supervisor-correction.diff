@@ -1,0 +1,31 @@
+--- /home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/supervisor.py
++++ /home/neojhou/repos/ledger-wallet/target/scylla-wallet/runner-validation/periodic-c512-postrun-reconciliation-20261013T023319Z/corrected-supervisor.py
+@@ -871,9 +871,25 @@
+     ready_timestamp_ns = ready_event.get("timestamp_unix_ns")
+     if not isinstance(ready_timestamp_ns, int) or ready_timestamp_ns <= 0:
+         problems.append("ready_to_measure event lacks a valid timestamp")
+-    ready_profile = runner_trial.get("ready_profile_validation") or {}
+-    if ready_profile.get("valid") is not True:
+-        problems.append("ready_to_measure wallet profile validation is not valid")
++    ready_profile = runner_trial.get("ready_profile_validation")
++    try:
++        sys.path.insert(0, str(REPO / "benches"))
++        import scylla_wallet as runner
++        expected_profile_case = runner.TrialCase(
++            shards=2, workers=512, per_shard_pool=3, repeat=1, order=1,
++            worker_routing="round-robin", per_shard_pool_overridden=True,
++            requested_per_shard_pool=3, replication_factor=1,
++            read_cl="ONE", write_cl="ONE",
++            wallet_profile="wallet-memory-lwt-v1", node_count=1)
++        recomputed_ready_profile = runner.validate_ready_event_profile(
++            ready_event, expected_profile_case)
++        if not isinstance(ready_profile, dict):
++            problems.append("ready_to_measure recorded profile is missing or invalid")
++        elif recomputed_ready_profile != ready_profile:
++            problems.append("ready_to_measure recorded profile differs from strict event validation")
++    except Exception as exc:
++        problems.append(
++            f"ready_to_measure wallet profile validation failed: {type(exc).__name__}: {exc}")
+ 
+     expected_pairs = {(category, str(shard))
+                       for category in ("main", "commitlog") for shard in range(expected_shards)}

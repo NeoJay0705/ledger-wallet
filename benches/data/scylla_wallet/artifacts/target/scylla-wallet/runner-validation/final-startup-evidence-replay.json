@@ -1,0 +1,220 @@
+{
+  "all_cases_valid": true,
+  "case_count": 9,
+  "cases": [
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-001-S1-C12-rep1/keyspace-validation.json": "67e01ad4894ac748d2f050b26a569a4059ef42a426fef2a6fa3c2a4e61a77e6a",
+        "trials/trial-001-S1-C12-rep1/logs/nodea.container.log": "97dc5ad4de79b7ed24cb3a52300c89f5c5feeefc65237254b7fb8f3704dd396a",
+        "trials/trial-001-S1-C12-rep1/logs/nodeb.container.log": "096690dcc553d6c3614c6bb8253dd8cdd0cd38e9756c5cff6566e71b54c36a64",
+        "trials/trial-001-S1-C12-rep1/logs/nodec.container.log": "b4acb6c93075bec10f0069b320bb974477e3179fb6138a1fd12e75ea8c99f3b8"
+      },
+      "trial_id": "trial-001-S1-C12-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-002-S1-C24-rep1/keyspace-validation.json": "8d20902f47360234e94f1adb85d676157558af8d04605d7a0dd4a16b582e4851",
+        "trials/trial-002-S1-C24-rep1/logs/nodea.container.log": "5dd91b9ebeb3cce0a57ec9a180b641fc615986c158fc25800afbfc41d2ed3dbd",
+        "trials/trial-002-S1-C24-rep1/logs/nodeb.container.log": "0d06749e80fa68d43959661e421a0a79c7b300e4b8ed127f9d03608f55599838",
+        "trials/trial-002-S1-C24-rep1/logs/nodec.container.log": "04ccf7e538479fb4212907ef62dcd9a0b07c9d1a5ff069aa68c149c4e1cb4ca0"
+      },
+      "trial_id": "trial-002-S1-C24-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-003-S1-C48-rep1/keyspace-validation.json": "1c2b908aeea052f0d68c353181917d49ad00f96fba5d336ce234dbbb388a85dc",
+        "trials/trial-003-S1-C48-rep1/logs/nodea.container.log": "0e439c825f6c3d806ec8adc9077b77bd335773a892ec2f36e5fd7e501afd13c7",
+        "trials/trial-003-S1-C48-rep1/logs/nodeb.container.log": "390a191b50d02b325d048d62184fdabd71885f1334fec56ef42b1e2d4240d302",
+        "trials/trial-003-S1-C48-rep1/logs/nodec.container.log": "0723036ea2b0fc7fea0b8fd95d5078a682a583f34547e73830cb33504d5e52ae"
+      },
+      "trial_id": "trial-003-S1-C48-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-004-S2-C12-rep1/keyspace-validation.json": "c2a7610b997c216ee8ad3c7885c09a8cde35b6ce4bdab28edb178e65e3db7d74",
+        "trials/trial-004-S2-C12-rep1/logs/nodea.container.log": "0d607429bfc7493b94f352d89b12bb89a4418f771919fe570d364c250b339639",
+        "trials/trial-004-S2-C12-rep1/logs/nodeb.container.log": "86bfb7c8e5a9ec4129c5d6c1cbba250c781c54f7331e2a06d1b502ec6406330a",
+        "trials/trial-004-S2-C12-rep1/logs/nodec.container.log": "e897b969ba9a9686515aeb6dcfa2b79855b758bdef5c2e1175b8a97f0cbae232"
+      },
+      "trial_id": "trial-004-S2-C12-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-005-S2-C24-rep1/keyspace-validation.json": "22f090a12e6fb1ea09a908a3807f4dd85fe5c77244c733c5cdba82ccd226385b",
+        "trials/trial-005-S2-C24-rep1/logs/nodea.container.log": "a3bf7e7646593eabba81dd81cd841799b27bdd1d02bf82260e9933c4e83bf432",
+        "trials/trial-005-S2-C24-rep1/logs/nodeb.container.log": "1cf40aa16ef4601a8f3245f20bd0f9a7536d1f413decd0613cfb8dc1927f2ab5",
+        "trials/trial-005-S2-C24-rep1/logs/nodec.container.log": "3992d2d39567ce777aa5190b025833f8f926834e42b3ffaf8aae41c69e67fb1d"
+      },
+      "trial_id": "trial-005-S2-C24-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-006-S2-C48-rep1/keyspace-validation.json": "63d23564153980362371498bab81d50b6a2c46bb53d5a4992959efd22d068444",
+        "trials/trial-006-S2-C48-rep1/logs/nodea.container.log": "4e81d2c0782a0d10f92da02b4aacfc79a1acefde69043326b64cf256a0aa6443",
+        "trials/trial-006-S2-C48-rep1/logs/nodeb.container.log": "73ceb318d3ab0eb917e5d222ea814c4283565b216f271c6ae7a1339012cc0df8",
+        "trials/trial-006-S2-C48-rep1/logs/nodec.container.log": "1c846594f6d5f6aca2d54dcf59e6326e1ef20224f77d8c0d161a58b402fd0ad1"
+      },
+      "trial_id": "trial-006-S2-C48-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-007-S4-C12-rep1/keyspace-validation.json": "63acd1e38d8a1f8aa45fa567ef90dd66c1e375e2e9281d17bf2d9f55c6c19067",
+        "trials/trial-007-S4-C12-rep1/logs/nodea.container.log": "96d04b3408d8ba0209bdb72b5a27506d2c39694aee39a184dcf3b90316055e81",
+        "trials/trial-007-S4-C12-rep1/logs/nodeb.container.log": "14f3240529b0e4b4e60cb68a8a8dfc592987d0ab2c887f344130c9a71bc15d0b",
+        "trials/trial-007-S4-C12-rep1/logs/nodec.container.log": "d1457ff074af2e82a4eeb15db7dd25a7ee5ea87fc30870c35955dd4f23f5355a"
+      },
+      "trial_id": "trial-007-S4-C12-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-008-S4-C24-rep1/keyspace-validation.json": "c11342c6b4b3b849ba27011421af21cb7f99b2c93ff0777965934bdd5d3249d6",
+        "trials/trial-008-S4-C24-rep1/logs/nodea.container.log": "8ea858b686c6f0c16a9444f29cd13c614d2e440a2debf9f9c255c7f22757560f",
+        "trials/trial-008-S4-C24-rep1/logs/nodeb.container.log": "5aab97839e135a1219ae7c4d6a90354ebc530dc3c081493f5deeef59aa110e0d",
+        "trials/trial-008-S4-C24-rep1/logs/nodec.container.log": "4416b2b08bbc83701d725ad4f6705e8baf67a7bb14025cb08f17d463ea44aa2d"
+      },
+      "trial_id": "trial-008-S4-C24-rep1",
+      "valid": true
+    },
+    {
+      "keyspace_validation": {
+        "problems": [],
+        "valid": true
+      },
+      "runtime_aio_validation": {
+        "nodes": {
+          "nodea": true,
+          "nodeb": true,
+          "nodec": true
+        },
+        "problems": [],
+        "valid": true
+      },
+      "source_file_hashes": {
+        "trials/trial-009-S4-C48-rep1/keyspace-validation.json": "aadcc3edadab77df106ad110374cfd21511d10d64fcd9e8059d974c6f6b4a409",
+        "trials/trial-009-S4-C48-rep1/logs/nodea.container.log": "0601d9787d062ea80c1fc3e2aeb2295138f3af65bcb9b55d60241a98a64ad9e1",
+        "trials/trial-009-S4-C48-rep1/logs/nodeb.container.log": "6b76d634281bb29f0314b36cab6c4e6c515e31e84955db51ba01db3a4e604210",
+        "trials/trial-009-S4-C48-rep1/logs/nodec.container.log": "4708fc787503f0628c838cd85050b09c96092080ff92dd34d4f304cac56df0d3"
+      },
+      "trial_id": "trial-009-S4-C48-rep1",
+      "valid": true
+    }
+  ],
+  "original_run_id": "run-20261011T145542Z-8bf4d8f3",
+  "raw_run_artifacts_modified": false,
+  "replayed_utc": "2026-10-11T15:20:56+00:00",
+  "validation_source_file_hashes": {
+    "benches/scylla_wallet.py": "c7e39839792131991b19c6d56898fba1957b1803c6d566786022b0ad47bd74a7",
+    "tests/test_scylla_wallet_runner.py": "07cb7f9a8830fa72e851815061f53f1910da8068bfa665a5fde77e1bc9f79460"
+  }
+}

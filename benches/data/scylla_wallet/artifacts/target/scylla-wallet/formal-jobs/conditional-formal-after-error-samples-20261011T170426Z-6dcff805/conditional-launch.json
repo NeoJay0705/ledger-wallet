@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "python3",
+    "benches/scylla_wallet.py",
+    "--mode",
+    "formal",
+    "--skip-build"
+  ],
+  "diagnostic_run_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/runs/run-20261011T165431Z-40fc6259",
+  "formal_job_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/formal-jobs/formal-conditional-20261011T173701Z-99b604d1",
+  "gate_valid": true,
+  "prepared_utc": "2026-10-11T17:37:01.886865+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "device_identity": {
+    "data_device": {
+      "major": 8,
+      "major_minor": "8:18",
+      "minor": 18,
+      "name": "sdb2",
+      "partition_number": 2,
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb2"
+    },
+    "host_st_dev": 2066,
+    "whole_device": {
+      "major": 8,
+      "major_minor": "8:16",
+      "minor": 16,
+      "name": "sdb",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb"
+    }
+  },
+  "device_profile_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/device-profile.json",
+  "device_profile_sha256": "25b0674fc482d9850e0beede02ff0817b456be08bb9a1a6c7fe371b21e7d894b",
+  "errors": [],
+  "max_gap_seconds": 1.000238998,
+  "max_gap_valid": true,
+  "observer_affinity": {
+    "actual_cpus": [
+      6,
+      7,
+      14,
+      15
+    ],
+    "requested_cpus": [
+      6,
+      7,
+      14,
+      15
+    ],
+    "valid": true
+  },
+  "observer_pid": 37419,
+  "sample_count": 25,
+  "sample_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/samples.jsonl",
+  "sample_interval_seconds": 1.0,
+  "started_time_monotonic_ns": 8991234849636892,
+  "started_time_unix_ns": 1791856238780267290,
+  "started_utc": "2026-10-13T01:50:38.780261+00:00",
+  "stop_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-20261013T012925Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/stop",
+  "stop_observed": true,
+  "stop_reason": "stop_file",
+  "stopped_utc": "2026-10-13T01:51:02.880993+00:00",
+  "valid": true
+}

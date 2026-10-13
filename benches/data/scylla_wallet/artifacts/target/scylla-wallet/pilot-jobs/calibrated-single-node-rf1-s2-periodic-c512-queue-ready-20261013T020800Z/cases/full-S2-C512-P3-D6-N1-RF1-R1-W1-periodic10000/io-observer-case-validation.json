@@ -1,0 +1,620 @@
+{
+  "analysis": {
+    "analysis": {
+      "created_utc": "2026-10-13T02:28:57.841137+00:00",
+      "device_profile": {
+        "calibrated_identity_validation": {
+          "expected": {
+            "data_device": {
+              "major_minor": "8:18",
+              "name": "sdb2"
+            },
+            "whole_device": {
+              "major_minor": "8:16",
+              "name": "sdb"
+            }
+          },
+          "observed": {
+            "data_device": {
+              "major_minor": "8:18",
+              "name": "sdb2"
+            },
+            "whole_device": {
+              "major_minor": "8:16",
+              "name": "sdb"
+            }
+          },
+          "valid": true
+        },
+        "captured_utc": "2026-10-13T02:27:18.434024+00:00",
+        "data_device": {
+          "major": 8,
+          "major_minor": "8:18",
+          "minor": 18,
+          "name": "sdb2",
+          "partition_number": 2,
+          "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb2"
+        },
+        "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+        "host_st_dev": 2066,
+        "multi_or_composite_device_rejected": true,
+        "observer_affinity": {
+          "actual_cpus": [
+            6,
+            7,
+            14,
+            15
+          ],
+          "requested_cpus": [
+            6,
+            7,
+            14,
+            15
+          ],
+          "valid": true
+        },
+        "physical_disk_count": 1,
+        "schema_version": 1,
+        "whole_and_data_are_same_device": false,
+        "whole_device": {
+          "major": 8,
+          "major_minor": "8:16",
+          "minor": 16,
+          "name": "sdb",
+          "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb"
+        }
+      },
+      "disk_identity_validation": {
+        "node": "nodea",
+        "observer_host_st_dev": 2066,
+        "runner_host_st_dev": 2066,
+        "valid": true
+      },
+      "diskstats": {
+        "data_partition": {
+          "average_flush_ms_per_request": null,
+          "average_queue_estimate": 0.6747454826317318,
+          "busy_percent": 44.88567775732224,
+          "delta": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 0,
+            "flush_requests": 0,
+            "io_ms": 28278,
+            "read_ms": 1100,
+            "reads_completed": 1247,
+            "reads_merged": 34,
+            "sectors_discarded": 0,
+            "sectors_read": 130904,
+            "sectors_written": 7464480,
+            "weighted_io_ms": 42509,
+            "write_ms": 41408,
+            "writes_completed": 120469,
+            "writes_merged": 61447
+          },
+          "device": {
+            "major_minor": "8:18",
+            "name": "sdb2"
+          },
+          "first_sample_offset_from_window_start_ns": 315486314,
+          "first_sample_unix_ns": 1791858464435970787,
+          "flush_average_status": "N/A_no_flush_requests",
+          "flush_ms": 0,
+          "flush_requests": 0,
+          "last_sample_offset_from_window_end_ns": -754492127,
+          "last_sample_unix_ns": 1791858527436022036,
+          "pair_interval_ns": 63000051270,
+          "pair_interval_seconds": 63.00005127,
+          "read_bytes": 67022848,
+          "read_iops": 19.793634685402377,
+          "read_mib_per_second": 1.014570106872867,
+          "sample_count_in_window": 64,
+          "total_iops": 1931.9984277212795,
+          "units_note": "diskstats sectors use 512-byte units; whole-device and partition views are not additive",
+          "weighted_read_await_ms_per_op": 0.8821170809943866,
+          "weighted_write_await_ms_per_op": 0.3437232815081058,
+          "write_bytes": 3821813760,
+          "write_iops": 1912.2047930358772,
+          "write_mib_per_second": 57.85337553741962
+        },
+        "primary_physical_device_for_flush": {
+          "major_minor": "8:16",
+          "name": "sdb"
+        },
+        "views_are_not_additive": true,
+        "whole_device": {
+          "average_flush_ms_per_request": 0.3963481461568684,
+          "average_queue_estimate": 0.9789674572752137,
+          "busy_percent": 35.37933628732426,
+          "delta": {
+            "discard_ms": 0,
+            "discards_completed": 0,
+            "discards_merged": 0,
+            "flush_ms": 19167,
+            "flush_requests": 48359,
+            "io_ms": 22289,
+            "read_ms": 1100,
+            "reads_completed": 1247,
+            "reads_merged": 34,
+            "sectors_discarded": 0,
+            "sectors_read": 130904,
+            "sectors_written": 7464480,
+            "weighted_io_ms": 61675,
+            "write_ms": 41408,
+            "writes_completed": 120469,
+            "writes_merged": 61447
+          },
+          "device": {
+            "major_minor": "8:16",
+            "name": "sdb"
+          },
+          "first_sample_offset_from_window_start_ns": 315486314,
+          "first_sample_unix_ns": 1791858464435970787,
+          "flush_average_status": "observed",
+          "flush_ms": 19167,
+          "flush_requests": 48359,
+          "last_sample_offset_from_window_end_ns": -754492127,
+          "last_sample_unix_ns": 1791858527436022036,
+          "pair_interval_ns": 63000051270,
+          "pair_interval_seconds": 63.00005127,
+          "read_bytes": 67022848,
+          "read_iops": 19.793634685402377,
+          "read_mib_per_second": 1.014570106872867,
+          "sample_count_in_window": 64,
+          "total_iops": 1931.9984277212795,
+          "units_note": "diskstats sectors use 512-byte units; whole-device and partition views are not additive",
+          "weighted_read_await_ms_per_op": 0.8821170809943866,
+          "weighted_write_await_ms_per_op": 0.3437232815081058,
+          "write_bytes": 3821813760,
+          "write_iops": 1912.2047930358772,
+          "write_mib_per_second": 57.85337553741962
+        }
+      },
+      "interpretation_note": "This artifact reports sampled disk and Scylla queue counters only; it does not assign a bottleneck cause.",
+      "measurement_window": {
+        "diskstats_sample_count": 64,
+        "duration_ns": 64070029690,
+        "end_unix_ns": 1791858528190514163,
+        "observer_max_gap_seconds": 1.001228567,
+        "start_unix_ns": 1791858464120484473
+      },
+      "observer_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer",
+      "profile_validation": {
+        "expected": {
+          "account_state_source": "memory",
+          "data_connections": 6,
+          "node_count": 1,
+          "per_shard_pool": 3,
+          "read_cl": "ONE",
+          "replication_factor": 1,
+          "requests_per_user": 1000,
+          "serial_cl": "LOCAL_SERIAL",
+          "shards": 2,
+          "users": 1024,
+          "wallet_profile": "wallet-memory-lwt-v1",
+          "workers_one_of": [
+            256,
+            512
+          ],
+          "write_cl": "ONE"
+        },
+        "nodes": [
+          "172.24.0.10:9042"
+        ],
+        "observed": {
+          "account_state_source": "memory",
+          "data_connections": 6,
+          "node_count": 1,
+          "per_shard_pool": 3,
+          "read_cl": "ONE",
+          "replication_factor": 1,
+          "requests_per_user": 1000,
+          "serial_cl": "LOCAL_SERIAL",
+          "shards": 2,
+          "users": 1024,
+          "wallet_profile": "wallet-memory-lwt-v1",
+          "workers": 512,
+          "write_cl": "ONE"
+        },
+        "valid": true
+      },
+      "runner_result_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/runner-result.json",
+      "schema_version": 1,
+      "scylla_queue_metrics": {
+        "excluded_other_mountpoint_series_counts": {
+          "": 384
+        },
+        "expected_mountpoint": "/var/lib/scylla",
+        "first_scrape_offset_from_window_start_ns": 996293025,
+        "first_scrape_unix_ns": 1791858465116777498,
+        "in_window_scrape_count": 64,
+        "last_scrape_offset_from_window_end_ns": -68604009,
+        "last_scrape_unix_ns": 1791858528121910154,
+        "limitation": "runner Prometheus snapshots are approximately 1 Hz; short intervals between snapshots can be missed",
+        "measurement_end_unix_ns": 1791858528190514163,
+        "measurement_start_unix_ns": 1791858464120484473,
+        "metric_names": [
+          "scylla_io_queue_total_operations",
+          "scylla_io_queue_total_delay_sec",
+          "scylla_io_queue_total_exec_sec"
+        ],
+        "series_by_class_shard": {
+          "commitlog/shard-0": {
+            "delta_delay_sec": 22.688299,
+            "delta_exec_sec": 22.741611000000002,
+            "delta_operations": 33708.0,
+            "full_label_series": [
+              {
+                "delta_delay_sec": 22.688299,
+                "delta_exec_sec": 22.741611000000002,
+                "delta_operations": 33708.0,
+                "labels": {
+                  "class": "commitlog",
+                  "iogroup": "0",
+                  "mountpoint": "/var/lib/scylla",
+                  "shard": "0"
+                },
+                "mean_queue_delay_ms_per_operation": 0.6730835113326213,
+                "mean_queue_exec_ms_per_operation": 0.6746650943396226,
+                "zero_operations_status": null
+              }
+            ],
+            "mean_queue_delay_ms_per_operation": 0.6730835113326213,
+            "mean_queue_exec_ms_per_operation": 0.6746650943396226,
+            "series_count": 1,
+            "zero_operations_status": null
+          },
+          "commitlog/shard-1": {
+            "delta_delay_sec": 23.012437000000002,
+            "delta_exec_sec": 23.064135999999998,
+            "delta_operations": 33752.0,
+            "full_label_series": [
+              {
+                "delta_delay_sec": 23.012437000000002,
+                "delta_exec_sec": 23.064135999999998,
+                "delta_operations": 33752.0,
+                "labels": {
+                  "class": "commitlog",
+                  "iogroup": "0",
+                  "mountpoint": "/var/lib/scylla",
+                  "shard": "1"
+                },
+                "mean_queue_delay_ms_per_operation": 0.6818095816544205,
+                "mean_queue_exec_ms_per_operation": 0.6833413131073713,
+                "zero_operations_status": null
+              }
+            ],
+            "mean_queue_delay_ms_per_operation": 0.6818095816544205,
+            "mean_queue_exec_ms_per_operation": 0.6833413131073713,
+            "series_count": 1,
+            "zero_operations_status": null
+          },
+          "main/shard-0": {
+            "delta_delay_sec": 0.011767,
+            "delta_exec_sec": 0.023738999999999982,
+            "delta_operations": 27.0,
+            "full_label_series": [
+              {
+                "delta_delay_sec": 0.011767,
+                "delta_exec_sec": 0.023738999999999982,
+                "delta_operations": 27.0,
+                "labels": {
+                  "class": "main",
+                  "iogroup": "0",
+                  "mountpoint": "/var/lib/scylla",
+                  "shard": "0"
+                },
+                "mean_queue_delay_ms_per_operation": 0.4358148148148148,
+                "mean_queue_exec_ms_per_operation": 0.8792222222222216,
+                "zero_operations_status": null
+              }
+            ],
+            "mean_queue_delay_ms_per_operation": 0.4358148148148148,
+            "mean_queue_exec_ms_per_operation": 0.8792222222222216,
+            "series_count": 1,
+            "zero_operations_status": null
+          },
+          "main/shard-1": {
+            "delta_delay_sec": 0.010888,
+            "delta_exec_sec": 0.027177,
+            "delta_operations": 28.0,
+            "full_label_series": [
+              {
+                "delta_delay_sec": 0.010888,
+                "delta_exec_sec": 0.027177,
+                "delta_operations": 28.0,
+                "labels": {
+                  "class": "main",
+                  "iogroup": "0",
+                  "mountpoint": "/var/lib/scylla",
+                  "shard": "1"
+                },
+                "mean_queue_delay_ms_per_operation": 0.38885714285714285,
+                "mean_queue_exec_ms_per_operation": 0.9706071428571429,
+                "zero_operations_status": null
+              }
+            ],
+            "mean_queue_delay_ms_per_operation": 0.38885714285714285,
+            "mean_queue_exec_ms_per_operation": 0.9706071428571429,
+            "series_count": 1,
+            "zero_operations_status": null
+          }
+        },
+        "source": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/prometheus/nodea.prom.gz",
+        "source_sha256": "2fb52c273e41600187788b7e23a1d7671d40aa3237a5c72873365cfda9bc0e52",
+        "valid": true,
+        "window_max_gap_seconds": 1.002570355
+      },
+      "service_request_summary": {
+        "accepted": 1024000,
+        "applied": 1024000,
+        "attempted": 1024000,
+        "error_counts": {},
+        "error_samples": {},
+        "errors": 0,
+        "expected": 1024000,
+        "first_error": null,
+        "operation_counts": {
+          "credit": 512000,
+          "debit": 512000
+        },
+        "outcome_counts": {
+          "applied": 1024000,
+          "credit_overflow": 0,
+          "insufficient_funds": 0,
+          "invalid_amount": 0
+        },
+        "query_accounting": {
+          "accepted_requests": 1024000,
+          "account_state_source": "memory",
+          "cql_requests_per_transaction": 1,
+          "cql_statement_count": 1,
+          "driver_query_delta": 1024000,
+          "measured_cql_request_count": 1024000,
+          "measured_ledger_select_requests": 0,
+          "measured_metadata_select_requests": 0,
+          "measured_select_requests": 0
+        },
+        "replies_received": 1024000,
+        "unexpected_business_results": 0
+      },
+      "service_result_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms/service/result.json",
+      "service_result_valid": true,
+      "trial_dir": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms",
+      "valid": true
+    },
+    "analyzed_utc": "2026-10-13T02:28:57.912099+00:00",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "6,7,14,15",
+      "/usr/bin/python3",
+      "/home/neojhou/repos/ledger-wallet/benches/scylla_io_observer.py",
+      "--analyze",
+      "--trial-dir",
+      "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs/run-20261013T022718Z-de3c2098/trials/trial-001-S2-C512-P3-D6-round-robin-RF1-R1-W1-N1-wallet-memory-lwt-v1-rep1-commitlog-periodic-10000ms",
+      "--observer-dir",
+      "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer",
+      "--output",
+      "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-analysis.json"
+    ],
+    "errors": [],
+    "exit_code": 0,
+    "output_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-analysis.json",
+    "stderr": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-analysis.stderr.log",
+    "stdout": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-analysis.stdout.log",
+    "valid": true
+  },
+  "collector": {
+    "collector_result": {
+      "device_identity": {
+        "data_device": {
+          "major": 8,
+          "major_minor": "8:18",
+          "minor": 18,
+          "name": "sdb2",
+          "partition_number": 2,
+          "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb2"
+        },
+        "host_st_dev": 2066,
+        "whole_device": {
+          "major": 8,
+          "major_minor": "8:16",
+          "minor": 16,
+          "name": "sdb",
+          "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb"
+        }
+      },
+      "device_profile_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/device-profile.json",
+      "device_profile_sha256": "6e753ae2d95dce60f4a545491dbfeb8869b5b21e6e68f8361af74b116eb97ffd",
+      "errors": [],
+      "max_gap_seconds": 1.001228567,
+      "max_gap_valid": true,
+      "observer_affinity": {
+        "actual_cpus": [
+          6,
+          7,
+          14,
+          15
+        ],
+        "requested_cpus": [
+          6,
+          7,
+          14,
+          15
+        ],
+        "valid": true
+      },
+      "observer_pid": 60678,
+      "sample_count": 99,
+      "sample_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/samples.jsonl",
+      "sample_interval_seconds": 1.0,
+      "started_time_monotonic_ns": 8993434504891323,
+      "started_time_unix_ns": 1791858438435521761,
+      "started_utc": "2026-10-13T02:27:18.435515+00:00",
+      "stop_file": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/stop",
+      "stop_observed": true,
+      "stop_reason": "stop_file",
+      "stopped_utc": "2026-10-13T02:28:56.536263+00:00",
+      "valid": true
+    },
+    "collector_result_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/collector-result.json",
+    "device_profile": {
+      "calibrated_identity_validation": {
+        "expected": {
+          "data_device": {
+            "major_minor": "8:18",
+            "name": "sdb2"
+          },
+          "whole_device": {
+            "major_minor": "8:16",
+            "name": "sdb"
+          }
+        },
+        "observed": {
+          "data_device": {
+            "major_minor": "8:18",
+            "name": "sdb2"
+          },
+          "whole_device": {
+            "major_minor": "8:16",
+            "name": "sdb"
+          }
+        },
+        "valid": true
+      },
+      "captured_utc": "2026-10-13T02:27:18.434024+00:00",
+      "data_device": {
+        "major": 8,
+        "major_minor": "8:18",
+        "minor": 18,
+        "name": "sdb2",
+        "partition_number": 2,
+        "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb2"
+      },
+      "data_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/runs",
+      "host_st_dev": 2066,
+      "multi_or_composite_device_rejected": true,
+      "observer_affinity": {
+        "actual_cpus": [
+          6,
+          7,
+          14,
+          15
+        ],
+        "requested_cpus": [
+          6,
+          7,
+          14,
+          15
+        ],
+        "valid": true
+      },
+      "physical_disk_count": 1,
+      "schema_version": 1,
+      "whole_and_data_are_same_device": false,
+      "whole_device": {
+        "major": 8,
+        "major_minor": "8:16",
+        "minor": 16,
+        "name": "sdb",
+        "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.1/ata6/host5/target5:0:0/5:0:0:0/block/sdb"
+      }
+    },
+    "device_profile_sha256": "6e753ae2d95dce60f4a545491dbfeb8869b5b21e6e68f8361af74b116eb97ffd",
+    "errors": [],
+    "exit_code": 0,
+    "observer_pid": 60678,
+    "premature_exit": false,
+    "ready": {
+      "created_utc": "2026-10-13T02:27:18.435871+00:00",
+      "device_profile_sha256": "6e753ae2d95dce60f4a545491dbfeb8869b5b21e6e68f8361af74b116eb97ffd",
+      "first_sample": {
+        "data_device_major_minor": "8:18",
+        "diskstats": {
+          "data_device": {
+            "fields": {
+              "discard_ms": 582743,
+              "discards_completed": 1611699,
+              "discards_merged": 0,
+              "flush_ms": 0,
+              "flush_requests": 0,
+              "io_ms": 2508255338,
+              "ios_in_progress": 0,
+              "read_ms": 2905796798,
+              "reads_completed": 15313068224,
+              "reads_merged": 43467126,
+              "sectors_discarded": 4158112760,
+              "sectors_read": 291307298810,
+              "sectors_written": 32853627920,
+              "weighted_io_ms": 3668955043,
+              "write_ms": 762575502,
+              "writes_completed": 887242714,
+              "writes_merged": 568463670
+            },
+            "major": 8,
+            "major_minor": "8:18",
+            "minor": 18,
+            "name": "sdb2"
+          },
+          "whole_device": {
+            "fields": {
+              "discard_ms": 583757,
+              "discards_completed": 1611714,
+              "discards_merged": 0,
+              "flush_ms": 137140038,
+              "flush_requests": 239409293,
+              "io_ms": 2173887081,
+              "ios_in_progress": 0,
+              "read_ms": 2905800057,
+              "reads_completed": 15313076782,
+              "reads_merged": 43482557,
+              "sectors_discarded": 4190882960,
+              "sectors_read": 291307647382,
+              "sectors_written": 32853627930,
+              "weighted_io_ms": 3806099356,
+              "write_ms": 762575503,
+              "writes_completed": 887242717,
+              "writes_merged": 568463670
+            },
+            "major": 8,
+            "major_minor": "8:16",
+            "minor": 16,
+            "name": "sdb"
+          }
+        },
+        "host_st_dev": 2066,
+        "observer_pid": 60678,
+        "sample_index": 0,
+        "sampled_utc": "2026-10-13T02:27:18.435807+00:00",
+        "time_monotonic_ns": 8993434505180663,
+        "time_unix_ns": 1791858438435811502,
+        "whole_device_major_minor": "8:16"
+      },
+      "observer_affinity": {
+        "actual_cpus": [
+          6,
+          7,
+          14,
+          15
+        ],
+        "requested_cpus": [
+          6,
+          7,
+          14,
+          15
+        ],
+        "valid": true
+      },
+      "profile_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/device-profile.json",
+      "ready": true,
+      "sample_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/samples.jsonl"
+    },
+    "ready_path": "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/calibrated-single-node-rf1-s2-periodic-c512-queue-ready-20261013T020800Z/cases/full-S2-C512-P3-D6-N1-RF1-R1-W1-periodic10000/io-observer/ready.json",
+    "valid": true,
+    "validated_utc": "2026-10-13T02:28:56.552780+00:00"
+  },
+  "errors": [],
+  "valid": true
+}

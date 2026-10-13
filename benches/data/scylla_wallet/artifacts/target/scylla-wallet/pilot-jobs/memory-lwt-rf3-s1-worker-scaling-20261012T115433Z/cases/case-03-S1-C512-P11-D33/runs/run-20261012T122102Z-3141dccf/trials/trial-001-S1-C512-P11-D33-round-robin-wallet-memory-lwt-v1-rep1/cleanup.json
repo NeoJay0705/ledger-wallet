@@ -1,0 +1,22 @@
+{
+  "containers_removed": [
+    "nodea",
+    "nodeb",
+    "nodec"
+  ],
+  "containers_stopped": true,
+  "data_removed": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-03-S1-C512-P11-D33/runs/run-20261012T122102Z-3141dccf/trials/trial-001-S1-C512-P11-D33-round-robin-wallet-memory-lwt-v1-rep1/owned-data/nodea",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-03-S1-C512-P11-D33/runs/run-20261012T122102Z-3141dccf/trials/trial-001-S1-C512-P11-D33-round-robin-wallet-memory-lwt-v1-rep1/owned-data/nodeb",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-03-S1-C512-P11-D33/runs/run-20261012T122102Z-3141dccf/trials/trial-001-S1-C512-P11-D33-round-robin-wallet-memory-lwt-v1-rep1/owned-data/nodec"
+  ],
+  "errors": [],
+  "network_removed": true,
+  "post_stop_inspection_files": [
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-03-S1-C512-P11-D33/runs/run-20261012T122102Z-3141dccf/trials/trial-001-S1-C512-P11-D33-round-robin-wallet-memory-lwt-v1-rep1/cleanup-post-stop/nodea.inspect.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-03-S1-C512-P11-D33/runs/run-20261012T122102Z-3141dccf/trials/trial-001-S1-C512-P11-D33-round-robin-wallet-memory-lwt-v1-rep1/cleanup-post-stop/nodeb.inspect.json",
+    "/home/neojhou/repos/ledger-wallet/target/scylla-wallet/pilot-jobs/memory-lwt-rf3-s1-worker-scaling-20261012T115433Z/cases/case-03-S1-C512-P11-D33/runs/run-20261012T122102Z-3141dccf/trials/trial-001-S1-C512-P11-D33-round-robin-wallet-memory-lwt-v1-rep1/cleanup-post-stop/nodec.inspect.json"
+  ],
+  "retained_data": [],
+  "status": "clean"
+}
