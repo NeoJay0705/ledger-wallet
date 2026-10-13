@@ -155,6 +155,10 @@ Smoke 用於檢查 runner 與正確性流程，不代表正式負載效能結果
 
 Git 保存矩陣、trial summaries、stage summaries、稽核資料與完整 SHA-256 inventory。完整原始 run（包括 request/stage/group/batch/background samples、trial logs、RocksDB options、原始 `report.md` 與 `run.log`）保存在 archive index 所述的 Git 外本機 gzip archive。Standalone clone 不含原始 samples 或完整 logs；需要 tail 分析時，必須另外取得 `/home/neojhou/benchmark-archives/ledger-wallet/ledger_pipeline_sharding/run-1790925219743034498.tar.gz`。Archive 尚未上傳，沒有共用下載 URL。原始 parent `run.log` 的 build warnings 不完整，且有一次 poll output capture gap；archive 保留原始 capture，沒有補造遺失內容。
 
+## ScyllaDB／PostgreSQL 同步持久化比較
+
+這是 `benchmarks/scylla-wallet` 的獨立 benchmark crate。執行條件與 qualification 文件從 [01-63 至 01-65](docs/01-63.raw-requirement-wallet-db-equal-resource-benchmark.md) 開始；正式結果見 [01-66](docs/01-66.development-analysis-wallet-db-equal-resource-benchmark.md)。[Crate 使用文件](benchmarks/scylla-wallet/README.md)提供命令與 evidence 入口；Scylla 歷史小型證據及本機 raw archive 索引見 [證據包](benches/data/scylla_wallet/README.md)，封存與 extraction 規則見 [01-67](docs/01-67.development-design-benchmark-evidence-packaging.md)。
+
 ## 文件
 
 - [歷史原始需求（待重新設計）](docs/01-01.raw-requirement-ledger-wallet.md)

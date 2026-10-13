@@ -1,0 +1,155 @@
+{
+  "files": [
+    {
+      "bytes": 3140,
+      "path": "README.md",
+      "sha256": "42e5690f1660d3096015b2fe5932e251b558e8dceeb5c5b29a3a535128eaf29a"
+    },
+    {
+      "bytes": 18034,
+      "path": "approved-plan.json",
+      "sha256": "727023b961eacd735c67a2a4fb400c512af2ecab5e99c32d32832a77015e40e6"
+    },
+    {
+      "bytes": 79743,
+      "path": "campaign-summary.json",
+      "sha256": "703c9719efdd732644f473f9161fd1acb2dca419fb5b0f04615dfb305b907bb2"
+    },
+    {
+      "bytes": 11263,
+      "path": "cases.csv",
+      "sha256": "bef150a1dd81fd1692eb078e8ffc4a20df38fe6e3b5f54a574d543061132216c"
+    },
+    {
+      "bytes": 18921,
+      "path": "cases/pg-calibration-D16/service/events.jsonl",
+      "sha256": "ed8eb3abfc3b11c47f9efc83991e27bed0767e601ee1778dab9ae90a842b5685"
+    },
+    {
+      "bytes": 17975,
+      "path": "cases/pg-calibration-D16/service/result.json",
+      "sha256": "02f4fa47f7022ba04c6c91da4e2412784174adb1b97e698678ef13b429e67387"
+    },
+    {
+      "bytes": 19772,
+      "path": "cases/pg-calibration-D32/service/events.jsonl",
+      "sha256": "8f3c39341a6f1d9c4557cd686eda7f1e408ffe5019a2b3e1263eca0ad559e3ba"
+    },
+    {
+      "bytes": 22893,
+      "path": "cases/pg-calibration-D32/service/result.json",
+      "sha256": "36992ee63630747b638a480f1cd448fb53300cfa2d760c5a2207c1915643cfb4"
+    },
+    {
+      "bytes": 21426,
+      "path": "cases/pg-calibration-D64/service/events.jsonl",
+      "sha256": "e7f571ac5cede374db14e29d3cf5cd51bfca42cfa314e980e591d9d86927442f"
+    },
+    {
+      "bytes": 32725,
+      "path": "cases/pg-calibration-D64/service/result.json",
+      "sha256": "827474ed51b842c8e706cbf746322a05d314084e3a6e4bb4ae765e808d89f0f9"
+    },
+    {
+      "bytes": 18845,
+      "path": "cases/postgres-rep1/service/events.jsonl",
+      "sha256": "def2073ace33ff343a3d428ca7a349fef0fbf8df9fcf5c8f5fb40b3e8cf740aa"
+    },
+    {
+      "bytes": 17962,
+      "path": "cases/postgres-rep1/service/result.json",
+      "sha256": "ee135dddf8f437ab6f58ff6e98322363fddb8203d7b415fa7a1739a09f0ba209"
+    },
+    {
+      "bytes": 18859,
+      "path": "cases/postgres-rep2/service/events.jsonl",
+      "sha256": "f0fdb9257314eda1a1760a0e7115ba2bdeb3cff2d90f6cf020d7b9e158e7f267"
+    },
+    {
+      "bytes": 17963,
+      "path": "cases/postgres-rep2/service/result.json",
+      "sha256": "8f878180d2033873fd1e43311cf795825ead8ddea06a9e29c33a723c9211b53d"
+    },
+    {
+      "bytes": 18845,
+      "path": "cases/postgres-rep3/service/events.jsonl",
+      "sha256": "f6c4c1112c32de1a45159afe578c00e0a559990b7ef7b8f68bb8d836a1f9fb1c"
+    },
+    {
+      "bytes": 17963,
+      "path": "cases/postgres-rep3/service/result.json",
+      "sha256": "4f060ebe8301a5fb31c557257dc225c5dbab35716b20b236b7d056aeff55840d"
+    },
+    {
+      "bytes": 14945,
+      "path": "cases/scylla-rep1/service/events.jsonl",
+      "sha256": "7311470789c4496857f276f5b50c4796e8232a5c4a62b7380f7d66aa917db671"
+    },
+    {
+      "bytes": 11807,
+      "path": "cases/scylla-rep1/service/result.json",
+      "sha256": "8d808fbc5201631519beacfa7c98051e8deffd68754cb513821b2a9f7bd9160d"
+    },
+    {
+      "bytes": 14945,
+      "path": "cases/scylla-rep2/service/events.jsonl",
+      "sha256": "d6eb6fe30567ebfaf10586007ba9cf3133db4db8abd7c9b3cb2171cbfe9babc8"
+    },
+    {
+      "bytes": 11805,
+      "path": "cases/scylla-rep2/service/result.json",
+      "sha256": "359a2d5730d5e8621a313652a0043bfc4d721059c525fad4af7ceb9da7e0da7e"
+    },
+    {
+      "bytes": 14945,
+      "path": "cases/scylla-rep3/service/events.jsonl",
+      "sha256": "0fe2e09fffc9368fed1e86419b14b613615e0018a0da26ee6f3358c72b0dd0de"
+    },
+    {
+      "bytes": 11804,
+      "path": "cases/scylla-rep3/service/result.json",
+      "sha256": "4b1cbb142167be731fab82859ebf4d9c7d902ce18fd03090b5464025d8c8c77b"
+    },
+    {
+      "bytes": 376286,
+      "path": "original-file-manifest.csv",
+      "sha256": "1a119472ce6c01f9566e649d6c731561a80b55a9626a929aa5d7fddcd1419a2f"
+    },
+    {
+      "bytes": 386534,
+      "path": "resource-samples.csv",
+      "sha256": "e19d3a087938715901eb5b2c9d7aadcdc32739bc0a055d96d8a558b41ae6ebfc"
+    },
+    {
+      "bytes": 70356,
+      "path": "resource-summary.json",
+      "sha256": "6688964874cedf6ca33895d32040cc5655e4598cc84ea4cc3cfffcaa6dd77b14"
+    },
+    {
+      "bytes": 4623,
+      "path": "run-manifest.json",
+      "sha256": "5a81d0fb2a028e75991d5e512d260894775381b5442a1b0861597fc569e08053"
+    },
+    {
+      "bytes": 3610,
+      "path": "warnings/incidents.md",
+      "sha256": "18f2d18c3ab639e2aa12d138c6a366560f793805db313892f29bf8af1847fc38"
+    }
+  ],
+  "note": "file hashes exclude bundle-manifest.json itself",
+  "original_file_manifest": {
+    "bytes": 376286,
+    "path": "original-file-manifest.csv",
+    "sha256": "1a119472ce6c01f9566e649d6c731561a80b55a9626a929aa5d7fddcd1419a2f"
+  },
+  "raw_archive": {
+    "file_count": 2033,
+    "path": "/home/neojhou/benchmark-archives/ledger-wallet/wallet-db-compare/wallet-db-compare-20261013T124123Z-3216cf07f3.tar.gz",
+    "sha256": "d0977b40c7b1f75dadc57ede978538669941aff76bc2b446f29324b6970c3c19",
+    "shared_url": null,
+    "size_bytes": 45614492,
+    "uncompressed_bytes": 176228422
+  },
+  "run_id": "run-20261013T124123Z-3216cf07f3",
+  "schema_version": 1
+}

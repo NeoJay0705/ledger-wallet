@@ -1,0 +1,411 @@
+{
+  "artifact": {
+    "binary_snapshot_relative_path": "source-snapshot/binary/ledger-wallet-scylla-bench",
+    "caps_snapshot_relative_path": "source-snapshot/io_caps.json",
+    "created_utc": "2026-10-13T12:38:05.963609+00:00",
+    "plan_id": "plan-20261013T123805Z-eff4ebb234",
+    "source_snapshot_files": [
+      {
+        "path": "Cargo.lock",
+        "sha256": "3c39049b5c1c9c71ef69b7b3894de3d7dd91c8d65db955531b7064ef296dfb03",
+        "size_bytes": 30946
+      },
+      {
+        "path": "Cargo.toml",
+        "sha256": "7bbf6368b97cf9826b4989612b96884ae63868daf29358142c322f9b2bbc94d8",
+        "size_bytes": 1765
+      },
+      {
+        "path": "benches/scylla_io_observer.py",
+        "sha256": "d0e8d9e544096034b6a0dc1f7307fe628fc94c88def47f248408d698adae5ef3",
+        "size_bytes": 53111
+      },
+      {
+        "path": "benches/scylla_wallet.py",
+        "sha256": "cd2bca2e33643dbe4c04db33c93844d20c3f309a51a13613285b0966f63efb5f",
+        "size_bytes": 333907
+      },
+      {
+        "path": "benches/wallet_db_compare.py",
+        "sha256": "80c8c3226dd10ead6764e0520710f8cf994e9b9580eac5b25ba0e684fbe264e1",
+        "size_bytes": 206516
+      },
+      {
+        "path": "benchmarks/scylla-wallet/Cargo.lock",
+        "sha256": "a8b7f59eb0cb6aed0f3d882cfcf19743620d39980811e03a33b294c0417d73c1",
+        "size_bytes": 41510
+      },
+      {
+        "path": "benchmarks/scylla-wallet/Cargo.toml",
+        "sha256": "f1c3576191d1f7e0b0c6b11093a651fed384c9762ffc872fe283dce9289beb00",
+        "size_bytes": 413
+      },
+      {
+        "path": "benchmarks/scylla-wallet/sql/postgres_wallet.sql",
+        "sha256": "7a26158b91785a0a8eb8da2950608d662f530eeecab5fe584535506da010e5f1",
+        "size_bytes": 3327
+      },
+      {
+        "path": "benchmarks/scylla-wallet/src/lib.rs",
+        "sha256": "f6f3c23eee77f749e5fd5286183ff07104aa7936ace388b394d0d15747600ac4",
+        "size_bytes": 3968
+      },
+      {
+        "path": "benchmarks/scylla-wallet/src/main.rs",
+        "sha256": "f47c6215b64d063f64b52d1ca8aa47276607b7e7af009cef5aeb45ba12f283be",
+        "size_bytes": 165568
+      },
+      {
+        "path": "benchmarks/scylla-wallet/src/metrics.rs",
+        "sha256": "e4f2055604440be638b428821c0acfd5a5f76cc3ec10b43f615be813a56dcd6b",
+        "size_bytes": 14318
+      },
+      {
+        "path": "benchmarks/scylla-wallet/src/postgres_store.rs",
+        "sha256": "35786a145ee477c176ccc0a7cb87c69b2c3f0dbf37d5609761c249a0f4d9b277",
+        "size_bytes": 43512
+      },
+      {
+        "path": "benchmarks/scylla-wallet/src/service.rs",
+        "sha256": "35922a24536deb36eea4ae9a4d39e42eb2f6b9991bdb6c0283a7a445aecf0c66",
+        "size_bytes": 19842
+      },
+      {
+        "path": "benchmarks/scylla-wallet/src/store.rs",
+        "sha256": "9e7fc123f30309257981dea00d68e4a47eb027af6c974a3d53235d55e0ffc884",
+        "size_bytes": 44438
+      },
+      {
+        "path": "benchmarks/scylla-wallet/tests/postgres_integration.rs",
+        "sha256": "bd5c045f4a8cad4ce25611ef3e3fe8c4ca66fbda4f35ecdb175a86d21645c84f",
+        "size_bytes": 4836
+      },
+      {
+        "path": "benchmarks/scylla-wallet/tests/scylla_integration.rs",
+        "sha256": "ea87a2d97199b2df50615ea197e3dffa385731bb343d74654bf0d72a3fd0c5f3",
+        "size_bytes": 18185
+      },
+      {
+        "path": "benchmarks/scylla-wallet/tests/service.rs",
+        "sha256": "4383e22e5d1aebe94d981216bf0bcfe382b2d594587b2c6dead1f2d776ac4829",
+        "size_bytes": 26584
+      },
+      {
+        "path": "docs/01-63.raw-requirement-wallet-db-equal-resource-benchmark.md",
+        "sha256": "f5a6b0299480f9340d650de32daa74eddfddc95150159fc4e67598ffdf69ce08",
+        "size_bytes": 11849
+      },
+      {
+        "path": "docs/01-64.development-design-wallet-db-equal-resource-benchmark.md",
+        "sha256": "8e45d66b5bc5f7d2924d78f80b6f9496c90ee6b993c45955a639247e70f4adcf",
+        "size_bytes": 10925
+      },
+      {
+        "path": "docs/01-65.development-validation-wallet-db-equal-resource-benchmark.md",
+        "sha256": "a55e56a3da934d31b39fab8c86b8a05c64cadbf2a68590f8092b3670a2c939e1",
+        "size_bytes": 16986
+      },
+      {
+        "path": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+        "sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+        "size_bytes": 143
+      },
+      {
+        "path": "tests/fixtures/postgres18_pss_direct_postgres.json",
+        "sha256": "7d233bd386b7a6c956350f72bed8c0bea99a8bfa3a13424c3e3a906bc5f1ff0b",
+        "size_bytes": 272
+      },
+      {
+        "path": "tests/fixtures/postgres18_schema_catalog_raw.json",
+        "sha256": "ee66f94ec51e39fc9838d72671e4c23af500a2fb3b7925c044fe2074f89ad8a4",
+        "size_bytes": 8642
+      },
+      {
+        "path": "tests/fixtures/postgres18_settings_raw.json",
+        "sha256": "975bbed9399054175aacb9ad6c0a7f5a7267da91cb0aac28a5f9d15a03c11d86",
+        "size_bytes": 9764
+      },
+      {
+        "path": "tests/fixtures/postgres18_stats_raw.json",
+        "sha256": "ffedf20c2710cf3cbe2c232df8f0b29c8a1cac3c8cd3ced53345a477d6f58932",
+        "size_bytes": 45482
+      },
+      {
+        "path": "tests/test_scylla_io_observer.py",
+        "sha256": "c698ea7e98cfb174112ffe3131ebebfd00a276081531900ad69aaf3d11cb2333",
+        "size_bytes": 22953
+      },
+      {
+        "path": "tests/test_scylla_wallet_runner.py",
+        "sha256": "51b68b874e99098265b819925e569f401e64334ca8b9041c31ddc8e40e016536",
+        "size_bytes": 182769
+      },
+      {
+        "path": "tests/test_wallet_db_compare.py",
+        "sha256": "2898a2ae566757baa962e4613c8b923bb96f72f8ccd6f29c3cda69da51eceaed",
+        "size_bytes": 56989
+      }
+    ]
+  },
+  "contract": {
+    "artifacts": {
+      "captured_source_and_binary_snapshots": true,
+      "plan_requires_explicit_sha256_approval_before_execution": true,
+      "run_root": "/home/neojhou/repos/ledger-wallet/target/wallet-db-compare/runs"
+    },
+    "binary": {
+      "expected_final_agent_build_sha256": "02ddf0f843ab8a7a15d2f20cc3ed35f6d7661fcbd1d4e4141250672fcba7e555",
+      "release": "target/scylla-wallet/release/ledger-wallet-scylla-bench",
+      "sha256": "02ddf0f843ab8a7a15d2f20cc3ed35f6d7661fcbd1d4e4141250672fcba7e555"
+    },
+    "campaign": {
+      "automatic_workload_retries": false,
+      "comparison_order": [
+        "scylla-rep1",
+        "postgres-rep1",
+        "postgres-rep2",
+        "scylla-rep2",
+        "scylla-rep3",
+        "postgres-rep3"
+      ],
+      "postgres_calibration": [
+        {
+          "backend": "postgres",
+          "case_id": "pg-calibration-D16",
+          "pg_connections": 16,
+          "repeats": 1
+        },
+        {
+          "backend": "postgres",
+          "case_id": "pg-calibration-D32",
+          "pg_connections": 32,
+          "repeats": 1
+        },
+        {
+          "backend": "postgres",
+          "case_id": "pg-calibration-D64",
+          "pg_connections": 64,
+          "repeats": 1
+        }
+      ],
+      "repeats_per_backend": 3,
+      "run_one_database_at_a_time": true,
+      "stop_on_first_invalid_case": true
+    },
+    "contract_version": 1,
+    "input_hashes": {
+      "comparison_sources": {
+        "Cargo.lock": "3c39049b5c1c9c71ef69b7b3894de3d7dd91c8d65db955531b7064ef296dfb03",
+        "Cargo.toml": "7bbf6368b97cf9826b4989612b96884ae63868daf29358142c322f9b2bbc94d8",
+        "benches/scylla_io_observer.py": "d0e8d9e544096034b6a0dc1f7307fe628fc94c88def47f248408d698adae5ef3",
+        "benches/scylla_wallet.py": "cd2bca2e33643dbe4c04db33c93844d20c3f309a51a13613285b0966f63efb5f",
+        "benches/wallet_db_compare.py": "80c8c3226dd10ead6764e0520710f8cf994e9b9580eac5b25ba0e684fbe264e1",
+        "benchmarks/scylla-wallet/Cargo.lock": "a8b7f59eb0cb6aed0f3d882cfcf19743620d39980811e03a33b294c0417d73c1",
+        "benchmarks/scylla-wallet/Cargo.toml": "f1c3576191d1f7e0b0c6b11093a651fed384c9762ffc872fe283dce9289beb00",
+        "benchmarks/scylla-wallet/sql/postgres_wallet.sql": "7a26158b91785a0a8eb8da2950608d662f530eeecab5fe584535506da010e5f1",
+        "benchmarks/scylla-wallet/src/lib.rs": "f6f3c23eee77f749e5fd5286183ff07104aa7936ace388b394d0d15747600ac4",
+        "benchmarks/scylla-wallet/src/main.rs": "f47c6215b64d063f64b52d1ca8aa47276607b7e7af009cef5aeb45ba12f283be",
+        "benchmarks/scylla-wallet/src/metrics.rs": "e4f2055604440be638b428821c0acfd5a5f76cc3ec10b43f615be813a56dcd6b",
+        "benchmarks/scylla-wallet/src/postgres_store.rs": "35786a145ee477c176ccc0a7cb87c69b2c3f0dbf37d5609761c249a0f4d9b277",
+        "benchmarks/scylla-wallet/src/service.rs": "35922a24536deb36eea4ae9a4d39e42eb2f6b9991bdb6c0283a7a445aecf0c66",
+        "benchmarks/scylla-wallet/src/store.rs": "9e7fc123f30309257981dea00d68e4a47eb027af6c974a3d53235d55e0ffc884",
+        "benchmarks/scylla-wallet/tests/postgres_integration.rs": "bd5c045f4a8cad4ce25611ef3e3fe8c4ca66fbda4f35ecdb175a86d21645c84f",
+        "benchmarks/scylla-wallet/tests/scylla_integration.rs": "ea87a2d97199b2df50615ea197e3dffa385731bb343d74654bf0d72a3fd0c5f3",
+        "benchmarks/scylla-wallet/tests/service.rs": "4383e22e5d1aebe94d981216bf0bcfe382b2d594587b2c6dead1f2d776ac4829",
+        "docs/01-63.raw-requirement-wallet-db-equal-resource-benchmark.md": "f5a6b0299480f9340d650de32daa74eddfddc95150159fc4e67598ffdf69ce08",
+        "docs/01-64.development-design-wallet-db-equal-resource-benchmark.md": "8e45d66b5bc5f7d2924d78f80b6f9496c90ee6b993c45955a639247e70f4adcf",
+        "docs/01-65.development-validation-wallet-db-equal-resource-benchmark.md": "a55e56a3da934d31b39fab8c86b8a05c64cadbf2a68590f8092b3670a2c939e1",
+        "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf",
+        "tests/fixtures/postgres18_pss_direct_postgres.json": "7d233bd386b7a6c956350f72bed8c0bea99a8bfa3a13424c3e3a906bc5f1ff0b",
+        "tests/fixtures/postgres18_schema_catalog_raw.json": "ee66f94ec51e39fc9838d72671e4c23af500a2fb3b7925c044fe2074f89ad8a4",
+        "tests/fixtures/postgres18_settings_raw.json": "975bbed9399054175aacb9ad6c0a7f5a7267da91cb0aac28a5f9d15a03c11d86",
+        "tests/fixtures/postgres18_stats_raw.json": "ffedf20c2710cf3cbe2c232df8f0b29c8a1cac3c8cd3ced53345a477d6f58932",
+        "tests/test_scylla_io_observer.py": "c698ea7e98cfb174112ffe3131ebebfd00a276081531900ad69aaf3d11cb2333",
+        "tests/test_scylla_wallet_runner.py": "51b68b874e99098265b819925e569f401e64334ca8b9041c31ddc8e40e016536",
+        "tests/test_wallet_db_compare.py": "2898a2ae566757baa962e4613c8b923bb96f72f8ccd6f29c3cda69da51eceaed"
+      },
+      "host_io_caps_sha256": "c95f1a8ba5204051fe48e61bd05333ef10122f1b9e0ad78c8a41ad1bbf9b87fc",
+      "postgres_sql_sha256": "7a26158b91785a0a8eb8da2950608d662f530eeecab5fe584535506da010e5f1",
+      "release_binary_sha256": "02ddf0f843ab8a7a15d2f20cc3ed35f6d7661fcbd1d4e4141250672fcba7e555",
+      "scylla_io_properties_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf"
+    },
+    "measurement_claim": "full correctness-verified request RPS and latency; no steady-state claim",
+    "monitoring": {
+      "checkpoint_and_drain_io": "captured and reported separately after measured request window",
+      "container_cgroup_cpu_memory_pss": true,
+      "host_diskstats": "read-only shared observer; report whole-disk and partition deltas",
+      "io_limit_verification": "Docker HostConfig plus owned container cgroup io.max must match all four 8:16 caps",
+      "measured_window": "first request through last reply; E2E includes pool wait",
+      "no_sum_of_shared_rss": true,
+      "pool_wait_and_sql_stage_separate": true,
+      "postgres_monitor_application_names": [
+        "ledger-wallet-pg-monitor",
+        "ledger-wallet-pg-table-monitor"
+      ],
+      "postgres_stats_interval_seconds": 1.0,
+      "service_pool_excluded_from_monitor_count": true,
+      "stats_fetch_consistency": "none; fresh snapshots; cumulative PG counters are asynchronously published"
+    },
+    "ownership": {
+      "exact_nonce_labels_required_for_cleanup": true,
+      "failure_evidence_preserved": true,
+      "fresh_container_network_data_per_case": true,
+      "stopped_container_inspected_before_remove": true,
+      "unknown_resources_are_never_removed": true
+    },
+    "postgres": {
+      "connection_calibration": [
+        16,
+        32,
+        64
+      ],
+      "connection_selection": "smallest D within 95% of the best valid full-workload RPS",
+      "container_memory_bytes": 10737418240,
+      "container_memory_swap_bytes": 10737418240,
+      "cpu_quota": "unlimited",
+      "cpus": [
+        0,
+        1
+      ],
+      "cpuset": "0,1",
+      "data_mount": "/var/lib/postgresql",
+      "database": "walletbench",
+      "image": "docker.io/library/postgres@sha256:afc7e2d441324c0388fa80c3d24f733b4194a4eb7f47dd8ee2b08eb1a24a647c",
+      "image_id": "sha256:2e182ed2ff8f5d0835353864264437a26dffc542a9a6c677ec495aa54e491627",
+      "network_route": {
+        "authentication": "POSTGRES_HOST_AUTH_METHOD=trust scoped to the internal bridge",
+        "mode": "host-native service reaches container IP on this case's dedicated internal Docker bridge",
+        "published_host_ports": false,
+        "qualification_status": "bounded qualification 20261013T115555Z-5fba6c262ab4 passed host_ip_test, Wallet integration, and 32x32 CLI smoke; each campaign case still requires the fail-closed runtime reachability probe"
+      },
+      "pgdata": "/var/lib/postgresql/18/docker",
+      "runtime_version": "18.6",
+      "schema_scope": "unique owned namespace in fresh walletbench database",
+      "settings": {
+        "autovacuum": "on",
+        "autovacuum_work_mem": 67108864,
+        "checkpoint_timeout": 300,
+        "commit_delay": 0,
+        "fsync": "on",
+        "full_page_writes": "on",
+        "maintenance_work_mem": 268435456,
+        "max_connections": 100,
+        "max_wal_size": 1073741824,
+        "shared_buffers": 2147483648,
+        "synchronous_commit": "on",
+        "track_io_timing": "on",
+        "track_wal_io_timing": "on",
+        "wal_level": "replica",
+        "wal_sync_method": "fdatasync",
+        "work_mem": 4194304
+      },
+      "sql_acknowledgement": "ReadyForQuery after implicit transaction completion",
+      "sql_function": "wallet_commit",
+      "synchronous_durability": {
+        "commit_delay": 0,
+        "fsync": "on",
+        "full_page_writes": "on",
+        "synchronous_commit": "on",
+        "wal_level": "replica",
+        "wal_sync_method": "fdatasync"
+      },
+      "wallet_profile": "postgres-memory-tx-v1"
+    },
+    "preflight": {
+      "apply_scylla_aio_gate_to_postgres": false,
+      "consecutive_samples": 3,
+      "max_backing_device_busy_pct": 5,
+      "max_host_cpu_busy_pct": 10,
+      "required_available_disk_bytes": 68719476736,
+      "required_available_memory_bytes": 34359738368,
+      "routine": "wallet_runner.strict_formal_preflight",
+      "wait_seconds": 60
+    },
+    "purpose": "equal-resource synchronous wallet database comparison",
+    "scylla": {
+      "commitlog_sync": "batch",
+      "commitlog_use_o_dsync": false,
+      "container_memory_bytes": 10737418240,
+      "data_connections": 6,
+      "host_diskstats_observer": {
+        "collection": "read-only host /proc/diskstats at 1 Hz from before trial through after cleanup",
+        "implementation": "benches/scylla_io_observer.py",
+        "maximum_sampling_gap_seconds": 2.5,
+        "required_analysis": "existing analyze_trial plus comparator host-delta schema",
+        "required_devices": {
+          "data_partition": "8:18 (sdb2)",
+          "whole_device": "8:16 (sdb)"
+        },
+        "required_measurement_views": [
+          "whole_device",
+          "data_partition"
+        ]
+      },
+      "host_io_limits": "same as PostgreSQL",
+      "image": "scylladb/scylla@sha256:333b9ab3a3214c7f98af100711c51df7f58964e8227e6d26050e889ebb216df1",
+      "io_properties_profile": {
+        "load_validation": "source hash + container mount + launch argv + runtime file hash + loaded device/queue mapping",
+        "mount_read_only": true,
+        "runtime_validation_required": true,
+        "source_file": "target/scylla-wallet/iotune-calibration-jobs/20261012T133244Z-6180f531/budget/io_properties.yaml",
+        "source_sha256": "12bf0b79c4520ca6d00183ca14b87d321b9221b687cc6e889619876f5b87b2bf"
+      },
+      "per_shard_pool": 3,
+      "process_memory_bytes": 8589934592,
+      "read_consistency": "ONE",
+      "replication_factor": 1,
+      "serial_consistency": "LOCAL_SERIAL",
+      "shards": 2,
+      "write_consistency": "ONE"
+    },
+    "shared_host_io_limits": {
+      "device_path": "/dev/sdb",
+      "major_minor": "8:16",
+      "read_bps": 403631184,
+      "read_iops": 24497,
+      "write_bps": 152226096,
+      "write_iops": 23500
+    },
+    "shared_resources": {
+      "database_container_memory_bytes": 10737418240,
+      "database_cpus": [
+        0,
+        1
+      ],
+      "host_global_io_or_sysfs_changes": false,
+      "memory_swap_limit_equals_memory_limit": true,
+      "one_database_container_at_a_time": true,
+      "service_cpus": [
+        6,
+        7,
+        14,
+        15
+      ],
+      "service_runner_includes_all_application_and_pool_tasks": true
+    },
+    "workload": {
+      "C": 512,
+      "amount": 1,
+      "expected_credit_requests": 512000,
+      "expected_debit_requests": 512000,
+      "global_queue_capacity": 50000,
+      "mode": "pilot",
+      "operations": "alternating credit/debit per account",
+      "per_worker_queue_capacity": 50000,
+      "requests_per_user": 1000,
+      "service_cpu_set": [
+        6,
+        7,
+        14,
+        15
+      ],
+      "setup_concurrency": 6,
+      "state_preload_concurrency": 6,
+      "total_requests": 1024000,
+      "users": 1024,
+      "verification": "all account state and ledger rows; no retry on error",
+      "worker_routing": "round-robin"
+    }
+  },
+  "contract_sha256": "07eccbb58d92c389be5325104e39f7e591f5423c8546a2edf4e3615614587cc7"
+}
