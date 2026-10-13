@@ -1,12 +1,26 @@
 # ledger-wallet
 
-以 Rust 進行帳本系統相關的基準測試實驗，涵蓋 bounded queue、WAL、RocksDB 與同主機 gRPC。正式 ledger 核心與儲存設計仍在規劃中，尚未實作為可執行服務。
+以 Rust 進行帳本系統相關的基準測試實驗，涵蓋 bounded queue、WAL、RocksDB 與同主機 gRPC。正式 ledger library 與本機 CLI 已實作；145 項聚焦測試、all-target compile 和小型 correctness smoke 已通過，尚未宣告為 production-ready。設計、API、CLI、驗證範圍與限制見[正式核心設計文件](docs/01-30.development-design-ledger-formal-core.md)。歷史 benchmark 報告仍代表各自原本的測量來源。
+
+## 正式核心與本機 CLI
+
+Rust library 以 `ledger_wallet::Pipeline` 提供單機 RocksDB ledger；呼叫端傳入 `PipelineConfig` 和每 shard 一個 `HistoryStore`。本機 binary 啟動後從 stdin 接受 `credit`、`debit`、`refund`、`balance`、`status`、`shutdown` 和 `help` 命令。CLI 目前使用 volatile mock history，沒有 durable external DB connector，也不啟用實際歷史 GC。
+
+在本機 Ubuntu 開發環境啟動預設 shared DB CLI：
+
+```sh
+BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' \
+  cargo run --locked --bin ledger-wallet -- --data-dir ./ledger-data
+```
+
+完整 CLI 用法和儲存／歷史限制見[正式核心設計文件](docs/01-30.development-design-ledger-formal-core.md)。
 
 ## 開發環境
 
 需要 rustup。專案的 `rust-toolchain.toml` 固定 Rust 1.98.1；Cargo 會使用此版本。
 
 ```sh
+export BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include'
 cargo fmt --check
 cargo check --locked
 cargo test --locked
@@ -17,7 +31,7 @@ cargo bench --bench wal_tokio_sequential -- --iterations 10000 --repetitions 1 -
 BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --bench rocksdb_tokio_sequential -- --iterations 512 --repetitions 1 --batch-sizes 64 --output-dir target/rocksdb-tokio-smoke --preflight-observation-ms 50 --preflight-timeout-ms 5000 --preflight-max-cpu-pct 100 --preflight-max-disk-busy-pct 100 --preflight-min-mem-bytes 16777216 --preflight-free-reserve-bytes 1048576
 ```
 
-RocksDB benchmark builds also need libclang and a C/C++ toolchain. On the Ubuntu host used for development, `BINDGEN_EXTRA_CLANG_ARGS` adds GCC 13's standard include directory because bindgen's Clang header search does not find it by default. This path is specific to that host; use the system's matching GCC include directory elsewhere. To run the full default 10M-by-15-trial matrix, use `BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --bench rocksdb_tokio_sequential`.
+Builds that compile the RocksDB dependency—including the formal library/CLI, tests, and RocksDB benchmarks—need libclang and a C/C++ toolchain. On the Ubuntu host used for development, `BINDGEN_EXTRA_CLANG_ARGS` adds GCC 13's standard include directory because bindgen's Clang header search does not find it by default. This path is specific to that host; use the system's matching GCC include directory elsewhere. To run the full default 10M-by-15-trial matrix, use `BINDGEN_EXTRA_CLANG_ARGS='-I/usr/lib/gcc/x86_64-linux-gnu/13/include' cargo bench --bench rocksdb_tokio_sequential`.
 
 `counter_storage` 以單執行緒分別遞增 stack 上的 `u64`、`Box<u64>` 及只有一個預先建立固定 key 的 `HashMap<u64, u64>`。每一輪每種儲存方式都從 0 遞增相同次數，並確認最終值等於 `--iterations`；Box 與 HashMap 的建立在計時外。預設每輪 10,000,000 次、重複 3 輪，可用 `--iterations N` 和 `--repetitions N` 傳入正整數縮短或調整執行。輸出每輪的 wall time、RPS、平均 latency（wall nanoseconds 除以操作數）、ProcessTime CPU 時間差、CPU core equivalents、單核心 CPU 百分比，以及依 `available_parallelism` 正規化的 CPU 百分比；接著列出各指標的輪次中位數。
 
@@ -145,6 +159,7 @@ Git 保存矩陣、trial summaries、stage summaries、稽核資料與完整 SHA
 
 - [歷史原始需求（待重新設計）](docs/01-01.raw-requirement-ledger-wallet.md)
 - [專案初始化設計](docs/01-02.development-design-project-initialization.md)
+- [正式 Ledger 核心、儲存契約與本機生命週期設計](docs/01-30.development-design-ledger-formal-core.md)
 
 ## Tokio 同主機 gRPC Echo 基準測試
 

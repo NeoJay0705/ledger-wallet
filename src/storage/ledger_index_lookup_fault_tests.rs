@@ -532,6 +532,73 @@ async fn cancelling_batch_awaiter_does_not_cancel_coordinator_commit() {
 }
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+async fn cancelling_dynamic_batch_awaiter_during_sync_write_keeps_gate_until_publish() {
+    let directory = TempDb::new();
+    let path = directory.path();
+    let budget = RocksDbBudget {
+        write_buffer_size: 4 * 1024 * 1024,
+        max_write_buffer_number: 2,
+        block_cache_bytes: 1024 * 1024,
+        max_background_jobs: 1,
+    };
+    let (db, options) = AccountStore::open_database_with_budget(&path, budget)
+        .await
+        .unwrap();
+    let store = AccountStore::open_dynamic_on_database(db, options, 3)
+        .await
+        .unwrap();
+    let transaction = txn(44_444, 1, 1, Operation::Credit, 9);
+    let retry = transaction.clone();
+    let (started_rx, release) = store.block_account_batch_sync_write_for_test();
+
+    let caller_store = store.clone();
+    let caller = tokio::spawn(async move { caller_store.handle_batch(vec![transaction]).await });
+    let write_started = wait_for_signal(started_rx).await;
+    caller.abort();
+    let caller_cancelled = caller
+        .await
+        .expect_err("outer awaiter should be aborted")
+        .is_cancelled();
+    let gate_held_after_cancel = store.inner.batch_gate.try_lock().is_err();
+
+    let (lock, changed) = &*release;
+    if let Ok(mut released) = lock.lock() {
+        *released = true;
+        changed.notify_all();
+    }
+    let gate_acquired_after_completion =
+        tokio::time::timeout(Duration::from_secs(5), store.inner.batch_gate.lock())
+            .await
+            .is_ok();
+    assert!(
+        write_started,
+        "sync-write blocking closure should have started"
+    );
+    assert!(caller_cancelled, "caller task should report cancellation");
+    assert!(
+        gate_held_after_cancel,
+        "owned coordinator should retain the gate after caller cancellation"
+    );
+    assert!(
+        gate_acquired_after_completion,
+        "coordinator should publish state before releasing the gate"
+    );
+    assert!(
+        wait_for_coordinator_handles_to_drop(&store).await,
+        "cancelled caller's coordinator should release its store handle"
+    );
+    assert_eq!(store.latest_seq(), 1);
+    assert_eq!(store.balance(44_444).unwrap(), 9);
+    assert_eq!(durable_latest_seq(&store), Some(1));
+    assert!(store.has_ledger_sequence(1).await.unwrap());
+    let replay = store.handle_batch(vec![retry]).await.unwrap();
+    assert_transaction(&replay[0], TransactionStatus::Applied, 9, 1, true);
+    assert_eq!(store.latest_seq(), 1);
+    store.validate_integrity().await.unwrap();
+    store.shutdown().await.unwrap();
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn injected_sync_write_failure_is_atomic_and_retryable_for_every_mode() {
     for (mode, label) in all_modes() {
         let directory = TempDb::new();
