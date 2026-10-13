@@ -1,0 +1,8 @@
+{
+  "device_path": "/dev/sdb",
+  "major_minor": "8:16",
+  "read_bps": 403631184,
+  "write_bps": 152226096,
+  "read_iops": 24497,
+  "write_iops": 23500
+}

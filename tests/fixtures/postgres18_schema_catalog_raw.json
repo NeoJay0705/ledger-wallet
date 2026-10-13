@@ -1,0 +1,174 @@
+{
+  "functions": [
+    {
+      "definition": "CREATE OR REPLACE FUNCTION wallet_bench_live_5fba6c262ab4.wallet_commit(p_account_id bigint, p_tx_id bigint, p_operation smallint, p_amount bytea, p_outcome smallint, p_balance_after bytea, p_version bigint, p_write_clock bigint)\n RETURNS TABLE(did_insert boolean, current_balance bytea, current_version bigint, current_write_clock bigint, record_operation smallint, record_amount bytea, record_outcome smallint, record_balance_after bytea, record_version bigint, record_write_clock bigint)\n LANGUAGE plpgsql\nAS $function$\nDECLARE\n    inserted BOOLEAN;\n    changed_rows BIGINT;\nBEGIN\n    IF p_account_id < 0 OR p_tx_id < 0\n       OR octet_length(p_amount) <> 8\n       OR octet_length(p_balance_after) <> 8\n       OR p_operation NOT IN (0, 1)\n       OR p_outcome NOT BETWEEN 0 AND 3\n       OR p_version < 0 OR p_write_clock < 0 THEN\n        RAISE EXCEPTION 'wallet commit arguments are invalid';\n    END IF;\n\n    INSERT INTO ledger (\n        account_id, tx_id, operation, amount, outcome,\n        balance_after, version, write_clock\n    ) VALUES (\n        p_account_id, p_tx_id, p_operation, p_amount, p_outcome,\n        p_balance_after, p_version, p_write_clock\n    )\n    ON CONFLICT (account_id, tx_id) DO NOTHING\n    RETURNING TRUE INTO inserted;\n\n    IF inserted IS TRUE THEN\n        UPDATE accounts\n        SET balance = p_balance_after,\n            version = p_version,\n            write_clock = p_write_clock\n        WHERE account_id = p_account_id;\n        GET DIAGNOSTICS changed_rows = ROW_COUNT;\n        IF changed_rows <> 1 THEN\n            RAISE EXCEPTION 'wallet account update did not affect exactly one row';\n        END IF;\n\n        RETURN QUERY SELECT\n            TRUE,\n            p_balance_after,\n            p_version,\n            p_write_clock,\n            p_operation,\n            p_amount,\n            p_outcome,\n            p_balance_after,\n            p_version,\n            p_write_clock;\n        RETURN;\n    END IF;\n\n    RETURN QUERY\n    SELECT\n        FALSE,\n        a.balance,\n        a.version,\n        a.write_clock,\n        l.operation,\n        l.amount,\n        l.outcome,\n        l.balance_after,\n        l.version,\n        l.write_clock\n    FROM accounts AS a\n    CROSS JOIN ledger AS l\n    WHERE a.account_id = p_account_id\n      AND l.account_id = p_account_id\n      AND l.tx_id = p_tx_id;\n\n    IF NOT FOUND THEN\n        RAISE EXCEPTION 'wallet duplicate row or account is missing';\n    END IF;\nEND;\n$function$\n",
+      "identity_arguments": "p_account_id bigint, p_tx_id bigint, p_operation smallint, p_amount bytea, p_outcome smallint, p_balance_after bytea, p_version bigint, p_write_clock bigint",
+      "language": "plpgsql",
+      "name": "wallet_commit",
+      "result": "TABLE(did_insert boolean, current_balance bytea, current_version bigint, current_write_clock bigint, record_operation smallint, record_amount bytea, record_outcome smallint, record_balance_after bytea, record_version bigint, record_write_clock bigint)",
+      "security_definer": false,
+      "source_body": "\nDECLARE\n    inserted BOOLEAN;\n    changed_rows BIGINT;\nBEGIN\n    IF p_account_id < 0 OR p_tx_id < 0\n       OR octet_length(p_amount) <> 8\n       OR octet_length(p_balance_after) <> 8\n       OR p_operation NOT IN (0, 1)\n       OR p_outcome NOT BETWEEN 0 AND 3\n       OR p_version < 0 OR p_write_clock < 0 THEN\n        RAISE EXCEPTION 'wallet commit arguments are invalid';\n    END IF;\n\n    INSERT INTO ledger (\n        account_id, tx_id, operation, amount, outcome,\n        balance_after, version, write_clock\n    ) VALUES (\n        p_account_id, p_tx_id, p_operation, p_amount, p_outcome,\n        p_balance_after, p_version, p_write_clock\n    )\n    ON CONFLICT (account_id, tx_id) DO NOTHING\n    RETURNING TRUE INTO inserted;\n\n    IF inserted IS TRUE THEN\n        UPDATE accounts\n        SET balance = p_balance_after,\n            version = p_version,\n            write_clock = p_write_clock\n        WHERE account_id = p_account_id;\n        GET DIAGNOSTICS changed_rows = ROW_COUNT;\n        IF changed_rows <> 1 THEN\n            RAISE EXCEPTION 'wallet account update did not affect exactly one row';\n        END IF;\n\n        RETURN QUERY SELECT\n            TRUE,\n            p_balance_after,\n            p_version,\n            p_write_clock,\n            p_operation,\n            p_amount,\n            p_outcome,\n            p_balance_after,\n            p_version,\n            p_write_clock;\n        RETURN;\n    END IF;\n\n    RETURN QUERY\n    SELECT\n        FALSE,\n        a.balance,\n        a.version,\n        a.write_clock,\n        l.operation,\n        l.amount,\n        l.outcome,\n        l.balance_after,\n        l.version,\n        l.write_clock\n    FROM accounts AS a\n    CROSS JOIN ledger AS l\n    WHERE a.account_id = p_account_id\n      AND l.account_id = p_account_id\n      AND l.tx_id = p_tx_id;\n\n    IF NOT FOUND THEN\n        RAISE EXCEPTION 'wallet duplicate row or account is missing';\n    END IF;\nEND;\n",
+      "strict": false
+    }
+  ],
+  "indexes": [
+    {
+      "columns": [
+        "account_id"
+      ],
+      "method": "btree",
+      "name": "accounts_pkey",
+      "primary": true,
+      "ready": true,
+      "table": "accounts",
+      "unique": true,
+      "valid": true
+    },
+    {
+      "columns": [
+        "account_id",
+        "tx_id"
+      ],
+      "method": "btree",
+      "name": "ledger_pkey",
+      "primary": true,
+      "ready": true,
+      "table": "ledger",
+      "unique": true,
+      "valid": true
+    }
+  ],
+  "tables": [
+    {
+      "checks": [
+        {
+          "definition": "CHECK ((account_id >= 0))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((octet_length(balance) = 8))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((version >= 0))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((write_clock >= 0))",
+          "validated": true
+        }
+      ],
+      "columns": [
+        {
+          "name": "account_id",
+          "not_null": true,
+          "type": "bigint"
+        },
+        {
+          "name": "balance",
+          "not_null": true,
+          "type": "bytea"
+        },
+        {
+          "name": "version",
+          "not_null": true,
+          "type": "bigint"
+        },
+        {
+          "name": "write_clock",
+          "not_null": true,
+          "type": "bigint"
+        }
+      ],
+      "name": "accounts",
+      "primary_key": [
+        "account_id"
+      ],
+      "primary_key_constraint": "accounts_pkey"
+    },
+    {
+      "checks": [
+        {
+          "definition": "CHECK ((account_id >= 0))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((octet_length(amount) = 8))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((octet_length(balance_after) = 8))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((operation = ANY (ARRAY[0, 1])))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK (((outcome >= 0) AND (outcome <= 3)))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((tx_id >= 0))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((version >= 0))",
+          "validated": true
+        },
+        {
+          "definition": "CHECK ((write_clock >= 0))",
+          "validated": true
+        }
+      ],
+      "columns": [
+        {
+          "name": "account_id",
+          "not_null": true,
+          "type": "bigint"
+        },
+        {
+          "name": "tx_id",
+          "not_null": true,
+          "type": "bigint"
+        },
+        {
+          "name": "operation",
+          "not_null": true,
+          "type": "smallint"
+        },
+        {
+          "name": "amount",
+          "not_null": true,
+          "type": "bytea"
+        },
+        {
+          "name": "outcome",
+          "not_null": true,
+          "type": "smallint"
+        },
+        {
+          "name": "balance_after",
+          "not_null": true,
+          "type": "bytea"
+        },
+        {
+          "name": "version",
+          "not_null": true,
+          "type": "bigint"
+        },
+        {
+          "name": "write_clock",
+          "not_null": true,
+          "type": "bigint"
+        }
+      ],
+      "name": "ledger",
+      "primary_key": [
+        "account_id",
+        "tx_id"
+      ],
+      "primary_key_constraint": "ledger_pkey"
+    }
+  ]
+}
