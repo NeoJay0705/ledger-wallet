@@ -1,6 +1,7 @@
 # Others
 tmp*
 /target/
+/ledger-data/
 
 /practice/
 
@@ -40,3 +41,6 @@ benches/__pycache__/
 /benches/data/**/.ledger-*/
 
 /benches/data/**/owned-scratch/
+
+__pycache__/
+*.py[cod]
