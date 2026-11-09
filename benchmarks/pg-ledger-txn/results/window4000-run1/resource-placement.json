@@ -1,0 +1,30 @@
+{
+  "cpu_profile": 8,
+  "db_cores": "0-7",
+  "db_cpu_quota": 8,
+  "docker_cpuset_cpus": "0-7",
+  "docker_nano_cpus": 8000000000,
+  "docker_cpu_quota": 0,
+  "docker_cpu_period": 0,
+  "docker_memory_bytes": 8589934592,
+  "expected_quota_cores": 8,
+  "expected_nano_cpus": 8000000000,
+  "client_cpus": "8-9",
+  "client_workers": 2,
+  "sampler_cpus": "14-15",
+  "data_filesystem": {
+    "source": "/dev/sdb2",
+    "mountpoint": "/",
+    "filesystem": "ext4",
+    "partition_device": "sdb2",
+    "physical_device": "sdb"
+  },
+  "docker_filesystem": {
+    "source": "/dev/sdb2",
+    "mountpoint": "/",
+    "filesystem": "ext4",
+    "partition_device": "sdb2",
+    "physical_device": "sdb"
+  },
+  "expected_physical_device": "sdb"
+}

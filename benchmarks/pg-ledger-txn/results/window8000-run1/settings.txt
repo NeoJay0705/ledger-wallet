@@ -1,0 +1,13 @@
+server_version|18.6 (Debian 18.6-1.pgdg12+2)||
+checkpoint_completion_target|0.9||default
+checkpoint_timeout|300|s|default
+commit_delay|0||default
+commit_siblings|5||default
+fsync|on||command line
+full_page_writes|on||command line
+max_connections|300||command line
+max_wal_size|8192|MB|command line
+shared_buffers|262144|8kB|command line
+synchronous_commit|on||command line
+track_wal_io_timing|on||command line
+wal_buffers|32768|8kB|command line

@@ -1,0 +1,5 @@
+commitlog_sync: batch
+commitlog_sync_batch_window_in_ms: 1
+broadcast_rpc_address: 127.0.0.1
+native_transport_port: 9042
+native_shard_aware_transport_port: 19042
