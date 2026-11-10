@@ -31,7 +31,7 @@ PROFILES = {
 PORTS = (14000, 20180, 20181)
 
 
-def select_profile(cpus, extended=False, tikv_cpus=4):
+def select_profile(cpus, extended=False, tikv_cpus=None):
     if tikv_cpus == 6 and (cpus != 8 or not extended):
         raise ValueError('--tikv-cpus 6 requires --cpus 8 and --tidb-extended')
     if extended and cpus != 8:
@@ -44,7 +44,8 @@ def select_profile(cpus, extended=False, tikv_cpus=4):
 
 
 def tikv_quota_per_store(tikv_cpus, number_of_stores):
-    return tikv_cpus // number_of_stores
+    # --tikv-cpus 6 is a TOTAL split across stores; the default (None/4) keeps the historical 4 CPUs per store.
+    return tikv_cpus // number_of_stores if tikv_cpus == 6 else 4
 
 
 def tikv_run_args(cpuset, quota):
@@ -213,7 +214,7 @@ def main():
     ap.add_argument('output_dir', type=pathlib.Path)
     ap.add_argument('--cpus', type=int, choices=(4, 8), default=4)
     ap.add_argument('--tidb-extended', action='store_true')
-    ap.add_argument('--tikv-cpus', type=int, choices=(4, 6), default=4)
+    ap.add_argument('--tikv-cpus', type=int, choices=(4, 6), default=None)
     ap.add_argument('--users', type=int, default=100000)
     ap.add_argument('--requests-per-user', type=int, default=40)
     ap.add_argument('--queues', type=int, default=256)

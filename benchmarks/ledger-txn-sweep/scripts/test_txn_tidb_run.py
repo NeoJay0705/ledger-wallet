@@ -157,7 +157,9 @@ class TikvCpu6ProfileTests(unittest.TestCase):
 
     def test_default_profile_and_quota_stay_unchanged(self):
         self.assertEqual(t.select_profile(8), t.PROFILES[8])
-        self.assertEqual(t.tikv_quota_per_store(4, 2), 2)
+        self.assertEqual(t.tikv_quota_per_store(None, 2), 4)
+        self.assertEqual(t.tikv_quota_per_store(4, 2), 4)
+        self.assertEqual(t.tikv_quota_per_store(None, 1), 4)
         self.assertEqual(t.tikv_cpu_pct_of_quota(4, 8), 50)
 
 

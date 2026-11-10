@@ -38,7 +38,7 @@ python3 scripts/fixconn_sweep.py run --series tidb-k6t8-n16 --dry-run
 
 ```sh
 cd benchmarks/ledger-txn-sweep
-cargo build --release --locked --offline
+cargo build --release --locked   # 加 --offline 需要本機 Cargo cache 已有相依套件
 # (a) R1 基準：PG CPU4 與 TiDB CPU4/CPU8，batch 4000/8000（指令見 docs/04-02 的 T4）
 python3 scripts/batch_queue_run.py artifacts/txnpg4-bm4000 --mode txn --cpus 4 --requests-per-user 40 --queues 256 \
   --batch-max 4000 --sample-interval-ms 250 --pg-conf wal_buffers=256MB --pg-conf max_wal_size=8GB --pg-conf track_wal_io_timing=on
@@ -48,6 +48,8 @@ python3 scripts/txn_tidb_run.py artifacts/txntidb-c4-bm4000 --cpus 4 --requests-
 #     並把其中的 source 路徑改成 (a) 實際產生的目錄
 cp sweep-imports.example.json artifacts/sweep-imports.json
 for db in pg tidb; do for c in 4 8; do python3 scripts/batch_sweep.py run --db $db --cpus $c; done; done
+#     預設 grid 到 8000；PG 在 8000 仍上升時，本次另以 --batches 延伸到 12000、16000（例：--db pg --cpus 4 --batches 12000,16000）
+#     飽和點附近的 replicate：先看 summarize 的建議，再執行 batch_sweep.py replicate（參數見 --help）
 # (c) 連線數掃描（batch 50/100）
 for db in pg tidb; do for c in 4 8; do python3 scripts/conn_sweep.py all --db $db --cpus $c; done; done
 # (d) 固定連線 batch 掃描（需要 (c) 的 batch 50/100 結果）與 TiKV6 補測
@@ -67,7 +69,10 @@ python3 scripts/summarize_sweeps.py --out RESULTS.md         # 結果摘要表
 
 ### 3. 環境需求
 
-真正執行需要 Docker 與足夠權限，以及 8-core／16-thread host 的 CPU layout。量測硬體：Ryzen 7 3700X（8C/16T）、62 GB RAM、單一 SATA disk `sdb`。埠 14000、20180、20181、15432 必須可用，且 **2379 必須空閒**。勿與其他工作負載同時量測。
+只支援 `--mode txn`（`batch_queue_run.py`）與 `txn_tidb_run.py` 這兩條路徑；`batch_queue_run.py` 的其他 mode、`single_run.py` 與 `campaign.py` 為從原專案帶入的輔助程式，其對應的 client／設定檔（`batch_queue_pg`、`nobatch_pg`、`config/scylla.yaml`）不在本 crate，單獨執行會失敗。
+
+
+真正執行需要 Docker 與足夠權限，以及 8-core／16-thread host 的 CPU layout。量測硬體：Ryzen 7 3700X（8C/16T）、62 GB RAM、單一 SATA disk `sdb`。host 上必須可用的埠：14000（tidb）、20180／20181（TiKV status）、15432（PG）。PD 的 2379 只在 Docker 內部網路使用，不綁定 host 埠（host 上 2379 被其他服務占用也不影響）。勿與其他工作負載同時量測。
 
 量測規則：idle gate 要求每顆 CPU idle 至少 90%，且依 gate 檢查其他程序 CPU 使用；flush await >2 ms 依規則觸發一次 rerun；replicate 相差超過 ±15% 時依案例規則補測；TiDB durability gate 必須通過。細節見各案例文件與 runner。腳本中的 `postgres`／`gate2d` 是**僅限本機拋棄式容器**的開發測試密碼，不可連接真實資料庫。
 
