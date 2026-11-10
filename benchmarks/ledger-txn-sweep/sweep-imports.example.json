@@ -1,0 +1,8 @@
+{
+  "imports": [
+    {"db":"pg","cpus":4,"batch":4000,"source":"artifacts/txnpg4-bm4000-rerun/summary.json","note":"Approved clean historical PostgreSQL CPU4 batch-4000 run."},
+    {"db":"pg","cpus":4,"batch":8000,"source":"artifacts/txnpg4-bm8000-rerun/client/result.json","resource_source":"artifacts/txnpg4-bm8000/resource-summary.json","note":"Approved composite: client result from rerun plus matching resource summary; CPU metrics use resource-summary means."},
+    {"db":"tidb","cpus":4,"batch":4000,"source":"artifacts/txntidb-c4-bm4000-v2/summary.json","note":"Approved clean historical TiDB CPU4 batch-4000 run."},
+    {"db":"tidb","cpus":8,"batch":4000,"source":"artifacts/txntidb-c8-bm4000-v2/summary.json","note":"Approved clean historical TiDB CPU8 batch-4000 run."}
+  ]
+}

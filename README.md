@@ -176,3 +176,5 @@ cargo bench --bench grpc_echo_loopback -- --payload-sizes 128 --concurrencies 1 
 ```
 
 每個 trial 前都會執行嚴格閒置前置檢查，並在全新輸出目錄寫入 CSV、嘗試紀錄及逐 trial 診斷資料。多 channel 與替代 CPU 配置需明確指定；先觀察單 channel 結果，再依據量測證據決定是否比較。延遲、CPU 時間範圍、loopback 限制及各項指標的注意事項，請見 [gRPC Echo 基準測試設計](docs/01-14.development-design-grpc-echo-loopback-benchmark.md)。
+
+- [ledger-txn-sweep benchmark crate](benchmarks/ledger-txn-sweep/README.md) — 五組 TiDB／PostgreSQL 帳本交易掃描、已發布證據與重現方式。

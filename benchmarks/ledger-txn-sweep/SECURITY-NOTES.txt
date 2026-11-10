@@ -1,0 +1,10 @@
+Local-only throwaway credentials retained from source
+=====================================================
+These values are for loopback-bound disposable local benchmark containers/connections only. They are not credentials for any real service and must not be reused.
+
+- scripts/batch_queue_run.py:240 — `gate2d`, PostgreSQL container's disposable local POSTGRES_PASSWORD.
+- scripts/single_run.py:179 — `gate2d`, PostgreSQL container's disposable local POSTGRES_PASSWORD.
+- scripts/endpoints.py:5 — `gate2d`, local PostgreSQL URL used by scripts; disposable local-only password.
+- src/bin/txn_batch_pg.rs:29 — `postgres`, documented default local PostgreSQL connection password.
+- scripts/txn_tidb_run.py:73 — `root` with no password in a loopback TiDB URL; local TiDB default, empty password.
+- src/bin/txn_batch_tidb.rs:26 — `root` with no password in a loopback TiDB URL; local TiDB default, empty password.
